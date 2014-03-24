@@ -71,12 +71,11 @@ fi
 dost_thou_have ~/.bash_profile
 dost_thou_have ~/.gitignore_global
 dost_thou_have ~/.gitconfig
-dost_thou_have ~/Library/Application\ Support/Sublime\ Text\ */Installed\ Packages
+dost_thou_have ~/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages
 dost_thou_have ~/dev/wdi
 
 # Applications
 what_news_of "Spectacle"
-what_news_of "Sublime Text"
 what_news_of "Sublime Text 2"
 what_news_of "HipChat"
 what_news_of "Google Chrome"
@@ -85,7 +84,7 @@ what_news_of "Mou"
 # Your ssh keys are set up (see [here](https://help.github.com/articles/generating-ssh-keys) for instructions)
 
 # Sublime Checks
-sublime="${HOME}/Library/Application Support/Sublime Text $SUBL_VERS/Packages/User"
+sublime="${HOME}/Library/Application Support/Sublime Text 2/Packages/User"
 subl_prefs=$(cat "$sublime/Preferences.sublime-settings")
 tab_size="\"tab_size\": 2"
 tab_to_space="\"translate_tabs_to_spaces\": true"
