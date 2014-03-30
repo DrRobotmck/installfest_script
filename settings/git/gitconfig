@@ -8,5 +8,3 @@
   excludesfile = ~/.gitignore_global
 [commit]
   template = ~/.gitmessage.txt
-[branch]
-  autosetuprebase = always
