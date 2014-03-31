@@ -57,7 +57,7 @@ brew install libyaml #........... a YAML 1.1 parser and emitter
 brew install libxml2 #........... XML C parser and toolkit
 brew install libxslt #........... a language for transforming XML documents into other XML documents.
 brew install libiconv #.......... a conversion library between Unicode and traditional encoding
-
+brew install ctags # ............  generates an index file of names found in source files of various programming languages.
 #  Tap a new formula repository from GitHub, or list existing taps.
 brew tap homebrew/versions
 # Ensures all tapped formula are symlinked into Library/Formula
