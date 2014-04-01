@@ -171,6 +171,15 @@ sudo chown -R ${USER} ~
 quoth_the_bard "The play's the thing..."
 
 # The curtain rises ###################################################################
+
+quoth_the_bard \
+"Double, double toil and trouble; Fire burn, and caldron bubble." \
+"--Macbeth (IV.i)"
+
+# EPILOGUE
+echo "First, let's ensure your SSH keys are setup."
+source $SCRIPTS/github.sh
+
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
@@ -328,14 +337,6 @@ source $SCRIPTS/postgres.sh
 
 # Reload ##############################################################################
 figlet_announces "act 4 - scene 2"
-
-quoth_the_bard \
-"Double, double toil and trouble; Fire burn, and caldron bubble." \
-"--Macbeth (IV.i)"
-
-# EPILOGUE
-echo "Next we'll sure your SSH keys are setup."
-source $SCRIPTS/github.sh
 
 quoth_the_bard \
 "Once more unto the breach, dear friends, once more;
