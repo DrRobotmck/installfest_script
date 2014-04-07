@@ -370,12 +370,17 @@ pause_awhile "Let's run some checks to see how the install went"
 source ~/.bash_profile
 #######################################################################################
 
+# heroku keys
+source $SCRIPTS/heroku.sh
+
 # checkpoints
 source $SCRIPTS/checks.sh
+
 
 welcome
 source ~/.bash_profile
 figlet_announces "fin"
 echo "We're done"
-echo "You may want to run brew doctor to ensure everything is working."
+echo "You may want to quit terminal. Reopen and then run brew doctor to ensure"
+echo "everything is working."
 # - fin - #
