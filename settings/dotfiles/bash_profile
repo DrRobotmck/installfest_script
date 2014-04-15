@@ -9,6 +9,7 @@
 #
 # Written by Philip Lamplugh, Instructor General Assembly (2013)
 # Updated by PJ Hughes, Instructor General Assembly (2013)
+# Further Updated by Omar Delarosa, Instructor General Assembly (2014)
 
 # =====================
 # Resources
@@ -327,17 +328,17 @@ eval "$(rbenv init -)"
 export class_repo=""
 alias wdi="cd ~/code/wdi/"
 
-cdhwfunc() {
-  # takes three args: the week, the day
-  # and an optional third for the user
-  if [ $1 -lt 10 ]
-  then
-    cd ~/code/wdi/$class_repo/w0$1/d0$2/${3:-Instructor}
-  else
-    cd ~/code/wdi/$class_repo/w$1/d0$2/${3:-Instructor}
-  fi
-}
-alias cdhw=cdhwfunc
+# cdhwfunc() {
+#   # takes three args: the week, the day
+#   # and an optional third for the user
+#   if [ $1 -lt 10 ]
+#   then
+#     cd ~/code/wdi/$class_repo/w0$1/d0$2/${3:-Instructor}
+#   else
+#     cd ~/code/wdi/$class_repo/w$1/d0$2/${3:-Instructor}
+#   fi
+# }
+# alias cdhw=cdhwfunc
 
 # =================
 # Source Files

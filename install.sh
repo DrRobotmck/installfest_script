@@ -371,7 +371,7 @@ source ~/.bash_profile
 #######################################################################################
 
 # heroku keys
-source $SCRIPTS/heroku.sh
+#source $SCRIPTS/heroku.sh
 
 # checkpoints
 source $SCRIPTS/checks.sh
