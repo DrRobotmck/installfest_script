@@ -75,7 +75,7 @@ alias ls='ls -F'
 # long list format including hidden files
 alias ll='ls -la'
 # prompt before removing!
-alias rm="rm -i"
+# alias rm="rm -i"
 # Adds colors to LS
 export CLICOLOR=1
 # http://geoff.greer.fm/lscolors/
@@ -87,10 +87,10 @@ alias b='cd ..'
 alias reload="clear; source ~/.bash_profile"
 ## Tab improvements
 ## Might not need?
-bind 'set completion-ignore-case on'
+# bind 'set completion-ignore-case on'
 # make completions appear immediately after pressing TAB once
-bind 'set show-all-if-ambiguous on'
-bind 'TAB: menu-complete'
+# bind 'set show-all-if-ambiguous on'
+# bind 'TAB: menu-complete'
 # Prefer US English
 export LC_ALL="en_US.UTF-8"
 # use UTF-8
@@ -252,10 +252,6 @@ export EDITOR="subl -w"
 # -----------------
 # Alias for hub http://hub.github.com/
 # alias git='hub'
-# Undo a git push
-alias undopush="git push -f origin HEAD^:master"
-# undo a commit
-alias undocommit="git reset --soft HEAD^"
 # -----------------
 # For the prompt
 # -----------------
@@ -311,7 +307,7 @@ prompt_git() {
 # Rails
 # =================
 # Migrate Dev and Test databases and annotate models
-alias migrate='rake db:migrate; rake db:migrate RAILS_ENV=test; annotate'
+# alias migrate='rake db:migrate; rake db:migrate RAILS_ENV=test; annotate'
 
 # =================
 # rbenv
@@ -329,16 +325,16 @@ eval "$(rbenv init -)"
 # example: alias wdi="cd ~/Documents/GA/WDI4"
 # TODO: Set these
 export class_repo=""
-alias wdi="cd ~/dev/wdi/"
+alias wdi="cd ~/code/wdi/"
 
 cdhwfunc() {
   # takes three args: the week, the day
   # and an optional third for the user
   if [ $1 -lt 10 ]
   then
-    cd ~/dev/wdi/$class_repo/w0$1/d0$2/${3:-Instructor}
+    cd ~/code/wdi/$class_repo/w0$1/d0$2/${3:-Instructor}
   else
-    cd ~/dev/wdi/$class_repo/w$1/d0$2/${3:-Instructor}
+    cd ~/code/wdi/$class_repo/w$1/d0$2/${3:-Instructor}
   fi
 }
 alias cdhw=cdhwfunc

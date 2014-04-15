@@ -6,7 +6,7 @@
 # You may optionally specify a version string after the name, or --pre to install a prerelease version.
 
 # pretty print your Ruby objects with style
-awesome_print
+# awesome_print
 # Maintains a consistent environment for ruby applications.
 bundler
 # ruby interface for Postgres

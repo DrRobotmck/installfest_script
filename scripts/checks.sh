@@ -72,7 +72,7 @@ dost_thou_have ~/.bash_profile
 dost_thou_have ~/.gitignore_global
 dost_thou_have ~/.gitconfig
 dost_thou_have ~/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages
-dost_thou_have ~/dev/wdi
+dost_thou_have ~/code/wdi
 
 # Applications
 what_news_of "Spectacle"

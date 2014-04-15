@@ -1,6 +1,6 @@
 {
   "hot_exit": false,
-  "color_scheme": "Packages/Color Scheme - Default/Solarized (Light).tmTheme",
+  "color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
   "default_line_ending": "LF",
   "ensure_newline_at_eof_on_save": true,
   "font_face": "Monaco",
