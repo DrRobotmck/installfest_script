@@ -24,6 +24,10 @@ brew update
 # Upgrade any already-installed formulae
 brew upgrade
 
+# These formulae duplicate software provided by OS X
+# though may provide more recent or bugfix versions.
+brew tap homebrew/dupes
+
 # Dramatis Personae
 brew install figlet #............ ASCII ART!!!!
 brew install git #............... Version Control
@@ -46,7 +50,7 @@ brew install ruby-build #........ provides an `rbenv install` command
 # brew install automake #.......... Automake is a tool for automatically generating Makefile.in
 # brew install git-flow #.......... Git extensions to provide high-level repository operations
 # brew install libtool #........... generic library support script
-brew install libyaml #........... a YAML 1.1 parser and emitter
+# brew install libyaml #........... a YAML 1.1 parser and emitter
 # brew install neon #.............. neon is an HTTP and WebDAV client library
 # brew install openssl #........... A toolkit implementing SSL v2/v3 and TLS protocols with full-strength cryptography world-wide.
 # brew install pkg-config #........ pkg-config is a helper tool used when compiling applications and libraries.
@@ -54,10 +58,10 @@ brew install libyaml #........... a YAML 1.1 parser and emitter
 # brew install serf #.............. a high performance C-based HTTP client library
 # brew install sqlite #............ a self-contained, serverless, zero-configuration, transactional SQL database engine.
 # brew install ssh-copy-id #....... a script that uses ssh to log into a remote machine
-brew install libxml2 #........... XML C parser and toolkit
-brew install libxslt #........... a language for transforming XML documents into other XML documents.
-brew install libiconv #.......... a conversion library between Unicode and traditional encoding
-
+# brew install libxml2 #........... XML C parser and toolkit
+# brew install libxslt #........... a language for transforming XML documents into other XML documents.
+# brew install libiconv #.......... a conversion library between Unicode and traditional encoding
+# brew install ctags # ............  generates an index file of names found in source files of various programming languages.
 #  Tap a new formula repository from GitHub, or list existing taps.
 brew tap homebrew/versions
 # Ensures all tapped formula are symlinked into Library/Formula

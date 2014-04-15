@@ -7,7 +7,7 @@ A work in progress to automate the set up of a student's development machine.
 Paste this script into a Terminal prompt:
 
 ```
-bash <(curl -s https://raw.github.com/ga-instructors/installfest_script/mac_os/install.sh)
+bash <(curl -sL http://ga.co/installfestosx)
 ```
 
 The script first runs any software updates and then checks for Xcode.
@@ -26,7 +26,7 @@ If Xcode is installed the script continues.
 ##### For Ubuntu Linux:
 
 ```
-bash <(curl -s https://raw.github.com/ga-instructors/installfest_script/ubuntu/install.sh)
+bash <(curl -sL http://ga.co/installfestubuntu)
 ```
 
 **Don't use yet!** Is not in working condition.
@@ -41,7 +41,7 @@ When weighing the options, we decided not use Vagrant to ensure all students wer
 
 ##### Ownership
 
-We want the students to feel as if they are in control of their environments. That is, they should be able, within reason, to customize and optimize their coding experience as they see fit. Using a common install and then stepping away feels like a good way to set a baseline while allowing them ownership. While they could do the same with virtual machine, that undermines the entire reson of forcing them to work in a virtualized environment.
+We want the students to feel as if they are in control of their environments. That is, they should be able, within reason, to customize and optimize their coding experience as they see fit. Using a common install and then stepping away feels like a good way to set a baseline while allowing them ownership. While they could do the same with virtual machine, that undermines the entire reason of forcing them to work in a virtualized environment.
 
 The precept holds as well: let's help them grow as individuals, and not enforce uniformity upon them. It seems to me weirdly patronizing to force them to work in an environment we've created, instead of giving them the tools to begin building their own.
 

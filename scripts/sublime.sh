@@ -1,14 +1,8 @@
-echo "Installing settings for Sublime Text $subl_vers"
+echo "Installing settings for Sublime Text"
 
-if [ "$SUBL_VERS" == "2" ]; then
-  subl_settings="${HOME}/Library/Application Support/Sublime Text 2"
-  # Symlink Sublime Text 2
-  ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
-else
-  subl_settings="${HOME}/Library/Application Support/Sublime Text 3"
-  # Symlink Sublime Text 3
-  ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
-fi
+subl_settings="${HOME}/Library/Application Support/Sublime Text 2"
+# Symlink Sublime Text 2
+ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
 
 # Set sublime user preferences
 user_prefs="Preferences.sublime-settings"
