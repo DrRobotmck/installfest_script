@@ -7,12 +7,14 @@ producers:
 
 instructors:
 
+- name:   Omar Delarosa
+  email:  omar@ga.co
 - name:   Max Cantor
   email:  max.cantor@generalassemb.ly
-- name:   David Han
-  email:  david.han@generalassemb.ly
-- name:   Phillip Lamplugh
-  email:  phillip.lamplugh@generalassemb.ly
+- name:   Neel Patel
+  email:  neel.patel@ga.co
+- name:   Keri Toksu
+  email:  keri.toksu@ga.co
 
 locations:
 
@@ -25,14 +27,3 @@ locations:
 - name:     GA Union Square
   address:  41 Union Square West, New York, NY 10010
   hours:    8am to 8pm
-
-office_hours:
-
-- mondays:    6pm to 8pm
-  instructor: Max
-- tuesdays:   6pm to 8pm
-  instructor: Phil
-- wednesdays: 6pm to 8pm
-  instructor: David
-
-homework_lead: davidhan527
