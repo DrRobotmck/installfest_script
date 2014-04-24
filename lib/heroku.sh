@@ -4,8 +4,12 @@
 # | | | |  __/ | | (_) |   <| |_| |
 # |_| |_|\___|_|  \___/|_|\_\\__,_|
 # https://devcenter.heroku.com/articles/keys
+
 echo "Heroku is a cloud platform as a service (PaaS) supporting several"
 echo "programming languages."
+
+# Heroku command-line tooling for working with the Heroku platform
+brew install heroku-toolbelt
 
 echo "If you don’t already use SSH, you’ll need to create a public/private key"
 echo "pair to deploy code to Heroku. This keypair is used for the strong"

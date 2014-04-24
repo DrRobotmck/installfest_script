@@ -1,87 +1,8 @@
-#
-#  _           _        _ _  __           _
-# (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
-# | | '_ \/ __| __/ _` | | | |_ / _ \/ __| __|
-# | | | | \__ \ || (_| | | |  _|  __/\__ \ |_
-# |_|_| |_|___/\__\__,_|_|_|_|  \___||___/\__|
-#
-# Installfest Script for development on a Mac
-#
-# Author: Phillip Lamplugh, GA Instructor (2014)
-# Contributions: PJ Hughes, GA Instructor (2014)
-#
 
-# Resources
-# https://github.com/divio/osx-bootstrap
-# https://github.com/paulirish/dotfiles
-# https://github.com/mathiasbynens/dotfiles/
 
-# References
-# http://www.sudo.ws/
-# http://www.gnu.org/software/bash/manual/bashref.html
-# http://www.shellcheck.net
-# http://explainshell.com/
 
-#-------------------------------------------------------------------------------
-# Colors
-#-------------------------------------------------------------------------------
-# Foreground
-BLACK=$(tput setaf 0)
-BLUE=$(tput setaf 4)
-CYAN=$(tput setaf 6)
-GREEN=$(tput setaf 2)
-MAGENTA=$(tput setaf 5)
-ORANGE=$(tput setaf 172)
-PURPLE=$(tput setaf 141)
-RED=$(tput setaf 1)
-WHITE=$(tput setaf 7)
-YELLOW=$(tput setaf 226)
-# Background
-BG_BLACK=$(tput setab 0)
-BG_BLUE=$(tput setab 4)
-BG_CYAN=$(tput setab 6)
-BG_GREEN=$(tput setab 2)
-BG_MAGENTA=$(tput setab 5)
-BG_ORANGE=$(tput setab 172)
-BG_RED=$(tput setab 1)
-BG_WHITE=$(tput setab 7)
-BG_YELLOW=$(tput setab 226)
-# Formatting
-UNDERLINE=$(tput smul)
-NOUNDERLINE=$(tput rmul)
-BOLD=$(tput bold)
-RESET=$(tput sgr0)
 
-#-------------------------------------------------------------------------------
-# Functions
-#-------------------------------------------------------------------------------
-# ABRB
-function quoth_the_bard () {
-  local message=$1
-  local attribution=$2
-  echo ""
-  echo "$YELLOW$message$RESET"
-  echo "$PURPLE$attribution$RESET"
-}
 
-# upcase error message and exit script
-function fie () {
-  local message=$(echo $1 | tr 'a-z' 'A-Z')
-  echo ""
-  echo "$RED$message$RESET"
-  exit
-}
-
-# announce our acts
-function figlet_announces () {
-  clear
-  local act=$1
-  figlet -f ogre $act
-}
-
-function pause_awhile () {
-   read -p "$* Press Enter to continue"
-}
 
 #-------------------------------------------------------------------------------
 MINIMUM_OS="10.7.0"
@@ -91,14 +12,7 @@ SRC_DIR=~/.wdi-installfest
 SCRIPTS=$SRC_DIR/scripts
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
-# Determine OS version ################################################################
 
-osx_version=$(sw_vers -productVersion)
-# Force the user to upgrade if they're below 10.7
-echo "You're running OSX $osx_version"
-if [[ "$osx_version" < "$MINIMUM_OS" ]]; then
-  fie "Please upgrade to the latest OS then rerun this script."
-fi
 
 # The one prereq is Xcode Command Line Tools ##########################################
 # Either download from the App store or install via xcode-select --install
@@ -110,31 +24,7 @@ fi
 
 #######################################################################################
 
-# Check that command line tools are installed
-case $osx_version in
-  *10.9*) cmdline_version="CLTools_Executables" ;; # Mavericks
-  *10.8*) cmdline_version="DeveloperToolsCLI"   ;; # Mountain Lion
-  *10.7*) cmdline_version="DeveloperToolsCLI"   ;; # Lion
-  *) echo "Please upgrade your OS"; exit 1;;
-esac
 
-# Check for Command Line Tools based on OS versions
-if [ ! -z $(pkgutil --pkgs=com.apple.pkg.$cmdline_version) ]; then
-  echo "Command Line Tools are installed";
-elif [[ $osx_version < "10.9" ]]; then
-  echo "Command Line Tools are not installed"
-  echo "Register for a Developer Account"
-  echo "Download the Command Lion Tools from"
-  echo "https://developer.apple.com/downloads/index.action"
-  echo "Then rerun this script"
-  exit 1
-else
-  echo "Command Line Tools are not installed"
-  echo "run '$ sudo xcodebuild -license' then"
-  echo "'$ xcode-select --install'"
-  echo "Then rerun this script."
-  exit 1
-fi
 
 
 #######################################################################################
@@ -156,16 +46,7 @@ read -p "Github Username: "       github_name
 read -p "Github Email: "          github_email
 #######################################################################################
 
-# Let's make sure we're updated #######################################################
-# and in control of the home folder
-echo "Let's ensure you have full control over your user folder"
-echo "This may take awhile"
-sudo chown -R ${USER} ~
-diskutil repairPermissions /
-echo "Checking for recommended software updates."
-echo "This may require a restart."
-sudo softwareupdate -i -r --ignore iTunes
-sudo chown -R ${USER} ~
+
 #######################################################################################
 
 quoth_the_bard "The play's the thing..."
@@ -380,7 +261,4 @@ source $SCRIPTS/checks.sh
 welcome
 source ~/.bash_profile
 figlet_announces "fin"
-echo "We're done"
-echo "You may want to quit terminal. Reopen and then run brew doctor to ensure"
-echo "everything is working."
-# -- fin -- #
+
