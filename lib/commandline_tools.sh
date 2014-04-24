@@ -1,4 +1,4 @@
-# Determine OS version ################################################################
+# Determine OS version
 
 osx_version=$(sw_vers -productVersion)
 # Force the user to upgrade if they're below 10.7

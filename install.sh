@@ -4,26 +4,6 @@
 
 
 
-#-------------------------------------------------------------------------------
-MINIMUM_OS="10.7.0"
-BELOVED_RUBY_VERSION="2.1.0"
-
-SRC_DIR=~/.wdi-installfest
-SCRIPTS=$SRC_DIR/scripts
-SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
-
-
-# The one prereq is Xcode Command Line Tools ##########################################
-# Either download from the App store or install via xcode-select --install
-# PL: it is possible earlier versions of xcode are installed to /dev... deal with this?
-# https://gist.github.com/trinitronx/6217746
-# if on mavericks just offer xcode-select
-# need a check for command line tools
-# `pkgutil --pkgs=com.apple.pkg.DeveloperToolsCLI` should return com.apple.pkg.DeveloperToolsCLI
-
-#######################################################################################
-
 
 
 

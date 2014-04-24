@@ -1,5 +1,4 @@
 # https://developer.chrome.com/extensions/external_extensions.html
-# PL: I think Chrome disabled automating installs as a security feature.
 
 # Useful Extensions
 
@@ -16,10 +15,19 @@ echo "If you've alread installed them you'll see 'Added to Chrome'"
 echo "Ready?"
 read -p "Just hit enter!"
 
-chrome_ext jsonview/chklaanhfefbnpoihckbnefhakgolnmc                  # Validate and view JSON documents
-chrome_ext livereload/jnihajbhpnppcggbcgedagnkighmdlei                # Integration with LiveReload App and guard-livereload
-chrome_ext pagespeed-insights-by-goo/gplegfbjlmmehdoakndmohflojccocli # analyzes the performance of web pages and provides suggestions to make them faster
-chrome_ext postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm       # REST Client to test in Browser
-chrome_ext speed-tracer-by-google/ognampngfcbddbfemdapefohjiobgbdl    # a tool to help you identify and fix performance problems in your web applicatio
+# Validate and view JSON documents
+chrome_ext jsonview/chklaanhfefbnpoihckbnefhakgolnmc
+
+# Integration with LiveReload App and guard-livereload
+chrome_ext livereload/jnihajbhpnppcggbcgedagnkighmdlei
+
+# analyzes the performance of web pages and provides suggestions to make them faster
+chrome_ext pagespeed-insights-by-goo/gplegfbjlmmehdoakndmohflojccocli
+
+# REST Client to test in Browser
+chrome_ext postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm
+
+# helps you identify and fix performance problems in your web application
+chrome_ext speed-tracer-by-google/ognampngfcbddbfemdapefohjiobgbdl
 
 # fin #

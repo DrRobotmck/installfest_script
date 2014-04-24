@@ -7,10 +7,10 @@ for MANIFEST in Manifest.*; do
   printf "\nBuilding $MANIFEST into $FILENAME\n"
 
   while read file; do
-    printf "Including: $file\n"
+    printf "# ➳ Enter $file\n" >> "$FILENAME"
 
     cat "$file" >> "$FILENAME"
 
-    printf "### end $file\n\n" >> "$FILENAME"
+    printf "# ✌ Exeunt $file ✌ #\n\n" >> "$FILENAME"
   done < "$MANIFEST"
 done

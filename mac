@@ -1,3 +1,4 @@
+# ➳ Enter lib/header.sh
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -21,8 +22,9 @@
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-### end lib/header.sh
+# ✌ Exeunt lib/header.sh ✌ #
 
+# ➳ Enter lib/helper_functions.sh
 #-------------------------------------------------------------------------------
 # Colors
 #-------------------------------------------------------------------------------
@@ -80,8 +82,9 @@ function fie () {
 function pause_awhile () {
    read -p "$* Press Enter to continue"
 }
-### end lib/helper_functions.sh
+# ✌ Exeunt lib/helper_functions.sh ✌ #
 
+# ➳ Enter lib/keep_alive.sh
 # Capture the user's password
 sudo echo "Thanks."
 
@@ -89,8 +92,9 @@ sudo echo "Thanks."
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # fin
-### end lib/keep_alive.sh
+# ✌ Exeunt lib/keep_alive.sh ✌ #
 
+# ➳ Enter lib/get_user_info.sh
 echo "If you haven't already done so,"
 echo "please register for an account on github.com"
 
@@ -99,8 +103,9 @@ read -p "Github Username: "       github_name
 read -p "Github Email: "          github_email
 
 # fin
-### end lib/get_user_info.sh
+# ✌ Exeunt lib/get_user_info.sh ✌ #
 
+# ➳ Enter lib/hygene.sh
 # Check for recommended software updates
 sudo softwareupdate -i -r --ignore iTunes
 
@@ -111,8 +116,9 @@ sudo chown -R ${USER} ~
 diskutil repairPermissions /
 
 # fin
-### end lib/hygene.sh
+# ✌ Exeunt lib/hygene.sh ✌ #
 
+# ➳ Enter lib/ssh_keys.sh
 # SSH keys establish a secure connection between your computer and GitHub
 # This script follows these instructions
 # `https://help.github.com/articles/generating-ssh-keys`
@@ -139,8 +145,9 @@ pause_awhile "We'll be here until you get back from Github. Ready?"
 open https://github.com/settings/ssh
 
 pause_awhile "SSH keys added?"
-### end lib/ssh_keys.sh
+# ✌ Exeunt lib/ssh_keys.sh ✌ #
 
+# ➳ Enter lib/repo_setup.sh
 SRC_DIR=~/.wdi-installfest
 SCRIPTS=$SRC_DIR/scripts
 SETTINGS=$SRC_DIR/settings
@@ -161,9 +168,10 @@ else
 fi
 
 # fin
-### end lib/repo_setup.sh
+# ✌ Exeunt lib/repo_setup.sh ✌ #
 
-# Determine OS version ################################################################
+# ➳ Enter lib/commandline_tools.sh
+# Determine OS version
 
 osx_version=$(sw_vers -productVersion)
 # Force the user to upgrade if they're below 10.7
@@ -199,8 +207,9 @@ else
 fi
 
 # fin
-### end lib/commandline_tools.sh
+# ✌ Exeunt lib/commandline_tools.sh ✌ #
 
+# ➳ Enter lib/remove_rvm.sh
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
 
@@ -215,8 +224,9 @@ else
 fi
 
 # fin
-### end lib/remove_rvm.sh
+# ✌ Exeunt lib/remove_rvm.sh ✌ #
 
+# ➳ Enter lib/remove_macports.sh
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
 
@@ -247,8 +257,9 @@ else
 fi
 
 # fin
-### end lib/remove_macports.sh
+# ✌ Exeunt lib/remove_macports.sh ✌ #
 
+# ➳ Enter lib/homebrew.sh
 # Installs Homebrew, our package manager
 # http://brew.sh/
 
@@ -262,8 +273,9 @@ fi
 brew update
 
 # fin
-### end lib/homebrew.sh
+# ✌ Exeunt lib/homebrew.sh ✌ #
 
+# ➳ Enter lib/git.sh
 # Version Control
 brew install git
 
@@ -284,8 +296,9 @@ git config --global core.editor subl -w
 git config --global push.default current
 
 # fin
-### end lib/git.sh
+# ✌ Exeunt lib/git.sh ✌ #
 
+# ➳ Enter lib/rbenv.sh
 # Our Ruby version manager
 brew install rbenv
 
@@ -303,8 +316,9 @@ brew install rbenv-default-gems
 
 # Add to path
 export PATH="$HOME/.rbenv/bin:$PATH"
-### end lib/rbenv.sh
+# ✌ Exeunt lib/rbenv.sh ✌ #
 
+# ➳ Enter lib/ruby-env.sh
 # Our Ruby Environment
 
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
@@ -326,12 +340,10 @@ gem update --system
 gem install bundler --no-document --pre
 
 # fin #
-### end lib/ruby-env.sh
+# ✌ Exeunt lib/ruby-env.sh ✌ #
 
+# ➳ Enter lib/default-gems.sh
 # Our gems to install
-
-# pretty print your Ruby objects with style
-gem install awesome_print
 
 # Maintains a consistent environment for ruby applications.
 gem install bundler
@@ -341,12 +353,6 @@ gem install capybara
 
 # handle events on file system modifications
 gem install guard
-
-# Ruby interface to github API v3
-gem install github_api
-
-# HipChat HTTP API Wrapper
-gem install hipchat
 
 # JavaScript testing
 gem install jasmine
@@ -360,9 +366,6 @@ gem install pry
 # full stack, Web application framework
 gem install rails
 
-# colorizing printed text on ANSI terminals
-gem install rainbow
-
 # testing tool for Ruby
 gem install rspec
 
@@ -373,8 +376,9 @@ gem install sinatra
 gem install sinatra-contrib
 
 # fin #
-### end lib/default-gems.sh
+# ✌ Exeunt lib/default-gems.sh ✌ #
 
+# ➳ Enter lib/packages.sh
 # Useful packages
 # ASCII ART!!!!
 brew install figlet
@@ -398,8 +402,9 @@ brew install qt4
 brew install redis
 
 # fin
-### end lib/packages.sh
+# ✌ Exeunt lib/packages.sh ✌ #
 
+# ➳ Enter lib/heroku.sh
 #  _                    _
 # | |__   ___ _ __ ___ | | ___   _
 # | '_ \ / _ \ '__/ _ \| |/ / | | |
@@ -425,8 +430,9 @@ echo "credentials. Your public key will then be automatically uploaded to"
 echo "Heroku. This will allow you to deploy code to all of your apps."
 
 heroku keys:add
-### end lib/heroku.sh
+# ✌ Exeunt lib/heroku.sh ✌ #
 
+# ➳ Enter lib/postgres.sh
 # Set up Postgres
 
 # open source object-relational database management system
@@ -437,13 +443,17 @@ initdb /usr/local/var/postgres -E utf8
 createdb ${USER}
 
 # Ensure that Postgres launches whenever we login
-mkdir -p ~/Library/LaunchAgents
-cp /usr/local/Cellar/postgresql/9.*/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
 
-# Start Postgres now
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
-### end lib/postgres.sh
+# # http://robots.thoughtbot.com/starting-and-stopping-background-services-with-homebrew
+brew services start postgres
+# mkdir -p ~/Library/LaunchAgents
+# cp /usr/local/Cellar/postgresql/9.*/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
+# # Start Postgres now
+# launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
+# ✌ Exeunt lib/postgres.sh ✌ #
+
+# ➳ Enter lib/compilers.sh
 # Upgrade any already-installed formulae
 brew upgrade
 
@@ -453,54 +463,65 @@ brew tap homebrew/dupes
 
 # Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
 brew install autoconf
+
 # Automake is a tool for automatically generating Makefile.in
 brew install automake
-# Git extensions to provide high-level repository operations
-brew install git-flow
+
 # generic library support script
 brew install libtool
+
 # a YAML 1.1 parser and emitter
 brew install libyaml
+
 # neon is an HTTP and WebDAV client library
 brew install neon
+
 # A toolkit implementing SSL v2/v3 and TLS protocols with full-strength cryptography world-wide.
 brew install openssl
+
 # pkg-config is a helper tool used when compiling applications and libraries.
 brew install pkg-config
-# a high performance C-based HTTP client library
-brew install serf
+
 # a self-contained, serverless, zero-configuration, transactional SQL database engine.
 brew install sqlite
+
 # a script that uses ssh to log into a remote machine
 brew install ssh-copy-id
+
 # XML C parser and toolkit
 brew install libxml2
+
 # a language for transforming XML documents into other XML documents.
 brew install libxslt
+
 # a conversion library between Unicode and traditional encoding
 brew install libiconv
+
 # generates an index file of names found in source files of various programming languages.
 brew install ctags
+
 # Tap a new formula repository from GitHub, or list existing taps.
 brew tap homebrew/versions
+
 # Ensures all tapped formula are symlinked into Library/Formula
 # and prunes dead formula from Library/Formula.
 brew tap --repair
 
 # Remove outdated versions from the cellar
 brew cleanup
-### end lib/compilers.sh
+# ✌ Exeunt lib/compilers.sh ✌ #
 
+# ➳ Enter lib/node.sh
 # Event-driven I/O server-side JavaScript environment based on V8
 brew install node
 # Adds history for node repl
 brew install readline
 
 # fin
-### end lib/node.sh
+# ✌ Exeunt lib/node.sh ✌ #
 
+# ➳ Enter lib/chrome_extensions.sh
 # https://developer.chrome.com/extensions/external_extensions.html
-# PL: I think Chrome disabled automating installs as a security feature.
 
 # Useful Extensions
 
@@ -517,19 +538,29 @@ echo "If you've alread installed them you'll see 'Added to Chrome'"
 echo "Ready?"
 read -p "Just hit enter!"
 
-chrome_ext jsonview/chklaanhfefbnpoihckbnefhakgolnmc                  # Validate and view JSON documents
-chrome_ext livereload/jnihajbhpnppcggbcgedagnkighmdlei                # Integration with LiveReload App and guard-livereload
-chrome_ext pagespeed-insights-by-goo/gplegfbjlmmehdoakndmohflojccocli # analyzes the performance of web pages and provides suggestions to make them faster
-chrome_ext postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm       # REST Client to test in Browser
-chrome_ext speed-tracer-by-google/ognampngfcbddbfemdapefohjiobgbdl    # a tool to help you identify and fix performance problems in your web applicatio
+# Validate and view JSON documents
+chrome_ext jsonview/chklaanhfefbnpoihckbnefhakgolnmc
+
+# Integration with LiveReload App and guard-livereload
+chrome_ext livereload/jnihajbhpnppcggbcgedagnkighmdlei
+
+# analyzes the performance of web pages and provides suggestions to make them faster
+chrome_ext pagespeed-insights-by-goo/gplegfbjlmmehdoakndmohflojccocli
+
+# REST Client to test in Browser
+chrome_ext postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm
+
+# helps you identify and fix performance problems in your web application
+chrome_ext speed-tracer-by-google/ognampngfcbddbfemdapefohjiobgbdl
 
 # fin #
-### end lib/chrome_extensions.sh
+# ✌ Exeunt lib/chrome_extensions.sh ✌ #
 
+# ➳ Enter lib/footer.sh
 echo "We're done"
 echo "You may want to quit terminal. Reopen and then run brew doctor to ensure"
 echo "everything is working."
 
 # -- fin -- #
-### end lib/footer.sh
+# ✌ Exeunt lib/footer.sh ✌ #
 
