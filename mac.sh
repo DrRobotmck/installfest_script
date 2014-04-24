@@ -24,6 +24,11 @@
 # http://explainshell.com/
 # ✌ Exeunt lib/header.sh ✌ #
 
+# ➳ Enter lib/dramatis_personae.sh
+MINIMUM_OS="10.7.0"
+BELOVED_RUBY_VERSION="2.1.0"
+# ✌ Exeunt lib/dramatis_personae.sh ✌ #
+
 # ➳ Enter lib/helper_functions.sh
 #-------------------------------------------------------------------------------
 # Colors
@@ -82,6 +87,67 @@ function fie () {
 function pause_awhile () {
    read -p "$* Press Enter to continue"
 }
+
+function install_dmg () {
+  echo 'Hark, a dmg!'
+  file_name="$1"
+  MOUNTPOINT="/Volumes/MountPoint"
+  IFS="
+  "
+  hdiutil attach -mountpoint $MOUNTPOINT "$file_name.dmg"
+  app=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.app)
+  if [ ! -z "$app" ]; then
+    cp -a "$app" /Applications/
+  # for app in `find $MOUNTPOINT -type d -maxdepth 2 -name \*.app `; do
+  # done
+  fi
+  echo 'Hark! A pkg!'
+  pkg=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.pkg)
+  if [ ! -z "$pkg" ]; then
+    # PL: Need to handle harddrive names that aren't Macintosh HD
+    sudo installer -package $pkg -target /
+  fi
+  hdiutil detach $MOUNTPOINT
+}
+
+function install_zip () {
+  file_name="$1"
+  echo 'Hark! A zip!'
+  mkdir "$file_name"
+  unzip "$file_name.zip" -d "$file_name"
+  mv $file_name/*.app /Applications
+}
+
+# Checks for the existence of a file
+function know_you_not_of () {
+  file_name="$1"
+  file_count=$(find /Applications -name "$file_name.app" | wc -l)
+  if [[ $file_count -gt 0 ]]; then
+    echo "$file_name is already here.";
+    return 1
+  else
+    return 0
+  fi
+}
+
+# Downloads and installs apps from zips, dmgs, and pkgs.
+function lend_me_your () {
+  file_name="$1"
+  url="$2"
+  ext=${url: -4}
+  if know_you_not_of "$file_name" ; then
+    curl -L -o "$file_name$ext" $url
+    # enter stage left...
+    case "$ext" in
+      ".dmg")  install_dmg "$file_name";;
+      ".zip")  install_zip "$file_name";;
+      *) echo "Not Processed";;
+    esac
+  fi
+  # Out spot
+  rm -rf "$file_name$ext"
+  rm -rf "$file_name"
+}
 # ✌ Exeunt lib/helper_functions.sh ✌ #
 
 # ➳ Enter lib/keep_alive.sh
@@ -94,83 +160,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # fin
 # ✌ Exeunt lib/keep_alive.sh ✌ #
 
-# ➳ Enter lib/get_user_info.sh
-echo "If you haven't already done so,"
-echo "please register for an account on github.com"
-
-read -p "Enter your full name: "  user_name
-read -p "Github Username: "       github_name
-read -p "Github Email: "          github_email
-
-# fin
-# ✌ Exeunt lib/get_user_info.sh ✌ #
-
-# ➳ Enter lib/hygene.sh
-# Check for recommended software updates
-sudo softwareupdate -i -r --ignore iTunes
-
-# Ensure user has full control over their folder
-sudo chown -R ${USER} ~
-
-# Repair disk permission
-diskutil repairPermissions /
-
-# fin
-# ✌ Exeunt lib/hygene.sh ✌ #
-
-# ➳ Enter lib/ssh_keys.sh
-# SSH keys establish a secure connection between your computer and GitHub
-# This script follows these instructions
-# `https://help.github.com/articles/generating-ssh-keys`
-
-# SSH Keygen
-ssh-keygen -t rsa -C $github_email
-ssh-add id_rsa
-
-# Copy SSH key to the clipboard
-pbcopy < ~/.ssh/id_rsa.pub
-
-echo "We just copied your SSH key to the clipboard."
-echo "Now we're going to visit GitHub to add the SSH key"
-
-echo "Do the following in your browser: "
-echo '- Click "SSH Keys" in the left sidebar'
-echo '- Click "Add SSH key"'
-echo '- Paste your key into the "Key" field'
-echo '- Click "Add key"'
-echo '- Confirm the action by entering your GitHub password'
-
-pause_awhile "We'll be here until you get back from Github. Ready?"
-
-open https://github.com/settings/ssh
-
-pause_awhile "SSH keys added?"
-# ✌ Exeunt lib/ssh_keys.sh ✌ #
-
-# ➳ Enter lib/repo_setup.sh
-SRC_DIR=~/.wdi-installfest
-SCRIPTS=$SRC_DIR/scripts
-SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
-
-# download the repo for the absolute paths
-if [[ ! -d $SRC_DIR ]]; then
-  echo 'Downloading Installfest repo...'
-  # autoupdate bootstrap file
-  git clone $INSTALL_REPO $SRC_DIR
-  # hide folder
-  chflags hidden $SRC_DIR
-else
-  # update repo
-  echo 'Updating repo...'
-  cd $SRC_DIR
-  git pull origin master
-fi
-
-# fin
-# ✌ Exeunt lib/repo_setup.sh ✌ #
-
-# ➳ Enter lib/commandline_tools.sh
+# ➳ Enter lib/mac/commandline_tools.sh
 # Determine OS version
 
 osx_version=$(sw_vers -productVersion)
@@ -207,26 +197,9 @@ else
 fi
 
 # fin
-# ✌ Exeunt lib/commandline_tools.sh ✌ #
+# ✌ Exeunt lib/mac/commandline_tools.sh ✌ #
 
-# ➳ Enter lib/remove_rvm.sh
-# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
-# This script checks for and removes previous installs of macports and RVM
-
-# Uninstall RVM
-# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
-if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
-  rvm implode
-  rm -rf ~/.rvm
-  echo "RVM has been removed."
-else
-  echo "RVM is not installed. Moving on..."
-fi
-
-# fin
-# ✌ Exeunt lib/remove_rvm.sh ✌ #
-
-# ➳ Enter lib/remove_macports.sh
+# ➳ Enter lib/mac/remove_macports.sh
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
 
@@ -257,9 +230,102 @@ else
 fi
 
 # fin
-# ✌ Exeunt lib/remove_macports.sh ✌ #
+# ✌ Exeunt lib/mac/remove_macports.sh ✌ #
 
-# ➳ Enter lib/homebrew.sh
+# ➳ Enter lib/remove_rvm.sh
+# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
+# This script checks for and removes previous installs of macports and RVM
+
+# Uninstall RVM
+# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
+if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
+  rvm implode
+  rm -rf ~/.rvm
+  echo "RVM has been removed."
+else
+  echo "RVM is not installed. Moving on..."
+fi
+
+# fin
+# ✌ Exeunt lib/remove_rvm.sh ✌ #
+
+# ➳ Enter lib/mac/hygene.sh
+# Check for recommended software updates
+sudo softwareupdate -i -r --ignore iTunes
+
+# Ensure user has full control over their folder
+sudo chown -R ${USER} ~
+
+# Repair disk permission
+diskutil repairPermissions /
+
+# fin
+# ✌ Exeunt lib/mac/hygene.sh ✌ #
+
+# ➳ Enter lib/configure_ssh_keys.sh
+# SSH keys establish a secure connection between your computer and GitHub
+# This script follows these instructions
+# `https://help.github.com/articles/generating-ssh-keys`
+
+# SSH Keygen
+ssh-keygen -t rsa -C $github_email
+ssh-add id_rsa
+
+# Copy SSH key to the clipboard
+pbcopy < ~/.ssh/id_rsa.pub
+
+echo "We just copied your SSH key to the clipboard."
+echo "Now we're going to visit GitHub to add the SSH key"
+
+echo "Do the following in your browser: "
+echo '- Click "SSH Keys" in the left sidebar'
+echo '- Click "Add SSH key"'
+echo '- Paste your key into the "Key" field'
+echo '- Click "Add key"'
+echo '- Confirm the action by entering your GitHub password'
+
+pause_awhile "We'll be here until you get back from Github. Ready?"
+
+open https://github.com/settings/ssh
+
+pause_awhile "SSH keys added?"
+# ✌ Exeunt lib/configure_ssh_keys.sh ✌ #
+
+# ➳ Enter lib/get_user_info.sh
+echo "If you haven't already done so,"
+echo "please register for an account on github.com"
+
+read -p "Enter your full name: "  user_name
+read -p "Github Username: "       github_name
+read -p "Github Email: "          github_email
+
+# fin
+# ✌ Exeunt lib/get_user_info.sh ✌ #
+
+# ➳ Enter lib/repo_setup.sh
+SRC_DIR=~/.wdi-installfest
+SCRIPTS=$SRC_DIR/scripts
+SETTINGS=$SRC_DIR/settings
+INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
+
+# download the repo for the absolute paths
+if [[ ! -d $SRC_DIR ]]; then
+  echo 'Downloading Installfest repo...'
+  # autoupdate bootstrap file
+  git clone $INSTALL_REPO $SRC_DIR
+  # hide folder
+  chflags hidden $SRC_DIR
+else
+  # update repo
+  echo 'Updating repo...'
+  cd $SRC_DIR
+  git pull origin master
+fi
+
+# fin
+# ✌ Exeunt lib/repo_setup.sh ✌ #
+
+# ➳ Enter lib/mac/homebrew.sh
 # Installs Homebrew, our package manager
 # http://brew.sh/
 
@@ -273,15 +339,77 @@ fi
 brew update
 
 # fin
-# ✌ Exeunt lib/homebrew.sh ✌ #
+# ✌ Exeunt lib/mac/homebrew.sh ✌ #
 
-# ➳ Enter lib/git.sh
+# ➳ Enter lib/mac/compilers.sh
+# Upgrade any already-installed formulae
+brew upgrade
+
+# These formulae duplicate software provided by OS X
+# though may provide more recent or bugfix versions.
+brew tap homebrew/dupes
+
+# Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
+brew install autoconf
+
+# Automake is a tool for automatically generating Makefile.in
+brew install automake
+
+# generic library support script
+brew install libtool
+
+# a YAML 1.1 parser and emitter
+brew install libyaml
+
+# neon is an HTTP and WebDAV client library
+brew install neon
+
+# A toolkit implementing SSL v2/v3 and TLS protocols with full-strength cryptography world-wide.
+brew install openssl
+
+# pkg-config is a helper tool used when compiling applications and libraries.
+brew install pkg-config
+
+# a self-contained, serverless, zero-configuration, transactional SQL database engine.
+brew install sqlite
+
+# a script that uses ssh to log into a remote machine
+brew install ssh-copy-id
+
+# XML C parser and toolkit
+brew install libxml2
+
+# a language for transforming XML documents into other XML documents.
+brew install libxslt
+
+# a conversion library between Unicode and traditional encoding
+brew install libiconv
+
+# generates an index file of names found in source files of various programming languages.
+brew install ctags
+
+# Tap a new formula repository from GitHub, or list existing taps.
+brew tap homebrew/versions
+
+# Ensures all tapped formula are symlinked into Library/Formula
+# and prunes dead formula from Library/Formula.
+brew tap --repair
+
+# Remove outdated versions from the cellar
+brew cleanup
+# ✌ Exeunt lib/mac/compilers.sh ✌ #
+
+# ➳ Enter lib/mac/git.sh
 # Version Control
 brew install git
 
 # additional git commands
 brew install hub
 
+# fin
+# ✌ Exeunt lib/mac/git.sh ✌ #
+
+# ➳ Enter lib/configure_git.sh
 # Add user's github info to gitconfig
 git config --global user.name  $github_name
 git config --global user.email $github_email
@@ -294,11 +422,9 @@ git config --global core.editor subl -w
 
 # default branch to push to
 git config --global push.default current
+# ✌ Exeunt lib/configure_git.sh ✌ #
 
-# fin
-# ✌ Exeunt lib/git.sh ✌ #
-
-# ➳ Enter lib/rbenv.sh
+# ➳ Enter lib/mac/rbenv.sh
 # Our Ruby version manager
 brew install rbenv
 
@@ -316,7 +442,7 @@ brew install rbenv-default-gems
 
 # Add to path
 export PATH="$HOME/.rbenv/bin:$PATH"
-# ✌ Exeunt lib/rbenv.sh ✌ #
+# ✌ Exeunt lib/mac/rbenv.sh ✌ #
 
 # ➳ Enter lib/ruby-env.sh
 # Our Ruby Environment
@@ -378,7 +504,7 @@ gem install sinatra-contrib
 # fin #
 # ✌ Exeunt lib/default-gems.sh ✌ #
 
-# ➳ Enter lib/packages.sh
+# ➳ Enter lib/mac/packages.sh
 # Useful packages
 # ASCII ART!!!!
 brew install figlet
@@ -402,9 +528,42 @@ brew install qt4
 brew install redis
 
 # fin
-# ✌ Exeunt lib/packages.sh ✌ #
+# ✌ Exeunt lib/mac/packages.sh ✌ #
 
-# ➳ Enter lib/heroku.sh
+# ➳ Enter lib/mac/apps.sh
+# a CLI workflow for the administration of Mac applications
+# distributed as binaries
+brew tap phinze/homebrew-cask
+brew install brew-cask
+
+# Instant search documentation offlien
+brew cask install dash
+
+# The Browser
+brew cask install google-chrome
+
+# A Browser
+brew cask install firefox
+
+# The Chat Client
+brew cask install hipchat
+
+# The Window Manager
+brew cask install spectacle
+
+# The Text Editor, Sublime Text 2
+brew cask install sublime-text
+
+# The X Window Server
+brew cask install xquartz
+
+# Markdown Editor
+brew cask install mou
+
+# fin
+# ✌ Exeunt lib/mac/apps.sh ✌ #
+
+# ➳ Enter lib/mac/heroku.sh
 #  _                    _
 # | |__   ___ _ __ ___ | | ___   _
 # | '_ \ / _ \ '__/ _ \| |/ / | | |
@@ -430,9 +589,9 @@ echo "credentials. Your public key will then be automatically uploaded to"
 echo "Heroku. This will allow you to deploy code to all of your apps."
 
 heroku keys:add
-# ✌ Exeunt lib/heroku.sh ✌ #
+# ✌ Exeunt lib/mac/heroku.sh ✌ #
 
-# ➳ Enter lib/postgres.sh
+# ➳ Enter lib/mac/postgres.sh
 # Set up Postgres
 
 # open source object-relational database management system
@@ -451,74 +610,16 @@ brew services start postgres
 # # Start Postgres now
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
-# ✌ Exeunt lib/postgres.sh ✌ #
+# ✌ Exeunt lib/mac/postgres.sh ✌ #
 
-# ➳ Enter lib/compilers.sh
-# Upgrade any already-installed formulae
-brew upgrade
-
-# These formulae duplicate software provided by OS X
-# though may provide more recent or bugfix versions.
-brew tap homebrew/dupes
-
-# Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
-brew install autoconf
-
-# Automake is a tool for automatically generating Makefile.in
-brew install automake
-
-# generic library support script
-brew install libtool
-
-# a YAML 1.1 parser and emitter
-brew install libyaml
-
-# neon is an HTTP and WebDAV client library
-brew install neon
-
-# A toolkit implementing SSL v2/v3 and TLS protocols with full-strength cryptography world-wide.
-brew install openssl
-
-# pkg-config is a helper tool used when compiling applications and libraries.
-brew install pkg-config
-
-# a self-contained, serverless, zero-configuration, transactional SQL database engine.
-brew install sqlite
-
-# a script that uses ssh to log into a remote machine
-brew install ssh-copy-id
-
-# XML C parser and toolkit
-brew install libxml2
-
-# a language for transforming XML documents into other XML documents.
-brew install libxslt
-
-# a conversion library between Unicode and traditional encoding
-brew install libiconv
-
-# generates an index file of names found in source files of various programming languages.
-brew install ctags
-
-# Tap a new formula repository from GitHub, or list existing taps.
-brew tap homebrew/versions
-
-# Ensures all tapped formula are symlinked into Library/Formula
-# and prunes dead formula from Library/Formula.
-brew tap --repair
-
-# Remove outdated versions from the cellar
-brew cleanup
-# ✌ Exeunt lib/compilers.sh ✌ #
-
-# ➳ Enter lib/node.sh
+# ➳ Enter lib/mac/node.sh
 # Event-driven I/O server-side JavaScript environment based on V8
 brew install node
 # Adds history for node repl
 brew install readline
 
 # fin
-# ✌ Exeunt lib/node.sh ✌ #
+# ✌ Exeunt lib/mac/node.sh ✌ #
 
 # ➳ Enter lib/chrome_extensions.sh
 # https://developer.chrome.com/extensions/external_extensions.html
@@ -556,11 +657,22 @@ chrome_ext speed-tracer-by-google/ognampngfcbddbfemdapefohjiobgbdl
 # fin #
 # ✌ Exeunt lib/chrome_extensions.sh ✌ #
 
-# ➳ Enter lib/footer.sh
-echo "We're done"
-echo "You may want to quit terminal. Reopen and then run brew doctor to ensure"
-echo "everything is working."
+# ➳ Enter lib/mac/dotfiles.sh
+# Create a folder for backed up files
+mkdir -p "${HOME}/.dotfiles_backup"
 
-# -- fin -- #
-# ✌ Exeunt lib/footer.sh ✌ #
+# Dotfiles we'll be using
+dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc"
+
+for file in $dotfiles; do
+  if [ -a "${HOME}/${file}" ]; then
+    # move file
+    mv "${HOME}/${file}" "${HOME}/.dotfiles_backup/${file}"
+    # symlink file
+    ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
+  fi
+done
+
+# fin
+# ✌ Exeunt lib/mac/dotfiles.sh ✌ #
 
