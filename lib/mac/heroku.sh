@@ -16,10 +16,13 @@ echo "pair to deploy code to Heroku. This keypair is used for the strong"
 echo "cryptography and that uniquely identifies you as a developer when pushing"
 echo "code changes."
 
-ssh-keygen -t rsa
+# ssh-keygen -t rsa
+# autogenerate without prompt
+ssh-keygen -f id_rsa -t rsa -N ''
 
 echo "The first time you run the heroku command, you’ll be prompted for your "
 echo "credentials. Your public key will then be automatically uploaded to"
 echo "Heroku. This will allow you to deploy code to all of your apps."
 
-heroku keys:add
+# PL: holding off for user interaction
+# heroku keys:add
