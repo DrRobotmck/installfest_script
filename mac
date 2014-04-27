@@ -1,5 +1,5 @@
-# ➳ Enter lib/mac/shebang.sh
 #!/bin/sh -e
+# ➳ Enter lib/mac/shebang.sh
 # ✌ Exeunt lib/mac/shebang.sh ✌ #
 
 # ➳ Enter lib/header.sh

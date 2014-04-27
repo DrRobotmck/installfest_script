@@ -77,14 +77,15 @@ dost_thou_have ~/.bash_profile
 dost_thou_have ~/.gitignore_global
 dost_thou_have ~/.gitconfig
 dost_thou_have ~/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages
-dost_thou_have ~/code/wdi
 
 # Applications
 what_news_of "Spectacle"
 what_news_of "Sublime Text 2"
 what_news_of "HipChat"
 what_news_of "Google Chrome"
+what_news_of "Firefox"
 what_news_of "Mou"
+what_news_of "Dash"
 
 # Your ssh keys are set up (see [here](https://help.github.com/articles/generating-ssh-keys) for instructions)
 
