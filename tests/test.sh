@@ -26,7 +26,8 @@ what_news_of () {
   echo -n "What news of $app_name? "
   # This could also work
   # if ls /path/to/your/files* &> /dev/null;
-  if [ -x /Applications/"$app_name".app ]; then
+  # add support for Application folder or brew cask
+  if [ -x /Applications/"$app_name".app ] || [ -x /opt/homebrew-cask/Caskroom/*/*/"$app_name".app ]; then
     aye "Good"
   else
     nay "Alack!"

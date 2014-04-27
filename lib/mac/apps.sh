@@ -27,4 +27,10 @@ brew cask install xquartz
 # Markdown Editor
 brew cask install mou
 
+# for fonts
+# https://github.com/caskroom/homebrew-fonts/tree/master/Casks
+brew tap caskroom/fonts
+
+brew cask install font-source-code-pro
+brew cask install font-source-sans-pro
 # fin
