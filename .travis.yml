@@ -1,9 +1,6 @@
 language:
   - objective-c
 
-before_install:
-  - bash ./bin/build.sh
-
 install:
   - bash mac
 

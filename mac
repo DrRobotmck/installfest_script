@@ -1,6 +1,4 @@
-# ➳ Enter lib/mac/shebang.sh
 #!/bin/sh -e
-# ✌ Exeunt lib/mac/shebang.sh ✌ #
 
 # ➳ Enter lib/header.sh
 #
@@ -30,7 +28,7 @@
 
 # ➳ Enter lib/dramatis_personae.sh
 MINIMUM_OS="10.7.0"
-BELOVED_RUBY_VERSION="2.1.0"
+BELOVED_RUBY_VERSION="1.9.3-p484"
 # ✌ Exeunt lib/dramatis_personae.sh ✌ #
 
 # ➳ Enter lib/helper_functions.sh

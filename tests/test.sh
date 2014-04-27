@@ -17,6 +17,7 @@ nay () {
   RED=$(tput setaf 1)
   RESET=$(tput sgr0)
   echo "${RED}$msg${RESET}"
+  exit 1
 }
 
 # Instruments of Darkness
@@ -29,6 +30,7 @@ what_news_of () {
     aye "Good"
   else
     nay "Alack!"
+    exit 1
   fi
 }
 
@@ -39,6 +41,7 @@ dost_thou_have () {
     aye "Good on $filename"
   else
     nay "Thou searchest in vain for $filename"
+    exit 1
   fi
 }
 
@@ -49,6 +52,7 @@ is_not_this () {
     aye "$cmd is $pass"
   else
     nay "Alack! $cmd is not $pass"
+    exit 1
   fi
 }
 
@@ -91,8 +95,10 @@ tab_to_space="\"translate_tabs_to_spaces\": true"
 
 if [[ "$subl_prefs" != *$tab_size* ]]; then
   nay "Tab size must be set to 2!"
+  exit 1;
 fi
 
 if [[ "$subl_prefs" != *$tab_to_space* ]]; then
   nay "Translate tabs to spaces must be true!"
+  exit 1;
 fi
