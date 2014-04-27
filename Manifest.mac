@@ -1,3 +1,4 @@
+lib/mac/shebang.sh
 lib/header.sh
 lib/dramatis_personae.sh
 lib/helper_functions.sh
@@ -6,13 +7,10 @@ lib/mac/commandline_tools.sh
 lib/mac/remove_macports.sh
 lib/remove_rvm.sh
 lib/mac/hygene.sh
-lib/configure_ssh_keys.sh
-lib/get_user_info.sh
 lib/repo_setup.sh
 lib/mac/homebrew.sh
 lib/mac/compilers.sh
 lib/mac/git.sh
-lib/configure_git.sh
 lib/mac/rbenv.sh
 lib/ruby-env.sh
 lib/default-gems.sh
@@ -20,6 +18,4 @@ lib/mac/packages.sh
 lib/mac/apps.sh
 lib/mac/heroku.sh
 lib/mac/postgres.sh
-lib/mac/node.sh
-lib/chrome_extensions.sh
 lib/mac/dotfiles.sh

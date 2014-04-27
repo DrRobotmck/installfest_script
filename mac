@@ -1,3 +1,7 @@
+# ➳ Enter lib/mac/shebang.sh
+#!/bin/sh -e
+# ✌ Exeunt lib/mac/shebang.sh ✌ #
+
 # ➳ Enter lib/header.sh
 #
 #  _           _        _ _  __           _
@@ -262,46 +266,6 @@ diskutil repairPermissions /
 # fin
 # ✌ Exeunt lib/mac/hygene.sh ✌ #
 
-# ➳ Enter lib/configure_ssh_keys.sh
-# SSH keys establish a secure connection between your computer and GitHub
-# This script follows these instructions
-# `https://help.github.com/articles/generating-ssh-keys`
-
-# SSH Keygen
-ssh-keygen -t rsa -C $github_email
-ssh-add id_rsa
-
-# Copy SSH key to the clipboard
-pbcopy < ~/.ssh/id_rsa.pub
-
-echo "We just copied your SSH key to the clipboard."
-echo "Now we're going to visit GitHub to add the SSH key"
-
-echo "Do the following in your browser: "
-echo '- Click "SSH Keys" in the left sidebar'
-echo '- Click "Add SSH key"'
-echo '- Paste your key into the "Key" field'
-echo '- Click "Add key"'
-echo '- Confirm the action by entering your GitHub password'
-
-pause_awhile "We'll be here until you get back from Github. Ready?"
-
-open https://github.com/settings/ssh
-
-pause_awhile "SSH keys added?"
-# ✌ Exeunt lib/configure_ssh_keys.sh ✌ #
-
-# ➳ Enter lib/get_user_info.sh
-echo "If you haven't already done so,"
-echo "please register for an account on github.com"
-
-read -p "Enter your full name: "  user_name
-read -p "Github Username: "       github_name
-read -p "Github Email: "          github_email
-
-# fin
-# ✌ Exeunt lib/get_user_info.sh ✌ #
-
 # ➳ Enter lib/repo_setup.sh
 SRC_DIR=~/.wdi-installfest
 SCRIPTS=$SRC_DIR/scripts
@@ -408,21 +372,6 @@ brew install hub
 
 # fin
 # ✌ Exeunt lib/mac/git.sh ✌ #
-
-# ➳ Enter lib/configure_git.sh
-# Add user's github info to gitconfig
-git config --global user.name  $github_name
-git config --global user.email $github_email
-
-# color
-git config --global color.ui always
-
-# set editor
-git config --global core.editor subl -w
-
-# default branch to push to
-git config --global push.default current
-# ✌ Exeunt lib/configure_git.sh ✌ #
 
 # ➳ Enter lib/mac/rbenv.sh
 # Our Ruby version manager
@@ -611,51 +560,6 @@ brew services start postgres
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
 # ✌ Exeunt lib/mac/postgres.sh ✌ #
-
-# ➳ Enter lib/mac/node.sh
-# Event-driven I/O server-side JavaScript environment based on V8
-brew install node
-# Adds history for node repl
-brew install readline
-
-# fin
-# ✌ Exeunt lib/mac/node.sh ✌ #
-
-# ➳ Enter lib/chrome_extensions.sh
-# https://developer.chrome.com/extensions/external_extensions.html
-
-# Useful Extensions
-
-# Open chrome extensions in the browser
-chrome_ext () {
-  app=$1
-  webstore=https://chrome.google.com/webstore/detail/
-  open "$webstore$app"
-}
-
-echo "Now we're going to open some Chrome extensions to install from the Chrome Webstore"
-echo "Just click 'Free' to install them."
-echo "If you've alread installed them you'll see 'Added to Chrome'"
-echo "Ready?"
-read -p "Just hit enter!"
-
-# Validate and view JSON documents
-chrome_ext jsonview/chklaanhfefbnpoihckbnefhakgolnmc
-
-# Integration with LiveReload App and guard-livereload
-chrome_ext livereload/jnihajbhpnppcggbcgedagnkighmdlei
-
-# analyzes the performance of web pages and provides suggestions to make them faster
-chrome_ext pagespeed-insights-by-goo/gplegfbjlmmehdoakndmohflojccocli
-
-# REST Client to test in Browser
-chrome_ext postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm
-
-# helps you identify and fix performance problems in your web application
-chrome_ext speed-tracer-by-google/ognampngfcbddbfemdapefohjiobgbdl
-
-# fin #
-# ✌ Exeunt lib/chrome_extensions.sh ✌ #
 
 # ➳ Enter lib/mac/dotfiles.sh
 # Create a folder for backed up files
