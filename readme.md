@@ -62,3 +62,5 @@ We expect to build virtual machines using the script and then have torrent links
 
 [vagrant]: http://www.vagrantup.com/downloads  "Vagrant"
 [torrent]: http://example.com/  "GABox"
+
+Contributing
