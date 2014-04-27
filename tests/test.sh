@@ -1,9 +1,9 @@
 ##Checkpoints to see if you computer is configured properly.
 
 # Original checkpoints script from Peter Lai.
-# Redone as a suite of ruby tests in `checks.rb`
-# Could also be rewritten in bash.
+
 # Students should be able to enter each command and receive the correct output
+checkpoints=0
 
 aye () {
   msg=$1
@@ -17,7 +17,7 @@ nay () {
   RED=$(tput setaf 1)
   RESET=$(tput sgr0)
   echo "${RED}$msg${RESET}"
-  exit 1
+  ((++checkpoints));
 }
 
 # Instruments of Darkness
@@ -30,7 +30,7 @@ what_news_of () {
     aye "Good"
   else
     nay "Alack!"
-    exit 1
+    ((++checkpoints));
   fi
 }
 
@@ -41,7 +41,7 @@ dost_thou_have () {
     aye "Good on $filename"
   else
     nay "Thou searchest in vain for $filename"
-    exit 1
+    ((++checkpoints));
   fi
 }
 
@@ -52,21 +52,21 @@ is_not_this () {
     aye "$cmd is $pass"
   else
     nay "Alack! $cmd is not $pass"
-    exit 1
+    ((++checkpoints));
   fi
 }
 
 echo "Running some checks on how our Install went"
 
 is_not_this "brew doctor"           "ready to brew."
-is_not_this "ruby -v"               "2.1.0"
+is_not_this "ruby -v"               "$BELOVED_RUBY_VERSION"
 is_not_this "gem list pry -i"       "true"
 is_not_this "ssh -T git@github.com" "successfully authenticated"
 
 # When you type `subl` into your terminal, it opens up Sublime Text
 if [ ! -L /usr/local/bin/subl ]; then
   nay "sublime doesn't appear to be symlinked.";
-  exit 1
+  ((++checkpoints));
 fi
 
 # Your root directory contains the following:
@@ -97,12 +97,17 @@ tab_to_space="\"translate_tabs_to_spaces\": true"
 
 if [[ "$subl_prefs" != *$tab_size* ]]; then
   nay "Tab size must be set to 2!"
-  exit 1;
+  ((++checkpoints));
 fi
 
 if [[ "$subl_prefs" != *$tab_to_space* ]]; then
   nay "Translate tabs to spaces must be true!"
-  exit 1;
+  ((++checkpoints));
 fi
 
-exit 0
+if [ $checkpoints != 0 ]; then
+  exit 1;
+else
+  exit 0;
+fi
+
