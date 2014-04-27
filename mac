@@ -1,6 +1,6 @@
 ## Enter lib/mac/shebang.sh
 #!/bin/sh -e
-## Exeunt lib/mac/shebang.sh 
+## Exeunt lib/mac/shebang.sh
 
 ## Enter lib/header.sh
 #
@@ -26,12 +26,12 @@
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-## Exeunt lib/header.sh 
+## Exeunt lib/header.sh
 
 ## Enter lib/dramatis_personae.sh
 MINIMUM_OS="10.7.0"
 BELOVED_RUBY_VERSION="1.9.3-p484"
-## Exeunt lib/dramatis_personae.sh 
+## Exeunt lib/dramatis_personae.sh
 
 ## Enter lib/helper_functions.sh
 #-------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ function lend_me_your () {
   rm -rf "$file_name$ext"
   rm -rf "$file_name"
 }
-## Exeunt lib/helper_functions.sh 
+## Exeunt lib/helper_functions.sh
 
 ## Enter lib/keep_alive.sh
 # Capture the user's password
@@ -162,13 +162,10 @@ sudo echo "Thanks."
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # fin
-## Exeunt lib/keep_alive.sh 
+## Exeunt lib/keep_alive.sh
 
 ## Enter lib/repo_setup.sh
-SRC_DIR=~/.wdi-installfest
-SCRIPTS=$SRC_DIR/scripts
-SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
+
 
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
@@ -185,7 +182,7 @@ else
 fi
 
 # fin
-## Exeunt lib/repo_setup.sh 
+## Exeunt lib/repo_setup.sh
 
 ## Enter lib/mac/homebrew.sh
 # Installs Homebrew, our package manager
@@ -201,7 +198,7 @@ fi
 brew update
 
 # fin
-## Exeunt lib/mac/homebrew.sh 
+## Exeunt lib/mac/homebrew.sh
 
 ## Enter lib/mac/compilers.sh
 # Upgrade any already-installed formulae
@@ -259,7 +256,7 @@ brew tap --repair
 
 # Remove outdated versions from the cellar
 brew cleanup
-## Exeunt lib/mac/compilers.sh 
+## Exeunt lib/mac/compilers.sh
 
 ## Enter lib/mac/git.sh
 # Version Control
@@ -269,7 +266,7 @@ brew install git
 brew install hub
 
 # fin
-## Exeunt lib/mac/git.sh 
+## Exeunt lib/mac/git.sh
 
 ## Enter lib/configure_git.sh
 # Add user's github info to gitconfig
@@ -284,7 +281,7 @@ git config --global core.editor subl -w
 
 # default branch to push to
 git config --global push.default current
-## Exeunt lib/configure_git.sh 
+## Exeunt lib/configure_git.sh
 
 ## Enter lib/mac/rbenv.sh
 # Our Ruby version manager
@@ -304,7 +301,7 @@ brew install rbenv-default-gems
 
 # Add to path
 export PATH="$HOME/.rbenv/bin:$PATH"
-## Exeunt lib/mac/rbenv.sh 
+## Exeunt lib/mac/rbenv.sh
 
 ## Enter lib/ruby-env.sh
 # Our Ruby Environment
@@ -328,7 +325,7 @@ gem update --system
 gem install bundler --no-document --pre
 
 # fin #
-## Exeunt lib/ruby-env.sh 
+## Exeunt lib/ruby-env.sh
 
 ## Enter lib/default-gems.sh
 # Our gems to install
@@ -364,7 +361,7 @@ gem install sinatra
 gem install sinatra-contrib
 
 # fin #
-## Exeunt lib/default-gems.sh 
+## Exeunt lib/default-gems.sh
 
 ## Enter lib/mac/packages.sh
 # Useful packages
@@ -390,7 +387,7 @@ brew install qt4
 brew install redis
 
 # fin
-## Exeunt lib/mac/packages.sh 
+## Exeunt lib/mac/packages.sh
 
 ## Enter lib/mac/apps.sh
 # a CLI workflow for the administration of Mac applications
@@ -429,7 +426,7 @@ brew tap caskroom/fonts
 brew cask install font-source-code-pro
 brew cask install font-source-sans-pro
 # fin
-## Exeunt lib/mac/apps.sh 
+## Exeunt lib/mac/apps.sh
 
 ## Enter lib/mac/sublime_settings.sh
 # Setup Sublime Preferences
@@ -454,7 +451,7 @@ curl -L -o "$subl_settings/Installed Packages/$pkg_control" "$pkg_url"
 ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
 
 # fin #
-## Exeunt lib/mac/sublime_settings.sh 
+## Exeunt lib/mac/sublime_settings.sh
 
 ## Enter lib/mac/heroku.sh
 #  _                    _
@@ -485,7 +482,7 @@ echo "Heroku. This will allow you to deploy code to all of your apps."
 
 # PL: holding off for user interaction
 # heroku keys:add
-## Exeunt lib/mac/heroku.sh 
+## Exeunt lib/mac/heroku.sh
 
 ## Enter lib/mac/postgres.sh
 # Set up Postgres
@@ -506,7 +503,7 @@ brew services start postgres
 # # Start Postgres now
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
-## Exeunt lib/mac/postgres.sh 
+## Exeunt lib/mac/postgres.sh
 
 ## Enter lib/mac/dotfiles.sh
 # Create a folder for backed up files
@@ -525,5 +522,5 @@ for file in $dotfiles; do
 done
 
 # fin
-## Exeunt lib/mac/dotfiles.sh 
+## Exeunt lib/mac/dotfiles.sh
 
