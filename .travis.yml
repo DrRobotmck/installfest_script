@@ -3,7 +3,7 @@ language:
 
 before_install:
   - bash ./lib/remove_rvm.sh
-  
+
 install:
   - bash mac
 

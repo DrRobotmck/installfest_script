@@ -1,8 +1,8 @@
+## Enter lib/mac/shebang.sh
 #!/bin/sh -e
-# ➳ Enter lib/mac/shebang.sh
-# ✌ Exeunt lib/mac/shebang.sh ✌ #
+## Exeunt lib/mac/shebang.sh 
 
-# ➳ Enter lib/header.sh
+## Enter lib/header.sh
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -26,14 +26,14 @@
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-# ✌ Exeunt lib/header.sh ✌ #
+## Exeunt lib/header.sh 
 
-# ➳ Enter lib/dramatis_personae.sh
+## Enter lib/dramatis_personae.sh
 MINIMUM_OS="10.7.0"
 BELOVED_RUBY_VERSION="1.9.3-p484"
-# ✌ Exeunt lib/dramatis_personae.sh ✌ #
+## Exeunt lib/dramatis_personae.sh 
 
-# ➳ Enter lib/helper_functions.sh
+## Enter lib/helper_functions.sh
 #-------------------------------------------------------------------------------
 # Colors
 #-------------------------------------------------------------------------------
@@ -152,9 +152,9 @@ function lend_me_your () {
   rm -rf "$file_name$ext"
   rm -rf "$file_name"
 }
-# ✌ Exeunt lib/helper_functions.sh ✌ #
+## Exeunt lib/helper_functions.sh 
 
-# ➳ Enter lib/keep_alive.sh
+## Enter lib/keep_alive.sh
 # Capture the user's password
 sudo echo "Thanks."
 
@@ -162,48 +162,9 @@ sudo echo "Thanks."
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # fin
-# ✌ Exeunt lib/keep_alive.sh ✌ #
+## Exeunt lib/keep_alive.sh 
 
-# ➳ Enter lib/mac/commandline_tools.sh
-# Determine OS version
-
-osx_version=$(sw_vers -productVersion)
-# Force the user to upgrade if they're below 10.7
-echo "You're running OSX $osx_version"
-if [[ "$osx_version" < "$MINIMUM_OS" ]]; then
-  fie "Please upgrade to the latest OS then rerun this script."
-fi
-
-# Check that command line tools are installed
-case $osx_version in
-  *10.9*) cmdline_version="CLTools_Executables" ;; # Mavericks
-  *10.8*) cmdline_version="DeveloperToolsCLI"   ;; # Mountain Lion
-  *10.7*) cmdline_version="DeveloperToolsCLI"   ;; # Lion
-  *) echo "Please upgrade your OS"; exit 1;;
-esac
-
-# Check for Command Line Tools based on OS versions
-if [ ! -z $(pkgutil --pkgs=com.apple.pkg.$cmdline_version) ]; then
-  echo "Command Line Tools are installed";
-elif [[ $osx_version < "10.9" ]]; then
-  echo "Command Line Tools are not installed"
-  echo "Register for a Developer Account"
-  echo "Download the Command Lion Tools from"
-  echo "https://developer.apple.com/downloads/index.action"
-  echo "Then rerun this script"
-  exit 1
-else
-  echo "Command Line Tools are not installed"
-  echo "run '$ sudo xcodebuild -license' then"
-  echo "'$ xcode-select --install'"
-  echo "Then rerun this script."
-  exit 1
-fi
-
-# fin
-# ✌ Exeunt lib/mac/commandline_tools.sh ✌ #
-
-# ➳ Enter lib/repo_setup.sh
+## Enter lib/repo_setup.sh
 SRC_DIR=~/.wdi-installfest
 SCRIPTS=$SRC_DIR/scripts
 SETTINGS=$SRC_DIR/settings
@@ -224,9 +185,9 @@ else
 fi
 
 # fin
-# ✌ Exeunt lib/repo_setup.sh ✌ #
+## Exeunt lib/repo_setup.sh 
 
-# ➳ Enter lib/mac/homebrew.sh
+## Enter lib/mac/homebrew.sh
 # Installs Homebrew, our package manager
 # http://brew.sh/
 
@@ -240,9 +201,9 @@ fi
 brew update
 
 # fin
-# ✌ Exeunt lib/mac/homebrew.sh ✌ #
+## Exeunt lib/mac/homebrew.sh 
 
-# ➳ Enter lib/mac/compilers.sh
+## Enter lib/mac/compilers.sh
 # Upgrade any already-installed formulae
 brew upgrade
 
@@ -298,9 +259,9 @@ brew tap --repair
 
 # Remove outdated versions from the cellar
 brew cleanup
-# ✌ Exeunt lib/mac/compilers.sh ✌ #
+## Exeunt lib/mac/compilers.sh 
 
-# ➳ Enter lib/mac/git.sh
+## Enter lib/mac/git.sh
 # Version Control
 brew install git
 
@@ -308,9 +269,9 @@ brew install git
 brew install hub
 
 # fin
-# ✌ Exeunt lib/mac/git.sh ✌ #
+## Exeunt lib/mac/git.sh 
 
-# ➳ Enter lib/mac/rbenv.sh
+## Enter lib/mac/rbenv.sh
 # Our Ruby version manager
 brew install rbenv
 
@@ -328,9 +289,9 @@ brew install rbenv-default-gems
 
 # Add to path
 export PATH="$HOME/.rbenv/bin:$PATH"
-# ✌ Exeunt lib/mac/rbenv.sh ✌ #
+## Exeunt lib/mac/rbenv.sh 
 
-# ➳ Enter lib/ruby-env.sh
+## Enter lib/ruby-env.sh
 # Our Ruby Environment
 
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
@@ -352,9 +313,9 @@ gem update --system
 gem install bundler --no-document --pre
 
 # fin #
-# ✌ Exeunt lib/ruby-env.sh ✌ #
+## Exeunt lib/ruby-env.sh 
 
-# ➳ Enter lib/default-gems.sh
+## Enter lib/default-gems.sh
 # Our gems to install
 
 # Maintains a consistent environment for ruby applications.
@@ -388,9 +349,9 @@ gem install sinatra
 gem install sinatra-contrib
 
 # fin #
-# ✌ Exeunt lib/default-gems.sh ✌ #
+## Exeunt lib/default-gems.sh 
 
-# ➳ Enter lib/mac/packages.sh
+## Enter lib/mac/packages.sh
 # Useful packages
 # ASCII ART!!!!
 brew install figlet
@@ -414,9 +375,9 @@ brew install qt4
 brew install redis
 
 # fin
-# ✌ Exeunt lib/mac/packages.sh ✌ #
+## Exeunt lib/mac/packages.sh 
 
-# ➳ Enter lib/mac/apps.sh
+## Enter lib/mac/apps.sh
 # a CLI workflow for the administration of Mac applications
 # distributed as binaries
 brew tap phinze/homebrew-cask
@@ -447,9 +408,9 @@ brew cask install xquartz
 brew cask install mou
 
 # fin
-# ✌ Exeunt lib/mac/apps.sh ✌ #
+## Exeunt lib/mac/apps.sh 
 
-# ➳ Enter lib/mac/heroku.sh
+## Enter lib/mac/heroku.sh
 #  _                    _
 # | |__   ___ _ __ ___ | | ___   _
 # | '_ \ / _ \ '__/ _ \| |/ / | | |
@@ -478,9 +439,9 @@ echo "Heroku. This will allow you to deploy code to all of your apps."
 
 # PL: holding off for user interaction
 # heroku keys:add
-# ✌ Exeunt lib/mac/heroku.sh ✌ #
+## Exeunt lib/mac/heroku.sh 
 
-# ➳ Enter lib/mac/postgres.sh
+## Enter lib/mac/postgres.sh
 # Set up Postgres
 
 # open source object-relational database management system
@@ -499,5 +460,5 @@ brew services start postgres
 # # Start Postgres now
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
-# ✌ Exeunt lib/mac/postgres.sh ✌ #
+## Exeunt lib/mac/postgres.sh 
 
