@@ -1,4 +1,5 @@
-language: sh
+language:
+  - objective-c
 
 before_install:
   - bash ./bin/build.sh
