@@ -1,13 +1,12 @@
 ##Checkpoints to see if you computer is configured properly.
+source ./spec_helper.sh
 
 # Original checkpoints script from Peter Lai.
 
 # Students should be able to enter each command and receive the correct output
 checkpoints=0
 
-source spec_helper.sh
-
-echo "Running some checks on how our Install went"
+echo "Running some checks on how our install went"
 
 is_not_this "brew doctor"           "ready to brew."
 is_not_this "ruby -v"               "$BELOVED_RUBY_VERSION"
