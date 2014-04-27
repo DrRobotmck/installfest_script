@@ -1,5 +1,5 @@
 #!/bin/sh -e
-
+#
 # ➳ Enter lib/header.sh
 #
 #  _           _        _ _  __           _
@@ -28,7 +28,7 @@
 
 # ➳ Enter lib/dramatis_personae.sh
 MINIMUM_OS="10.7.0"
-BELOVED_RUBY_VERSION="1.9.3-p484"
+BELOVED_RUBY_VERSION="2.1.0"
 # ✌ Exeunt lib/dramatis_personae.sh ✌ #
 
 # ➳ Enter lib/helper_functions.sh
@@ -241,7 +241,7 @@ fi
 # Uninstall RVM
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
 if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
-  rvm implode
+  yes | rvm implode
   rm -rf ~/.rvm
   echo "RVM has been removed."
 else
