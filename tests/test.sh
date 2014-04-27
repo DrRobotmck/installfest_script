@@ -66,6 +66,7 @@ is_not_this "ssh -T git@github.com" "successfully authenticated"
 # When you type `subl` into your terminal, it opens up Sublime Text
 if [ ! -L /usr/local/bin/subl ]; then
   nay "sublime doesn't appear to be symlinked.";
+  exit 1
 fi
 
 # Your root directory contains the following:
@@ -102,3 +103,5 @@ if [[ "$subl_prefs" != *$tab_to_space* ]]; then
   nay "Translate tabs to spaces must be true!"
   exit 1;
 fi
+
+exit 0
