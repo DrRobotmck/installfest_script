@@ -203,69 +203,6 @@ fi
 # fin
 # ✌ Exeunt lib/mac/commandline_tools.sh ✌ #
 
-# ➳ Enter lib/mac/remove_macports.sh
-# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
-# This script checks for and removes previous installs of macports and RVM
-
-# Uninstall Macports
-# http://guide.macports.org/chunked/installing.macports.uninstalling.html
-if hash port 2>/dev/null || [[ $(find /opt/local -iname macports 2>/dev/null) ]]; then
-  echo "Removing MacPorts"
-    macports=$(find /opt/local -iname macports)
-    for f in $macports; do
-      rm -rf $f
-    done
-  # carthago_delenda_est
-  sudo port -fp uninstall installed
-  sudo rm -rf \
-    /opt/local \
-    /Applications/DarwinPorts \
-    /Applications/MacPorts \
-    /Library/LaunchDaemons/org.macports.* \
-    /Library/Receipts/DarwinPorts*.pkg \
-    /Library/Receipts/MacPorts*.pkg \
-    /Library/StartupItems/DarwinPortsStartup \
-    /Library/Tcl/darwinports1.0 \
-    /Library/Tcl/macports1.0 \
-    ~/.macports
-    sudo find / | grep macports | sudo xargs rm
-else
-  echo "Macports is not installed. Moving on..."
-fi
-
-# fin
-# ✌ Exeunt lib/mac/remove_macports.sh ✌ #
-
-# ➳ Enter lib/remove_rvm.sh
-# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
-# This script checks for and removes previous installs of macports and RVM
-
-# Uninstall RVM
-# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
-if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
-  yes | rvm implode
-  rm -rf ~/.rvm
-  echo "RVM has been removed."
-else
-  echo "RVM is not installed. Moving on..."
-fi
-
-# fin
-# ✌ Exeunt lib/remove_rvm.sh ✌ #
-
-# ➳ Enter lib/mac/hygene.sh
-# Check for recommended software updates
-sudo softwareupdate -i -r --ignore iTunes
-
-# Ensure user has full control over their folder
-sudo chown -R ${USER} ~
-
-# Repair disk permission
-diskutil repairPermissions /
-
-# fin
-# ✌ Exeunt lib/mac/hygene.sh ✌ #
-
 # ➳ Enter lib/repo_setup.sh
 SRC_DIR=~/.wdi-installfest
 SCRIPTS=$SRC_DIR/scripts
@@ -531,10 +468,10 @@ echo "pair to deploy code to Heroku. This keypair is used for the strong"
 echo "cryptography and that uniquely identifies you as a developer when pushing"
 echo "code changes."
 
+# shouldn't need to generate because of generation for github
 # ssh-keygen -t rsa
 # autogenerate without prompt
-ssh-keygen -f id_rsa -t rsa -N ''
-
+# ssh-keygen -f id_rsa -t rsa -N ''
 echo "The first time you run the heroku command, you’ll be prompted for your "
 echo "credentials. Your public key will then be automatically uploaded to"
 echo "Heroku. This will allow you to deploy code to all of your apps."
@@ -563,23 +500,4 @@ brew services start postgres
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
 # ✌ Exeunt lib/mac/postgres.sh ✌ #
-
-# ➳ Enter lib/mac/dotfiles.sh
-# Create a folder for backed up files
-mkdir -p "${HOME}/.dotfiles_backup"
-
-# Dotfiles we'll be using
-dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc"
-
-for file in $dotfiles; do
-  if [ -a "${HOME}/${file}" ]; then
-    # move file
-    mv "${HOME}/${file}" "${HOME}/.dotfiles_backup/${file}"
-    # symlink file
-    ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
-  fi
-done
-
-# fin
-# ✌ Exeunt lib/mac/dotfiles.sh ✌ #
 

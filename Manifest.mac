@@ -4,9 +4,6 @@ lib/dramatis_personae.sh
 lib/helper_functions.sh
 lib/keep_alive.sh
 lib/mac/commandline_tools.sh
-lib/mac/remove_macports.sh
-lib/remove_rvm.sh
-lib/mac/hygene.sh
 lib/repo_setup.sh
 lib/mac/homebrew.sh
 lib/mac/compilers.sh
@@ -18,4 +15,3 @@ lib/mac/packages.sh
 lib/mac/apps.sh
 lib/mac/heroku.sh
 lib/mac/postgres.sh
-lib/mac/dotfiles.sh
