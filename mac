@@ -271,6 +271,21 @@ brew install hub
 # fin
 ## Exeunt lib/mac/git.sh 
 
+## Enter lib/configure_git.sh
+# Add user's github info to gitconfig
+git config --global user.name  $github_name
+git config --global user.email $github_email
+
+# color
+git config --global color.ui always
+
+# set editor
+git config --global core.editor subl -w
+
+# default branch to push to
+git config --global push.default current
+## Exeunt lib/configure_git.sh 
+
 ## Enter lib/mac/rbenv.sh
 # Our Ruby version manager
 brew install rbenv
@@ -407,8 +422,39 @@ brew cask install xquartz
 # Markdown Editor
 brew cask install mou
 
+# for fonts
+# https://github.com/caskroom/homebrew-fonts/tree/master/Casks
+brew tap caskroom/fonts
+
+brew cask install font-source-code-pro
+brew cask install font-source-sans-pro
 # fin
 ## Exeunt lib/mac/apps.sh 
+
+## Enter lib/mac/sublime_settings.sh
+# Setup Sublime Preferences
+subl_settings="${HOME}/Library/Application Support/Sublime Text 2"
+user_prefs="Preferences.sublime-settings"
+pkg_control="Package Control.sublime-package"
+pkg_url="https://sublime.wbond.net/Package%20Control.sublime-package"
+pkg_settings="Package Control.sublime-settings"
+
+# backup
+cp "$subl_settings/Packages/User/$user_prefs"{,.bak}
+cp "$subl_settings/Installed Packages/$pkg_settings"{,.bak}
+
+# copy over
+cp "$SETTINGS/sublime/$pkg_settings" "$subl_settings/Installed Packages/$pkg_settings"
+cp "$SETTINGS/sublime/$user_prefs"   "$subl_settings/Packages/User/$user_prefs"
+
+# Installing Package Control
+curl -L -o "$subl_settings/Installed Packages/$pkg_control" "$pkg_url"
+
+# Symlink Sublime Text 2
+ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
+
+# fin #
+## Exeunt lib/mac/sublime_settings.sh 
 
 ## Enter lib/mac/heroku.sh
 #  _                    _
@@ -461,4 +507,23 @@ brew services start postgres
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
 ## Exeunt lib/mac/postgres.sh 
+
+## Enter lib/mac/dotfiles.sh
+# Create a folder for backed up files
+mkdir -p "${HOME}/.dotfiles_backup"
+
+# Dotfiles we'll be using
+dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc"
+
+for file in $dotfiles; do
+  if [ -a "${HOME}/${file}" ]; then
+    # move file
+    mv "${HOME}/${file}" "${HOME}/.dotfiles_backup/${file}"
+    # symlink file
+    ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
+  fi
+done
+
+# fin
+## Exeunt lib/mac/dotfiles.sh 
 

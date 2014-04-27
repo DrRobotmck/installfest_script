@@ -7,10 +7,13 @@ lib/repo_setup.sh
 lib/mac/homebrew.sh
 lib/mac/compilers.sh
 lib/mac/git.sh
+lib/configure_git.sh
 lib/mac/rbenv.sh
 lib/ruby-env.sh
 lib/default-gems.sh
 lib/mac/packages.sh
 lib/mac/apps.sh
+lib/mac/sublime_settings.sh
 lib/mac/heroku.sh
 lib/mac/postgres.sh
+lib/mac/dotfiles.sh
