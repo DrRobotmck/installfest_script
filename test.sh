@@ -1,5 +1,1 @@
-spawn ./secert.sh
-
-expect "password:"
-send "target126"
-
+echo "secret"
