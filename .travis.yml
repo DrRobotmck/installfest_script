@@ -1,7 +1,9 @@
 language: sh
 
-before_script:
+before_install:
   - bash ./bin/build.sh
+
+install:
   - bash mac
 
 script:
