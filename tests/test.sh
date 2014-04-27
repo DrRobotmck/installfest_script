@@ -61,7 +61,8 @@ echo "Running some checks on how our Install went"
 is_not_this "brew doctor"           "ready to brew."
 is_not_this "ruby -v"               "$BELOVED_RUBY_VERSION"
 is_not_this "gem list pry -i"       "true"
-is_not_this "ssh -T git@github.com" "successfully authenticated"
+# holding off for travis
+# is_not_this "ssh -T git@github.com" "successfully authenticated"
 
 # When you type `subl` into your terminal, it opens up Sublime Text
 if [ ! -L /usr/local/bin/subl ]; then
