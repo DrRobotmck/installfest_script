@@ -1,6 +1,7 @@
 {
   "installed_packages":
   [
+    "BracketHighlighter",
     "ColorPicker",
     "CopyToHipChat",
     "Dotfiles Syntax Highlighting",

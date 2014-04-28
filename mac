@@ -1,5 +1,5 @@
-## Enter lib/mac/shebang.sh
 #!/bin/sh -e
+## Enter lib/mac/shebang.sh
 ## Exeunt lib/mac/shebang.sh
 
 ## Enter lib/header.sh
@@ -31,6 +31,11 @@
 ## Enter lib/dramatis_personae.sh
 MINIMUM_OS="10.7.0"
 BELOVED_RUBY_VERSION="1.9.3-p484"
+
+SRC_DIR=~/.wdi-installfest
+SETTINGS=$SRC_DIR/settings
+INSTALL_REPO=https://github.com/phlco/installfest_scripts.git
+branch="v2"
 ## Exeunt lib/dramatis_personae.sh
 
 ## Enter lib/helper_functions.sh
@@ -165,20 +170,24 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ## Exeunt lib/keep_alive.sh
 
 ## Enter lib/repo_setup.sh
-
+# moving to dramatis personae
+# SRC_DIR=~/.wdi-installfest
+# SCRIPTS=$SRC_DIR/scripts
+# SETTINGS=$SRC_DIR/settings
+# INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
   # autoupdate bootstrap file
-  git clone $INSTALL_REPO $SRC_DIR
+  git clone -b $branch $INSTALL_REPO $SRC_DIR
   # hide folder
   chflags hidden $SRC_DIR
 else
   # update repo
   echo 'Updating repo...'
   cd $SRC_DIR
-  git pull origin master
+  git pull origin $branch
 fi
 
 # fin
@@ -270,17 +279,28 @@ brew install hub
 
 ## Enter lib/configure_git.sh
 # Add user's github info to gitconfig
+# https://www.kernel.org/pub/software/scm/git/docs/git-config.html
 git config --global user.name  $github_name
 git config --global user.email $github_email
 
-# color
+# set olors
 git config --global color.ui always
 
+git config --global color.branch.current   "green reverse"
+git config --global color.branch.local     green
+git config --global color.branch.remote    yellow
+
+git config --global color.status.added     green
+git config --global color.status.changed   yellow
+git config --global color.status.untracked "red blink"
+
 # set editor
-git config --global core.editor subl -w
+git config --global core.editor "subl -w"
 
 # default branch to push to
 git config --global push.default current
+
+# fin
 ## Exeunt lib/configure_git.sh
 
 ## Enter lib/mac/rbenv.sh
