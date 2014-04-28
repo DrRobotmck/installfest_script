@@ -1,4 +1,4 @@
-# # Disable the “Are you sure you want to open this application?” dialog
+# # Disable the "Are you sure you want to open this application?" dialog
 # defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # # Reveal IP address, hostname, OS version, etc. when clicking the clock

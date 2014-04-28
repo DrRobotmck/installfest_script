@@ -9,7 +9,7 @@
 #
 # Written by Philip Lamplugh, Instructor General Assembly (2013)
 # Updated by PJ Hughes, Instructor General Assembly (2013)
-# Further Updated by Omar Delarosa, Instructor General Assembly (2014)
+
 
 # =====================
 # Resources
@@ -55,16 +55,10 @@
 # This is a list of all directories in which to look for commands, scripts and programs
 # ==================
 
-# Load RVM into a shell session *as a function*
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # PJ: using rbenv now...
-# Add RVM to PATH for scripting
-# PATH=$PATH:$HOME/.rvm/bin # PJ: using rbenv now...
 # Home brew directories
 PATH="/usr/local/bin:$PATH"
 # Node Package Manager
 PATH="/usr/local/share/npm/bin:$PATH"
-# Make sure we're pointing to the Postgres App's psql
-# PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH" # PJ: off
 # Heroku Toolbelt
 PATH="/usr/local/heroku/bin:$PATH"
 
@@ -76,7 +70,7 @@ alias ls='ls -F'
 # long list format including hidden files
 alias ll='ls -la'
 # prompt before removing!
-# alias rm="rm -i"
+alias rm="rm -i"
 # Adds colors to LS
 export CLICOLOR=1
 # http://geoff.greer.fm/lscolors/
@@ -206,12 +200,11 @@ PS1+="${style_chars}\$ \[${RESET}\]"     # $ (and reset color)
 # =================
 # Other System Settings
 # =================
-# Hide/show all desktop icons (useful when presenting)
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
 # Hide/show hidden files in Finder
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder"
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder"
+
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
   local port="${1:-8000}"
@@ -220,6 +213,7 @@ function server() {
   # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
   python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port"
 }
+
 # List any open internet sockets on port 3000. Useful if a rogue server is running
 # http://www.akadia.com/services/lsof_intro.html
 alias rogue='lsof -i TCP:3000'
@@ -252,7 +246,8 @@ export EDITOR="subl -w"
 # Aliases
 # -----------------
 # Alias for hub http://hub.github.com/
-# alias git='hub'
+alias git='hub'
+
 # -----------------
 # For the prompt
 # -----------------
@@ -326,7 +321,7 @@ eval "$(rbenv init -)"
 # example: alias wdi="cd ~/Documents/GA/WDI4"
 # TODO: Set these
 export class_repo=""
-alias wdi="cd ~/code/wdi/"
+alias wdi="cd ~/wdi/"
 
 # cdhwfunc() {
 #   # takes three args: the week, the day
@@ -343,16 +338,7 @@ alias wdi="cd ~/code/wdi/"
 # =================
 # Source Files
 # =================
-# .bash_settings and .bash_prompt should be added to .gitignore_global
-# An extra file where you can create other settings, such as your
-# application usernames or API keys...
-if [ -f ~/.bash_settings ]; then
-  source ~/.bash_settings
-fi
-# An extra file where you can create other settings for your prompt.
-if [ -f ~/.bash_prompt ]; then
-  source ~/.bash_prompt
-fi
+
 # A welcome prompt with stats for sanity checks
 if [ -f ~/.welcome_prompt ]; then
   source ~/.welcome_prompt
