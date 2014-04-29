@@ -74,10 +74,10 @@ fi
 # `.gitignore_global`, `.gitconfig`, `.bash_profile`
 # You should be able to open each one with `subl ~/FILENAME`
 # ie `subl ~/.gitignore_global`
-dost_thou_have ~/.bash_profile
-dost_thou_have ~/.gitignore_global
-dost_thou_have ~/.gitconfig
-dost_thou_have ~/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages
+dost_thou_have "${HOME}/.bash_profile"
+dost_thou_have "${HOME}/.gitignore_global"
+dost_thou_have "${HOME}/.gitconfig"
+dost_thou_have "${HOME}/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages"
 
 # Applications
 what_news_of "Spectacle"
@@ -91,10 +91,10 @@ what_news_of "Dash"
 # Your ssh keys are set up (see [here](https://help.github.com/articles/generating-ssh-keys) for instructions)
 
 # Sublime Checks
-sublime="${HOME}/Library/Application Support/Sublime Text 2/Packages/User"
+sublime="${HOME}/Library/Application\ Support/Sublime\ Text\ 2/Packages/User"
 subl_prefs=$(cat "$sublime/Preferences.sublime-settings")
-tab_size="\"tab_size\": 2"
-tab_to_space="\"translate_tabs_to_spaces\": true"
+tab_size='"tab_size": 2'
+tab_to_space='"translate_tabs_to_spaces": true'
 
 if [[ "$subl_prefs" != *$tab_size* ]]; then
   nay "Tab size must be set to 2!"
