@@ -54,12 +54,12 @@ function install_dmg () {
   "
   hdiutil attach -mountpoint $MOUNTPOINT "$file_name.dmg"
   app=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.app)
-  if [ ! -z "$app" ]; then
+  if [[ ! -z "$app" ]]; then
     cp -a "$app" /Applications/
   fi
   echo 'Hark! A pkg!'
   pkg=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.pkg)
-  if [ ! -z "$pkg" ]; then
+  if [[ ! -z "$pkg" ]]; then
     # PL: Need to handle harddrive names that aren't Macintosh HD
     sudo installer -package $pkg -target /
   fi
