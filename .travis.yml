@@ -2,10 +2,11 @@ language:
   - objective-c
 
 before_install:
-  - bash ./lib/remove_rvm.sh
+  # - bash ./lib/remove_rvm.sh
 
 install:
-  - bash mac
+  # - bash mac
 
 script:
-  - bash ./tests/test.sh
+  # - bash ./tests/test.sh
+  - "ls -la"

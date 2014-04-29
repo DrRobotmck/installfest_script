@@ -6,12 +6,12 @@ pkg_url="https://sublime.wbond.net/Package%20Control.sublime-package"
 pkg_settings="Package Control.sublime-settings"
 
 # backup
-cp "$sublime_app_support/Packages/User/$sublime_preferences"{,.bak}
-cp "$sublime_app_support/Installed Packages/$pkg_settings"{,.bak}
+cp -r "$sublime_app_support/Packages/User/$sublime_preferences"{,.bak}
+cp -r "$sublime_app_support/Installed Packages/$pkg_settings"{,.bak}
 
 # copy over
-cp "$SETTINGS/sublime/$sublime_preferences" "$sublime_app_support/Packages/User/$sublime_preferences"
-cp "$SETTINGS/sublime/$pkg_settings"        "$sublime_app_support/Installed Packages/$pkg_settings"
+cp -r "$SETTINGS/sublime/$sublime_preferences" "$sublime_app_support/Packages/User/$sublime_preferences"
+cp -r "$SETTINGS/sublime/$pkg_settings"        "$sublime_app_support/Installed Packages/$pkg_settings"
 
 # Installing Package Control
 curl -L -o "$sublime_app_support/Installed Packages/$pkg_control" "$pkg_url"

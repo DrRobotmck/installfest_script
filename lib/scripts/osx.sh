@@ -25,18 +25,6 @@
 # codesign -s - --resource-rules=/Users/YourUserNameHere/ResourceRules-ignoring-Scripts.plist /path/to/applet.app
 
 # https://github.com/chytreg/dotfiles/blob/c532970fb63a78b2507141b4de26b3c8e25c2bfc/bin/bootstrap
-allow_control() {
-  if [[ "$OSTYPE" =~ ^darwin13.*$ ]]; then
-    for app; do
-      APP_ID="$(osascript -e "id of app \"$app\"")"
-      if [[ -n "$APP_ID" ]]; then
-        sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT or REPLACE INTO access values ('kTCCServiceAccessibility', '$APP_ID', 0, 1, 0, NULL);"
-      fi
-    done
-  else
-    echo "allow_control works only on Mavericks"
-  fi
-}
 
 allow_control Spectacle
 

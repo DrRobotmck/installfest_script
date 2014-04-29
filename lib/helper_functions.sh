@@ -16,7 +16,7 @@ function quoth_the_bard () {
 
 #######################################
 # Upcase error message and exit script
-# Arguments: 
+# Arguments:
 #   Error message
 # Returns:
 #   None
@@ -30,7 +30,7 @@ function fie () {
 
 #######################################
 # Waits for user input
-# Arguments: 
+# Arguments:
 #   Message
 # Returns:
 #   None
@@ -41,7 +41,7 @@ function pause_awhile () {
 
 #######################################
 # Mounts DMG and moves to Applications
-# Arguments: 
+# Arguments:
 #   File name
 # Returns:
 #   None
@@ -68,7 +68,7 @@ function install_dmg () {
 
 #######################################
 # Unzip Zip and move App to Applications
-# Arguments: 
+# Arguments:
 #   File name
 # Returns:
 #   None
@@ -83,7 +83,7 @@ function install_zip () {
 
 #######################################
 # Checks for the existence of a file
-# Arguments: 
+# Arguments:
 #   File name
 # Returns:
 #   1 or 0
@@ -101,7 +101,7 @@ function know_you_not_of () {
 
 #######################################
 # Downloads and installs apps from zips, dmgs, and pkgs.
-# Arguments: 
+# Arguments:
 #   File name
 #   URL
 # Returns:
@@ -123,6 +123,26 @@ function lend_me_your () {
   # Out spot
   rm -rf "$file_name$ext"
   rm -rf "$file_name"
+}
+
+#######################################
+# Allow apps to control your computer
+# Arguments:
+#   File name
+# Returns:
+#   None
+#######################################
+allow_control() {
+  if [[ "$OSTYPE" =~ ^darwin13.*$ ]]; then
+    for app; do
+      APP_ID="$(osascript -e "id of app \"$app\"")"
+      if [[ -n "$APP_ID" ]]; then
+        sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT or REPLACE INTO access values ('kTCCServiceAccessibility', '$APP_ID', 0, 1, 0, NULL);"
+      fi
+    done
+  else
+    echo "allow_control works only on Mavericks"
+  fi
 }
 
 # fin

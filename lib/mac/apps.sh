@@ -17,6 +17,8 @@ brew cask install hipchat
 
 # The Window Manager
 brew cask install spectacle
+# allow spectacle to control computer
+allow_control Spectacle
 
 # The Text Editor, Sublime Text 2
 brew cask install sublime-text
