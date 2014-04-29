@@ -5,12 +5,12 @@ mkdir -p "${HOME}/.dotfiles_backup"
 dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc"
 
 for file in $dotfiles; do
-	if [ -a "${HOME}/${file}" ]; then
-    	# move file
-    	mv "${HOME}/${file}" "${HOME}/.dotfiles_backup/${file}"
-  	fi
+  if [ -a "${HOME}/${file}" ]; then
+      # move file
+      mv "${HOME}/${file}" "${HOME}/.dotfiles_backup/${file}"
+    fi
     # symlink file
-	ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
+  ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
 done
 
 # fin

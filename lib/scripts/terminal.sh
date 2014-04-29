@@ -1,7 +1,7 @@
 ####################################################################################
 # Download and set Terminal colors to Solarized
 ####################################################################################
-# TODO: Make these open in the background
+# TODO(phlco): Make these open in the background
 echo "Settings MyMonokai for Terminal..."
 open "$SETTINGS/dotfiles/MyMonokai.terminal"
 sleep 1

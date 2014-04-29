@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
+#
+# Builds installfest script from Manfiest files.
 
 for MANIFEST in Manifest.*; do
   FILENAME=$(printf "$MANIFEST" | sed s/Manifest\.//)

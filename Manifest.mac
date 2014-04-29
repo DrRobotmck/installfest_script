@@ -1,6 +1,7 @@
 lib/mac/shebang.sh
 lib/header.sh
 lib/dramatis_personae.sh
+lib/colors.sh
 lib/helper_functions.sh
 lib/keep_alive.sh
 lib/repo_setup.sh

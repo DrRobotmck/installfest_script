@@ -1,4 +1,5 @@
-#!/bin/sh -e
+#!/bin/bash -e
+
 ## Enter lib/mac/shebang.sh
 ## Exeunt lib/mac/shebang.sh
 
@@ -87,9 +88,9 @@ function quoth_the_bard () {
 
 # upcase error message and exit script
 function fie () {
-  local message=$(echo $1 | tr 'a-z' 'A-Z')
   echo ""
-  echo "$RED$message$RESET"
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]$RED$message$RESET: $@" >&2
+  echo ""
   exit
 }
 

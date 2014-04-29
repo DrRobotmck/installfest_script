@@ -1,41 +1,11 @@
-#-------------------------------------------------------------------------------
-# Colors
-#-------------------------------------------------------------------------------
-
-# Foreground
-BLACK=$(tput setaf 0)
-BLUE=$(tput setaf 4)
-CYAN=$(tput setaf 6)
-GREEN=$(tput setaf 2)
-MAGENTA=$(tput setaf 5)
-ORANGE=$(tput setaf 172)
-PURPLE=$(tput setaf 141)
-RED=$(tput setaf 1)
-WHITE=$(tput setaf 7)
-YELLOW=$(tput setaf 226)
-
-# Background
-BG_BLACK=$(tput setab 0)
-BG_BLUE=$(tput setab 4)
-BG_CYAN=$(tput setab 6)
-BG_GREEN=$(tput setab 2)
-BG_MAGENTA=$(tput setab 5)
-BG_ORANGE=$(tput setab 172)
-BG_RED=$(tput setab 1)
-BG_WHITE=$(tput setab 7)
-BG_YELLOW=$(tput setab 226)
-
-# Formatting
-UNDERLINE=$(tput smul)
-NOUNDERLINE=$(tput rmul)
-BOLD=$(tput bold)
-RESET=$(tput sgr0)
-
-#-------------------------------------------------------------------------------
-# Functions
-#-------------------------------------------------------------------------------
-
+#######################################
 # ABRB
+# Arguments:
+#   Message
+#   Attribution
+# Returns:
+#   None
+#######################################
 function quoth_the_bard () {
   local message=$1
   local attribution=$2
@@ -44,7 +14,13 @@ function quoth_the_bard () {
   echo "$PURPLE$attribution$RESET"
 }
 
-# upcase error message and exit script
+#######################################
+# Upcase error message and exit script
+# Arguments: 
+#   Error message
+# Returns:
+#   None
+#######################################
 function fie () {
   local message=$(echo $1 | tr 'a-z' 'A-Z')
   echo ""
@@ -52,10 +28,24 @@ function fie () {
   exit
 }
 
+#######################################
+# Waits for user input
+# Arguments: 
+#   Message
+# Returns:
+#   None
+#######################################
 function pause_awhile () {
    read -p "$* Press Enter to continue"
 }
 
+#######################################
+# Mounts DMG and moves to Applications
+# Arguments: 
+#   File name
+# Returns:
+#   None
+#######################################
 function install_dmg () {
   echo 'Hark, a dmg!'
   file_name="$1"
@@ -66,8 +56,6 @@ function install_dmg () {
   app=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.app)
   if [ ! -z "$app" ]; then
     cp -a "$app" /Applications/
-  # for app in `find $MOUNTPOINT -type d -maxdepth 2 -name \*.app `; do
-  # done
   fi
   echo 'Hark! A pkg!'
   pkg=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.pkg)
@@ -78,6 +66,13 @@ function install_dmg () {
   hdiutil detach $MOUNTPOINT
 }
 
+#######################################
+# Unzip Zip and move App to Applications
+# Arguments: 
+#   File name
+# Returns:
+#   None
+#######################################
 function install_zip () {
   file_name="$1"
   echo 'Hark! A zip!'
@@ -86,7 +81,13 @@ function install_zip () {
   mv $file_name/*.app /Applications
 }
 
+#######################################
 # Checks for the existence of a file
+# Arguments: 
+#   File name
+# Returns:
+#   1 or 0
+#######################################
 function know_you_not_of () {
   file_name="$1"
   file_count=$(find /Applications -name "$file_name.app" | wc -l)
@@ -98,7 +99,14 @@ function know_you_not_of () {
   fi
 }
 
+#######################################
 # Downloads and installs apps from zips, dmgs, and pkgs.
+# Arguments: 
+#   File name
+#   URL
+# Returns:
+#   None
+#######################################
 function lend_me_your () {
   file_name="$1"
   url="$2"
@@ -116,3 +124,5 @@ function lend_me_your () {
   rm -rf "$file_name$ext"
   rm -rf "$file_name"
 }
+
+# fin
