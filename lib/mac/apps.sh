@@ -33,4 +33,5 @@ brew tap caskroom/fonts
 
 brew cask install font-source-code-pro
 brew cask install font-source-sans-pro
+brew cask install font-consolas
 # fin
