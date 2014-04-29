@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Builds installfest script from Manfiest files.
+# TODO(phlco):add option to build script for travis
 
 for MANIFEST in Manifest.*; do
   FILENAME=$(printf "$MANIFEST" | sed s/Manifest\.//)

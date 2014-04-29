@@ -1,12 +1,15 @@
-##Checkpoints to see if you computer is configured properly.
-aye () {
+# Checkpoints script
+# Base on original checkpoints from Peter Lai to see if you computer is
+# configured properly.
+
+function aye () {
   msg=$1
   GREEN=$(tput setaf 2)
   RESET=$(tput sgr0)
   echo "${GREEN}$msg${RESET}"
 }
 
-nay () {
+function nay () {
   msg=$1
   RED=$(tput setaf 1)
   RESET=$(tput sgr0)
@@ -15,7 +18,7 @@ nay () {
 }
 
 # Instruments of Darkness
-what_news_of () {
+function what_news_of () {
   app_name=$1
   echo -n "What news of $app_name? "
   # This could also work
@@ -29,9 +32,8 @@ what_news_of () {
   fi
 }
 
-dost_thou_have () {
+function dost_thou_have () {
   filename=$1
-  # That which thou seeks is thine
   if [ -e "$filename" ]; then
     aye "Good on $filename"
   else
@@ -40,7 +42,7 @@ dost_thou_have () {
   fi
 }
 
-is_not_this () {
+function is_not_this () {
   cmd=$($1)
   pass=$2
   if [[ $cmd == *"$pass"* ]]; then
@@ -51,16 +53,13 @@ is_not_this () {
   fi
 }
 
-# Original checkpoints script from Peter Lai.
-
-# Students should be able to enter each command and receive the correct output
 checkpoints=0
 
 echo "Running some checks on how our install went"
 
 is_not_this "brew doctor"           "ready to brew."
 is_not_this "ruby -v"               "$BELOVED_RUBY_VERSION"
-is_not_this "gem list rails -i"       "true"
+is_not_this "gem list rails -i"     "true"
 # holding off for travis
 # is_not_this "ssh -T git@github.com" "successfully authenticated"
 
@@ -75,9 +74,7 @@ fi
 # You should be able to open each one with `subl ~/FILENAME`
 # ie `subl ~/.gitignore_global`
 dost_thou_have "${HOME}/.bash_profile"
-dost_thou_have "${HOME}/.gitignore_global"
 dost_thou_have "${HOME}/.gitconfig"
-dost_thou_have "${HOME}/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages"
 
 # Applications
 what_news_of "Spectacle"
@@ -90,25 +87,8 @@ what_news_of "Dash"
 
 # Your ssh keys are set up (see [here](https://help.github.com/articles/generating-ssh-keys) for instructions)
 
-# Sublime Checks
-sublime="${HOME}/Library/Application\ Support/Sublime\ Text\ 2/Packages/User"
-subl_prefs=$(cat "$sublime/Preferences.sublime-settings")
-tab_size='"tab_size": 2'
-tab_to_space='"translate_tabs_to_spaces": true'
-
-if [[ "$subl_prefs" != *$tab_size* ]]; then
-  nay "Tab size must be set to 2!"
-  ((++checkpoints));
-fi
-
-if [[ "$subl_prefs" != *$tab_to_space* ]]; then
-  nay "Translate tabs to spaces must be true!"
-  ((++checkpoints));
-fi
-
 if [ $checkpoints != 0 ]; then
   exit 1;
 else
   exit 0;
 fi
-
