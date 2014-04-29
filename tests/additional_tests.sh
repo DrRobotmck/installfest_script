@@ -1,5 +1,8 @@
 # TODO (phlco): can't seem to run these on travis
 
+# holding off for travis
+# is_not_this "ssh -T git@github.com" "successfully authenticated"
+
 # dost_thou_have "${HOME}/.gitignore_global"
 # dost_thou_have "${HOME}/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages"
 
@@ -18,3 +21,5 @@
 #   nay "Translate tabs to spaces must be true!"
 #   ((++checkpoints));
 # fi
+
+# fin
