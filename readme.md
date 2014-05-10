@@ -1,6 +1,7 @@
 ## WDI InstallFest Script
 
-[![Build Status](https://travis-ci.org/phlco/installfest_scripts.svg?branch=v2)](https://travis-ci.org/phlco/installfest_scripts)
+[![Build Status](https://travis-ci.org/phlco/installfest_scripts.svg?branch=v2)]
+(https://travis-ci.org/phlco/installfest_scripts)
 
 A work in progress to automate the set up of a student's development machine.
 
@@ -9,7 +10,7 @@ A work in progress to automate the set up of a student's development machine.
 Paste this script into a Terminal prompt:
 
 ```
-bash <(curl -sL https://raw.github.com/ga-instructors/installfest_script/master/install.sh)
+bash <(curl -sL http://git.io/6_SaSw)
 ```
 
 The script first runs any software updates and then checks for Xcode.
