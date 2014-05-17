@@ -29,6 +29,9 @@ brew cask install xquartz
 # Markdown Editor
 brew cask install mou
 
+# Flux, makes the color of your computer's display adapt to the time of day
+brew cask install flux
+
 # for fonts
 # https://github.com/caskroom/homebrew-fonts/tree/master/Casks
 brew tap caskroom/fonts
