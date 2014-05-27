@@ -113,7 +113,9 @@ def print_restriction_message(paths, student_folder)
 end
 
 def get_student_dir(path)
-    File.dirname(path).split("/")[STUDENT_FOLDER_DEPTH]
+    normal_dir = File.dirname(path).split("/")[STUDENT_FOLDER_DEPTH]
+    project_week_dir = File.dirname(path).split("/")[STUDENT_FOLDER_DEPTH-1]
+    [normal_dir, project_week_dir]
 end
 
 if __FILE__ == $0
@@ -125,8 +127,8 @@ if __FILE__ == $0
         exit 1
     end
 
-    illegal_paths = modified_paths.select do |path|
-        get_student_dir(path) != student_folder
+    illegal_paths = modified_paths.reject do |path|
+        get_student_dir(path).include? student_folder
     end
 
     if not illegal_paths.empty?
