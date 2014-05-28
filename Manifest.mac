@@ -3,7 +3,6 @@ lib/header.sh
 lib/dramatis_personae.sh
 lib/colors.sh
 lib/helper_functions.sh
-# Preflight stuff
 lib/mac/commandline_tools.sh
 lib/remove_rvm.sh
 lib/mac/remove_macports.sh
@@ -23,3 +22,4 @@ lib/mac/sublime_settings.sh
 lib/mac/heroku.sh
 lib/mac/postgres.sh
 lib/mac/dotfiles.sh
+lib/oh_my_zsh.sh
