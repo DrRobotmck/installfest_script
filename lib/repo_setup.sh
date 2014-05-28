@@ -18,4 +18,3 @@ else
   git pull origin $branch
 fi
 
-# fin

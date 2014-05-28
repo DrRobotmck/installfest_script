@@ -7,4 +7,3 @@ sudo chown -R ${USER} ~
 # Repair disk permission
 diskutil repairPermissions /
 
-# fin

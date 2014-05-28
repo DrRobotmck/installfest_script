@@ -11,4 +11,3 @@ else
   echo "RVM is not installed. Moving on..."
 fi
 
-# fin

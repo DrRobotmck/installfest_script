@@ -24,3 +24,4 @@ pause_awhile "We'll be here until you get back from Github. Ready?"
 open https://github.com/settings/ssh
 
 pause_awhile "SSH keys added?"
+

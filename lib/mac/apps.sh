@@ -3,7 +3,7 @@
 brew tap phinze/homebrew-cask
 brew install brew-cask
 
-# Instant search documentation offlien
+# Instant search documentation offline
 brew cask install dash
 
 # The Browser
@@ -29,6 +29,9 @@ brew cask install xquartz
 # Markdown Editor
 brew cask install mou
 
+# makes the color of your computer's display adapt to the time of day
+brew cask install flux
+
 # for fonts
 # https://github.com/caskroom/homebrew-fonts/tree/master/Casks
 brew tap caskroom/fonts
@@ -36,4 +39,4 @@ brew tap caskroom/fonts
 brew cask install font-source-code-pro
 brew cask install font-source-sans-pro
 brew cask install font-consolas
-# fin
+

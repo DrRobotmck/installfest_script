@@ -20,4 +20,8 @@ brew install qt4
 # Advanced in-memory key-value store that persists on disk
 brew install redis
 
-# fin
+# List of useful Quick Look plugins for developers
+brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
+
+# essential UNIX commands
+brew install coreutils

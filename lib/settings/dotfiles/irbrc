@@ -1,9 +1,15 @@
-if defined? IRB
-  begin
-    require 'awesome_print'
-    AwesomePrint.irb!
-  rescue LoadError => e
-    puts "ap gem not found.  Try typing 'gem install awesome_print' to get super-fancy output."
-  end
+# Just kick us over into PRY
+begin
+  require "pry"
+  puts "Starting Pry. If you want IRB rerun with -f"
+  Pry.start
+  exit
+rescue LoadError => e
+  warn "=> Unable to load pry. Try gem install pry"
 end
-IRB.conf[:AUTO_INDENT]=true
+
+# IRB settings if needed
+# require 'irb/completion'
+# Resources
+# https://github.com/janlelis/irbtools
+# http://rakeroutes.com/blog/customize-your-irb/

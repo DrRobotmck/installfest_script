@@ -1,0 +1,139 @@
+" ---------------------------------------------------------------------------
+" General
+" ---------------------------------------------------------------------------
+
+set nocompatible                  " Must come first because it changes other options.
+
+syntax enable                     " Turn on syntax highlighting.
+filetype plugin indent on         " Turn on file type detection.
+
+" ---------------------------------------------------------------------------
+" Plug-in Manager
+" ---------------------------------------------------------------------------
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+Plugin 'gmarik/Vundle.vim'        " let Vundle manage Vundle, required
+
+" ---------------------------------------------------------------------------
+" Plugins
+" ---------------------------------------------------------------------------
+
+Plugin 'airblade/vim-gitgutter'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline'
+Plugin 'ChrisKempson/Vim-Tomorrow-Theme'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'kien/ctrlp.vim'
+Plugin 'koron/nyancat-vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'sjl/badwolf'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+
+" All of your Plugins must be added before the following line
+call vundle#end()                 " required
+
+" Brief help
+" :PluginList                     - list configured plugins
+" :PluginInstall(!)               - install (update) plugins
+" :PluginSearch(!) foo            - search (or refresh cache first) for foo
+" :PluginClean(!)                 - confirm (or auto-approve) removal of unused plugins
+
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+" ----------------------------------------------------------------------------
+"  UI
+" ----------------------------------------------------------------------------
+
+set ruler                         " Show cursor position.
+set number                        " Show line numbers.
+set showmode                      " Display the mode you're in.
+set backspace=indent,eol,start    " Intuitive backspacing.
+set wildchar=<Tab>                " Expand the command line using tab
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
+colorscheme solarized
+se background=dark
+
+" ----------------------------------------------------------------------------
+" Visual Cues
+" ----------------------------------------------------------------------------
+set showmatch                                 " brackets/braces that is
+set showcmd                                   " display incomplete commands
+set laststatus=2                              " Show the status line all the time
+set visualbell                                " No beeping.
+set ignorecase                                " Case-insensitive searching.
+set incsearch                                 " Highlight matches as you type.
+set list                                      " Show hidden characters (tab and eol)
+set listchars=trail:⋅,nbsp:⋅,tab:▸\ ,eol:¬    " Use the same chars as textmate.
+
+"Invisible character colors
+highlight NonText guifg=#4a4a59
+highlight SpecialKey guifg=#4a4a59
+
+" ----------------------------------------------------------------------------
+" Text Formatting
+" ----------------------------------------------------------------------------
+
+set autoindent                  " automatic indent new lines
+set smartindent                 " be smart about it
+set nowrap                      " do not wrap lines
+set tabstop=2                   " Global tab width.
+set shiftwidth=2                " And again, related.
+set expandtab                   " Use spaces instead of tabs
+set textwidth=80                " wrap at 80 chars by default
+
+" Character encoding
+scriptencoding utf-8
+set encoding=utf8
+
+" ----------------------------------------------------------------------------
+"  Mappings
+" ----------------------------------------------------------------------------
+
+let mapleader = ","               " The default leader key isn't very intuitive.
+
+" ---------------------------------------------------------------------------
+"  Strip all trailing whitespace in file
+" ---------------------------------------------------------------------------
+
+function! StripWhitespace ()
+    exec ':%s/ \+$//gc'
+endfunction
+map ,s :call StripWhitespace ()<CR>
+
+" taken from: http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim/1618401#1618401
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+" NERDTree
+nmap <leader>n :NERDTreeToggle<CR>
+let NERDTreeHighlightCursorline=1
+let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg']

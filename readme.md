@@ -1,10 +1,5 @@
 ## WDI InstallFest Script
 
-[![Build Status](https://travis-ci.org/phlco/installfest_scripts.svg?branch=v2)]
-(https://travis-ci.org/phlco/installfest_scripts)
-
-A work in progress to automate the set up of a student's development machine.
-
 ##### For Mac OS:
 
 Paste this script into a Terminal prompt:

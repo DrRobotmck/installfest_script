@@ -18,6 +18,9 @@ gem install pg
 # alternative to the standard IRB shell
 gem install pry
 
+# live syntax highlighting for the Pry REPL
+gem install pry-coolline
+
 # full stack, Web application framework
 gem install rails
 
@@ -30,4 +33,3 @@ gem install sinatra
 # common Sinatra extensions
 gem install sinatra-contrib
 
-# fin #

@@ -20,4 +20,3 @@ git config --global core.editor "subl -w"
 # default branch to push to
 git config --global push.default current
 
-# fin

@@ -13,4 +13,3 @@ for file in $dotfiles; do
   ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
 done
 
-# fin

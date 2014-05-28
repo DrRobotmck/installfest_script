@@ -1,4 +1,3 @@
-## Enter lib/mac/commandline_tools.sh
 # Determine OS version
 
 osx_version=$(sw_vers -productVersion)
@@ -34,10 +33,6 @@ else
   exit 1
 fi
 
-# fin
-## Exeunt lib/mac/commandline_tools.sh 
-
-## Enter lib/remove_rvm.sh
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
 
@@ -51,10 +46,6 @@ else
   echo "RVM is not installed. Moving on..."
 fi
 
-# fin
-## Exeunt lib/remove_rvm.sh 
-
-## Enter lib/mac/remove_macports.sh
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
 
@@ -84,10 +75,6 @@ else
   echo "Macports is not installed. Moving on..."
 fi
 
-# fin
-## Exeunt lib/mac/remove_macports.sh 
-
-## Enter lib/mac/hygene.sh
 # Check for recommended software updates
 sudo softwareupdate -i -r --ignore iTunes
 
@@ -96,7 +83,4 @@ sudo chown -R ${USER} ~
 
 # Repair disk permission
 diskutil repairPermissions /
-
-# fin
-## Exeunt lib/mac/hygene.sh 
 

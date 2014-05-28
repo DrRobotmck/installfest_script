@@ -3,6 +3,11 @@ lib/header.sh
 lib/dramatis_personae.sh
 lib/colors.sh
 lib/helper_functions.sh
+# Preflight stuff
+lib/mac/commandline_tools.sh
+lib/remove_rvm.sh
+lib/mac/remove_macports.sh
+lib/mac/hygene.sh
 lib/keep_alive.sh
 lib/repo_setup.sh
 lib/mac/homebrew.sh

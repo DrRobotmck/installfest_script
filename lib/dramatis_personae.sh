@@ -5,3 +5,4 @@ SRC_DIR=~/.wdi-installfest
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/phlco/installfest_scripts.git
 branch="v2"
+

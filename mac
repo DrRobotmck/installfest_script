@@ -1,8 +1,4 @@
-## Enter lib/mac/shebang.sh
 #!/bin/bash -e
-## Exeunt lib/mac/shebang.sh 
-
-## Enter lib/header.sh
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -26,9 +22,6 @@
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-## Exeunt lib/header.sh 
-
-## Enter lib/dramatis_personae.sh
 MINIMUM_OS="10.7.0"
 BELOVED_RUBY_VERSION="1.9.3-p484"
 
@@ -36,9 +29,7 @@ SRC_DIR=~/.wdi-installfest
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/phlco/installfest_scripts.git
 branch="v2"
-## Exeunt lib/dramatis_personae.sh 
 
-## Enter lib/colors.sh
 #-------------------------------------------------------------------------------
 # Colors
 #-------------------------------------------------------------------------------
@@ -72,9 +63,6 @@ NOUNDERLINE=$(tput rmul)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
 
-# fin## Exeunt lib/colors.sh 
-
-## Enter lib/helper_functions.sh
 #######################################
 # ABRB
 # Arguments:
@@ -93,7 +81,7 @@ function quoth_the_bard () {
 
 #######################################
 # Upcase error message and exit script
-# Arguments: 
+# Arguments:
 #   Error message
 # Returns:
 #   None
@@ -107,7 +95,7 @@ function fie () {
 
 #######################################
 # Waits for user input
-# Arguments: 
+# Arguments:
 #   Message
 # Returns:
 #   None
@@ -118,7 +106,7 @@ function pause_awhile () {
 
 #######################################
 # Mounts DMG and moves to Applications
-# Arguments: 
+# Arguments:
 #   File name
 # Returns:
 #   None
@@ -145,7 +133,7 @@ function install_dmg () {
 
 #######################################
 # Unzip Zip and move App to Applications
-# Arguments: 
+# Arguments:
 #   File name
 # Returns:
 #   None
@@ -160,7 +148,7 @@ function install_zip () {
 
 #######################################
 # Checks for the existence of a file
-# Arguments: 
+# Arguments:
 #   File name
 # Returns:
 #   1 or 0
@@ -178,7 +166,7 @@ function know_you_not_of () {
 
 #######################################
 # Downloads and installs apps from zips, dmgs, and pkgs.
-# Arguments: 
+# Arguments:
 #   File name
 #   URL
 # Returns:
@@ -202,20 +190,118 @@ function lend_me_your () {
   rm -rf "$file_name"
 }
 
-# fin
-## Exeunt lib/helper_functions.sh 
+#######################################
+# Allow apps to control your computer
+# Arguments:
+#   File name
+# Returns:
+#   None
+#######################################
+allow_control() {
+  if [[ "$OSTYPE" =~ ^darwin13.*$ ]]; then
+    for app; do
+      APP_ID="$(osascript -e "id of app \"$app\"")"
+      if [[ -n "$APP_ID" ]]; then
+        sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT or REPLACE INTO access values ('kTCCServiceAccessibility', '$APP_ID', 0, 1, 0, NULL);"
+      fi
+    done
+  else
+    echo "allow_control works only on Mavericks"
+  fi
+}
 
-## Enter lib/keep_alive.sh
+# Determine OS version
+
+osx_version=$(sw_vers -productVersion)
+# Force the user to upgrade if they're below 10.7
+echo "You're running OSX $osx_version"
+if [[ "$osx_version" < "$MINIMUM_OS" ]]; then
+  fie "Please upgrade to the latest OS then rerun this script."
+fi
+
+# Check that command line tools are installed
+case $osx_version in
+  *10.9*) cmdline_version="CLTools_Executables" ;; # Mavericks
+  *10.8*) cmdline_version="DeveloperToolsCLI"   ;; # Mountain Lion
+  *10.7*) cmdline_version="DeveloperToolsCLI"   ;; # Lion
+  *) echo "Please upgrade your OS"; exit 1;;
+esac
+
+# Check for Command Line Tools based on OS versions
+if [ ! -z $(pkgutil --pkgs=com.apple.pkg.$cmdline_version) ]; then
+  echo "Command Line Tools are installed";
+elif [[ $osx_version < "10.9" ]]; then
+  echo "Command Line Tools are not installed"
+  echo "Register for a Developer Account"
+  echo "Download the Command Lion Tools from"
+  echo "https://developer.apple.com/downloads/index.action"
+  echo "Then rerun this script"
+  exit 1
+else
+  echo "Command Line Tools are not installed"
+  echo "run '$ sudo xcodebuild -license' then"
+  echo "'$ xcode-select --install'"
+  echo "Then rerun this script."
+  exit 1
+fi
+
+# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
+# This script checks for and removes previous installs of macports and RVM
+
+# Uninstall RVM
+# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
+if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
+  yes | rvm implode
+  rm -rf ~/.rvm
+  echo "RVM has been removed."
+else
+  echo "RVM is not installed. Moving on..."
+fi
+
+# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
+# This script checks for and removes previous installs of macports and RVM
+
+# Uninstall Macports
+# http://guide.macports.org/chunked/installing.macports.uninstalling.html
+if hash port 2>/dev/null || [[ $(find /opt/local -iname macports 2>/dev/null) ]]; then
+  echo "Removing MacPorts"
+    macports=$(find /opt/local -iname macports)
+    for f in $macports; do
+      rm -rf $f
+    done
+  # carthago_delenda_est
+  sudo port -fp uninstall installed
+  sudo rm -rf \
+    /opt/local \
+    /Applications/DarwinPorts \
+    /Applications/MacPorts \
+    /Library/LaunchDaemons/org.macports.* \
+    /Library/Receipts/DarwinPorts*.pkg \
+    /Library/Receipts/MacPorts*.pkg \
+    /Library/StartupItems/DarwinPortsStartup \
+    /Library/Tcl/darwinports1.0 \
+    /Library/Tcl/macports1.0 \
+    ~/.macports
+    sudo find / | grep macports | sudo xargs rm
+else
+  echo "Macports is not installed. Moving on..."
+fi
+
+# Check for recommended software updates
+sudo softwareupdate -i -r --ignore iTunes
+
+# Ensure user has full control over their folder
+sudo chown -R ${USER} ~
+
+# Repair disk permission
+diskutil repairPermissions /
+
 # Capture the user's password
 sudo echo "Thanks."
 
 # Update existing `sudo` time stamp until script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# fin
-## Exeunt lib/keep_alive.sh 
-
-## Enter lib/repo_setup.sh
 # moving to dramatis personae
 # SRC_DIR=~/.wdi-installfest
 # SCRIPTS=$SRC_DIR/scripts
@@ -236,10 +322,6 @@ else
   git pull origin $branch
 fi
 
-# fin
-## Exeunt lib/repo_setup.sh 
-
-## Enter lib/mac/homebrew.sh
 # Installs Homebrew, our package manager
 # http://brew.sh/
 
@@ -252,10 +334,6 @@ fi
 # Make sure we're using the latest Homebrew
 brew update
 
-# fin
-## Exeunt lib/mac/homebrew.sh 
-
-## Enter lib/mac/compilers.sh
 # Upgrade any already-installed formulae
 brew upgrade
 
@@ -263,7 +341,7 @@ brew upgrade
 # though may provide more recent or bugfix versions.
 brew tap homebrew/dupes
 
-# Autoconf is an extensible package of M4 macros that produce shell scripts to 
+# Autoconf is an extensible package of M4 macros that produce shell scripts to
 # automatically configure software source code packages.
 brew install autoconf
 
@@ -279,14 +357,14 @@ brew install libyaml
 # neon is an HTTP and WebDAV client library
 brew install neon
 
-# A toolkit implementing SSL v2/v3 and TLS protocols with full-strength 
+# A toolkit implementing SSL v2/v3 and TLS protocols with full-strength
 # cryptography world-wide.
 brew install openssl
 
 # pkg-config is a helper tool used when compiling applications and libraries.
 brew install pkg-config
 
-# a self-contained, serverless, zero-configuration, transactional SQL database 
+# a self-contained, serverless, zero-configuration, transactional SQL database
 # engine.
 brew install sqlite
 
@@ -316,19 +394,12 @@ brew tap --repair
 # Remove outdated versions from the cellar
 brew cleanup
 
-# fin## Exeunt lib/mac/compilers.sh 
-
-## Enter lib/mac/git.sh
 # Version Control
 brew install git
 
 # additional git commands
 brew install hub
 
-# fin
-## Exeunt lib/mac/git.sh 
-
-## Enter lib/configure_git.sh
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
 git config --global user.name  $github_name
@@ -351,10 +422,6 @@ git config --global core.editor "subl -w"
 # default branch to push to
 git config --global push.default current
 
-# fin
-## Exeunt lib/configure_git.sh 
-
-## Enter lib/mac/rbenv.sh
 # Our Ruby version manager
 brew install rbenv
 
@@ -372,9 +439,7 @@ brew install rbenv-default-gems
 
 # Add to path
 export PATH="$HOME/.rbenv/bin:$PATH"
-## Exeunt lib/mac/rbenv.sh 
 
-## Enter lib/ruby-env.sh
 # Our Ruby Environment
 
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
@@ -395,10 +460,6 @@ gem update --system
 
 gem install bundler --no-document --pre
 
-# fin #
-## Exeunt lib/ruby-env.sh 
-
-## Enter lib/default-gems.sh
 # Our gems to install
 
 # Maintains a consistent environment for ruby applications.
@@ -419,6 +480,9 @@ gem install pg
 # alternative to the standard IRB shell
 gem install pry
 
+# live syntax highlighting for the Pry REPL
+gem install pry-coolline
+
 # full stack, Web application framework
 gem install rails
 
@@ -431,10 +495,6 @@ gem install sinatra
 # common Sinatra extensions
 gem install sinatra-contrib
 
-# fin #
-## Exeunt lib/default-gems.sh 
-
-## Enter lib/mac/packages.sh
 # Useful packages
 # ASCII ART!!!!
 brew install figlet
@@ -457,16 +517,15 @@ brew install qt4
 # Advanced in-memory key-value store that persists on disk
 brew install redis
 
-# fin
-## Exeunt lib/mac/packages.sh 
+# List of useful Quick Look plugins for developers
+brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
 
-## Enter lib/mac/apps.sh
 # a CLI workflow for the administration of Mac applications
 # distributed as binaries
 brew tap phinze/homebrew-cask
 brew install brew-cask
 
-# Instant search documentation offlien
+# Instant search documentation offline
 brew cask install dash
 
 # The Browser
@@ -480,6 +539,8 @@ brew cask install hipchat
 
 # The Window Manager
 brew cask install spectacle
+# allow spectacle to control computer
+allow_control Spectacle
 
 # The Text Editor, Sublime Text 2
 brew cask install sublime-text
@@ -490,6 +551,9 @@ brew cask install xquartz
 # Markdown Editor
 brew cask install mou
 
+# makes the color of your computer's display adapt to the time of day
+brew cask install flux
+
 # for fonts
 # https://github.com/caskroom/homebrew-fonts/tree/master/Casks
 brew tap caskroom/fonts
@@ -497,10 +561,7 @@ brew tap caskroom/fonts
 brew cask install font-source-code-pro
 brew cask install font-source-sans-pro
 brew cask install font-consolas
-# fin
-## Exeunt lib/mac/apps.sh 
 
-## Enter lib/mac/sublime_settings.sh
 # Setup Sublime Preferences
 sublime_app_support="${HOME}/Library/Application Support/Sublime Text 2"
 sublime_preferences="Preferences.sublime-settings"
@@ -509,23 +570,18 @@ pkg_url="https://sublime.wbond.net/Package%20Control.sublime-package"
 pkg_settings="Package Control.sublime-settings"
 
 # backup
-cp "$sublime_app_support/Packages/User/$sublime_preferences"{,.bak}
-cp "$sublime_app_support/Installed Packages/$pkg_settings"{,.bak}
+cp -r "$sublime_app_support/Packages/User/$sublime_preferences"{,.bak}
+cp -r "$sublime_app_support/Installed Packages/$pkg_settings"{,.bak}
 
 # copy over
-cp "$SETTINGS/sublime/$sublime_preferences" "$sublime_app_support/Packages/User/$sublime_preferences"
-cp "$SETTINGS/sublime/$pkg_settings"        "$sublime_app_support/Installed Packages/$pkg_settings"
+cp -r "$SETTINGS/sublime/$sublime_preferences" "$sublime_app_support/Packages/User/$sublime_preferences"
+cp -r "$SETTINGS/sublime/$pkg_settings"        "$sublime_app_support/Installed Packages/$pkg_settings"
 
 # Installing Package Control
 curl -L -o "$sublime_app_support/Installed Packages/$pkg_control" "$pkg_url"
 
 # # Symlink Sublime Text 2
 # ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
-
-# fin
-## Exeunt lib/mac/sublime_settings.sh 
-
-## Enter lib/mac/heroku.sh
 #  _                    _
 # | |__   ___ _ __ ___ | | ___   _
 # | '_ \ / _ \ '__/ _ \| |/ / | | |
@@ -554,9 +610,7 @@ echo "Heroku. This will allow you to deploy code to all of your apps."
 
 # PL: holding off for user interaction
 # heroku keys:add
-## Exeunt lib/mac/heroku.sh 
 
-## Enter lib/mac/postgres.sh
 # Set up Postgres
 
 # open source object-relational database management system
@@ -575,9 +629,6 @@ brew services start postgres
 # # Start Postgres now
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
-## Exeunt lib/mac/postgres.sh 
-
-## Enter lib/mac/dotfiles.sh
 # Create a folder for backed up files
 mkdir -p "${HOME}/.dotfiles_backup"
 
@@ -592,7 +643,4 @@ for file in $dotfiles; do
     # symlink file
   ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
 done
-
-# fin
-## Exeunt lib/mac/dotfiles.sh 
 

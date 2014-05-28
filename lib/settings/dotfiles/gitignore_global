@@ -1,7 +1,9 @@
+# See https://help.github.com/articles/ignoring-files for more about ignoring files.
+
 # Compiled source #
 ###################
-*.com
 *.class
+*.com
 *.dll
 *.exe
 *.o
@@ -26,10 +28,67 @@
 
 # OS generated files #
 ######################
+._*
 .DS_Store
 .DS_Store?
-._*
 .Spotlight-V100
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Testing #
+###########
+.rspec
+capybara-*.html
+coverage
+pickle-email-*.html
+rerun.txt
+spec/reports
+spec/tmp
+test/tmp
+test/version_tmp
+
+# node #
+########
+node_modules
+
+# Rails #
+#########
+**.orig
+*.rbc
+*.sassc
+.project
+.rvmrc
+.sass-cache
+/.bundle
+/db/*.sqlite3
+/log/*
+/public/system/*
+/tmp/*
+/vendor/bundle
+
+
+# Ruby #
+########
+*.gem
+*.rbc
+.bundle
+.config
+.yardoc
+_yardoc
+doc/
+InstalledFiles
+lib/bundler/man
+pkg
+rdoc
+tmp
+
+# for a library or gem, you might want to ignore these files since the code is
+# intended to run in multiple environments; otherwise, check them in:
+# Gemfile.lock
+# .ruby-version
+# .ruby-gemset
+
+# CTags #
+#########
+tags

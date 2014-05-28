@@ -18,5 +18,3 @@ curl -L -o "$sublime_app_support/Installed Packages/$pkg_control" "$pkg_url"
 
 # # Symlink Sublime Text 2
 # ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
-
-# fin

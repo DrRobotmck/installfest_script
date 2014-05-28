@@ -31,4 +31,3 @@ NOUNDERLINE=$(tput rmul)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
 
-# fin

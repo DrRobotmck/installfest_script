@@ -4,15 +4,15 @@
 
 # Open chrome extensions in the browser
 chrome_ext () {
-  app=$1
-  webstore=https://chrome.google.com/webstore/detail/
+  local app=$1
+  local webstore=https://chrome.google.com/webstore/detail/
   open "$webstore$app"
 }
 
-echo "Now we're going to open some Chrome extensions to install from the Chrome Webstore"
-echo "Just click 'Free' to install them."
-echo "If you've alread installed them you'll see 'Added to Chrome'"
-echo "Ready?"
+echo "Now we're going to open your browser to install some Chrome extensions
+from the Chrome Webstore. \nJust click 'Free' to install them.
+If you've alread installed them you'll see 'Added to Chrome'
+Ready?"
 read -p "Just hit enter!"
 
 # Validate and view JSON documents
@@ -30,4 +30,8 @@ chrome_ext postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm
 # helps you identify and fix performance problems in your web application
 chrome_ext speed-tracer-by-google/ognampngfcbddbfemdapefohjiobgbdl
 
-# fin #
+# Adds a panel to Chrome Developer Tools that displays views, models, collections and routers
+chrome_ext backbone-debugger/bhljhndlimiafopmmhjlgfpnnchjjbhd
+
+# all information about your Rails app requests right there in the Developer Tools panel
+chrome_ext railspanel/gjpfobpafnhjhbajcjgccbbdofdckggg
