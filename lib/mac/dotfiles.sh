@@ -2,7 +2,7 @@
 mkdir -p "${HOME}/.dotfiles_backup"
 
 # Dotfiles we'll be using
-dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc"
+dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc vimrc"
 
 for file in $dotfiles; do
   if [ -a "${HOME}/${file}" ]; then
@@ -12,4 +12,3 @@ for file in $dotfiles; do
     # symlink file
   ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
 done
-
