@@ -25,9 +25,9 @@
 MINIMUM_OS="10.7.0"
 BELOVED_RUBY_VERSION="1.9.3-p484"
 
-SRC_DIR=~/.wdi-installfest
+SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/phlco/installfest_scripts.git
+INSTALL_REPO=https://github.com/ga-instructors/installfest_scripts.git
 branch="v2"
 
 #-------------------------------------------------------------------------------
@@ -269,7 +269,7 @@ if hash port 2>/dev/null || [[ $(find /opt/local -iname macports 2>/dev/null) ]]
     for f in $macports; do
       rm -rf $f
     done
-  # carthago_delenda_est
+  # carthago delenda est
   sudo port -fp uninstall installed
   sudo rm -rf \
     /opt/local \
@@ -635,7 +635,7 @@ brew services start postgres
 mkdir -p "${HOME}/.dotfiles_backup"
 
 # Dotfiles we'll be using
-dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc"
+dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc vimrc"
 
 for file in $dotfiles; do
   if [ -a "${HOME}/${file}" ]; then
@@ -645,7 +645,10 @@ for file in $dotfiles; do
     # symlink file
   ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
 done
+# Install Vim Plugin Manager
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+# Vimrc is copied over from dotfiles
 # The Z shell (zsh) is a Unix shell that can be used as an interactive login
 # shell and as a powerful command interpreter for shell scripting. Zsh can be
 # thought of as an extended Bourne shell with a large number of improvements,

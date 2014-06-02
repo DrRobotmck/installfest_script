@@ -22,4 +22,5 @@ mac/sublime_settings.sh
 mac/heroku.sh
 mac/postgres.sh
 mac/dotfiles.sh
+vim.sh
 oh_my_zsh.sh

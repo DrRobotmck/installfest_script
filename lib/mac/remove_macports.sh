@@ -9,7 +9,7 @@ if hash port 2>/dev/null || [[ $(find /opt/local -iname macports 2>/dev/null) ]]
     for f in $macports; do
       rm -rf $f
     done
-  # carthago_delenda_est
+  # carthago delenda est
   sudo port -fp uninstall installed
   sudo rm -rf \
     /opt/local \
@@ -26,4 +26,3 @@ if hash port 2>/dev/null || [[ $(find /opt/local -iname macports 2>/dev/null) ]]
 else
   echo "Macports is not installed. Moving on..."
 fi
-
