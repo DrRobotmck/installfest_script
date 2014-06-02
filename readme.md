@@ -23,6 +23,7 @@ If Xcode is installed the script continues.
 
 ##### For Ubuntu Linux:
 
+<!-- TODO (h4w5) change curl to wget -->
 ```
 bash <(curl -sL http://ga.co/installfestubuntu)
 ```

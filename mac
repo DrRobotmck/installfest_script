@@ -553,7 +553,7 @@ brew cask install xquartz
 # Markdown Editor
 brew cask install mou
 
-# makes the color of your computer's display adapt to the time of day
+# Flux, makes the color of your computer's display adapt to the time of day
 brew cask install flux
 
 # for fonts
