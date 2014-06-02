@@ -179,7 +179,7 @@ pause_awhile "Ok. Ready to Continue? Press Enter."
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
   # autoupdate bootstrap file
-  git clone $INSTALL_REPO $SRC_DIR
+  git clone -b $BRANCH $INSTALL_REPO $SRC_DIR
   # hide folder
   chflags hidden $SRC_DIR
 else
