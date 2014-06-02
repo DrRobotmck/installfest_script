@@ -92,6 +92,7 @@ SRC_DIR=~/.wdi/installfest # TODO backport this into master and mac...
 SCRIPTS=$SRC_DIR/scripts
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
+BRANCH="ubuntu"
 
 #-------------------------------------------------------------------------------
 # Determine OS version
@@ -152,7 +153,9 @@ echo "First, let's ensure your SSH keys are setup."
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
 # Copy SSH key to the clipboard
-pbcopy < ~/.ssh/id_rsa.pub
+# Installing xclip
+sudo apt-get install xclip
+cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
 
 echo "We just copied your SSH key to the clipboard."
 echo "Now we're going to visit GitHub to add the SSH key"
@@ -160,6 +163,7 @@ echo "Now we're going to visit GitHub to add the SSH key"
 echo "Do the following in your browser: "
 echo '- Click "SSH Keys" in the left sidebar'
 echo '- Click "Add SSH key"'
+echo '- Set the Title to WDI Installfest'
 echo '- Paste your key into the "Key" field'
 echo '- Click "Add key"'
 echo '- Confirm the action by entering your GitHub password'
@@ -171,19 +175,19 @@ xdg-open https://github.com/settings/ssh &
 
 pause_awhile "Ok. Ready to Continue? Press Enter."
 #
-# # download the repo for the absolute paths
-# if [[ ! -d $SRC_DIR ]]; then
-#   echo 'Downloading Installfest repo...'
-#   # autoupdate bootstrap file
-#   git clone $INSTALL_REPO $SRC_DIR
-#   # hide folder
-#   chflags hidden $SRC_DIR
-# else
-#   # update repo
-#   echo 'Updating repo...'
-#   cd $SRC_DIR
-#   git pull origin master
-# fi
+# download the repo for the absolute paths
+if [[ ! -d $SRC_DIR ]]; then
+  echo 'Downloading Installfest repo...'
+  # autoupdate bootstrap file
+  git clone $INSTALL_REPO $SRC_DIR
+  # hide folder
+  chflags hidden $SRC_DIR
+else
+  # update repo
+  echo 'Updating repo...'
+  cd $SRC_DIR
+  git pull origin master
+fi
 # #######################################################################################
 #
 # # Ensure Macports and RVM aren't installed ############################################
