@@ -3,20 +3,18 @@
 " ---------------------------------------------------------------------------
 
 set nocompatible                  " Must come first because it changes other options.
-
+filetype off                      " Required
 syntax enable                     " Turn on syntax highlighting.
 filetype plugin indent on         " Turn on file type detection.
 
 " ---------------------------------------------------------------------------
 " Plug-in Manager
 " ---------------------------------------------------------------------------
-
+" Vundle Installation:
+" $ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 Plugin 'gmarik/Vundle.vim'        " let Vundle manage Vundle, required
 
@@ -24,30 +22,26 @@ Plugin 'gmarik/Vundle.vim'        " let Vundle manage Vundle, required
 " Plugins
 " ---------------------------------------------------------------------------
 
-Plugin 'airblade/vim-gitgutter'
+Plugin 'airblade/vim-gitgutter'          " shows a git diff in the gutter
+Plugin 'bling/vim-airline'               " status bar/tabline
+Plugin 'kchmck/vim-coffee-script'        " CoffeeScript support
+Plugin 'kien/ctrlp.vim'                  " Fuzzy file, buffer, mru, tag, etc finder
+Plugin 'scrooloose/nerdtree'             " A tree explorer plugin for navigating the filesystem
+Plugin 'tpope/vim-commentary'            " Comment stuff out
+Plugin 'tpope/vim-endwise'               " wisely add "end" in ruby etc
+Plugin 'tpope/vim-haml'                  " runtime files for Haml, Sass, and SCSS
+Plugin 'tpope/vim-rails'                 " Ruby on Rails power tools
+Plugin 'tpope/vim-rake'                  " it's like rails.vim without the rails
+Plugin 'tpope/vim-projectionist'         " project configuration
+Plugin 'tpope/vim-repeat'                " enable repeating supported plugin maps with "."
+Plugin 'tpope/vim-sensible'              " Defaults everyone can agree on
+Plugin 'tpope/vim-surround'              " quoting/parenthesizing made simple
+Plugin 'tpope/vim-unimpaired'            " pairs of handy bracket mappings
+Plugin 'vim-ruby/vim-ruby'               " Ruby Configuration Files
+Plugin 'tpope/vim-bundler'               " Lightweight support for Ruby's Bundler
+" Themes
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
 Plugin 'ChrisKempson/Vim-Tomorrow-Theme'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'kien/ctrlp.vim'
-Plugin 'koron/nyancat-vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'sjl/badwolf'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-rake'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
 
 " All of your Plugins must be added before the following line
 call vundle#end()                 " required
@@ -67,16 +61,38 @@ call vundle#end()                 " required
 
 set ruler                         " Show cursor position.
 set number                        " Show line numbers.
-set showmode                      " Display the mode you're in.
+set noshowmode                    " airline.vim takes care of this
 set backspace=indent,eol,start    " Intuitive backspacing.
+set wildmenu                      " Hitting TAB will show possible completions
 set wildchar=<Tab>                " Expand the command line using tab
-
+set autoread                      " Reread file when changed from outside of Vim
+set foldcolumn=0                  " Add a bit of extra margin to the left
+set cursorline                    " Highlight current line
+set title                         " Show filename in window title bar
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
 
-colorscheme solarized
-se background=dark
+colorscheme tomorrow-night
+set background=light
+
+" ----------------------------------------------------------------------------
+" Navigation
+" ----------------------------------------------------------------------------
+
+" create horizontal & vertical splits
+noremap <leader>h :sp<cr>
+noremap <leader>v :vsp<cr>
+
+" window navigation
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" tab navigation
+noremap <C-t> :tabn<cr>
+noremap <C-n> :tabnew<cr>
 
 " ----------------------------------------------------------------------------
 " Visual Cues
@@ -86,9 +102,11 @@ set showcmd                                   " display incomplete commands
 set laststatus=2                              " Show the status line all the time
 set visualbell                                " No beeping.
 set ignorecase                                " Case-insensitive searching.
+set smartcase                                 " When searching be smart about cases
 set incsearch                                 " Highlight matches as you type.
+set hlsearch                                  " Highlight search results
 set list                                      " Show hidden characters (tab and eol)
-set listchars=trail:⋅,nbsp:⋅,tab:▸\ ,eol:¬    " Use the same chars as textmate.
+"set listchars=trail:⋅,nbsp:⋅,tab:▸\ ,eol:¬    " Use the same chars as textmate.
 
 "Invisible character colors
 highlight NonText guifg=#4a4a59
@@ -116,16 +134,17 @@ set encoding=utf8
 
 let mapleader = ","               " The default leader key isn't very intuitive.
 
+" Hard to type things
+imap >> →
+imap << ←
+imap ^^ ↑
+imap VV ↓
+
 " ---------------------------------------------------------------------------
 "  Strip all trailing whitespace in file
 " ---------------------------------------------------------------------------
 
-function! StripWhitespace ()
-    exec ':%s/ \+$//gc'
-endfunction
-map ,s :call StripWhitespace ()<CR>
-
-" taken from: http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim/1618401#1618401
+" http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim/1618401#1618401
 fun! <SID>StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
@@ -133,7 +152,54 @@ fun! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 
+" ---------------------------------------------------------------------------
+" Speed up transition from modes
+" ---------------------------------------------------------------------------
+
+if ! has('gui_running')
+  set ttimeoutlen=10
+  augroup FastEscape
+  autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
+
+" ---------------------------------------------------------------------------
 " NERDTree
-nmap <leader>n :NERDTreeToggle<CR>
+" ---------------------------------------------------------------------------
+
+noremap <leader>n :NERDTree<cr>               " open nerdtree with leader + n
+
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg']
+
+" ---------------------------------------------------------------------------
+" Ctrl-P
+" ---------------------------------------------------------------------------
+
+noremap <leader>p :CtrlP<cr>           " to find files using ctrlp
+noremap <leader>b :CtrlPBuffer<cr>     " to find buffers using ctrlp
+let g:ctrlp_working_path_mode = 'a'    " sets the working directory for ctrl
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+
+" ---------------------------------------------------------------------------
+" Themes
+" ---------------------------------------------------------------------------
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
