@@ -154,7 +154,7 @@ ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
 # Copy SSH key to the clipboard
 # Installing xclip
-sudo apt-get install xclip
+sudo apt-get -y install xclip
 cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
 
 echo "We just copied your SSH key to the clipboard."
@@ -177,7 +177,7 @@ pause_awhile "Ok. Ready to Continue? Press Enter."
 #
 # download the repo for the absolute paths
 # installing git
-sudo apt-get install git
+sudo apt-get -y install git
 
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
@@ -206,32 +206,32 @@ quoth_the_bard \
 "Woe, destruction, ruin, and decay\; the worst is death and death will have his day." \
 "--Richard II (III.ii)"
 #
-# pause_awhile "Removing any previous installations of RVM and Macports."
-# source $SCRIPTS/clean.sh
+pause_awhile "Removing any previous installations of RVM and Macports."
+source $SCRIPTS/clean.sh
 # ######################################################################################
 #
-# # Install homebrew and formulae ######################################################
-# clear
-# echo "            _     _                                     ____  "
-# echo "  __ _  ___| |_  / |          ___  ___ ___ _ __   ___  |___ \ "
-# echo " / _' |/ __| __| | |  _____  / __|/ __/ _ \ '_ \ / _ \   __) |"
-# echo "| (_| | (__| |_  | | |_____| \__ \ (_|  __/ | | |  __/  / __/ "
-# echo " \__,_|\___|\__| |_|         |___/\___\___|_| |_|\___| |_____|"
-# echo "                                                              "
-#
-# quoth_the_bard \
-# "PISTOL: The plain-song is most just: for humours do abound:
-# Knocks go and come; God's vassals drop and die;
-# And sword and shield,
-# In bloody field,
-# Doth win immortal fame.
-#
-# Boy: Would I were in an alehouse in London! I would give
-# all my fame for a pot of ale and safety." \
-# "--Henry V (III.ii)"
+# Install homebrew and formulae ######################################################
+clear
+echo "            _     _                                     ____  "
+echo "  __ _  ___| |_  / |          ___  ___ ___ _ __   ___  |___ \ "
+echo " / _' |/ __| __| | |  _____  / __|/ __/ _ \ '_ \ / _ \   __) |"
+echo "| (_| | (__| |_  | | |_____| \__ \ (_|  __/ | | |  __/  / __/ "
+echo " \__,_|\___|\__| |_|         |___/\___\___|_| |_|\___| |_____|"
+echo "                                                              "
+
+quoth_the_bard \
+"PISTOL: The plain-song is most just: for humours do abound:
+Knocks go and come; God's vassals drop and die;
+And sword and shield,
+In bloody field,
+Doth win immortal fame.
+
+Boy: Would I were in an alehouse in London! I would give
+all my fame for a pot of ale and safety." \
+"--Henry V (III.ii)"
 #
 # pause_awhile "Installing our Package Manager HomeBrew"
-# source $SCRIPTS/brew.sh
+source $SCRIPTS/apt-get.sh
 # ######################################################################################
 #
 # # Additional settings and bash_profile ###############################################
