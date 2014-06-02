@@ -176,6 +176,9 @@ xdg-open https://github.com/settings/ssh &
 pause_awhile "Ok. Ready to Continue? Press Enter."
 #
 # download the repo for the absolute paths
+# installing git
+sudo apt-get install git
+
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
   # autoupdate bootstrap file
@@ -186,22 +189,22 @@ else
   # update repo
   echo 'Updating repo...'
   cd $SRC_DIR
-  git pull origin master
+  git pull origin $BRANCH
 fi
 # #######################################################################################
 #
 # # Ensure Macports and RVM aren't installed ############################################
-# clear
-# echo "            _     _                                     _ "
-# echo "  __ _  ___| |_  / |          ___  ___ ___ _ __   ___  / |"
-# echo " / _' |/ __| __| | |  _____  / __|/ __/ _ \ '_ \ / _ \ | |"
-# echo "| (_| | (__| |_  | | |_____| \__ \ (_|  __/ | | |  __/ | |"
-# echo " \__,_|\___|\__| |_|         |___/\___\___|_| |_|\___| |_|"
-# echo "                                                          "
-#
-# quoth_the_bard \
-# "Woe, destruction, ruin, and decay\; the worst is death and death will have his day." \
-# "--Richard II (III.ii)"
+clear
+echo "            _     _                                     _ "
+echo "  __ _  ___| |_  / |          ___  ___ ___ _ __   ___  / |"
+echo " / _' |/ __| __| | |  _____  / __|/ __/ _ \ '_ \ / _ \ | |"
+echo "| (_| | (__| |_  | | |_____| \__ \ (_|  __/ | | |  __/ | |"
+echo " \__,_|\___|\__| |_|         |___/\___\___|_| |_|\___| |_|"
+echo "                                                          "
+
+quoth_the_bard \
+"Woe, destruction, ruin, and decay\; the worst is death and death will have his day." \
+"--Richard II (III.ii)"
 #
 # pause_awhile "Removing any previous installations of RVM and Macports."
 # source $SCRIPTS/clean.sh
