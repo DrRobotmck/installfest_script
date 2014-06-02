@@ -26,7 +26,7 @@ If Xcode is installed the script continues.
 ##### For Ubuntu Linux:
 
 ```
-bash <(curl -sL http://ga.co/installfestubuntu)
+bash <(wget -qO- http://ga.co/installfestubuntu)
 ```
 
 **Don't use yet!** Is not in working condition.
