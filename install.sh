@@ -12,9 +12,7 @@
 #
 
 # Resources
-# https://github.com/divio/osx-bootstrap
-# https://github.com/paulirish/dotfiles
-# https://github.com/mathiasbynens/dotfiles/
+# what are some for Ubuntu?...
 
 # References
 # http://www.sudo.ws/
@@ -23,7 +21,7 @@
 # http://explainshell.com/
 
 #-------------------------------------------------------------------------------
-# Colors
+# Set colors
 #-------------------------------------------------------------------------------
 # Foreground
 BLACK=$(tput setaf 0)
@@ -84,70 +82,44 @@ function pause_awhile () {
 }
 
 #-------------------------------------------------------------------------------
-MINIMUM_OS="10.7.0"
+# Set environmental constants
+#-------------------------------------------------------------------------------
+
+# MINIMUM_OS="10.7.0"
 BELOVED_RUBY_VERSION="2.1.0"
 
-SRC_DIR=~/.wdi-installfest
+SRC_DIR=~/.wdi/installfest # TODO backport this into master and mac...
 SCRIPTS=$SRC_DIR/scripts
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
-# Determine OS version ################################################################
 
-# osx_version=$(sw_vers -productVersion)
-# # Force the user to upgrade if they're below 10.7
-# echo "You're running OSX $osx_version"
-# if [[ "$osx_version" < "$MINIMUM_OS" ]]; then
-#   fie "Please upgrade to the latest OS then rerun this script."
-# fi
-#
-# # The one prereq is Xcode Command Line Tools ##########################################
-# # Either download from the App store or install via xcode-select --install
-# # PL: it is possible earlier versions of xcode are installed to /dev... deal with this?
-# # https://gist.github.com/trinitronx/6217746
-# # if on mavericks just offer xcode-select
-# # need a check for command line tools
-# # `pkgutil --pkgs=com.apple.pkg.DeveloperToolsCLI` should return com.apple.pkg.DeveloperToolsCLI
+#-------------------------------------------------------------------------------
+# Determine OS version
+#-------------------------------------------------------------------------------
 
-#######################################################################################
+# Check version of Ubuntu and stuff?
 
-# # Check that command line tools are installed
-# case $osx_version in
-#   *10.9*) cmdline_version="CLTools_Executables" ;; # Mavericks
-#   *10.8*) cmdline_version="DeveloperToolsCLI"   ;; # Mountain Lion
-#   *10.7*) cmdline_version="DeveloperToolsCLI"   ;; # Lion
-#   *) echo "Please upgrade your OS"; exit 1;;
-# esac
-#
-# # Check for Command Line Tools based on OS versions
-# if [ ! -z $(pkgutil --pkgs=com.apple.pkg.$cmdline_version) ]; then
-#   echo "Command Line Tools are installed";
-# elif [[ $osx_version < "10.9" ]]; then
-#   echo "Command Line Tools are not installed"
-#   echo "Register for a Developer Account"
-#   echo "Download the Command Lion Tools from"
-#   echo "https://developer.apple.com/downloads/index.action"
-#   echo "Then rerun this script"
-#   exit 1
-# else
-#   echo "Command Line Tools are not installed"
-#   echo "run '$ sudo xcodebuild -license' then"
-#   echo "'$ xcode-select --install'"
-#   echo "Then rerun this script."
-#   exit 1
-# fi
+#-------------------------------------------------------------------------------
+# Check for Command Line Tools from X Code
+#-------------------------------------------------------------------------------
 
+# Check that gcc is installed?
 
-#######################################################################################
+#-------------------------------------------------------------------------------
+# Clear terminal screen and capture password
+#-------------------------------------------------------------------------------
 
-# clear terminal screen
 clear
 
 echo "Welcome to Installfest"
-sudo echo "Thanks." # PJ: capture the user's password
+sudo echo "$GREENThanks.$RESET" # capture the user's password
 
-# # Start install fest ###################################################################
-# # Keep-alive: update existing `sudo` time stamp until script has finished
-# while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+# Keep-alive: update existing `sudo` time stamp until script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+#-------------------------------------------------------------------------------
+# Begin installfest
+#-------------------------------------------------------------------------------
 #
 # echo "Please register for an account on github.com if you haven't already done so."
 #
