@@ -4,14 +4,10 @@ A work in progress to automate the set up of a student's development machine.
 
 ##### For Mac OS:
 
-```
-bash <(curl -s https://raw.github.com/ga-instructors/installfest_script/mac_os/install.sh)
-```
-
-##### For Ubuntu Linux:
+Paste this script into a Terminal prompt:
 
 ```
-bash <(curl -s https://raw.github.com/ga-instructors/installfest_script/ubuntu/install.sh)
+bash <(curl -sL https://raw.github.com/ga-instructors/installfest_script/master/install.sh)
 ```
 
 The script first runs any software updates and then checks for Xcode.
