@@ -1,7 +1,7 @@
 # apt-get -y install git
 # apt-get -y install xclip
 # apt-get -y install curl
-
+apt-get update
 # Dramatis Personae
 apt-get -y install figlet #............ ASCII ART!!!!
 apt-get -y install graphviz #.......... visualization tool for ERDs
