@@ -120,60 +120,55 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #-------------------------------------------------------------------------------
 # Begin installfest
 #-------------------------------------------------------------------------------
-#
-# echo "Please register for an account on github.com if you haven't already done so."
-#
-# read -p "Enter your full name: "  user_name
-# read -p "Github Username: "       github_name
-# read -p "Github Email: "          github_email
-# #######################################################################################
-#
-# # Let's make sure we're updated #######################################################
-# # and in control of the home folder
-# echo "Let's ensure you have full control over your user folder"
-# echo "This may take awhile"
-# sudo chown -R ${USER} ~
-# diskutil repairPermissions /
-# echo "Checking for recommended software updates."
-# echo "This may require a restart."
-# sudo softwareupdate -i -r --ignore iTunes
-# sudo chown -R ${USER} ~
-# #######################################################################################
-#
-# quoth_the_bard "The play's the thing..."
-#
-# # The curtain rises ###################################################################
-#
-# quoth_the_bard \
-# "Double, double toil and trouble; Fire burn, and caldron bubble." \
-# "--Macbeth (IV.i)"
-#
-# echo "First, let's ensure your SSH keys are setup."
-#
-# # SSH keys establish a secure connection between your computer and GitHub
-# # This script follows these instructions `https://help.github.com/articles/generating-ssh-keys`
-#
-# # SSH Keygen
-# ssh-keygen -t rsa -C $github_email
-# ssh-add id_rsa
-# # Copy SSH key to the clipboard
-# pbcopy < ~/.ssh/id_rsa.pub
-#
-# echo "We just copied your SSH key to the clipboard."
-# echo "Now we're going to visit GitHub to add the SSH key"
-#
-# echo "Do the following in your browser: "
-# echo '- Click "SSH Keys" in the left sidebar'
-# echo '- Click "Add SSH key"'
-# echo '- Paste your key into the "Key" field'
-# echo '- Click "Add key"'
-# echo '- Confirm the action by entering your GitHub password'
-#
-# pause_awhile "Press Enter. We'll be here until you get back from Github."
-#
-# open https://github.com/settings/ssh
-#
-# pause_awhile "Ok. Ready to Continue? Press Enter."
+
+echo "Please register for an account on github.com if you haven't already done so."
+
+read -p "Enter your full name: "  user_name
+read -p "Github Username: "       github_name
+read -p "Github Email: "          github_email
+
+#-------------------------------------------------------------------------------
+# Check for software updates
+#-------------------------------------------------------------------------------
+
+# do this?
+
+#######################################################################################
+
+quoth_the_bard "The play's the thing..."
+
+# The curtain rises ###################################################################
+
+quoth_the_bard \
+"Double, double toil and trouble; Fire burn, and caldron bubble." \
+"--Macbeth (IV.i)"
+
+echo "First, let's ensure your SSH keys are setup."
+
+# SSH keys establish a secure connection between your computer and GitHub
+# This script follows these instructions `https://help.github.com/articles/generating-ssh-keys`
+
+# SSH Keygen
+ssh-keygen -t rsa -C $github_email
+ssh-add id_rsa
+# Copy SSH key to the clipboard
+pbcopy < ~/.ssh/id_rsa.pub
+
+echo "We just copied your SSH key to the clipboard."
+echo "Now we're going to visit GitHub to add the SSH key"
+
+echo "Do the following in your browser: "
+echo '- Click "SSH Keys" in the left sidebar'
+echo '- Click "Add SSH key"'
+echo '- Paste your key into the "Key" field'
+echo '- Click "Add key"'
+echo '- Confirm the action by entering your GitHub password'
+
+pause_awhile "Press Enter. We'll be here until you get back from Github."
+
+open https://github.com/settings/ssh
+
+pause_awhile "Ok. Ready to Continue? Press Enter."
 #
 # # download the repo for the absolute paths
 # if [[ ! -d $SRC_DIR ]]; then
