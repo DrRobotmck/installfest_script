@@ -63,7 +63,7 @@ function quoth_the_bard () {
   local message=$1
   local attribution=$2
   printf "\n$YELLOW$message$RESET"
-  printf "$CYAN$UNDERLINE$attribution$RESET\n"
+  printf "\n$CYAN$UNDERLINE$attribution$RESET\n\n"
 }
 
 # upcase error message and exit script
@@ -153,7 +153,7 @@ quoth_the_bard \
 "Double, double toil and trouble; Fire burn, and caldron bubble." \
 "--Macbeth (IV.i)"
 
-echo "First, let's ensure your SSH keys are setup."
+printf "\nFirst, let's ensure your SSH keys are setup."
 
 # SSH keys establish a secure connection between your computer and GitHub
 # This script follows these instructions `https://help.github.com/articles/generating-ssh-keys`
