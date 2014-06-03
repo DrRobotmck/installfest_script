@@ -6,13 +6,19 @@
 chrome_ext () {
   local app=$1
   local webstore=https://chrome.google.com/webstore/detail/
-  open "$webstore$app"
+  #Checks for system
+  if [[ $OSTYPE == "Darwin"*]]; then
+    open "$webstore$app"
+  else
+    xdg-open "$webstore$app"
+  fi
 }
 
 echo "Now we're going to open your browser to install some Chrome extensions
-from the Chrome Webstore. \nJust click 'Free' to install them.
-If you've alread installed them you'll see 'Added to Chrome'
-Ready?"
+from the Chrome Webstore."
+echo "Just click 'Free' to install them."
+echo "If you've already installed them you'll see 'Added to Chrome'"
+echo "Ready?"
 read -p "Just hit enter!"
 
 # Validate and view JSON documents

@@ -13,8 +13,3 @@ rbenv global $BELOVED_RUBY_VERSION
 
 # Reload
 rbenv rehash
-
-gem update --system
-
-gem install bundler --no-document --pre
-

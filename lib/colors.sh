@@ -1,6 +1,7 @@
 #-------------------------------------------------------------------------------
 # Colors
 #-------------------------------------------------------------------------------
+# http://en.wikipedia.org/wiki/Tput
 
 # Foreground
 BLACK=$(tput setaf 0)
@@ -30,4 +31,3 @@ UNDERLINE=$(tput smul)
 NOUNDERLINE=$(tput rmul)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
-

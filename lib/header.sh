@@ -5,8 +5,7 @@
 # | | | | \__ \ || (_| | | |  _|  __/\__ \ |_
 # |_|_| |_|___/\__\__,_|_|_|_|  \___||___/\__|
 #
-# Installfest Script for development on a Mac
-#
+
 # Author: Phillip Lamplugh, GA Instructor (2014)
 # Contributions: PJ Hughes, GA Instructor (2014)
 #
