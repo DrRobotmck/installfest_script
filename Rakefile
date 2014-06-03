@@ -1,17 +1,11 @@
-task :default => 'build:mac'
+task :default => 'installer:build'
 
-namespace :build do
+namespace :installer do
 
-  desc "Mac installscript"
-  task :mac do
-    puts 'build mac tasks'
-    system("./bin/build.rb mac")
-  end
-
-  desc "Linux installscript"
-  task :linux do
-    puts 'build linux tasks'
-    system("./bin/build.rb linux")
+  desc "Build installscirpts from manifest files"
+  task :build do
+    system("./bin/build.rb")
+    puts "Build installs from manifests"
   end
 
 end

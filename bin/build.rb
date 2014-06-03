@@ -1,10 +1,9 @@
 #!/usr/bin/env ruby
 # Builds installfest script from Manfiest files.
-build = ARGV[0]
+# TODO(phlco) allow arguments?
+# build = ARGV[0]
 
-manifests = Dir["Manifest*"].select { |f| f.include? build }
-
-manifests.each do |manifest|
+Dir["Manifest*"].each do |manifest|
   filename = manifest.gsub(/manifest./i, '')
   File.open(filename, 'w') do |file|
     File.read(manifest).each_line do |line|

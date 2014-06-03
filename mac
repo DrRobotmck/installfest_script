@@ -25,9 +25,9 @@
 MINIMUM_OS="10.7.0"
 BELOVED_RUBY_VERSION="1.9.3-p484"
 
-SRC_DIR=~/.wdi/installfest
+SRC_DIR=~/.wdi-installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest_scripts.git
+INSTALL_REPO=https://github.com/phlco/installfest_scripts.git
 branch="v2"
 
 #-------------------------------------------------------------------------------
@@ -286,7 +286,6 @@ if hash port 2>/dev/null || [[ $(find /opt/local -iname macports 2>/dev/null) ]]
 else
   echo "Macports is not installed. Moving on..."
 fi
-
 # Check for recommended software updates
 sudo softwareupdate -i -r --ignore iTunes
 
