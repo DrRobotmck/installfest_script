@@ -26,3 +26,21 @@ sudo apt-get install zsh
 sudo add-apt-repository ppa:kilian/f.lux
 sudo apt-get update
 sudo apt-get install fluxgui
+
+# hub
+# http://eoinoc.net/install-hub-github-linux-mint/
+mkdir ~/bin
+curl http://defunkt.io/hub/standalone -Lo ~/bin/hub
+chmod 755 ~/bin/hub
+
+# atom
+# ensure that gyp uses Python 2
+npm config set python /usr/bin/python2 -g
+git clone https://github.com/atom/atom
+cd atom
+# Creates application at $TMPDIR/atom-build/Atom
+script/build
+# Installs command to /usr/local/bin/atom
+sudo script/grunt install
+# Generates a .deb package at $TMPDIR/atom-build
+script/grunt mkdeb

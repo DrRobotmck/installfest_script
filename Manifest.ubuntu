@@ -16,6 +16,5 @@ ubuntu/rbenv
 ruby-env
 ubuntu/apps
 ubuntu/heroku
-ubuntu/hub
 ubuntu/node
 ubuntu/postgres

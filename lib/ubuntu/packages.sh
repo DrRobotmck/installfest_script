@@ -45,3 +45,9 @@ sudo apt-get -y install imagemagick
 
 # PhantomJS is a headless WebKit scriptable with a JavaScript API.
 sudo apt-get -y install phantomjs
+
+# gnome-keyring is a daemon in the session, similar to ssh-agent,
+# and other applications can use it to store passwords and other
+# sensitive information
+# atom dependency?
+sudo apt-get -y install libgnome-keyring-dev

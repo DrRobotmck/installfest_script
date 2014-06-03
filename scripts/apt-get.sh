@@ -47,6 +47,9 @@
 # zlib1g-dev
 
 sudo apt-get -y install figlet #............ ASCII ART!!!!
+# TODO PJ: this adds the ogre font... make the directory dynamic with `figlet -I 2`
+sudo wget ftp://ftp.figlet.org/pub/figlet/fonts/contributed/ogre.flf -P /usr/share/figlet
+
 sudo apt-get -y install graphviz #.......... visualization tool for ERDs
 
 # Heroku command-line tooling for working with the Heroku platform
@@ -72,9 +75,10 @@ sudo apt-get -y install phantomjs #......... PhantomJS is a headless WebKit scri
 
 # FIXME sudo apt-get -y install qt #................ WebKit implementation of Qt
 # FIXME sudo apt-get -y install qt4 #............... qt for mavericks
+
 # For Ruby
-sudo apt-get -y install rbenv #............. our ruby version manager
-sudo apt-get -y install ruby-build #........ provides an `rbenv install` command
+sudo apt-get -y install rbenv #............. Our ruby version manager
+sudo apt-get -y install ruby-build #........ Provides an `rbenv install` command
 
 # hub
 # http://eoinoc.net/install-hub-github-linux-mint/
