@@ -1,7 +1,7 @@
 # SSH Keygen
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
-sudo apt-get -y install xclip # Install xclip
+
 # Copy SSH key to the clipboard
 cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
 

@@ -1,5 +1,3 @@
-sudo apt-get -y install git # install git
-
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
