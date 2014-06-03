@@ -6,9 +6,9 @@ ubuntu/software_update
 env_vars
 ubuntu/env_vars
 ubuntu/packages
+github_credentials
 ubuntu/ssh_keys
 remove_rvm
-github_credentials
 git_config
 keep_alive
 clone_repo
