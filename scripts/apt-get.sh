@@ -23,18 +23,18 @@
 # sudo apt-get install ncurses-dev
 
 sudo apt-get -y install figlet #............ ASCII ART!!!!
-sudo apt-get -y install graphviz #.......... visualization tool for ERDs
+sudo apt-get -y install graphviz #.......... Visualization tool for ERDs
 sudo apt-get -y install heroku-toolbelt #... Heroku command-line tooling for working with the Heroku platform
 # http://eoinoc.net/install-hub-github-linux-mint/
-sudo apt-get -y install imagemagick #....... image resizing
-sudo apt-get -y install nodejs #.............. Event-driven I/O server-side JavaScript environment based on V8
+sudo apt-get -y install imagemagick #....... Image resizing
+sudo apt-get -y install nodejs #............ Event-driven I/O server-side JavaScript environment based on V8
 sudo apt-get -y install phantomjs #......... PhantomJS is a headless WebKit scriptable with a JavaScript API.
-sudo apt-get -y install postgres #.......... open source object-relational database management system
+sudo apt-get -y install postgres #.......... Open source object-relational database management system
 sudo apt-get -y install qt #................ WebKit implementation of Qt
-sudo apt-get -y install qt4 #............... qt for mavericks
+sudo apt-get -y install qt4 #............... Qt for mavericks
 # For Ruby
-sudo apt-get -y install rbenv #............. our ruby version manager
-sudo apt-get -y install ruby-build #........ provides an `rbenv install` command
+sudo apt-get -y install rbenv #............. Our ruby version manager
+sudo apt-get -y install ruby-build #........ Provides an `rbenv install` command
 
 # hub
 # http://eoinoc.net/install-hub-github-linux-mint/
