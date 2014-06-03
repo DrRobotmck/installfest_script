@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#!/bin/sh
-=======
-#!/bin/bash -e
->>>>>>> v3
+#!/usr/bin/env bash
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -10,24 +6,17 @@
 # | | | | \__ \ || (_| | | |  _|  __/\__ \ |_
 # |_|_| |_|___/\__\__,_|_|_|_|  \___||___/\__|
 #
-<<<<<<< HEAD
-# Installfest Script for development on a vanilla Ubuntu machine
-#
-=======
+# Installfest Script for development
 
->>>>>>> v3
 # Author: Phillip Lamplugh, GA Instructor (2014)
 # Contributions: PJ Hughes, GA Instructor (2014)
 #
 
 # Resources
-<<<<<<< HEAD
-# what are some for Ubuntu?...
-=======
+# TODO (h4w5) what are some for Ubuntu?...
 # https://github.com/divio/osx-bootstrap
 # https://github.com/paulirish/dotfiles
 # https://github.com/mathiasbynens/dotfiles/
->>>>>>> v3
 
 # References
 # http://www.sudo.ws/
@@ -35,15 +24,10 @@
 # http://www.shellcheck.net
 # http://explainshell.com/
 #-------------------------------------------------------------------------------
-<<<<<<< HEAD
 # Set colors
-#-------------------------------------------------------------------------------
-=======
-# Colors
 #-------------------------------------------------------------------------------
 # http://en.wikipedia.org/wiki/Tput
 
->>>>>>> v3
 # Foreground
 BLACK=$(tput setaf 0)
 BLUE=$(tput setaf 4)
@@ -55,10 +39,7 @@ PURPLE=$(tput setaf 141)
 RED=$(tput setaf 1)
 WHITE=$(tput setaf 7)
 YELLOW=$(tput setaf 226)
-<<<<<<< HEAD
-=======
 
->>>>>>> v3
 # Background
 BG_BLACK=$(tput setab 0)
 BG_BLUE=$(tput setab 4)
@@ -69,21 +50,16 @@ BG_ORANGE=$(tput setab 172)
 BG_RED=$(tput setab 1)
 BG_WHITE=$(tput setab 7)
 BG_YELLOW=$(tput setab 226)
-<<<<<<< HEAD
-=======
 
->>>>>>> v3
 # Formatting
 UNDERLINE=$(tput smul)
 NOUNDERLINE=$(tput rmul)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
-<<<<<<< HEAD
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
-# ABRB
-=======
+
 #######################################
 # ABRB
 # Arguments:
@@ -92,7 +68,6 @@ RESET=$(tput sgr0)
 # Returns:
 #   None
 #######################################
->>>>>>> v3
 function quoth_the_bard () {
   local message=$1
   local attribution=$2
@@ -101,9 +76,6 @@ function quoth_the_bard () {
   echo "$PURPLE$attribution$RESET"
 }
 
-<<<<<<< HEAD
-# upcase error message and exit script
-=======
 #######################################
 # Upcase error message and exit script
 # Arguments:
@@ -111,7 +83,7 @@ function quoth_the_bard () {
 # Returns:
 #   None
 #######################################
->>>>>>> v3
+
 function fie () {
   local message=$(echo $1 | tr 'a-z' 'A-Z')
   echo ""
@@ -119,18 +91,20 @@ function fie () {
   exit
 }
 
-<<<<<<< HEAD
-# announce our acts
+
+#######################################
+# Announce our acts
+# Arguments:
+#   Act Number
+# Returns:
+#   None
+#######################################
 function figlet_announces () {
   clear
   local act=$1
   figlet -f ogre $act
 }
 
-function pause_awhile () {
-   read -p "$* Press Enter to continue"
-}
-=======
 #######################################
 # Waits for user input
 # Arguments:
@@ -247,8 +221,6 @@ allow_control() {
     echo "allow_control works only on Mavericks"
   fi
 }
-
->>>>>>> v3
 #-------------------------------------------------------------------------------
 # Check for software updates
 #-------------------------------------------------------------------------------
@@ -256,21 +228,12 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
 # TODO (phlco) reboot?
-<<<<<<< HEAD
-BELOVED_RUBY_VERSION="2.1.0"
-
-SRC_DIR=~/.wdi/installfest # TODO backport this into master and mac...
-SCRIPTS=$SRC_DIR/scripts
-SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
-=======
 BRANCH="v2"
 BELOVED_RUBY_VERSION="1.9.3-p484"
 
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/phlco/installfest_scripts.git
->>>>>>> v3
 BRANCH="ubuntu"
 # git for version control
 sudo apt-get -y install git
@@ -322,11 +285,7 @@ sudo apt-get -y install phantomjs
 # SSH Keygen
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
-<<<<<<< HEAD
-sudo apt-get -y install xclip # Install xclip
-=======
 
->>>>>>> v3
 # Copy SSH key to the clipboard
 cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
 
@@ -349,19 +308,6 @@ echo "Firefox may print an error to the terminal. DON'T WORRY!"
 xdg-open https://github.com/settings/ssh &
 
 pause_awhile "Ok. Ready to Continue? Press Enter."
-<<<<<<< HEAD
-# Uninstall RVM
-# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
-if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
-  rvm implode
-=======
-echo "If you haven't already done so,"
-echo "please register for an account on github.com"
-
-read -p "Enter your full name: "  user_name
-read -p "Github Username: "       github_name
-read -p "Github Email: "          github_email
-
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
 
@@ -369,24 +315,17 @@ read -p "Github Email: "          github_email
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
 if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
   yes | rvm implode
->>>>>>> v3
   rm -rf ~/.rvm
   echo "RVM has been removed."
 else
   echo "RVM is not installed. Moving on..."
 fi
-<<<<<<< HEAD
-echo "Please register for an account on github.com if you haven't already done so."
-=======
 
-echo "If you haven't already done so,"
-echo "please register for an account on github.com"
->>>>>>> v3
+echo "Please register for an account on github.com if you haven't already done so."
 
 read -p "Enter your full name: "  user_name
 read -p "Github Username: "       github_name
 read -p "Github Email: "          github_email
-<<<<<<< HEAD
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
 git config --global user.name  $github_name
@@ -408,43 +347,12 @@ git config --global core.editor "subl -w"
 
 # default branch to push to
 git config --global push.default current
-=======
-
 # Capture the user's password
 sudo echo "Thanks."
 
 # Update existing `sudo` time stamp until script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
->>>>>>> v3
-# download the repo for the absolute paths
-if [[ ! -d $SRC_DIR ]]; then
-  echo 'Downloading Installfest repo...'
-  # autoupdate bootstrap file
-  git clone -b $BRANCH $INSTALL_REPO $SRC_DIR
-  # hide folder
-  chflags hidden $SRC_DIR
-else
-  # update repo
-  echo 'Updating repo...'
-  cd $SRC_DIR
-  git pull origin $BRANCH
-fi
-<<<<<<< HEAD
-# This script checks for and downloads Ruby 2.1 and sets it as the global default
-# https://gist.github.com/ilude/1244311
-source ~/.bash_profile
-
-ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
-
-# copy over default gemset
-# cp $SRC_DIR/settings/ruby/default-gems ~/.rbenv/default-gems
-
-if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
-  echo "$BELOVED_RUBY_VERSION is installed"
-else
-  rbenv install $BELOVED_RUBY_VERSION
-=======
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
@@ -470,20 +378,13 @@ if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
   echo "$BELOVED_RUBY_VERSION is installed"
 else
   rbenv install "$BELOVED_RUBY_VERSION"
->>>>>>> v3
 fi
 
 # Set global Ruby
 rbenv global $BELOVED_RUBY_VERSION
 
 # Reload
-<<<<<<< HEAD
-source ~/.bash_profile
-
-# fin #
-=======
 rbenv rehash
->>>>>>> v3
 # Google Chrome.........The Browser
 # HipChat...............The Chat Client
 # Sublime Text 2........The Text Editor
@@ -504,24 +405,17 @@ apt-get install hipchat
 sudo add-apt-repository ppa:webupd8team/sublime-text-2
 sudo apt-get update
 sudo apt-get install sublime-text
-<<<<<<< HEAD
-=======
 
 # zsh
 sudo apt-get install zsh
->>>>>>> v3
 # Heroku command-line tooling for working with the Heroku platform
 
 # http://eoinoc.net/install-hub-github-linux-mint/
 wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
 # https://devcenter.heroku.com/articles/keys
-<<<<<<< HEAD
 echo "Heroku is a cloud platform as a service (PaaS) supporting several"
 echo "programming languages."
-=======
-echo "Heroku is a cloud platform as a service (PaaS) supporting several programming languages."
->>>>>>> v3
 
 echo "If you don’t already use SSH, you’ll need to create a public/private key"
 echo "pair to deploy code to Heroku. This keypair is used for the strong"
@@ -556,8 +450,3 @@ sudo apt-get -y install nodejs-legacy
 # sudo apt-get -y install postgresql
 # sudo apt-get -y install postgresql-contrib
 # sudo apt-get -y install pg_ctl # initialize stop/start posgres
-<<<<<<< HEAD
-sudo apt-get -y install rbenv #............. our ruby version manager
-sudo apt-get -y install ruby-build #........ provides an `rbenv install` command
-=======
->>>>>>> v3
