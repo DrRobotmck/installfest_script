@@ -121,11 +121,9 @@ echo "Welcome to Installfest"
 sudo echo "${GREEN}Thanks.${RESET}" # capture the user's password
 
 # Keep-alive: update existing `sudo` time stamp until script has finished
-<<<<<<< HEAD
+
 # TODO PJ: this doesn't seemt o be working...
-=======
 # TODO (phlco) ensure this actually works so we don't sudo every apt-get
->>>>>>> 72bee1389ee8bfb9a352e5e8d67d765aaa80de82
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 #-------------------------------------------------------------------------------
