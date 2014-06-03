@@ -219,6 +219,13 @@ allow_control() {
     echo "allow_control works only on Mavericks"
   fi
 }
+# Capture the user's password
+sudo echo "Thanks."
+
+# Update existing `sudo` time stamp until script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# TODO (philco) does this actually work?
 #-------------------------------------------------------------------------------
 # Check for software updates
 #-------------------------------------------------------------------------------
@@ -233,6 +240,19 @@ SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/phlco/installfest_scripts.git
 BRANCH="ubuntu"
+# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
+# This script checks for and removes previous installs of macports and RVM
+
+# Uninstall RVM
+# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
+if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
+  yes | rvm implode
+  rm -rf ~/.rvm
+  echo "RVM has been removed."
+else
+  echo "RVM is not installed. Moving on..."
+fi
+
 # git for version control
 sudo apt-get -y install git
 
@@ -317,19 +337,6 @@ echo "Firefox may print an error to the terminal. DON'T WORRY!"
 xdg-open https://github.com/settings/ssh &
 
 pause_awhile "Ok. Ready to Continue? Press Enter."
-# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
-# This script checks for and removes previous installs of macports and RVM
-
-# Uninstall RVM
-# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
-if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
-  yes | rvm implode
-  rm -rf ~/.rvm
-  echo "RVM has been removed."
-else
-  echo "RVM is not installed. Moving on..."
-fi
-
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
 git config --global user.name  $github_name
@@ -351,13 +358,6 @@ git config --global core.editor "subl -w"
 
 # default branch to push to
 git config --global push.default current
-# Capture the user's password
-sudo echo "Thanks."
-
-# Update existing `sudo` time stamp until script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-# TODO (philco) does this actually work?
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'

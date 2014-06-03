@@ -10,12 +10,8 @@ mac/remove_macports
 mac/software_update
 keep_alive
 github_credentials
-<<<<<<< HEAD
-clone_repo
-=======
 mac/ssh_keys
-repo_setup
->>>>>>> 1ae006b5ea26eb285afbe8aa1ff1ba832e402a1c
+clone_repo
 mac/homebrew
 mac/compilers
 mac/git
