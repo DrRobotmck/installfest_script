@@ -3,11 +3,11 @@ header
 colors
 helper_functions
 ubuntu/software_update
-env_variables
+env_vars
 ubuntu/env_vars
 ubuntu/packages
 ubuntu/ssh_keys
-rvm
+remove_rvm
 github_credentials
 git_config
 clone_repo

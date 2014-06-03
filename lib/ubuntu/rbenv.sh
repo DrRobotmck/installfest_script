@@ -1,2 +1,4 @@
-sudo apt-get -y install rbenv #............. our ruby version manager
-sudo apt-get -y install ruby-build #........ provides an `rbenv install` command
+# our ruby version manager
+sudo apt-get -y install rbenv
+# provides an `rbenv install` command
+sudo apt-get -y install ruby-build
