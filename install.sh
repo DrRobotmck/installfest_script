@@ -121,7 +121,11 @@ echo "Welcome to Installfest"
 sudo echo "${GREEN}Thanks.${RESET}" # capture the user's password
 
 # Keep-alive: update existing `sudo` time stamp until script has finished
+<<<<<<< HEAD
 # TODO PJ: this doesn't seemt o be working...
+=======
+# TODO (phlco) ensure this actually works so we don't sudo every apt-get
+>>>>>>> 72bee1389ee8bfb9a352e5e8d67d765aaa80de82
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 #-------------------------------------------------------------------------------
@@ -137,11 +141,10 @@ read -p "Github Email: "          github_email
 #-------------------------------------------------------------------------------
 # Check for software updates
 #-------------------------------------------------------------------------------
-# apt-get update
-# apt-get upgrade
-# apt-get dist-upgrade
-# reboot
-# PJ: do this?
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+# TODO (phlco) reboot?
 
 #######################################################################################
 
@@ -161,9 +164,8 @@ echo "First, let's ensure your SSH keys are setup."
 # SSH Keygen
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
+sudo apt-get -y install xclip # Install xclip
 # Copy SSH key to the clipboard
-# Installing xclip
-sudo apt-get -y install xclip
 cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
 
 echo "We just copied your SSH key to the clipboard."
@@ -178,16 +180,18 @@ echo '- Click "Add key"'
 echo '- Confirm the action by entering your GitHub password'
 
 pause_awhile "Press Enter. We'll be here until you get back from Github."
+
 echo "Firefox may print an error to the terminal. DON'T WORRY!"
 # Open in default browser as a new process
+# TODO(phlco) Firefox raises an error
 xdg-open https://github.com/settings/ssh &
 
 pause_awhile "Ok. Ready to Continue? Press Enter."
-#
-# download the repo for the absolute paths
-# installing git
-sudo apt-get -y install git
 
+
+sudo apt-get -y install git # install git
+
+# download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
   # autoupdate bootstrap file
@@ -202,7 +206,7 @@ else
 fi
 # #######################################################################################
 #
-# # Ensure Macports and RVM aren't installed ############################################
+# # Ensure RVM isn't installed ############################################
 clear
 echo "            _     _                                     _ "
 echo "  __ _  ___| |_  / |          ___  ___ ___ _ __   ___  / |"
@@ -214,12 +218,13 @@ echo "                                                          "
 quoth_the_bard \
 "Woe, destruction, ruin, and decay\; the worst is death and death will have his day." \
 "--Richard II (III.ii)"
-#
+
 pause_awhile "Removing any previous installations of RVM..."
+
 source $SCRIPTS/clean.sh
 # ######################################################################################
 #
-# Install homebrew and formulae ######################################################
+# Install formulae ######################################################
 clear
 echo "            _     _                                     ____  "
 echo "  __ _  ___| |_  / |          ___  ___ ___ _ __   ___  |___ \ "
@@ -239,38 +244,40 @@ Boy: Would I were in an alehouse in London! I would give
 all my fame for a pot of ale and safety." \
 "--Henry V (III.ii)"
 #
-# pause_awhile "Installing our Package Manager HomeBrew"
+pause_awhile "Installing our Apps"
 source $SCRIPTS/apt-get.sh
-# ######################################################################################
+######################################################################################
+
+# Additional settings and bash_profile ###############################################
+# FIGLET enters stage left. (apt-get installed a figlet formula to do auto ascii-text art)
+# PHIL: What ho, Figlet!
+# FIGLET: It is a tale. Told by an idiot, full of sound and fury. Signifying nothing.
+# PHIL: Ummmmm, ok... Would you mind announcing the acts?
+figlet_announces "act 1 - scene 3"
 #
-# # Additional settings and bash_profile ###############################################
-# # FIGLET enters stage left. (homebrew installed a figlet formula to do auto ascii-text art)
-# # PHIL: What ho, Figlet!
-# # FIGLET: It is a tale. Told by an idiot, full of sound and fury. Signifying nothing.
-# # PHIL: Ummmmm, ok... Would you mind announcing the acts?
-# figlet_announces "act 1 - scene 3"
+quoth_the_bard \
+"I have touch'd the highest point of all my greatness;
+And, from that full meridian of my glory,
+I haste now to my setting: I shall fall
+Like a bright exhalation in the evening,
+And no man see me more." \
+"--Henry VIII (III.ii)"
 #
-# quoth_the_bard \
-# "I have touch'd the highest point of all my greatness;
-# And, from that full meridian of my glory,
-# I haste now to my setting: I shall fall
-# Like a bright exhalation in the evening,
-# And no man see me more." \
-# "--Henry VIII (III.ii)"
-#
-# pause_awhile "Config settings for terminal"
-# source $SCRIPTS/settings.sh # PL: someday maybe these are kept in a hidden folder?
-# #######################################################################################
-#
-# # Ruby setup ##########################################################################
-# figlet_announces "act 3 - scene 1"
-#
-# quoth_the_bard \
-# "Once more the ruby-colour'd portal open'd," \
-# "--Venus and Adonis (1593)"
-#
-# pause_awhile "Setting up RBENV our Ruby Version Manager"
-# source $SCRIPTS/rbenv.sh
+pause_awhile "Config settings for terminal"
+
+# TODO (phlco) move to separate dotfiles install
+source $SCRIPTS/settings.sh
+#######################################################################################
+
+# Ruby setup ##########################################################################
+figlet_announces "act 3 - scene 1"
+
+quoth_the_bard \
+"Once more the ruby-colour'd portal open'd," \
+"--Venus and Adonis (1593)"
+
+pause_awhile "Setting up RBENV our Ruby Version Manager"
+source $SCRIPTS/rbenv.sh
 # #######################################################################################
 #
 # # git setup ###########################################################################
