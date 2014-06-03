@@ -1,11 +1,11 @@
-task :default => 'build:ubuntu'
+task :default => 'installer:build'
 
-namespace :build do
+namespace :installer do
 
-  desc "ubuntu installfest script"
-  task :ubuntu do
-    puts 'build ubuntu tasks'
+  desc "Build installscirpts from manifest files"
+  task :build do
     system("./bin/build.rb")
+    puts "Build installs from manifests"
   end
 
 end
