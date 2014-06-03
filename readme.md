@@ -25,7 +25,7 @@ If Xcode is installed the script continues.
 
 <!-- TODO (h4w5) change curl to wget -->
 ```
-bash <(wget -qO- http://ga.co/installfestubuntu)
+bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/ubuntu-merge/ubuntu)
 ```
 
 **Don't use yet!** Is not in working condition.

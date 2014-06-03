@@ -23,46 +23,44 @@
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-BRANCH="v2"
 BELOVED_RUBY_VERSION="1.9.3-p484"
 
+# TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/phlco/installfest_scripts.git
 MINIMUM_OS="10.7.0"
-#-------------------------------------------------------------------------------
-# Set colors
-#-------------------------------------------------------------------------------
-# http://en.wikipedia.org/wiki/Tput
+# Reset formatting
+RESET=$(      tput sgr0)
 
-# Foreground
-BLACK=$(tput setaf 0)
-BLUE=$(tput setaf 4)
-CYAN=$(tput setaf 6)
-GREEN=$(tput setaf 2)
-MAGENTA=$(tput setaf 5)
-ORANGE=$(tput setaf 172)
-PURPLE=$(tput setaf 141)
-RED=$(tput setaf 1)
-WHITE=$(tput setaf 7)
-YELLOW=$(tput setaf 226)
+# Foreground color
+BLACK=$(      tput setaf 0)
+RED=$(        tput setaf 1)
+GREEN=$(      tput setaf 2)
+YELLOW=$(     tput setaf 3)
+BLUE=$(       tput setaf 4)
+MAGENTA=$(    tput setaf 5)
+CYAN=$(       tput setaf 6)
+WHITE=$(      tput setaf 9)
+# ORANGE=$(     tput setaf 172)
+# PURPLE=$(     tput setaf 141)
 
-# Background
-BG_BLACK=$(tput setab 0)
-BG_BLUE=$(tput setab 4)
-BG_CYAN=$(tput setab 6)
-BG_GREEN=$(tput setab 2)
-BG_MAGENTA=$(tput setab 5)
-BG_ORANGE=$(tput setab 172)
-BG_RED=$(tput setab 1)
-BG_WHITE=$(tput setab 7)
-BG_YELLOW=$(tput setab 226)
+# Background color
+BG_BLACK=$(   tput setab 0)
+BG_RED=$(     tput setab 1)
+BG_GREEN=$(   tput setab 2)
+BG_YELLOW=$(  tput setab 3)
+BG_BLUE=$(    tput setab 4)
+BG_MAGENTA=$( tput setab 5)
+BG_CYAN=$(    tput setab 6)
+BG_WHITE=$(   tput setab 9)
+# BG_ORANGE=$(  tput setab 172)
 
-# Formatting
-UNDERLINE=$(tput smul)
-NOUNDERLINE=$(tput rmul)
-BOLD=$(tput bold)
-RESET=$(tput sgr0)
+# Style
+UNDERLINE=$(  tput smul)
+# NOUNDERLINE=$(tput rmul)
+BOLD=$(       tput bold)
+ITALIC=$(     tput sitm)
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
@@ -484,18 +482,21 @@ brew install rbenv-default-gems
 # Add to path
 export PATH="$HOME/.rbenv/bin:$PATH"
 
-# Our Ruby Environment
+source ~/.bash_profile
 
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
   echo "$BELOVED_RUBY_VERSION is installed"
 else
-  rbenv install "$BELOVED_RUBY_VERSION"
+  rbenv install $BELOVED_RUBY_VERSION
 fi
 
 # Set global Ruby
 rbenv global $BELOVED_RUBY_VERSION
+
+# Reload
+source ~/.bash_profile
 
 # Reload
 rbenv rehash
@@ -678,7 +679,7 @@ dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc
 
 for file in $dotfiles; do
   if [ -a "${HOME}/${file}" ]; then
-      # move file
+      # backup files
       mv "${HOME}/${file}" "${HOME}/.dotfiles_backup/${file}"
     fi
     # symlink file
