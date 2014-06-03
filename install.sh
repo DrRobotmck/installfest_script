@@ -62,8 +62,8 @@ ITALIC=$(     tput sitm)
 function quoth_the_bard () {
   local message=$1
   local attribution=$2
-  echo "\n$WHITE$message$RESET"
-  echo "$CYAN$UNDERLINE$attribution$RESET\n"
+  printf "\n$YELLOW$message$RESET"
+  printf "$CYAN$UNDERLINE$attribution$RESET\n"
 }
 
 # upcase error message and exit script
