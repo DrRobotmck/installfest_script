@@ -18,3 +18,9 @@ apt-get install hipchat
 sudo add-apt-repository ppa:webupd8team/sublime-text-2
 sudo apt-get update
 sudo apt-get install sublime-text
+
+# hub
+# http://eoinoc.net/install-hub-github-linux-mint/
+mkdir ~/bin
+curl http://defunkt.io/hub/standalone -Lo ~/bin/hub
+chmod 755 ~/bin/hub
