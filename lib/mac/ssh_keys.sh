@@ -9,6 +9,7 @@ ssh-add id_rsa
 # Copy SSH key to the clipboard
 pbcopy < ~/.ssh/id_rsa.pub
 
+echo ""
 echo "We just copied your SSH key to the clipboard."
 echo "Now we're going to visit GitHub to add the SSH key"
 
@@ -24,4 +25,3 @@ pause_awhile "We'll be here until you get back from Github. Ready?"
 open https://github.com/settings/ssh
 
 pause_awhile "SSH keys added?"
-

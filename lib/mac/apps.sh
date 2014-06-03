@@ -40,3 +40,5 @@ brew cask install font-source-code-pro
 brew cask install font-source-sans-pro
 brew cask install font-consolas
 
+# Git extensions to provide high-level repository operations
+# brew install git-flow

@@ -1,5 +1,5 @@
 shebang
-header
+commentary/header
 env_vars
 mac/env_vars
 colors
@@ -9,21 +9,23 @@ remove_rvm
 mac/remove_macports
 mac/software_update
 keep_alive
-mac/ssh_keys
 github_credentials
+<<<<<<< HEAD
+clone_repo
+=======
+mac/ssh_keys
 repo_setup
+>>>>>>> 1ae006b5ea26eb285afbe8aa1ff1ba832e402a1c
 mac/homebrew
 mac/compilers
 mac/git
 git_config
 mac/rbenv
-ruby-env
-default-gems
+set_ruby_version
+default_gems
 mac/packages
 mac/apps
-mac/sublime_settings
 mac/heroku
 mac/postgres
-mac/dotfiles
 vim_plugins
 oh_my_zsh

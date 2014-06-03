@@ -222,9 +222,9 @@ allow_control() {
 #-------------------------------------------------------------------------------
 # Check for software updates
 #-------------------------------------------------------------------------------
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get dist-upgrade
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
 # TODO (phlco) reboot?
 BELOVED_RUBY_VERSION="1.9.3-p484"
 
@@ -357,6 +357,7 @@ sudo echo "Thanks."
 # Update existing `sudo` time stamp until script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+# TODO (philco) does this actually work?
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
@@ -372,9 +373,16 @@ else
 fi
 # our ruby version manager
 sudo apt-get -y install rbenv
+# git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
 # provides an `rbenv install` command
 sudo apt-get -y install ruby-build
-source ~/.bash_profile
+
+# enable shims and autocompletion
+eval "$(rbenv init -)"
+
+# Add to path
+export PATH="$HOME/.rbenv/bin:$PATH"
+# source ~/.bash_profile
 
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
@@ -388,7 +396,7 @@ fi
 rbenv global $BELOVED_RUBY_VERSION
 
 # Reload
-source ~/.bash_profile
+# source ~/.bash_profile
 
 # Reload
 rbenv rehash
@@ -399,45 +407,52 @@ rbenv rehash
 # chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-sudo apt-get update
-sudo apt-get install google-chrome-stable
+sudo apt-get -y update
+sudo apt-get -y install google-chrome-stable
 
 # hipchat
 echo "deb http://downloads.hipchat.com/linux/apt stable main" > /etc/apt/sources.list.d/atlassian-hipchat.list
 wget -O - https://www.hipchat.com/keys/hipchat-linux.key | apt-key add -
-apt-get update
-apt-get install hipchat
+sudo apt-get -y update
+sudo apt-get -y install hipchat
 
 # sublime
 sudo add-apt-repository ppa:webupd8team/sublime-text-2
-sudo apt-get update
-sudo apt-get install sublime-text
+sudo apt-get -y update
+sudo apt-get -y install sublime-text
 
 # zsh
-sudo apt-get install zsh
+sudo apt-get -y install zsh
 
 # flux
 sudo add-apt-repository ppa:kilian/f.lux
-sudo apt-get update
-sudo apt-get install fluxgui
+sudo apt-get -y update
+sudo apt-get -y install fluxgui
 
 # hub
 # http://eoinoc.net/install-hub-github-linux-mint/
-mkdir ~/bin
-curl http://defunkt.io/hub/standalone -Lo ~/bin/hub
-chmod 755 ~/bin/hub
+curl http://defunkt.io/hub/standalone -Lo ~/usr/bin/hub
+chmod 755 ~/usr/bin/hub
+
+# vim
+sudo apt-get -y install vim
 
 # atom
+# Requires 64-bit
 # ensure that gyp uses Python 2
-npm config set python /usr/bin/python2 -g
+sudo npm config set python /usr/bin/python2 -g
 git clone https://github.com/atom/atom
 cd atom
+# TMPDIR=~/.wdi/tmp
 # Creates application at $TMPDIR/atom-build/Atom
+# TODO (phlco) move to /usr/bin
 script/build
 # Installs command to /usr/local/bin/atom
 sudo script/grunt install
 # Generates a .deb package at $TMPDIR/atom-build
 script/grunt mkdeb
+# TODO (phlco) command line tool for atom?
+# sudo dpkg -i $TMPDIR/atom-build/Atom.deb
 # Heroku command-line tooling for working with the Heroku platform
 
 # http://eoinoc.net/install-hub-github-linux-mint/
@@ -480,5 +495,83 @@ sudo apt-get -y install postgresql
 sudo apt-get -y install postgresql-contrib
 
 sudo -u postgres createuser --superuser $USER
-sudo -u postgres psql
+# TODO phlco. taking out?
+# sudo -u postgres psql
+# create a history?
+touch ~/.psql_history
+
 createdb $USER
+# Our gems to install
+
+# Maintains a consistent environment for ruby applications.
+gem install bundler
+
+# Acceptance test framework for web applications
+gem install capybara
+
+# handle events on file system modifications
+gem install guard
+
+# JavaScript testing
+gem install jasmine
+
+# ruby interface for Postgres
+gem install pg
+
+# alternative to the standard IRB shell
+gem install pry
+
+# live syntax highlighting for the Pry REPL
+gem install pry-coolline
+
+# full stack, Web application framework
+gem install rails
+
+# testing tool for Ruby
+gem install rspec
+
+# a DSL for quickly creating web applications in Ruby
+gem install sinatra
+
+# common Sinatra extensions
+gem install sinatra-contrib
+
+# Ruby interface to github API v3
+gem install github_api
+
+# HipChat HTTP API Wrapper
+gem install hipchat
+
+# pretty print your Ruby objects with style
+gem install awesome_print
+
+# colorizing printed text on ANSI terminals
+gem install rainbow
+# Install Vim Plugin Manager
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# Vimrc is copied over from dotfiles
+# The Z shell (zsh) is a Unix shell that can be used as an interactive login
+# shell and as a powerful command interpreter for shell scripting. Zsh can be
+# thought of as an extended Bourne shell with a large number of improvements,
+# including some features of bash, ksh, and tcsh.
+# This script installs zsh, oh-my-zsh, an open source, community-driven framework
+# for managing your ZSH configuration.
+
+# Install zsh
+git clone git://zsh.git.sf.net/gitroot/zsh/zsh
+cp ~/.zshrc ~/.zshrc.orig
+
+# Install oh-my-zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+cp $SRC_DIR/settings/dotfiles/zshrc ~/.zshrc
+
+# Syntax Highlighting
+git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins
+
+# Set as default
+chsh -s /bin/zsh
+
+# Resources
+# https://github.com/robbyrussell/oh-my-zsh
+# http://www.stevendobbelaere.be/installing-and-configuring-the-oh-my-zsh-shell/

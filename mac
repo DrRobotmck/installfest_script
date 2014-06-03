@@ -276,8 +276,6 @@ fi
 
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
-<<<<<<< HEAD:scripts/clean.sh
-=======
 
 # Uninstall Macports
 # http://guide.macports.org/chunked/installing.macports.uninstalling.html
@@ -304,7 +302,6 @@ if hash port 2>/dev/null || [[ $(find /opt/local -iname macports 2>/dev/null) ]]
 else
   echo "Macports is not installed. Moving on..."
 fi
->>>>>>> v3:lib/mac/remove_macports.sh
 # Check for recommended software updates
 sudo softwareupdate -i -r --ignore iTunes
 
@@ -320,6 +317,15 @@ sudo echo "Thanks."
 # Update existing `sudo` time stamp until script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+<<<<<<< HEAD
+# TODO (philco) does this actually work?
+=======
+echo "Please register for an account on github.com if you haven't already done so."
+
+read -p "Enter your full name: "  user_name
+read -p "Github Username: "       github_name
+read -p "Github Email: "          github_email
+>>>>>>> 1ae006b5ea26eb285afbe8aa1ff1ba832e402a1c
 # SSH keys establish a secure connection between your computer and GitHub
 # This script follows these instructions
 # `https://help.github.com/articles/generating-ssh-keys`
@@ -331,6 +337,7 @@ ssh-add id_rsa
 # Copy SSH key to the clipboard
 pbcopy < ~/.ssh/id_rsa.pub
 
+echo ""
 echo "We just copied your SSH key to the clipboard."
 echo "Now we're going to visit GitHub to add the SSH key"
 
@@ -346,12 +353,15 @@ pause_awhile "We'll be here until you get back from Github. Ready?"
 open https://github.com/settings/ssh
 
 pause_awhile "SSH keys added?"
-
+<<<<<<< HEAD
 echo "Please register for an account on github.com if you haven't already done so."
 
 read -p "Enter your full name: "  user_name
 read -p "Github Username: "       github_name
 read -p "Github Email: "          github_email
+=======
+
+>>>>>>> 1ae006b5ea26eb285afbe8aa1ff1ba832e402a1c
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
@@ -398,7 +408,7 @@ brew install libtool
 brew install libyaml
 
 # neon is an HTTP and WebDAV client library
-brew install neon
+# brew install neon
 
 # A toolkit implementing SSL v2/v3 and TLS protocols with full-strength
 # cryptography world-wide.
@@ -407,9 +417,7 @@ brew install openssl
 # pkg-config is a helper tool used when compiling applications and libraries.
 brew install pkg-config
 
-# a self-contained, serverless, zero-configuration, transactional SQL database
-# engine.
-brew install sqlite
+
 
 # a script that uses ssh to log into a remote machine
 brew install ssh-copy-id
@@ -436,7 +444,6 @@ brew tap --repair
 
 # Remove outdated versions from the cellar
 brew cleanup
-
 # Version Control
 brew install git
 
@@ -482,7 +489,7 @@ brew install rbenv-default-gems
 # Add to path
 export PATH="$HOME/.rbenv/bin:$PATH"
 
-source ~/.bash_profile
+# source ~/.bash_profile
 
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
@@ -496,7 +503,7 @@ fi
 rbenv global $BELOVED_RUBY_VERSION
 
 # Reload
-source ~/.bash_profile
+# source ~/.bash_profile
 
 # Reload
 rbenv rehash
@@ -535,6 +542,17 @@ gem install sinatra
 # common Sinatra extensions
 gem install sinatra-contrib
 
+# Ruby interface to github API v3
+gem install github_api
+
+# HipChat HTTP API Wrapper
+gem install hipchat
+
+# pretty print your Ruby objects with style
+gem install awesome_print
+
+# colorizing printed text on ANSI terminals
+gem install rainbow
 # Useful packages
 # ASCII ART!!!!
 brew install figlet
@@ -561,7 +579,11 @@ brew install redis
 brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
 
 # essential UNIX commands
-brew install coreutils
+brew install coreutils # TODO (philco) ensure they're aliased in the path correctly
+
+# a self-contained, serverless, zero-configuration, transactional SQL database
+# engine.
+brew install sqlite
 # a CLI workflow for the administration of Mac applications
 # distributed as binaries
 brew tap phinze/homebrew-cask
@@ -604,26 +626,8 @@ brew cask install font-source-code-pro
 brew cask install font-source-sans-pro
 brew cask install font-consolas
 
-# Setup Sublime Preferences
-sublime_app_support="${HOME}/Library/Application Support/Sublime Text 2"
-sublime_preferences="Preferences.sublime-settings"
-pkg_control="Package Control.sublime-package"
-pkg_url="https://sublime.wbond.net/Package%20Control.sublime-package"
-pkg_settings="Package Control.sublime-settings"
-
-# backup
-cp -r "$sublime_app_support/Packages/User/$sublime_preferences"{,.bak}
-cp -r "$sublime_app_support/Installed Packages/$pkg_settings"{,.bak}
-
-# copy over
-cp -r "$SETTINGS/sublime/$sublime_preferences" "$sublime_app_support/Packages/User/$sublime_preferences"
-cp -r "$SETTINGS/sublime/$pkg_settings"        "$sublime_app_support/Installed Packages/$pkg_settings"
-
-# Installing Package Control
-curl -L -o "$sublime_app_support/Installed Packages/$pkg_control" "$pkg_url"
-
-# # Symlink Sublime Text 2
-# ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
+# Git extensions to provide high-level repository operations
+# brew install git-flow
 #  _                    _
 # | |__   ___ _ __ ___ | | ___   _
 # | '_ \ / _ \ '__/ _ \| |/ / | | |
@@ -651,8 +655,7 @@ echo "credentials. Your public key will then be automatically uploaded to"
 echo "Heroku. This will allow you to deploy code to all of your apps."
 
 # PL: holding off for user interaction
-# heroku keys:add
-
+heroku keys:add
 # Set up Postgres
 
 # open source object-relational database management system
@@ -671,20 +674,6 @@ brew services start postgres
 # # Start Postgres now
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
-# Create a folder for backed up files
-mkdir -p "${HOME}/.dotfiles_backup"
-
-# Dotfiles we'll be using
-dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc vimrc"
-
-for file in $dotfiles; do
-  if [ -a "${HOME}/${file}" ]; then
-      # backup files
-      mv "${HOME}/${file}" "${HOME}/.dotfiles_backup/${file}"
-    fi
-    # symlink file
-  ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
-done
 # Install Vim Plugin Manager
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 

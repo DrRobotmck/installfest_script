@@ -1,5 +1,5 @@
 shebang
-header
+commentary/header
 colors
 helper_functions
 ubuntu/software_update
@@ -13,8 +13,11 @@ git_config
 keep_alive
 clone_repo
 ubuntu/rbenv
-ruby-env
+set_ruby_version
 ubuntu/apps
 ubuntu/heroku
 ubuntu/node
 ubuntu/postgres
+default_gems
+vim_plugins
+oh_my_zsh

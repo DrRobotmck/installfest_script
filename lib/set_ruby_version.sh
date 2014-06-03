@@ -1,4 +1,4 @@
-source ~/.bash_profile
+# source ~/.bash_profile
 
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
@@ -12,7 +12,7 @@ fi
 rbenv global $BELOVED_RUBY_VERSION
 
 # Reload
-source ~/.bash_profile
+# source ~/.bash_profile
 
 # Reload
 rbenv rehash

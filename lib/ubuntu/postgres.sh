@@ -11,5 +11,9 @@ sudo apt-get -y install postgresql
 sudo apt-get -y install postgresql-contrib
 
 sudo -u postgres createuser --superuser $USER
-sudo -u postgres psql
+# TODO phlco. taking out?
+# sudo -u postgres psql
+# create a history?
+touch ~/.psql_history
+
 createdb $USER

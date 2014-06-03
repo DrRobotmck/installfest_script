@@ -19,7 +19,7 @@ brew install libtool
 brew install libyaml
 
 # neon is an HTTP and WebDAV client library
-brew install neon
+# brew install neon
 
 # A toolkit implementing SSL v2/v3 and TLS protocols with full-strength
 # cryptography world-wide.
@@ -28,9 +28,7 @@ brew install openssl
 # pkg-config is a helper tool used when compiling applications and libraries.
 brew install pkg-config
 
-# a self-contained, serverless, zero-configuration, transactional SQL database
-# engine.
-brew install sqlite
+
 
 # a script that uses ssh to log into a remote machine
 brew install ssh-copy-id
@@ -57,4 +55,3 @@ brew tap --repair
 
 # Remove outdated versions from the cellar
 brew cleanup
-
