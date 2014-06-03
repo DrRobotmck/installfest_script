@@ -4,20 +4,20 @@ colors
 helper_functions
 keep_alive
 ubuntu/software_update
-env_vars
-ubuntu/env_vars
-remove_rvm
-ubuntu/packages
-github_credentials
-ubuntu/ssh_keys
-git_config
-clone_repo
-ubuntu/rbenv
-set_ruby_version
-ubuntu/apps
-ubuntu/heroku
-ubuntu/node
-ubuntu/postgres
-default_gems
-vim_plugins
-oh_my_zsh
+# env_vars
+# ubuntu/env_vars
+# remove_rvm
+# ubuntu/packages
+# github_credentials
+# ubuntu/ssh_keys
+# git_config
+# clone_repo
+# ubuntu/rbenv
+# set_ruby_version
+# ubuntu/apps
+# ubuntu/heroku
+# ubuntu/node
+# ubuntu/postgres
+# default_gems
+# vim_plugins
+# oh_my_zsh
