@@ -12,7 +12,7 @@ repo_setup.sh
 mac/homebrew.sh
 mac/compilers.sh
 mac/git.sh
-configure_git.sh
+git_config.sh
 mac/rbenv.sh
 ruby-env.sh
 default-gems.sh
