@@ -1,0 +1,694 @@
+#!/bin/bash -e
+#
+#  _           _        _ _  __           _
+# (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
+# | | '_ \/ __| __/ _` | | | |_ / _ \/ __| __|
+# | | | | \__ \ || (_| | | |  _|  __/\__ \ |_
+# |_|_| |_|___/\__\__,_|_|_|_|  \___||___/\__|
+#
+
+# Author: Phillip Lamplugh, GA Instructor (2014)
+# Contributions: PJ Hughes, GA Instructor (2014)
+#
+
+# Resources
+# https://github.com/divio/osx-bootstrap
+# https://github.com/paulirish/dotfiles
+# https://github.com/mathiasbynens/dotfiles/
+
+# References
+# http://www.sudo.ws/
+# http://www.gnu.org/software/bash/manual/bashref.html
+# http://www.shellcheck.net
+# http://explainshell.com/
+BRANCH="v2"
+BELOVED_RUBY_VERSION="1.9.3-p484"
+
+SRC_DIR=~/.wdi/installfest
+SETTINGS=$SRC_DIR/settings
+INSTALL_REPO=https://github.com/phlco/installfest_scripts.git
+MINIMUM_OS="10.7.0"
+#-------------------------------------------------------------------------------
+# Colors
+#-------------------------------------------------------------------------------
+# http://en.wikipedia.org/wiki/Tput
+
+# Foreground
+BLACK=$(tput setaf 0)
+BLUE=$(tput setaf 4)
+CYAN=$(tput setaf 6)
+GREEN=$(tput setaf 2)
+MAGENTA=$(tput setaf 5)
+ORANGE=$(tput setaf 172)
+PURPLE=$(tput setaf 141)
+RED=$(tput setaf 1)
+WHITE=$(tput setaf 7)
+YELLOW=$(tput setaf 226)
+
+# Background
+BG_BLACK=$(tput setab 0)
+BG_BLUE=$(tput setab 4)
+BG_CYAN=$(tput setab 6)
+BG_GREEN=$(tput setab 2)
+BG_MAGENTA=$(tput setab 5)
+BG_ORANGE=$(tput setab 172)
+BG_RED=$(tput setab 1)
+BG_WHITE=$(tput setab 7)
+BG_YELLOW=$(tput setab 226)
+
+# Formatting
+UNDERLINE=$(tput smul)
+NOUNDERLINE=$(tput rmul)
+BOLD=$(tput bold)
+RESET=$(tput sgr0)
+#######################################
+# ABRB
+# Arguments:
+#   Message
+#   Attribution
+# Returns:
+#   None
+#######################################
+function quoth_the_bard () {
+  local message=$1
+  local attribution=$2
+  echo ""
+  echo "$YELLOW$message$RESET"
+  echo "$PURPLE$attribution$RESET"
+}
+
+#######################################
+# Upcase error message and exit script
+# Arguments:
+#   Error message
+# Returns:
+#   None
+#######################################
+function fie () {
+  local message=$(echo $1 | tr 'a-z' 'A-Z')
+  echo ""
+  echo "$RED$message$RESET"
+  exit
+}
+
+#######################################
+# Waits for user input
+# Arguments:
+#   Message
+# Returns:
+#   None
+#######################################
+function pause_awhile () {
+   read -p "$* Press Enter to continue"
+}
+
+#######################################
+# Mounts DMG and moves to Applications
+# Arguments:
+#   File name
+# Returns:
+#   None
+#######################################
+function install_dmg () {
+  echo 'Hark, a dmg!'
+  file_name="$1"
+  MOUNTPOINT="/Volumes/MountPoint"
+  IFS="
+  "
+  hdiutil attach -mountpoint $MOUNTPOINT "$file_name.dmg"
+  app=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.app)
+  if [[ ! -z "$app" ]]; then
+    cp -a "$app" /Applications/
+  fi
+  echo 'Hark! A pkg!'
+  pkg=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.pkg)
+  if [[ ! -z "$pkg" ]]; then
+    # PL: Need to handle harddrive names that aren't Macintosh HD
+    sudo installer -package $pkg -target /
+  fi
+  hdiutil detach $MOUNTPOINT
+}
+
+#######################################
+# Unzip Zip and move App to Applications
+# Arguments:
+#   File name
+# Returns:
+#   None
+#######################################
+function install_zip () {
+  file_name="$1"
+  echo 'Hark! A zip!'
+  mkdir "$file_name"
+  unzip "$file_name.zip" -d "$file_name"
+  mv $file_name/*.app /Applications
+}
+
+#######################################
+# Checks for the existence of a file
+# Arguments:
+#   File name
+# Returns:
+#   1 or 0
+#######################################
+function know_you_not_of () {
+  file_name="$1"
+  file_count=$(find /Applications -name "$file_name.app" | wc -l)
+  if [[ $file_count -gt 0 ]]; then
+    echo "$file_name is already here.";
+    return 1
+  else
+    return 0
+  fi
+}
+
+#######################################
+# Downloads and installs apps from zips, dmgs, and pkgs.
+# Arguments:
+#   File name
+#   URL
+# Returns:
+#   None
+#######################################
+function lend_me_your () {
+  file_name="$1"
+  url="$2"
+  ext=${url: -4}
+  if know_you_not_of "$file_name" ; then
+    curl -L -o "$file_name$ext" $url
+    # enter stage left...
+    case "$ext" in
+      ".dmg")  install_dmg "$file_name";;
+      ".zip")  install_zip "$file_name";;
+      *) echo "Not Processed";;
+    esac
+  fi
+  # Out spot
+  rm -rf "$file_name$ext"
+  rm -rf "$file_name"
+}
+
+#######################################
+# Allow apps to control your computer
+# Arguments:
+#   File name
+# Returns:
+#   None
+#######################################
+allow_control() {
+  if [[ "$OSTYPE" =~ ^darwin13.*$ ]]; then
+    for app; do
+      APP_ID="$(osascript -e "id of app \"$app\"")"
+      if [[ -n "$APP_ID" ]]; then
+        sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT or REPLACE INTO access values ('kTCCServiceAccessibility', '$APP_ID', 0, 1, 0, NULL);"
+      fi
+    done
+  else
+    echo "allow_control works only on Mavericks"
+  fi
+}
+
+# Determine OS version
+
+osx_version=$(sw_vers -productVersion)
+# Force the user to upgrade if they're below 10.7
+echo "You're running OSX $osx_version"
+if [[ "$osx_version" < "$MINIMUM_OS" ]]; then
+  fie "Please upgrade to the latest OS then rerun this script."
+fi
+
+# Check that command line tools are installed
+case $osx_version in
+  *10.9*) cmdline_version="CLTools_Executables" ;; # Mavericks
+  *10.8*) cmdline_version="DeveloperToolsCLI"   ;; # Mountain Lion
+  *10.7*) cmdline_version="DeveloperToolsCLI"   ;; # Lion
+  *) echo "Please upgrade your OS"; exit 1;;
+esac
+
+# Check for Command Line Tools based on OS versions
+if [ ! -z $(pkgutil --pkgs=com.apple.pkg.$cmdline_version) ]; then
+  echo "Command Line Tools are installed";
+elif [[ $osx_version < "10.9" ]]; then
+  echo "Command Line Tools are not installed"
+  echo "Register for a Developer Account"
+  echo "Download the Command Lion Tools from"
+  echo "https://developer.apple.com/downloads/index.action"
+  echo "Then rerun this script"
+  exit 1
+else
+  echo "Command Line Tools are not installed"
+  echo "run '$ sudo xcodebuild -license' then"
+  echo "'$ xcode-select --install'"
+  echo "Then rerun this script."
+  exit 1
+fi
+
+# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
+# This script checks for and removes previous installs of macports and RVM
+
+# Uninstall RVM
+# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
+if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
+  yes | rvm implode
+  rm -rf ~/.rvm
+  echo "RVM has been removed."
+else
+  echo "RVM is not installed. Moving on..."
+fi
+
+# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
+# This script checks for and removes previous installs of macports and RVM
+
+# Uninstall Macports
+# http://guide.macports.org/chunked/installing.macports.uninstalling.html
+if hash port 2>/dev/null || [[ $(find /opt/local -iname macports 2>/dev/null) ]]; then
+  echo "Removing MacPorts"
+    macports=$(find /opt/local -iname macports)
+    for f in $macports; do
+      rm -rf $f
+    done
+  # carthago delenda est
+  sudo port -fp uninstall installed
+  sudo rm -rf \
+    /opt/local \
+    /Applications/DarwinPorts \
+    /Applications/MacPorts \
+    /Library/LaunchDaemons/org.macports.* \
+    /Library/Receipts/DarwinPorts*.pkg \
+    /Library/Receipts/MacPorts*.pkg \
+    /Library/StartupItems/DarwinPortsStartup \
+    /Library/Tcl/darwinports1.0 \
+    /Library/Tcl/macports1.0 \
+    ~/.macports
+    sudo find / | grep macports | sudo xargs rm
+else
+  echo "Macports is not installed. Moving on..."
+fi
+# Check for recommended software updates
+sudo softwareupdate -i -r --ignore iTunes
+
+# Ensure user has full control over their folder
+sudo chown -R ${USER} ~
+
+# Repair disk permission
+diskutil repairPermissions /
+
+# Capture the user's password
+sudo echo "Thanks."
+
+# Update existing `sudo` time stamp until script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# SSH keys establish a secure connection between your computer and GitHub
+# This script follows these instructions
+# `https://help.github.com/articles/generating-ssh-keys`
+
+# SSH Keygen
+ssh-keygen -t rsa -C $github_email
+ssh-add id_rsa
+
+# Copy SSH key to the clipboard
+pbcopy < ~/.ssh/id_rsa.pub
+
+echo "We just copied your SSH key to the clipboard."
+echo "Now we're going to visit GitHub to add the SSH key"
+
+echo "Do the following in your browser: "
+echo '- Click "SSH Keys" in the left sidebar'
+echo '- Click "Add SSH key"'
+echo '- Paste your key into the "Key" field'
+echo '- Click "Add key"'
+echo '- Confirm the action by entering your GitHub password'
+
+pause_awhile "We'll be here until you get back from Github. Ready?"
+
+open https://github.com/settings/ssh
+
+pause_awhile "SSH keys added?"
+
+echo "If you haven't already done so,"
+echo "please register for an account on github.com"
+
+read -p "Enter your full name: "  user_name
+read -p "Github Username: "       github_name
+read -p "Github Email: "          github_email
+
+# download the repo for the absolute paths
+if [[ ! -d $SRC_DIR ]]; then
+  echo 'Downloading Installfest repo...'
+  # autoupdate bootstrap file
+  git clone -b $BRANCH $INSTALL_REPO $SRC_DIR
+  # hide folder
+  chflags hidden $SRC_DIR
+else
+  # update repo
+  echo 'Updating repo...'
+  cd $SRC_DIR
+  git pull origin $BRANCH
+fi
+# Installs Homebrew, our package manager
+# http://brew.sh/
+
+$(which -s brew)
+if [[ $? != 0 ]]; then
+  echo 'Installing Homebrew...'
+  ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
+fi
+
+# Make sure we're using the latest Homebrew
+brew update
+
+# Upgrade any already-installed formulae
+brew upgrade
+
+# These formulae duplicate software provided by OS X
+# though may provide more recent or bugfix versions.
+brew tap homebrew/dupes
+
+# Autoconf is an extensible package of M4 macros that produce shell scripts to
+# automatically configure software source code packages.
+brew install autoconf
+
+# Automake is a tool for automatically generating Makefile.in
+brew install automake
+
+# generic library support script
+brew install libtool
+
+# a YAML 1.1 parser and emitter
+brew install libyaml
+
+# neon is an HTTP and WebDAV client library
+brew install neon
+
+# A toolkit implementing SSL v2/v3 and TLS protocols with full-strength
+# cryptography world-wide.
+brew install openssl
+
+# pkg-config is a helper tool used when compiling applications and libraries.
+brew install pkg-config
+
+# a self-contained, serverless, zero-configuration, transactional SQL database
+# engine.
+brew install sqlite
+
+# a script that uses ssh to log into a remote machine
+brew install ssh-copy-id
+
+# XML C parser and toolkit
+brew install libxml2
+
+# a language for transforming XML documents into other XML documents.
+brew install libxslt
+
+# a conversion library between Unicode and traditional encoding
+brew install libiconv
+
+# generates an index file of names found in source files of various programming
+# languages.
+brew install ctags
+
+# Tap a new formula repository from GitHub, or list existing taps.
+brew tap homebrew/versions
+
+# Ensures all tapped formula are symlinked into Library/Formula
+# and prunes dead formula from Library/Formula.
+brew tap --repair
+
+# Remove outdated versions from the cellar
+brew cleanup
+
+# Version Control
+brew install git
+
+# additional git commands
+brew install hub
+
+# Add user's github info to gitconfig
+# https://www.kernel.org/pub/software/scm/git/docs/git-config.html
+git config --global user.name  $github_name
+git config --global user.email $github_email
+
+# set olors
+git config --global color.ui always
+
+git config --global color.branch.current   "green reverse"
+git config --global color.branch.local     green
+git config --global color.branch.remote    yellow
+
+git config --global color.status.added     green
+git config --global color.status.changed   yellow
+git config --global color.status.untracked "red blink"
+
+# set editor
+git config --global core.editor "subl -w"
+
+# default branch to push to
+git config --global push.default current
+
+# Our Ruby version manager
+brew install rbenv
+
+# Automatically runs rbenv rehash every time you install or uninstall a gem.
+brew install rbenv-gem-rehash
+
+# Provides an `rbenv install` command
+brew install ruby-build
+
+# enable shims and autocompletion
+eval "$(rbenv init -)"
+
+# Automatically install gems every time you install a new version of Ruby
+brew install rbenv-default-gems
+
+# Add to path
+export PATH="$HOME/.rbenv/bin:$PATH"
+
+# Our Ruby Environment
+
+ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+
+if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
+  echo "$BELOVED_RUBY_VERSION is installed"
+else
+  rbenv install "$BELOVED_RUBY_VERSION"
+fi
+
+# Set global Ruby
+rbenv global $BELOVED_RUBY_VERSION
+
+# Reload
+rbenv rehash
+# Our gems to install
+
+# Maintains a consistent environment for ruby applications.
+gem install bundler
+
+# Acceptance test framework for web applications
+gem install capybara
+
+# handle events on file system modifications
+gem install guard
+
+# JavaScript testing
+gem install jasmine
+
+# ruby interface for Postgres
+gem install pg
+
+# alternative to the standard IRB shell
+gem install pry
+
+# live syntax highlighting for the Pry REPL
+gem install pry-coolline
+
+# full stack, Web application framework
+gem install rails
+
+# testing tool for Ruby
+gem install rspec
+
+# a DSL for quickly creating web applications in Ruby
+gem install sinatra
+
+# common Sinatra extensions
+gem install sinatra-contrib
+
+# Useful packages
+# ASCII ART!!!!
+brew install figlet
+
+# visualization tool for ERDs
+brew install graphviz
+
+# image resizing
+brew install imagemagick
+
+# PhantomJS is a headless WebKit scriptable with a JavaScript API.
+brew install phantomjs
+
+# WebKit implementation of qt for Capybara testing
+brew install qt
+
+# qt for mavericks
+brew install qt4
+
+# Advanced in-memory key-value store that persists on disk
+brew install redis
+
+# List of useful Quick Look plugins for developers
+brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
+
+# essential UNIX commands
+brew install coreutils
+# a CLI workflow for the administration of Mac applications
+# distributed as binaries
+brew tap phinze/homebrew-cask
+brew install brew-cask
+
+# Instant search documentation offline
+brew cask install dash
+
+# The Browser
+brew cask install google-chrome
+
+# A Browser
+brew cask install firefox
+
+# The Chat Client
+brew cask install hipchat
+
+# The Window Manager
+brew cask install spectacle
+# allow spectacle to control computer
+allow_control Spectacle
+
+# The Text Editor, Sublime Text 2
+brew cask install sublime-text
+
+# The X Window Server
+brew cask install xquartz
+
+# Markdown Editor
+brew cask install mou
+
+# Flux, makes the color of your computer's display adapt to the time of day
+brew cask install flux
+
+# for fonts
+# https://github.com/caskroom/homebrew-fonts/tree/master/Casks
+brew tap caskroom/fonts
+
+brew cask install font-source-code-pro
+brew cask install font-source-sans-pro
+brew cask install font-consolas
+
+# Setup Sublime Preferences
+sublime_app_support="${HOME}/Library/Application Support/Sublime Text 2"
+sublime_preferences="Preferences.sublime-settings"
+pkg_control="Package Control.sublime-package"
+pkg_url="https://sublime.wbond.net/Package%20Control.sublime-package"
+pkg_settings="Package Control.sublime-settings"
+
+# backup
+cp -r "$sublime_app_support/Packages/User/$sublime_preferences"{,.bak}
+cp -r "$sublime_app_support/Installed Packages/$pkg_settings"{,.bak}
+
+# copy over
+cp -r "$SETTINGS/sublime/$sublime_preferences" "$sublime_app_support/Packages/User/$sublime_preferences"
+cp -r "$SETTINGS/sublime/$pkg_settings"        "$sublime_app_support/Installed Packages/$pkg_settings"
+
+# Installing Package Control
+curl -L -o "$sublime_app_support/Installed Packages/$pkg_control" "$pkg_url"
+
+# # Symlink Sublime Text 2
+# ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
+#  _                    _
+# | |__   ___ _ __ ___ | | ___   _
+# | '_ \ / _ \ '__/ _ \| |/ / | | |
+# | | | |  __/ | | (_) |   <| |_| |
+# |_| |_|\___|_|  \___/|_|\_\\__,_|
+# https://devcenter.heroku.com/articles/keys
+
+echo "Heroku is a cloud platform as a service (PaaS) supporting several"
+echo "programming languages."
+
+# Heroku command-line tooling for working with the Heroku platform
+brew install heroku-toolbelt
+
+echo "If you don’t already use SSH, you’ll need to create a public/private key"
+echo "pair to deploy code to Heroku. This keypair is used for the strong"
+echo "cryptography and that uniquely identifies you as a developer when pushing"
+echo "code changes."
+
+# shouldn't need to generate because of generation for github
+# ssh-keygen -t rsa
+# autogenerate without prompt
+# ssh-keygen -f id_rsa -t rsa -N ''
+echo "The first time you run the heroku command, you’ll be prompted for your "
+echo "credentials. Your public key will then be automatically uploaded to"
+echo "Heroku. This will allow you to deploy code to all of your apps."
+
+# PL: holding off for user interaction
+# heroku keys:add
+
+# Set up Postgres
+
+# open source object-relational database management system
+brew install postgres
+
+# Create a database
+initdb /usr/local/var/postgres -E utf8
+createdb ${USER}
+
+# Ensure that Postgres launches whenever we login
+
+# # http://robots.thoughtbot.com/starting-and-stopping-background-services-with-homebrew
+brew services start postgres
+# mkdir -p ~/Library/LaunchAgents
+# cp /usr/local/Cellar/postgresql/9.*/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
+# # Start Postgres now
+# launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+
+# Create a folder for backed up files
+mkdir -p "${HOME}/.dotfiles_backup"
+
+# Dotfiles we'll be using
+dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc vimrc"
+
+for file in $dotfiles; do
+  if [ -a "${HOME}/${file}" ]; then
+      # move file
+      mv "${HOME}/${file}" "${HOME}/.dotfiles_backup/${file}"
+    fi
+    # symlink file
+  ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
+done
+# Install Vim Plugin Manager
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# Vimrc is copied over from dotfiles
+# The Z shell (zsh) is a Unix shell that can be used as an interactive login
+# shell and as a powerful command interpreter for shell scripting. Zsh can be
+# thought of as an extended Bourne shell with a large number of improvements,
+# including some features of bash, ksh, and tcsh.
+# This script installs zsh, oh-my-zsh, an open source, community-driven framework
+# for managing your ZSH configuration.
+
+# Install zsh
+git clone git://zsh.git.sf.net/gitroot/zsh/zsh
+cp ~/.zshrc ~/.zshrc.orig
+
+# Install oh-my-zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+cp $SRC_DIR/settings/dotfiles/zshrc ~/.zshrc
+
+# Syntax Highlighting
+git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins
+
+# Set as default
+chsh -s /bin/zsh
+
+# Resources
+# https://github.com/robbyrussell/oh-my-zsh
+# http://www.stevendobbelaere.be/installing-and-configuring-the-oh-my-zsh-shell/

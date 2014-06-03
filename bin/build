@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# Builds installfest script from Manfiest files.
+#
+# TODO(phlco):add option to build script for travis
+
+
+for MANIFEST in Manifest.*; do
+  FILENAME=$(printf "$MANIFEST" | sed s/Manifest\.//)
+  rm -f "$FILENAME"
+
+  printf "\nBuilding $MANIFEST into $FILENAME\n"
+
+  while read file; do
+    if [[ $file != "#"* ]]; then
+      printf "## Enter $file\n" >> "$FILENAME"
+
+      cat "$file" >> "$FILENAME"
+
+      printf "## Exeunt $file \n\n" >> "$FILENAME"
+    fi
+  done < "$MANIFEST"
+done

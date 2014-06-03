@@ -1,13 +1,11 @@
 ## WDI InstallFest Script
 
-A work in progress to automate the set up of a student's development machine.
-
 ##### For Mac OS:
 
 Paste this script into a Terminal prompt:
 
 ```
-bash <(curl -sL https://raw.github.com/ga-instructors/installfest_script/master/install.sh)
+bash <(curl -sL http://git.io/6_SaSw)
 ```
 
 The script first runs any software updates and then checks for Xcode.
@@ -25,6 +23,7 @@ If Xcode is installed the script continues.
 
 ##### For Ubuntu Linux:
 
+<!-- TODO (h4w5) change curl to wget -->
 ```
 bash <(wget -qO- http://ga.co/installfestubuntu)
 ```
@@ -62,3 +61,5 @@ We expect to build virtual machines using the script and then have torrent links
 
 [vagrant]: http://www.vagrantup.com/downloads  "Vagrant"
 [torrent]: http://example.com/  "GABox"
+
+Contributing

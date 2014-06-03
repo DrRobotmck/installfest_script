@@ -5,14 +5,17 @@
 # | | | | \__ \ || (_| | | |  _|  __/\__ \ |_
 # |_|_| |_|___/\__\__,_|_|_|_|  \___||___/\__|
 #
-# Installfest Script for development on a vanilla Ubuntu machine
-#
+# Installfest Script for development
+
 # Author: Phillip Lamplugh, GA Instructor (2014)
 # Contributions: PJ Hughes, GA Instructor (2014)
 #
 
 # Resources
-# what are some for Ubuntu?...
+# TODO (h4w5) what are some for Ubuntu?...
+# https://github.com/divio/osx-bootstrap
+# https://github.com/paulirish/dotfiles
+# https://github.com/mathiasbynens/dotfiles/
 
 # References
 # http://www.sudo.ws/

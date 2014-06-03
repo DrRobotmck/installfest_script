@@ -1,0 +1,21 @@
+{
+  "installed_packages":
+  [
+    "BracketHighlighter",
+    "ColorPicker",
+    "CopyToHipChat",
+    "Dotfiles Syntax Highlighting",
+    "EditorConfig",
+    "Emmet"
+    "Gem Browser",
+    "Gist",
+    "GitGutter",
+    "HTML5",
+    "jQuery",
+    "Sublime-JSHint",
+    "Package Control",
+    "SideBarEnhancements",
+    "SublimeLinter",
+    // "SublimeCodeIntel"
+  ]
+}
