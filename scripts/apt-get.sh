@@ -47,6 +47,8 @@
 # zlib1g-dev
 
 sudo apt-get -y install figlet #............ ASCII ART!!!!
+# TODO PJ: this adds the ogre font... make the directory dynamic with `figlet -I 2`
+sudo wget ftp://ftp.figlet.org/pub/figlet/fonts/contributed/ogre.flf -P /usr/share/figlet
 
 sudo apt-get -y install graphviz #.......... visualization tool for ERDs
 
