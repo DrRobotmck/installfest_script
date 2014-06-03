@@ -7,12 +7,14 @@ env_vars
 ubuntu/env_vars
 ubuntu/packages
 ubuntu/ssh_keys
+github_credentials
 remove_rvm
 github_credentials
-git_config
-clone_repo
+keep_alive
+repo_setup
+repo_setup
 ubuntu/rbenv
-ruby
+ruby-env
 ubuntu/apps
 ubuntu/heroku
 ubuntu/hub
