@@ -6,7 +6,7 @@ dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc
 
 for file in $dotfiles; do
   if [ -a "${HOME}/${file}" ]; then
-      # move file
+      # backup files
       mv "${HOME}/${file}" "${HOME}/.dotfiles_backup/${file}"
     fi
     # symlink file

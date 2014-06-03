@@ -21,3 +21,8 @@ sudo apt-get install sublime-text
 
 # zsh
 sudo apt-get install zsh
+
+# flux
+sudo add-apt-repository ppa:kilian/f.lux
+sudo apt-get update
+sudo apt-get install fluxgui
