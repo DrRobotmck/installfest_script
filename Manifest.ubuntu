@@ -12,9 +12,8 @@ github_credentials
 git_config
 clone_repo
 ubuntu/rbenv
-ruby
+ruby-env
 ubuntu/apps
 ubuntu/heroku
-ubuntu/hub
 ubuntu/node
 ubuntu/postgres

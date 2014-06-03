@@ -140,10 +140,16 @@ sudo apt-get -y install imagemagick
 
 # PhantomJS is a headless WebKit scriptable with a JavaScript API.
 sudo apt-get -y install phantomjs
+
+# gnome-keyring is a daemon in the session, similar to ssh-agent,
+# and other applications can use it to store passwords and other
+# sensitive information
+# atom dependency?
+sudo apt-get -y install libgnome-keyring-dev
 # SSH Keygen
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
-sudo apt-get -y install xclip # Install xclip
+
 # Copy SSH key to the clipboard
 cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
 
@@ -214,6 +220,10 @@ else
   cd $SRC_DIR
   git pull origin $BRANCH
 fi
+# our ruby version manager
+sudo apt-get -y install rbenv
+# provides an `rbenv install` command
+sudo apt-get -y install ruby-build
 # This script checks for and downloads Ruby 2.1 and sets it as the global default
 # https://gist.github.com/ilude/1244311
 source ~/.bash_profile
@@ -256,6 +266,24 @@ apt-get install hipchat
 sudo add-apt-repository ppa:webupd8team/sublime-text-2
 sudo apt-get update
 sudo apt-get install sublime-text
+
+# hub
+# http://eoinoc.net/install-hub-github-linux-mint/
+mkdir ~/bin
+curl http://defunkt.io/hub/standalone -Lo ~/bin/hub
+chmod 755 ~/bin/hub
+
+# atom
+# ensure that gyp uses Python 2
+npm config set python /usr/bin/python2 -g
+git clone https://github.com/atom/atom
+cd atom
+# Creates application at $TMPDIR/atom-build/Atom
+script/build
+# Installs command to /usr/local/bin/atom
+sudo script/grunt install
+# Generates a .deb package at $TMPDIR/atom-build
+script/grunt mkdeb
 # Heroku command-line tooling for working with the Heroku platform
 
 # http://eoinoc.net/install-hub-github-linux-mint/
@@ -277,10 +305,6 @@ echo "credentials. Your public key will then be automatically uploaded to"
 echo "Heroku. This will allow you to deploy code to all of your apps."
 
 heroku keys:add
-# http://eoinoc.net/install-hub-github-linux-mint/
-mkdir ~/bin
-curl http://defunkt.io/hub/standalone -Lo ~/bin/hub
-chmod 755 ~/bin/hub
 # Event-driven I/O server-side JavaScript environment based on V8
 sudo apt-get -y install nodejs
 
@@ -298,5 +322,9 @@ sudo apt-get -y install nodejs-legacy
 # sudo apt-get -y install postgresql
 # sudo apt-get -y install postgresql-contrib
 # sudo apt-get -y install pg_ctl # initialize stop/start posgres
-sudo apt-get -y install rbenv #............. our ruby version manager
-sudo apt-get -y install ruby-build #........ provides an `rbenv install` command
+sudo apt-get -y install postgresql
+sudo apt-get -y install postgresql-contrib
+
+sudo -u postgres createuser --superuser $USER
+sudo -u postgres psql
+createdb $USER
