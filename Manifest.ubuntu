@@ -22,8 +22,8 @@ clone_repo
 # ubuntu/atom
 ubuntu/heroku
 # a hack to make gem install work within the script
-ubuntu/alias_gem
-default_gems
+# ubuntu/alias_gem
+# default_gems
 # ubuntu/postgres
 # vim_plugins
 # oh_my_zsh
