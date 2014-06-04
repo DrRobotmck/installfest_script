@@ -2,6 +2,7 @@ shebang
 commentary/header
 env_vars
 mac/env_vars
+set_script_branch
 colors
 helper_functions
 mac/commandline_tools
