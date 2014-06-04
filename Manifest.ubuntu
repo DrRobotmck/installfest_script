@@ -12,7 +12,7 @@ ubuntu/env_vars
 # github_credentials
 # ubuntu/ssh_keys
 # git_config
-# clone_repo
+clone_repo
 ubuntu/rbenv
 set_ruby_version
 # ubuntu/apps
