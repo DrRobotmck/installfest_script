@@ -241,12 +241,15 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # TODO (philco) does this actually work?
 BELOVED_RUBY_VERSION="1.9.3-rc1"
 
+# current branch name
+# git rev-parse --abbrev-ref HEAD
+BRANCH="ubuntu-merge"
+
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
-#BRANCH="ubuntu"
-BRANCH="pj_working"
+
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
