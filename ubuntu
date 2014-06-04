@@ -247,16 +247,32 @@ SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 #BRANCH="ubuntu"
 BRANCH="pj_working"
-# download the repo for the absolute paths
-if [[ ! -d $SRC_DIR ]]; then
-  echo 'Downloading Installfest repo...'
-  # autoupdate bootstrap file
-  git clone -b $BRANCH $INSTALL_REPO $SRC_DIR
-  # hide folder
-  chflags hidden $SRC_DIR
+# our ruby version manager
+sudo apt-get -y install rbenv
+# git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+# provides an `rbenv install` command
+sudo apt-get -y install ruby-build
+
+# enable shims and autocompletion
+eval "$(rbenv init -)"
+
+# Add to path
+export PATH="$HOME/.rbenv/bin:$PATH"
+# source ~/.bash_profile
+
+ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+
+if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
+  echo "$BELOVED_RUBY_VERSION is installed"
 else
-  # update repo
-  echo 'Updating repo...'
-  cd $SRC_DIR
-  git pull origin $BRANCH
+  rbenv install $BELOVED_RUBY_VERSION
 fi
+
+# Set global Ruby
+rbenv global $BELOVED_RUBY_VERSION
+
+# Reload
+# source ~/.bash_profile
+
+# Reload
+rbenv rehash
