@@ -9,9 +9,9 @@ env_vars
 ubuntu/env_vars
 # remove_rvm
 # ubuntu/packages
-github_credentials
-ubuntu/ssh_keys
-git_config
+# github_credentials
+# ubuntu/ssh_keys
+# git_config
 clone_repo
 # ubuntu/rbenv
 # set_ruby_version
