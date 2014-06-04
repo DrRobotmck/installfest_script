@@ -25,6 +25,9 @@
 
 
 ########################################################
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+
 echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
 
 # set rbenv's global ruby install
@@ -33,11 +36,14 @@ rbenv global $BELOVED_RUBY_VERSION
 # set rbenv's shims to capture all ruby-esque commands (gem, etc.)
 rbenv rehash
 
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
-# echo "RUBY BEFORE SOURCE: `which ruby`"
 echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-echo "${BOLD}Ruby version is now: '`ruby -v`', found at: `which ruby`...${RESET}"
+echo "${BOLD}Path is now:${RESET} ${PATH}"
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
