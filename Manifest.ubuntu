@@ -13,8 +13,8 @@ ubuntu/env_vars
 # ubuntu/ssh_keys
 # git_config
 clone_repo
-# ubuntu/rbenv
-ubuntu/set_ruby_version
+ubuntu/rbenv
+# ubuntu/set_ruby_version
 # ubuntu/apps
 # ubuntu/heroku
 # ubuntu/node
