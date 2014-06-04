@@ -16,8 +16,8 @@ clone_repo
 # ubuntu/rbenv
 # add_beloved_ruby_version
 # set_global_ruby_version
-ubuntu/node
-# ubuntu/apps
+# ubuntu/node
+ubuntu/apps
 # ubuntu/heroku
 # a hack to make gem install work within the script
 # ubuntu/alias_gem
