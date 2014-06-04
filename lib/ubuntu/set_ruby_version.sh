@@ -25,16 +25,19 @@
 
 
 ########################################################
+echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
 
-# Set global Ruby
+# set rbenv's global ruby install
 rbenv global $BELOVED_RUBY_VERSION
 
-# Reload
+# set rbenv's shims to capture all ruby-esque commands (gem, etc.)
 rbenv rehash
 
-# PUT BELOW, BC WHY MUST BE ABOVE?
-# add to default bashrc for the moment
-echo "RUBY BEFORE SOURCE: `which ruby`"
+
+# echo "RUBY BEFORE SOURCE: `which ruby`"
+echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
+
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-echo "RUBY AFTER SOURCE: `which ruby`"
+
+echo "${BOLD}Ruby version is now: '`ruby -v`', found at: `which ruby`...${RESET}"
