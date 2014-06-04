@@ -4,26 +4,24 @@ commentary/header
 colors
 helper_functions
 keep_alive
-ubuntu/software_update
+# ubuntu/software_update
 env_vars
 ubuntu/env_vars
-remove_rvm
-ubuntu/packages
-github_credentials
-ubuntu/ssh_keys
-git_config
+# remove_rvm
+# ubuntu/packages
+# github_credentials
+# ubuntu/ssh_keys
+# git_config
 clone_repo
-ubuntu/rbenv
-add_beloved_ruby_version
-set_global_ruby_version
-# a hack to make gem install work within the script
+# ubuntu/rbenv
+# add_beloved_ruby_version
+# set_global_ruby_version
 ubuntu/node
-ubuntu/apps
-ubuntu/heroku
-ubuntu/alias_gem
-ubuntu/rbenv
-set_global_ruby_version
-default_gems
-ubuntu/postgres
-vim_plugins
-oh_my_zsh
+# ubuntu/apps
+# ubuntu/heroku
+# a hack to make gem install work within the script
+# ubuntu/alias_gem
+# default_gems
+# ubuntu/postgres
+# vim_plugins
+# oh_my_zsh
