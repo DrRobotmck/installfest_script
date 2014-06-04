@@ -1,5 +1,5 @@
 
-mkdir ~/.wdi # must make this here in order to store the log file
+mkdir -p ~/.wdi # must make this here in order to store the log file
 exec > >(tee ~/.wdi/install.log)
 
 # http://stackoverflow.com/questions/3173131/redirect-copy-of-stdout-to-log-file-from-within-bash-script-itself
