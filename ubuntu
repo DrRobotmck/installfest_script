@@ -267,24 +267,50 @@ else
   cd $SRC_DIR
   git pull origin $BRANCH
 fi
-# Heroku command-line tooling for working with the Heroku platform
+alias gem="/home/wdi/.rbenv/shims/gem"
+# Our gems to install
 
-# http://eoinoc.net/install-hub-github-linux-mint/
-wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+# Maintains a consistent environment for ruby applications.
+gem install bundler
 
-# https://devcenter.heroku.com/articles/keys
-echo "Heroku is a cloud platform as a service (PaaS) supporting several"
-echo "programming languages."
+# Acceptance test framework for web applications
+gem install capybara
 
-echo "If you don’t already use SSH, you’ll need to create a public/private key"
-echo "pair to deploy code to Heroku. This keypair is used for the strong"
-echo "cryptography and that uniquely identifies you as a developer when pushing"
-echo "code changes."
+# handle events on file system modifications
+gem install guard
 
-ssh-keygen -t rsa
+# JavaScript testing
+gem install jasmine
 
-echo "The first time you run the heroku command, you’ll be prompted for your "
-echo "credentials. Your public key will then be automatically uploaded to"
-echo "Heroku. This will allow you to deploy code to all of your apps."
+# ruby interface for Postgres
+gem install pg
 
-heroku keys:add
+# alternative to the standard IRB shell
+gem install pry
+
+# live syntax highlighting for the Pry REPL
+gem install pry-coolline
+
+# full stack, Web application framework
+gem install rails
+
+# testing tool for Ruby
+gem install rspec
+
+# a DSL for quickly creating web applications in Ruby
+gem install sinatra
+
+# common Sinatra extensions
+gem install sinatra-contrib
+
+# Ruby interface to github API v3
+gem install github_api
+
+# HipChat HTTP API Wrapper
+gem install hipchat
+
+# pretty print your Ruby objects with style
+gem install awesome_print
+
+# colorizing printed text on ANSI terminals
+gem install rainbow

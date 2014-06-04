@@ -20,10 +20,10 @@ clone_repo
 # ubuntu/apps
 # broken out since its a hard nut to crack
 # ubuntu/atom
-ubuntu/heroku
+# ubuntu/heroku
 # a hack to make gem install work within the script
-# ubuntu/alias_gem
-# default_gems
+ubuntu/alias_gem
+default_gems
 # ubuntu/postgres
 # vim_plugins
 # oh_my_zsh
