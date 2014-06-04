@@ -23,7 +23,11 @@
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-BELOVED_RUBY_VERSION="1.9.3-rc1"
+BELOVED_RUBY_VERSION="Ruby 1.9.3-p547"
+CURRENT_STABLE_RUBY_VERSION="Ruby 2.1.2"
+# current branch name
+# git rev-parse --abbrev-ref HEAD
+BRANCH="ubuntu-merge"
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
@@ -477,8 +481,6 @@ brew install rbenv-default-gems
 # Add to path
 export PATH="$HOME/.rbenv/bin:$PATH"
 
-# source ~/.bash_profile
-
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -486,15 +488,27 @@ if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
 else
   rbenv install $BELOVED_RUBY_VERSION
 fi
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
-# Set global Ruby
+echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
+
 rbenv global $BELOVED_RUBY_VERSION
 
-# Reload
-# source ~/.bash_profile
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
-# Reload
+echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
+
+# TODO (h4w5) must come to understand this...
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
 rbenv rehash
+
+echo "${BOLD}Path is now:${RESET} ${PATH}"
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 # Our gems to install
 
 # Maintains a consistent environment for ruby applications.

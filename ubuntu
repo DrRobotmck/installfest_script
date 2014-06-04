@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
+# Subject="Log"
+# Receipients="philco@ga.co"
+# Message_Success="Done"
+# { echo -e "$Message_Success\n\n" ; cat $Path_Log_file ; } | mail -s "$Subject" "$Recipients"
 
-mkdir ~/.wdi # must make this here in order to store the log file
+mkdir -p ~/.wdi # must make this here in order to store the log file
 exec > >(tee ~/.wdi/install.log)
 
 # http://stackoverflow.com/questions/3173131/redirect-copy-of-stdout-to-log-file-from-within-bash-script-itself
@@ -246,13 +250,17 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
 # TODO (phlco) reboot?
-BELOVED_RUBY_VERSION="1.9.3-rc1"
+BELOVED_RUBY_VERSION="Ruby 1.9.3-p547"
+CURRENT_STABLE_RUBY_VERSION="Ruby 2.1.2"
+# current branch name
+# git rev-parse --abbrev-ref HEAD
+BRANCH="ubuntu-merge"
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
-BRANCH="ubuntu-merge"
+# moving branch to main env_vars
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
 
@@ -390,13 +398,13 @@ sudo apt-get -y install rbenv
 # provides an `rbenv install` command
 sudo apt-get -y install ruby-build
 
-# enable shims and autocompletion
-eval "$(rbenv init -)"
-
-# Add to path
-export PATH="$HOME/.rbenv/bin:$PATH"
-# source ~/.bash_profile
-
+# ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+#
+# if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
+#   echo "$BELOVED_RUBY_VERSION is installed"
+# else
+#   rbenv install $BELOVED_RUBY_VERSION
+# fi
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -404,15 +412,35 @@ if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
 else
   rbenv install $BELOVED_RUBY_VERSION
 fi
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
-# Set global Ruby
+echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
+
 rbenv global $BELOVED_RUBY_VERSION
 
-# Reload
-# source ~/.bash_profile
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
-# Reload
+echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
+
+# TODO (h4w5) must come to understand this...
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
 rbenv rehash
+
+echo "${BOLD}Path is now:${RESET} ${PATH}"
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+# Event-driven I/O server-side JavaScript environment based on V8
+sudo apt-get -y install nodejs
+
+# Node package manager
+sudo apt-get -y install npm
+
+# For programs that still depend on calling the "node" binary, run:
+sudo apt-get -y install nodejs-legacy
 # Google Chrome.........The Browser
 # HipChat...............The Chat Client
 # Sublime Text 2........The Text Editor
@@ -487,33 +515,41 @@ echo "credentials. Your public key will then be automatically uploaded to"
 echo "Heroku. This will allow you to deploy code to all of your apps."
 
 heroku keys:add
-# Event-driven I/O server-side JavaScript environment based on V8
-sudo apt-get -y install nodejs
+alias gem="/home/wdi/.rbenv/shims/gem"
+# our ruby version manager
+sudo apt-get -y install rbenv
+# git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+# provides an `rbenv install` command
+sudo apt-get -y install ruby-build
 
-# Node package manager
-sudo apt-get -y install npm
+# ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+#
+# if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
+#   echo "$BELOVED_RUBY_VERSION is installed"
+# else
+#   rbenv install $BELOVED_RUBY_VERSION
+# fi
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
-# For programs that still depend on calling the "node" binary, run:
-sudo apt-get -y install nodejs-legacy
-# open source object-relational database management system
-# https://www.digitalocean.com/community/articles/how-to-install-and-use-postgresql-on-ubuntu-12-04
-# TODO phlco set up user
-# https://help.ubuntu.com/community/PostgreSQL
-# sudo apt-get -y install postgresql-xc-client
-# sudo apt-get -y install postgresql-client
-# sudo apt-get -y install postgresql
-# sudo apt-get -y install postgresql-contrib
-# sudo apt-get -y install pg_ctl # initialize stop/start posgres
-sudo apt-get -y install postgresql
-sudo apt-get -y install postgresql-contrib
+echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
 
-sudo -u postgres createuser --superuser $USER
-# TODO phlco. taking out?
-# sudo -u postgres psql
-# create a history?
-touch ~/.psql_history
+rbenv global $BELOVED_RUBY_VERSION
 
-createdb $USER
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+
+echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
+
+# TODO (h4w5) must come to understand this...
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+rbenv rehash
+
+echo "${BOLD}Path is now:${RESET} ${PATH}"
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 # Our gems to install
 
 # Maintains a consistent environment for ruby applications.
@@ -560,6 +596,25 @@ gem install awesome_print
 
 # colorizing printed text on ANSI terminals
 gem install rainbow
+# open source object-relational database management system
+# https://www.digitalocean.com/community/articles/how-to-install-and-use-postgresql-on-ubuntu-12-04
+# TODO phlco set up user
+# https://help.ubuntu.com/community/PostgreSQL
+# sudo apt-get -y install postgresql-xc-client
+# sudo apt-get -y install postgresql-client
+# sudo apt-get -y install postgresql
+# sudo apt-get -y install postgresql-contrib
+# sudo apt-get -y install pg_ctl # initialize stop/start posgres
+sudo apt-get -y install postgresql
+sudo apt-get -y install postgresql-contrib
+
+sudo -u postgres createuser --superuser $USER
+# TODO phlco. taking out?
+# sudo -u postgres psql
+# create a history?
+touch ~/.psql_history
+
+createdb $USER
 # Install Vim Plugin Manager
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 

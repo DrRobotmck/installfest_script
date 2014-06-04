@@ -17,7 +17,8 @@ mac/compilers
 mac/git
 git_config
 mac/rbenv
-set_ruby_version
+add_beloved_ruby_version
+set_global_ruby_version
 default_gems
 mac/packages
 mac/apps

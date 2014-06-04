@@ -14,11 +14,16 @@ ubuntu/ssh_keys
 git_config
 clone_repo
 ubuntu/rbenv
-set_ruby_version
+add_beloved_ruby_version
+set_global_ruby_version
+# a hack to make gem install work within the script
+ubuntu/node
 ubuntu/apps
 ubuntu/heroku
-ubuntu/node
-ubuntu/postgres
+ubuntu/alias_gem
+ubuntu/rbenv
+set_global_ruby_version
 default_gems
+ubuntu/postgres
 vim_plugins
 oh_my_zsh
