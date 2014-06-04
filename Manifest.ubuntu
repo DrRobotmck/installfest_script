@@ -17,13 +17,13 @@ clone_repo
 # add_beloved_ruby_version
 # set_global_ruby_version
 # ubuntu/node
-ubuntu/apps
-# ubuntu/heroku
+# ubuntu/apps
+# broken out since its a hard nut to crack
+# ubuntu/atom
+ubuntu/heroku
 # a hack to make gem install work within the script
-# ubuntu/alias_gem
-# default_gems
+ubuntu/alias_gem
+default_gems
 # ubuntu/postgres
 # vim_plugins
 # oh_my_zsh
-# broken out since its a hard nut to crack
-# ubuntu/atom
