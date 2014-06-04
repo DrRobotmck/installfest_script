@@ -8,3 +8,6 @@ exec > >(tee ~/.wdi/install.log)
 # SEE answer by Adam Spiers, which keeps STDERR a seperate stream -
 # I did not want to steal from him by simply adding his answer to mine.
 exec 2>&1
+
+echo "Script executed at $(date)"
+echo ""

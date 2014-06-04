@@ -4,11 +4,11 @@ commentary/header
 colors
 helper_functions
 keep_alive
-ubuntu/software_update
-# env_vars
-# ubuntu/env_vars
-# remove_rvm
-# ubuntu/packages
+# ubuntu/software_update
+env_vars
+ubuntu/env_vars
+remove_rvm
+ubuntu/packages
 # github_credentials
 # ubuntu/ssh_keys
 # git_config
