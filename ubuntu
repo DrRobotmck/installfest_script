@@ -236,3 +236,10 @@ sudo echo "Thanks."
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # TODO (philco) does this actually work?
+#-------------------------------------------------------------------------------
+# Check for software updates
+#-------------------------------------------------------------------------------
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
+# TODO (phlco) reboot?
