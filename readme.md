@@ -23,12 +23,13 @@ If Xcode is installed the script continues.
 
 ##### For Ubuntu Linux:
 
-<!-- TODO (h4w5) change curl to wget -->
+_**Don't use yet!** Not in working condition._
+
+If you aren't familiar with Linux, then make sure to read "[Getting Started with Ubuntu][ubuntu]." Otherwise, just Paste this script into a Terminal prompt:
+
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/ubuntu-merge/ubuntu)
 ```
-
-**Don't use yet!** Is not in working condition.
 
 ### Why not use a Virtual Environment?
 
@@ -46,20 +47,26 @@ The precept holds as well: let's help them grow as individuals, and not enforce 
 
 ##### Simplicity
 
-Sure, having the students install Vagrant and run a VM may seem like it takes fewer steps than running this overcooked install script. But it's also removing a fair amount of agency. They don't afterwards have to interact with their dev envrionment, but only because of a reliance upon multiple layers of incredibly complicated software. It's giving the students "the magic" up front, which we've often seen lead to a number of questions we can't answer and misconceptions that are hard to clear up.
+Sure, having the students install Vagrant and run a VM may seem like it takes fewer steps than running this overcooked install script. But it's also removing a fair amount of agency. They don't afterwards have to interact with their dev environment, but only because of a reliance upon multiple layers of incredibly complicated software. It's giving the students "the magic" up front, which we've often seen lead to a number of questions we can't answer and misconceptions that are hard to clear up.
 
 ##### Heroku
 
-As long as we are pushing our repos to Heroku for deployment, a VM seems unnecessary. But if we begin using a different and customizable hosting environment, and teaching students basics concerning DevOps, it may make sense to use Chef and Vagrant to configure servers and deploy.
+As long as we are pushing our repos to Heroku for deployment, a VM seems unnecessary. But if we begin using a different and customizable hosting environment, and teaching students about basic DevOps, it may make sense to use Chef and Vagrant to configure servers and deploy.
 
 ### That being said...
 
-We expect to build virtual machines using the script and then have torrent links available here.
+We expect to build virtual machines using default setups, the installfest script and settings, and then have torrent links available here:
 
-* [Download and install Vagrant.][vagrant]
-* [Download our Vagrant Box via BitTorrent.][torrent]
+_**Don't use yet!** Not in working condition._
 
-[vagrant]: http://www.vagrantup.com/downloads  "Vagrant"
-[torrent]: http://example.com/  "GABox"
+- [Download our our virtual Mac OS environment via BitTorrent.][mac-torrent]
+- [Download our our virtual Ubuntu environment via BitTorrent.][ubuntu-torrent]
 
-Contributing
+## Developers
+
+If you want to contribute to or use the installfest script to set up a GA dev environment, please read our [how to use][developing] document.
+
+[ubuntu]:         getting_started_with_ubuntu.md  "Ubuntu Guide"
+[developing]:     how_to_use.md                   "How to use the script"
+[mac-torrent]:    http://example.com/             "Mac GABox"
+[ubuntu-torrent]: http://example.com/             "Ubuntu GABox"

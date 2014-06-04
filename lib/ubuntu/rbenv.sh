@@ -4,8 +4,10 @@ sudo apt-get -y install rbenv
 # provides an `rbenv install` command
 sudo apt-get -y install ruby-build
 
-# enable shims and autocompletion
-eval "$(rbenv init -)"
-
-# Add to path
-export PATH="$HOME/.rbenv/bin:$PATH"
+# ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+#
+# if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
+#   echo "$BELOVED_RUBY_VERSION is installed"
+# else
+#   rbenv install $BELOVED_RUBY_VERSION
+# fi

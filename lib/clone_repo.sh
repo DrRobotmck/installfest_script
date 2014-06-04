@@ -4,7 +4,7 @@ if [[ ! -d $SRC_DIR ]]; then
   # autoupdate bootstrap file
   git clone -b $BRANCH $INSTALL_REPO $SRC_DIR
   # hide folder
-  chflags hidden $SRC_DIR
+  # chflags hidden $SRC_DIR # FIXME (h4w5) doesn't work on linux
 else
   # update repo
   echo 'Updating repo...'

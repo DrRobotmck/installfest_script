@@ -23,12 +23,12 @@
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-BELOVED_RUBY_VERSION="1.9.3-p484"
+BELOVED_RUBY_VERSION="1.9.3-rc1"
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/phlco/installfest_scripts.git
+INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 MINIMUM_OS="10.7.0"
 # Reset formatting
 RESET=$(      tput sgr0)
@@ -356,7 +356,7 @@ if [[ ! -d $SRC_DIR ]]; then
   # autoupdate bootstrap file
   git clone -b $BRANCH $INSTALL_REPO $SRC_DIR
   # hide folder
-  chflags hidden $SRC_DIR
+  # chflags hidden $SRC_DIR # FIXME (h4w5) doesn't work on linux
 else
   # update repo
   echo 'Updating repo...'
@@ -477,8 +477,6 @@ brew install rbenv-default-gems
 # Add to path
 export PATH="$HOME/.rbenv/bin:$PATH"
 
-# source ~/.bash_profile
-
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -486,15 +484,27 @@ if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
 else
   rbenv install $BELOVED_RUBY_VERSION
 fi
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
-# Set global Ruby
+echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
+
 rbenv global $BELOVED_RUBY_VERSION
 
-# Reload
-# source ~/.bash_profile
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
-# Reload
+echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
+
+# TODO (h4w5) must come to understand this...
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
 rbenv rehash
+
+echo "${BOLD}Path is now:${RESET} ${PATH}"
+echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 # Our gems to install
 
 # Maintains a consistent environment for ruby applications.
