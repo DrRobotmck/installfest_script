@@ -22,12 +22,6 @@
 # # enable shims and autocompletion
 # eval "$(rbenv init -)"
 
-# add to default bashrc for the moment
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-
-source ~/.bashrc
-
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -41,4 +35,12 @@ rbenv global $BELOVED_RUBY_VERSION
 
 # Reload
 rbenv rehash
+
+# PUT BELOW, BC WHY MUST BE ABOVE?
+# add to default bashrc for the moment
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+
+echo "RUBY BEFORE SOURCE: `which ruby`"
 source ~/.bashrc
+echo "RUBY AFTER SOURCE: `which ruby`"
