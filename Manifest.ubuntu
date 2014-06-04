@@ -14,7 +14,7 @@ ubuntu/env_vars
 # git_config
 clone_repo
 ubuntu/rbenv
-set_ruby_version
+# set_ruby_version
 # ubuntu/apps
 # ubuntu/heroku
 # ubuntu/node
