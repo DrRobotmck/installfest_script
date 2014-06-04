@@ -1,4 +1,4 @@
-BELOVED_RUBY_VERSION="1.9.3-p484"
+BELOVED_RUBY_VERSION="1.9.3-rc1"
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
