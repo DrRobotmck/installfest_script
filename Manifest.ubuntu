@@ -14,9 +14,12 @@ ubuntu/env_vars
 # git_config
 clone_repo
 # ubuntu/rbenv
-ubuntu/set_ruby_version
-# ubuntu/apps
-# ubuntu/heroku
+add_beloved_ruby_version
+set_global_ruby_version
+# a hack to make gem install work within the script
+ubuntu/alias_gem
+ubuntu/apps
+ubuntu/heroku
 # ubuntu/node
 # ubuntu/postgres
 # default_gems
