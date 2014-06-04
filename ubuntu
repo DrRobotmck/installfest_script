@@ -306,8 +306,8 @@ echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shim
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
 
-echo "export PATH="$HOME/.rbenv/bin:$PATH"" >> ~/.bashrc
-echo "eval "$(rbenv init -)"" >> ~/.bashrc
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 exec $SHELL
 
 echo "${BOLD}Path is now:${RESET} ${PATH}"
