@@ -1,5 +1,5 @@
-BELOVED_RUBY_VERSION="1.9.3-rc1"
-
+BELOVED_RUBY_VERSION="Ruby 1.9.3-p547"
+CURRENT_STABLE_RUBY_VERSION="Ruby 2.1.2"
 # current branch name
 # git rev-parse --abbrev-ref HEAD
 BRANCH="ubuntu-merge"

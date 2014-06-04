@@ -17,15 +17,13 @@ ubuntu/rbenv
 add_beloved_ruby_version
 set_global_ruby_version
 # a hack to make gem install work within the script
-ubuntu/alias_gem
+ubuntu/node
 ubuntu/apps
 ubuntu/heroku
+ubuntu/alias_gem
 ubuntu/rbenv
 set_global_ruby_version
-ubuntu/apps
-ubuntu/heroku
-ubuntu/node
-ubuntu/postgres
 default_gems
+ubuntu/postgres
 vim_plugins
 oh_my_zsh
