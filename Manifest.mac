@@ -1,4 +1,5 @@
 shebang
+log_script
 commentary/header
 env_vars
 mac/env_vars
