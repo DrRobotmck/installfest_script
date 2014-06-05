@@ -1,5 +1,7 @@
 # Our gems to install
 
+echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+
 # Maintains a consistent environment for ruby applications.
 gem install bundler
 

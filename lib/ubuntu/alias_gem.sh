@@ -1,1 +1,1 @@
-alias gem="/home/wdi/.rbenv/shims/gem"
+alias gem="$HOME/wdi/.rbenv/shims/gem"
