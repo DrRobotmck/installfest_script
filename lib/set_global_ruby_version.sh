@@ -19,3 +19,5 @@ eval "$(rbenv init -)"
 echo "${BOLD}Path is now:${RESET} ${PATH}"
 echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
 echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+echo "${BOLD}Gem environment is now:${RESET}"
+gem env
