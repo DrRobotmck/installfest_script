@@ -1,19 +1,16 @@
 #!/usr/bin/env bash
 # testing interactive mode
+
+#-------------------------------------------------------------------------------
+# Logging
+#-------------------------------------------------------------------------------
+
 # Subject="Log"
 # Receipients="philco@ga.co"
 # Message_Success="Done"
 # { echo -e "$Message_Success\n\n" ; cat $Path_Log_file ; } | mail -s "$Subject" "$Recipients"
 
-mkdir -p ~/.wdi # must make this here in order to store the log file
-exec > >(tee ~/.wdi/install.log)
-
-# http://stackoverflow.com/questions/3173131/redirect-copy-of-stdout-to-log-file-from-within-bash-script-itself
-# Without this, only stdout would be captured - i.e. your
-# log file would not contain any error messages.
-# SEE answer by Adam Spiers, which keeps STDERR a seperate stream -
-# I did not want to steal from him by simply adding his answer to mine.
-exec 2>&1
+mkdir -p ~/.wdi; exec > >(tee ~/.wdi/install.log); exec 2>&1
 
 echo "Script executed at $(date)"
 echo ""
@@ -24,34 +21,42 @@ echo ""
 # | | | | \__ \ || (_| | | |  _|  __/\__ \ |_
 # |_|_| |_|___/\__\__,_|_|_|_|  \___||___/\__|
 #
-# Installfest Script for development
+# Installation, Setup and Dotfile Creation Script
+# for Students of General Assemb.ly's WDI Program
 
 # Author: Phillip Lamplugh, GA Instructor (2014)
 # Contributions: PJ Hughes, GA Instructor (2014)
-#
 
 # Resources
-# TODO (h4w5) what are some for Ubuntu?...
+#
+# https://github.com/thoughtbot/laptop
+# https://github.com/toranb/ubuntu-development-machine
 # https://github.com/divio/osx-bootstrap
 # https://github.com/paulirish/dotfiles
 # https://github.com/mathiasbynens/dotfiles/
+# https://github.com/ndbroadbent/dotfiles
 
 # References
+#
 # http://www.sudo.ws/
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
 BELOVED_RUBY_VERSION="2.1.2"
+CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
-
-# moving branch to a file dynamically built from rake
 MINIMUM_OS="10.7.0"
 
+# This refers to the branch of our repo that we are using (for cloning).
 BRANCH=ubuntu-merge
+
+#-------------------------------------------------------------------------------
+# Set text formatting
+#-------------------------------------------------------------------------------
 
 # Reset formatting
 RESET=$(      tput sgr0)
@@ -81,9 +86,10 @@ BG_WHITE=$(   tput setab 9)
 
 # Style
 UNDERLINE=$(  tput smul)
-# NOUNDERLINE=$(tput rmul)
+NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)
+
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
@@ -297,6 +303,16 @@ else
   echo "RVM is not installed. Moving on..."
 fi
 
+# # http://blog.coolaj86.com/articles/installing-ruby-on-ubuntu-12-04.html
+# sudo apt-get remove --purge ruby-rvm ruby
+# sudo rm -rf /usr/share/ruby-rvm /etc/rmvrc /etc/profile.d/rvm.sh
+#
+# # See if there is anything
+# ls -d ~/.rvm*
+# ls -d ~/.gem*
+# ls -d ~/.bundle*
+# # Delete them (ignoring those that don't exist)
+# rm -rf ~/.rvm* ~/.gem/ ~/.bundle*
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
 
@@ -523,13 +539,20 @@ rbenv global $BELOVED_RUBY_VERSION
 #
 # echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
 
-rbenv rehash
+# rbenv rehash # happens at end of eval above I believe (h4w5)
 
 # echo "${BOLD}Path is now:${RESET} ${PATH}"
 # echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
 # echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
-source ~/.bashrc
+# echo "${BOLD}Path is now:${RESET} ${PATH}"
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+# echo "${BOLD}Gem environment is now:${RESET}"
+# gem env
+
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 # Our gems to install
 
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc

@@ -10,10 +10,17 @@ rbenv global $BELOVED_RUBY_VERSION
 #
 # echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
 
-rbenv rehash
+# rbenv rehash # happens at end of eval above I believe (h4w5)
 
 # echo "${BOLD}Path is now:${RESET} ${PATH}"
 # echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
 # echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
-source ~/.bashrc
+# echo "${BOLD}Path is now:${RESET} ${PATH}"
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+# echo "${BOLD}Gem environment is now:${RESET}"
+# gem env
+
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"

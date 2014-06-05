@@ -1,22 +1,5 @@
 #!/usr/bin/env bash
 # testing interactive mode
-# Subject="Log"
-# Receipients="philco@ga.co"
-# Message_Success="Done"
-# { echo -e "$Message_Success\n\n" ; cat $Path_Log_file ; } | mail -s "$Subject" "$Recipients"
-
-mkdir -p ~/.wdi # must make this here in order to store the log file
-exec > >(tee ~/.wdi/install.log)
-
-# http://stackoverflow.com/questions/3173131/redirect-copy-of-stdout-to-log-file-from-within-bash-script-itself
-# Without this, only stdout would be captured - i.e. your
-# log file would not contain any error messages.
-# SEE answer by Adam Spiers, which keeps STDERR a seperate stream -
-# I did not want to steal from him by simply adding his answer to mine.
-exec 2>&1
-
-echo "Script executed at $(date)"
-echo ""
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -24,23 +7,46 @@ echo ""
 # | | | | \__ \ || (_| | | |  _|  __/\__ \ |_
 # |_|_| |_|___/\__\__,_|_|_|_|  \___||___/\__|
 #
-# Installfest Script for development
+# Installation, Setup and Dotfile Creation Script
+# for Students of General Assemb.ly's WDI Program
 
 # Author: Phillip Lamplugh, GA Instructor (2014)
 # Contributions: PJ Hughes, GA Instructor (2014)
-#
 
 # Resources
-# TODO (h4w5) what are some for Ubuntu?...
+#
+# https://github.com/thoughtbot/laptop
+# https://github.com/toranb/ubuntu-development-machine
 # https://github.com/divio/osx-bootstrap
 # https://github.com/paulirish/dotfiles
 # https://github.com/mathiasbynens/dotfiles/
+# https://github.com/ndbroadbent/dotfiles
 
 # References
+#
 # http://www.sudo.ws/
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
+
+#-------------------------------------------------------------------------------
+# Logging
+#-------------------------------------------------------------------------------
+
+# Subject="Log"
+# Receipients="philco@ga.co"
+# Message_Success="Done"
+# { echo -e "$Message_Success\n\n" ; cat $Path_Log_file ; } | mail -s "$Subject" "$Recipients"
+
+mkdir -p ~/.wdi; exec > >(tee ~/.wdi/install.log); exec 2>&1
+
+echo "Script executed at $(date)"
+echo ""
+
+#-------------------------------------------------------------------------------
+# Set text formatting
+#-------------------------------------------------------------------------------
+
 # Reset formatting
 RESET=$(      tput sgr0)
 
@@ -69,9 +75,10 @@ BG_WHITE=$(   tput setab 9)
 
 # Style
 UNDERLINE=$(  tput smul)
-# NOUNDERLINE=$(tput rmul)
+NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)
+
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
@@ -244,30 +251,23 @@ sudo echo "Thanks."
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # TODO (philco) does this actually work?
+#-------------------------------------------------------------------------------
+# Check for software updates
+#-------------------------------------------------------------------------------
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
+# TODO (phlco) reboot?
 BELOVED_RUBY_VERSION="2.1.2"
+CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 
-# moving branch to a file dynamically built from rake
-
+# This refers to the branch of our repo that we are using (for cloning).
 BRANCH=ubuntu-merge
-
-# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
-# This script checks for and removes previous installs of macports and RVM
-
-# Uninstall RVM
-# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
-if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
-  yes | rvm implode
-  rm -rf ~/.rvm
-  echo "RVM has been removed."
-else
-  echo "RVM is not installed. Moving on..."
-fi
-
 # Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
 sudo apt-get -y install autoconf
 
@@ -332,6 +332,32 @@ echo "Please register for an account on github.com if you haven't already done s
 read -p "Enter your full name: "  user_name
 read -p "Github Username: "       github_name
 read -p "Github Email: "          github_email
+# SSH Keygen
+ssh-keygen -t rsa -C $github_email
+ssh-add id_rsa
+
+# Copy SSH key to the clipboard
+cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
+
+echo "We just copied your SSH key to the clipboard."
+echo "Now we're going to visit GitHub to add the SSH key"
+
+echo "Do the following in your browser: "
+echo '- Click "SSH Keys" in the left sidebar'
+echo '- Click "Add SSH key"'
+echo '- Set the Title to WDI Installfest'
+echo '- Paste your key into the "Key" field'
+echo '- Click "Add key"'
+echo '- Confirm the action by entering your GitHub password'
+
+pause_awhile "Press Enter. We'll be here until you get back from Github."
+
+echo "Firefox may print an error to the terminal. DON'T WORRY!"
+# Open in default browser as a new process
+# TODO(phlco) Firefox raises an error
+xdg-open https://github.com/settings/ssh &
+
+pause_awhile "Ok. Ready to Continue? Press Enter."
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
 git config --global user.name  $github_name
@@ -366,6 +392,29 @@ else
   cd $SRC_DIR
   git pull origin $BRANCH
 fi
+# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
+# This script checks for and removes previous installs of macports and RVM
+
+# Uninstall RVM
+# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
+if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
+  yes | rvm implode
+  rm -rf ~/.rvm
+  echo "RVM has been removed."
+else
+  echo "RVM is not installed. Moving on..."
+fi
+
+# # http://blog.coolaj86.com/articles/installing-ruby-on-ubuntu-12-04.html
+# sudo apt-get remove --purge ruby-rvm ruby
+# sudo rm -rf /usr/share/ruby-rvm /etc/rmvrc /etc/profile.d/rvm.sh
+#
+# # See if there is anything
+# ls -d ~/.rvm*
+# ls -d ~/.gem*
+# ls -d ~/.bundle*
+# # Delete them (ignoring those that don't exist)
+# rm -rf ~/.rvm* ~/.gem/ ~/.bundle*
 # # our ruby version manager
 # sudo apt-get -y install rbenv
 # # git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
@@ -386,15 +435,11 @@ fi
 # source $HOME/.bashrc
 
 git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 export PATH="$HOME/.rbenv/bin:$PATH"'
 eval "$(rbenv init -)"'
 
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-
-source ~/.bashrc
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -418,14 +463,109 @@ rbenv global $BELOVED_RUBY_VERSION
 #
 # echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
 
-rbenv rehash
+# rbenv rehash # happens at end of eval above I believe (h4w5)
 
 # echo "${BOLD}Path is now:${RESET} ${PATH}"
 # echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
 # echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
+# echo "${BOLD}Path is now:${RESET} ${PATH}"
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+# echo "${BOLD}Gem environment is now:${RESET}"
+# gem env
+
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
+
+# For testing and simplicity with Ubuntu, add these to the .bashrc until it's
+# overwritten...
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+
 source ~/.bashrc
-alias gem="$HOME/wdi/.rbenv/shims/gem"
+# Event-driven I/O server-side JavaScript environment based on V8
+sudo apt-get -y install nodejs
+
+# Node package manager
+sudo apt-get -y install npm
+
+# For programs that still depend on calling the "node" binary, run:
+sudo apt-get -y install nodejs-legacy
+# Google Chrome.........The Browser
+# HipChat...............The Chat Client
+# Sublime Text 2........The Text Editor
+
+# chrome
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+sudo apt-get -y update
+sudo apt-get -y install google-chrome-stable
+
+# hipchat
+echo "deb http://downloads.hipchat.com/linux/apt stable main" > /etc/apt/sources.list.d/atlassian-hipchat.list
+wget -O - https://www.hipchat.com/keys/hipchat-linux.key | apt-key add -
+sudo apt-get -y update
+sudo apt-get -y install hipchat
+
+# sublime
+sudo add-apt-repository -y ppa:webupd8team/sublime-text-2
+sudo apt-get -y update
+sudo apt-get -y install sublime-text
+
+# zsh
+sudo apt-get -y install zsh
+
+# flux
+sudo add-apt-repository -y ppa:kilian/f.lux
+sudo apt-get -y update
+sudo apt-get -y install fluxgui
+
+# hub
+# http://eoinoc.net/install-hub-github-linux-mint/
+curl http://defunkt.io/hub/standalone -Lo ~/usr/bin/hub
+chmod 755 ~/usr/bin/hub
+
+# vim
+sudo apt-get -y install vim
+# atom
+# Requires 64-bit
+# ensure that gyp uses Python 2
+sudo npm config set python /usr/bin/python2 -g
+git clone https://github.com/atom/atom
+cd atom
+# TMPDIR=~/.wdi/tmp
+# Creates application at $TMPDIR/atom-build/Atom
+# TODO (phlco) move to /usr/bin
+script/build
+# Installs command to /usr/local/bin/atom
+sudo script/grunt install
+# Generates a .deb package at $TMPDIR/atom-build
+script/grunt mkdeb
+# TODO (phlco) command line tool for atom?
+# sudo dpkg -i $TMPDIR/atom-build/Atom.deb
+# Heroku command-line tooling for working with the Heroku platform
+
+# http://eoinoc.net/install-hub-github-linux-mint/
+wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
+# https://devcenter.heroku.com/articles/keys
+echo "Heroku is a cloud platform as a service (PaaS) supporting several"
+echo "programming languages."
+
+echo "If you don’t already use SSH, you’ll need to create a public/private key"
+echo "pair to deploy code to Heroku. This keypair is used for the strong"
+echo "cryptography and that uniquely identifies you as a developer when pushing"
+echo "code changes."
+
+ssh-keygen -t rsa
+
+echo "The first time you run the heroku command, you’ll be prompted for your "
+echo "credentials. Your public key will then be automatically uploaded to"
+echo "Heroku. This will allow you to deploy code to all of your apps."
+echo "Please enter your email"
+
+heroku keys:add
 # Our gems to install
 
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -493,3 +633,31 @@ sudo -u postgres createuser --superuser $USER
 touch ~/.psql_history
 
 createdb $USER
+# Install Vim Plugin Manager
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# Vimrc is copied over from dotfiles
+# The Z shell (zsh) is a Unix shell that can be used as an interactive login
+# shell and as a powerful command interpreter for shell scripting. Zsh can be
+# thought of as an extended Bourne shell with a large number of improvements,
+# including some features of bash, ksh, and tcsh.
+# This script installs zsh, oh-my-zsh, an open source, community-driven framework
+# for managing your ZSH configuration.
+
+# Install zsh
+git clone git://zsh.git.sf.net/gitroot/zsh/zsh
+cp ~/.zshrc ~/.zshrc.orig
+
+# Install oh-my-zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+cp $SRC_DIR/settings/dotfiles/zshrc ~/.zshrc
+
+# Syntax Highlighting
+git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins
+
+# Set as default
+chsh -s /bin/zsh
+
+# Resources
+# https://github.com/robbyrussell/oh-my-zsh
+# http://www.stevendobbelaere.be/installing-and-configuring-the-oh-my-zsh-shell/
