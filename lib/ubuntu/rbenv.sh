@@ -1,20 +1,28 @@
-# our ruby version manager
-sudo apt-get -y install rbenv
-# git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
-# provides an `rbenv install` command
-sudo apt-get -y install ruby-build
-
-# ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+# # our ruby version manager
+# sudo apt-get -y install rbenv
+# # git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+# # provides an `rbenv install` command
+# sudo apt-get -y install ruby-build
 #
-# if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
-#   echo "$BELOVED_RUBY_VERSION is installed"
-# else
-#   rbenv install $BELOVED_RUBY_VERSION
-# fi
+# # ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+# #
+# # if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
+# #   echo "$BELOVED_RUBY_VERSION is installed"
+# # else
+# #   rbenv install $BELOVED_RUBY_VERSION
+# # fi
+#
+#
+# # TODO (h4w5) must come to understand this...
+# echo '\nexport PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
+# echo '\neval "$(rbenv init -)"' >> $HOME/.bashrc
+#
+# source $HOME/.bashrc
 
+git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
-# TODO (h4w5) must come to understand this...
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
-echo 'eval "$(rbenv init -)"' >> $HOME/.bashrc
+git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
-source $HOME/.bashrc
+source ~/.bashrc
