@@ -549,55 +549,53 @@ rbenv global $BELOVED_RUBY_VERSION
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
 # Our gems to install
-
+# skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 
-rebenv rehash
-
 # Maintains a consistent environment for ruby applications.
-gem install bundler
+echo "bundler" >> ~/.rbenv/default-gems
 
 # Acceptance test framework for web applications
-gem install capybara
+echo "capybara" >> ~/.rbenv/default-gems
 
 # handle events on file system modifications
-gem install guard
+echo "guard" >> ~/.rbenv/default-gems
 
 # JavaScript testing
-gem install jasmine
+echo "jasmine" >> ~/.rbenv/default-gems
 
 # ruby interface for Postgres
-gem install pg
+echo "pg" >> ~/.rbenv/default-gems
 
 # alternative to the standard IRB shell
-gem install pry
+echo "pry" >> ~/.rbenv/default-gems
 
 # live syntax highlighting for the Pry REPL
-gem install pry-coolline
+echo "pry-coolline" >> ~/.rbenv/default-gems
 
 # full stack, Web application framework
-gem install rails
+echo "rails" >> ~/.rbenv/default-gems
 
 # testing tool for Ruby
-gem install rspec
+echo "rspec" >> ~/.rbenv/default-gems
 
 # a DSL for quickly creating web applications in Ruby
-gem install sinatra
+echo "sinatra" >> ~/.rbenv/default-gems
 
 # common Sinatra extensions
-gem install sinatra-contrib
+echo "sinatra-contrib" >> ~/.rbenv/default-gems
 
 # Ruby interface to github API v3
-gem install github_api
+echo "github_api" >> ~/.rbenv/default-gems
 
 # HipChat HTTP API Wrapper
-gem install hipchat
+echo "hipchat" >> ~/.rbenv/default-gems
 
 # pretty print your Ruby objects with style
-gem install awesome_print
+echo "awesome_print" >> ~/.rbenv/default-gems
 
 # colorizing printed text on ANSI terminals
-gem install rainbow
+echo "rainbow" >> ~/.rbenv/default-gems
 # Useful packages
 # ASCII ART!!!!
 brew install figlet
