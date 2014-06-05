@@ -1,29 +1,30 @@
 shebang
 commentary/header
 log_script
-colors
-helper_functions
-keep_alive
-ubuntu/software_update
-env_vars
-set_script_branch
-ubuntu/packages
-github_credentials
-ubuntu/ssh_keys
-git_config
-clone_repo
+# colors
+# helper_functions
+# keep_alive
+# ubuntu/software_update
+# env_vars
+# set_script_branch
+# ubuntu/packages
+# github_credentials
+# ubuntu/ssh_keys
+# git_config
+# clone_repo
 remove_rvm
-ubuntu/rbenv
-add_beloved_ruby_version
-set_global_ruby_version
-ubuntu/set_global_ruby_version
-ubuntu/node
-ubuntu/apps
-# broken out since its a hard nut to crack
-ubuntu/atom
-# script is skipping email line
-ubuntu/heroku
-default_gems
-ubuntu/postgres
-vim_plugins
-oh_my_zsh
+# ubuntu/rbenv
+# add_beloved_ruby_version
+# set_global_ruby_version
+# ubuntu/set_global_ruby_version
+# ubuntu/node
+# ubuntu/apps
+# # broken out since its a hard nut to crack
+# ubuntu/atom
+# # script is skipping email line
+# ubuntu/heroku
+# default_gems
+# ubuntu/postgres
+# vim_plugins
+# oh_my_zsh
+report_log

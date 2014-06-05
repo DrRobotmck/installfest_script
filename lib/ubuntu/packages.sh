@@ -11,7 +11,7 @@ sudo apt-get -y install bison
 sudo apt-get -y install libtool
 
 # a YAML 1.1 parser and emitter
-sudo apt-get -y install libyaml
+sudo apt-get -y install libyaml-dev
 
 # provides a set of functions for use by applications that allow users to edit command lines as they are typed in
 sudo apt-get -y install libreadline6 libreadline6-dev
@@ -53,7 +53,16 @@ sudo apt-get -y install imagemagick
 sudo apt-get -y install phantomjs
 
 # a self-contained, serverless, zero-configuration, transactional SQL database engine.
-sudo apt-get -y install sqlite3
 
 # extras
-sudo apt-get install -y git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties
+# TODO (phlco) consolidate these
+git-core
+curl
+sudo apt-get install -y
+sudo apt-get -y install sqlite3
+libsqlite3-dev
+libcurl4-openssl-dev
+python-software-properties
+libreadline-dev
+build-essential
+zlib1g-dev
