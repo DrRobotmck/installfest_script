@@ -19,9 +19,9 @@ mac/install_compilation_tools
 mac/install_git
 configure_git
 mac/install_rbenv
+set_default_gems_with_rbenv
 install_beloved_ruby_version
 set_global_ruby_version
-install_default_gems
 mac/install_system_packages
 mac/install_node
 mac/install_npm

@@ -1,0 +1,17 @@
+shebang
+
+define_terminal_colors
+define_script_helper_functions
+set_env_vars
+set_script_branch
+
+# grab user password for sudo
+capture_password
+
+# install ruby and gems with rbenv
+remove_rvm
+ubuntu/install_rbenv
+set_default_gems_with_rbenv
+ubuntu/add_rbenv_to_bashrc
+install_beloved_ruby_version
+set_global_ruby_version

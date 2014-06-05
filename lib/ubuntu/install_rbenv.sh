@@ -20,8 +20,8 @@
 # rbenv
 git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 
-export PATH="$HOME/.rbenv/bin:$PATH"'
-eval "$(rbenv init -)"'
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 # Specify default gems in ~/.rbenv/default-gems
 git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems

@@ -7,5 +7,3 @@ else
 fi
 
 rbenv rehash
-
-source ~/.bashrc

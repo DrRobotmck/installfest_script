@@ -239,6 +239,16 @@ allow_control() {
     echo "allow_control works only on Mavericks"
   fi
 }
+BELOVED_RUBY_VERSION="2.1.2"
+CURRENT_STABLE_RUBY_VERSION="2.1.2"
+
+# TODO backport this into master and mac...
+SRC_DIR=~/.wdi/installfest
+SETTINGS=$SRC_DIR/settings
+INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
+
+# This refers to the branch of our repo that we are using (for cloning).
+BRANCH=version2
 # Capture the user's password
 sudo echo "Thanks."
 
@@ -253,16 +263,6 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
 # TODO (phlco) reboot?
-BELOVED_RUBY_VERSION="2.1.2"
-CURRENT_STABLE_RUBY_VERSION="2.1.2"
-
-# TODO backport this into master and mac...
-SRC_DIR=~/.wdi/installfest
-SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
-
-# This refers to the branch of our repo that we are using (for cloning).
-BRANCH=version2
 # Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
 sudo apt-get -y install autoconf
 
@@ -323,8 +323,8 @@ sudo apt-get -y install phantomjs
 # TODO (phlco) consolidate these
 sudo apt-get -y install git-core
 sudo apt-get -y install curl
-sudo apt-get -y install sudo apt-get install -y
-sudo apt-get -y install sudo apt-get -y install sqlite3
+sudo apt-get -y install sudo apt-get install -y         # FIXME (h4w5) ????
+sudo apt-get -y install sudo apt-get -y install sqlite3 # FIXME (h4w5) ????
 sudo apt-get -y install libsqlite3-dev
 sudo apt-get -y install libcurl4-openssl-dev
 sudo apt-get -y install python-software-properties
@@ -441,14 +441,69 @@ fi
 # rbenv
 git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 
-export PATH="$HOME/.rbenv/bin:$PATH"'
-eval "$(rbenv init -)"'
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 # Specify default gems in ~/.rbenv/default-gems
 git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
 
 # provides an rbenv install command to compile and install different versions of Ruby
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+# Our gems to install
+# skip documentation
+echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+
+# Maintains a consistent environment for ruby applications.
+echo "bundler" >> ~/.rbenv/default-gems
+
+# Acceptance test framework for web applications
+echo "capybara" >> ~/.rbenv/default-gems
+
+# handle events on file system modifications
+echo "guard" >> ~/.rbenv/default-gems
+
+# JavaScript testing
+echo "jasmine" >> ~/.rbenv/default-gems
+
+# ruby interface for Postgres
+echo "pg" >> ~/.rbenv/default-gems
+
+# alternative to the standard IRB shell
+echo "pry" >> ~/.rbenv/default-gems
+
+# live syntax highlighting for the Pry REPL
+echo "pry-coolline" >> ~/.rbenv/default-gems
+
+# full stack, Web application framework
+echo "rails" >> ~/.rbenv/default-gems
+
+# testing tool for Ruby
+echo "rspec" >> ~/.rbenv/default-gems
+
+# a DSL for quickly creating web applications in Ruby
+echo "sinatra" >> ~/.rbenv/default-gems
+
+# common Sinatra extensions
+echo "sinatra-contrib" >> ~/.rbenv/default-gems
+
+# Ruby interface to github API v3
+echo "github_api" >> ~/.rbenv/default-gems
+
+# HipChat HTTP API Wrapper
+echo "hipchat" >> ~/.rbenv/default-gems
+
+# pretty print your Ruby objects with style
+echo "awesome_print" >> ~/.rbenv/default-gems
+
+# colorizing printed text on ANSI terminals
+echo "rainbow" >> ~/.rbenv/default-gems
+
+# For testing and simplicity with Ubuntu, add these to the .bashrc until it's
+# overwritten...
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+
+source ~/.bashrc
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -458,15 +513,32 @@ else
 fi
 
 rbenv rehash
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+#
+# echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
 
-source ~/.bashrc
+rbenv global $BELOVED_RUBY_VERSION
 
-# For testing and simplicity with Ubuntu, add these to the .bashrc until it's
-# overwritten...
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+#
+# echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
 
-source ~/.bashrc
+rbenv rehash # happens at end of eval above I believe (h4w5)
+
+# echo "${BOLD}Path is now:${RESET} ${PATH}"
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+
+# echo "${BOLD}Path is now:${RESET} ${PATH}"
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+# echo "${BOLD}Gem environment is now:${RESET}"
+# gem env
+
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 # Event-driven I/O server-side JavaScript environment based on V8
 sudo apt-get -y install nodejs
 
@@ -527,76 +599,6 @@ sudo script/grunt install
 script/grunt mkdeb
 # TODO (phlco) command line tool for atom?
 # sudo dpkg -i $TMPDIR/atom-build/Atom.deb
-# Heroku command-line tooling for working with the Heroku platform
-
-# http://eoinoc.net/install-hub-github-linux-mint/
-wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-
-# https://devcenter.heroku.com/articles/keys
-echo "Heroku is a cloud platform as a service (PaaS) supporting several"
-echo "programming languages."
-
-echo "If you don’t already use SSH, you’ll need to create a public/private key"
-echo "pair to deploy code to Heroku. This keypair is used for the strong"
-echo "cryptography and that uniquely identifies you as a developer when pushing"
-echo "code changes."
-
-ssh-keygen -t rsa
-
-echo "The first time you run the heroku command, you’ll be prompted for your "
-echo "credentials. Your public key will then be automatically uploaded to"
-echo "Heroku. This will allow you to deploy code to all of your apps."
-echo "Please enter your email"
-
-heroku keys:add
-# Our gems to install
-# skip documentation
-echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-
-# Maintains a consistent environment for ruby applications.
-echo "bundler" >> ~/.rbenv/default-gems
-
-# Acceptance test framework for web applications
-echo "capybara" >> ~/.rbenv/default-gems
-
-# handle events on file system modifications
-echo "guard" >> ~/.rbenv/default-gems
-
-# JavaScript testing
-echo "jasmine" >> ~/.rbenv/default-gems
-
-# ruby interface for Postgres
-echo "pg" >> ~/.rbenv/default-gems
-
-# alternative to the standard IRB shell
-echo "pry" >> ~/.rbenv/default-gems
-
-# live syntax highlighting for the Pry REPL
-echo "pry-coolline" >> ~/.rbenv/default-gems
-
-# full stack, Web application framework
-echo "rails" >> ~/.rbenv/default-gems
-
-# testing tool for Ruby
-echo "rspec" >> ~/.rbenv/default-gems
-
-# a DSL for quickly creating web applications in Ruby
-echo "sinatra" >> ~/.rbenv/default-gems
-
-# common Sinatra extensions
-echo "sinatra-contrib" >> ~/.rbenv/default-gems
-
-# Ruby interface to github API v3
-echo "github_api" >> ~/.rbenv/default-gems
-
-# HipChat HTTP API Wrapper
-echo "hipchat" >> ~/.rbenv/default-gems
-
-# pretty print your Ruby objects with style
-echo "awesome_print" >> ~/.rbenv/default-gems
-
-# colorizing printed text on ANSI terminals
-echo "rainbow" >> ~/.rbenv/default-gems
 # open source object-relational database management system
 # https://www.digitalocean.com/community/articles/how-to-install-and-use-postgresql-on-ubuntu-12-04
 # TODO phlco set up user
@@ -644,6 +646,28 @@ chsh -s /bin/zsh
 # Resources
 # https://github.com/robbyrussell/oh-my-zsh
 # http://www.stevendobbelaere.be/installing-and-configuring-the-oh-my-zsh-shell/
+# Heroku command-line tooling for working with the Heroku platform
+
+# http://eoinoc.net/install-hub-github-linux-mint/
+wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
+# https://devcenter.heroku.com/articles/keys
+echo "Heroku is a cloud platform as a service (PaaS) supporting several"
+echo "programming languages."
+
+echo "If you don’t already use SSH, you’ll need to create a public/private key"
+echo "pair to deploy code to Heroku. This keypair is used for the strong"
+echo "cryptography and that uniquely identifies you as a developer when pushing"
+echo "code changes."
+
+ssh-keygen -t rsa
+
+echo "The first time you run the heroku command, you’ll be prompted for your "
+echo "credentials. Your public key will then be automatically uploaded to"
+echo "Heroku. This will allow you to deploy code to all of your apps."
+echo "Please enter your email"
+
+heroku keys:add
 # Don't ask questions
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get install -y mailutils

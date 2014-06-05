@@ -7,7 +7,9 @@ Dir["Manifest*"].each do |manifest|
   filename = manifest.gsub(/manifest./i, '')
   File.open(filename, 'w') do |file|
     File.read(manifest).each_line do |line|
-      file << File.read("lib/#{line.chomp}.sh") unless line.start_with? "#"
+      unless line.start_with?("#") || line.strip == ""
+        file << File.read("lib/#{line.chomp}.sh")
+      end
     end
   end
 end

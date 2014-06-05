@@ -511,43 +511,6 @@ brew install rbenv-default-gems
 # Add to path
 export PATH="$HOME/.rbenv/bin:$PATH"
 
-ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
-
-if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
-  echo "$BELOVED_RUBY_VERSION is installed"
-else
-  rbenv install $BELOVED_RUBY_VERSION
-fi
-
-rbenv rehash
-
-source ~/.bashrc
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-#
-# echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
-
-rbenv global $BELOVED_RUBY_VERSION
-
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-#
-# echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
-
-# rbenv rehash # happens at end of eval above I believe (h4w5)
-
-# echo "${BOLD}Path is now:${RESET} ${PATH}"
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-
-# echo "${BOLD}Path is now:${RESET} ${PATH}"
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-# echo "${BOLD}Gem environment is now:${RESET}"
-# gem env
-
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -596,6 +559,41 @@ echo "awesome_print" >> ~/.rbenv/default-gems
 
 # colorizing printed text on ANSI terminals
 echo "rainbow" >> ~/.rbenv/default-gems
+ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+
+if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
+  echo "$BELOVED_RUBY_VERSION is installed"
+else
+  rbenv install $BELOVED_RUBY_VERSION
+fi
+
+rbenv rehash
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+#
+# echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
+
+rbenv global $BELOVED_RUBY_VERSION
+
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+#
+# echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
+
+rbenv rehash # happens at end of eval above I believe (h4w5)
+
+# echo "${BOLD}Path is now:${RESET} ${PATH}"
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+
+# echo "${BOLD}Path is now:${RESET} ${PATH}"
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+# echo "${BOLD}Gem environment is now:${RESET}"
+# gem env
+
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 # Useful packages
 # ASCII ART!!!!
 brew install figlet

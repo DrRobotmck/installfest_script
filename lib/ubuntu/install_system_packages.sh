@@ -58,8 +58,8 @@ sudo apt-get -y install phantomjs
 # TODO (phlco) consolidate these
 sudo apt-get -y install git-core
 sudo apt-get -y install curl
-sudo apt-get -y install sudo apt-get install -y
-sudo apt-get -y install sudo apt-get -y install sqlite3
+sudo apt-get -y install sudo apt-get install -y         # FIXME (h4w5) ????
+sudo apt-get -y install sudo apt-get -y install sqlite3 # FIXME (h4w5) ????
 sudo apt-get -y install libsqlite3-dev
 sudo apt-get -y install libcurl4-openssl-dev
 sudo apt-get -y install python-software-properties

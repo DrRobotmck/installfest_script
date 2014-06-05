@@ -1,30 +1,49 @@
 shebang
 commentary/header
 start_logging
+
 define_terminal_colors
 define_script_helper_functions
-capture_password
-ubuntu/update_software
 set_env_vars
 set_script_branch
+
+# TODO (h4w5) not keeping alive...
+# grab user password for sudo
+capture_password
+
+# update os with necessary tools
+ubuntu/update_software
 ubuntu/install_system_packages
+
+# add github credentials and clone down repo
 capture_github_credentials
 ubuntu/create_ssh_keys
 configure_git
 clone_script_repo
+
+# install ruby and gems with rbenv
 remove_rvm
 ubuntu/install_rbenv
+set_default_gems_with_rbenv
+ubuntu/add_rbenv_to_bashrc
 install_beloved_ruby_version
-# set_global_ruby_version
-ubuntu/set_global_ruby_version_in_bashrc
-ubuntu/install_node
+set_global_ruby_version
+
+# install node and npm
+ubuntu/install_node_and_npm
+
+# install classroom applications
 ubuntu/install_apps
-# broken out since its a hard nut to crack
 ubuntu/install_atom
-# script is skipping email line
-ubuntu/set_up_heroku
-install_default_gems
 ubuntu/install_postgres
 install_vim_plugins
 install_oh_my_zsh
+
+# TODO (h4w5) can we move this up to be with github credentialing?
+# set up default deployment with heroku
+ubuntu/set_up_heroku
+
 report_log
+
+# TODO (philco) skipping the email line
+# capture_mac_address

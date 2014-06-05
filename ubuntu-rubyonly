@@ -1,0 +1,364 @@
+#!/usr/bin/env bash
+# testing interactive mode
+
+#-------------------------------------------------------------------------------
+# Set text formatting
+#-------------------------------------------------------------------------------
+
+# Reset formatting
+RESET=$(      tput sgr0)
+
+# Foreground color
+BLACK=$(      tput setaf 0)
+RED=$(        tput setaf 1)
+GREEN=$(      tput setaf 2)
+YELLOW=$(     tput setaf 3)
+BLUE=$(       tput setaf 4)
+MAGENTA=$(    tput setaf 5)
+CYAN=$(       tput setaf 6)
+WHITE=$(      tput setaf 9)
+# ORANGE=$(     tput setaf 172)
+# PURPLE=$(     tput setaf 141)
+
+# Background color
+BG_BLACK=$(   tput setab 0)
+BG_RED=$(     tput setab 1)
+BG_GREEN=$(   tput setab 2)
+BG_YELLOW=$(  tput setab 3)
+BG_BLUE=$(    tput setab 4)
+BG_MAGENTA=$( tput setab 5)
+BG_CYAN=$(    tput setab 6)
+BG_WHITE=$(   tput setab 9)
+# BG_ORANGE=$(  tput setab 172)
+
+# Style
+UNDERLINE=$(  tput smul)
+NOUNDERLINE=$(tput rmul)
+BOLD=$(       tput bold)
+ITALIC=$(     tput sitm)
+
+#-------------------------------------------------------------------------------
+# Functions
+#-------------------------------------------------------------------------------
+
+#######################################
+# ABRB
+# Arguments:
+#   Message
+#   Attribution
+# Returns:
+#   None
+#######################################
+function quoth_the_bard () {
+  local message=$1
+  local attribution=$2
+  echo ""
+  echo "$YELLOW$message$RESET"
+  echo "$PURPLE$attribution$RESET"
+}
+
+#######################################
+# Upcase error message and exit script
+# Arguments:
+#   Error message
+# Returns:
+#   None
+#######################################
+
+function fie () {
+  local message=$(echo $1 | tr 'a-z' 'A-Z')
+  echo ""
+  echo "$RED$message$RESET"
+  exit
+}
+
+
+#######################################
+# Announce our acts
+# Arguments:
+#   Act Number
+# Returns:
+#   None
+#######################################
+function figlet_announces () {
+  clear
+  local act=$1
+  figlet -f ogre $act
+}
+
+#######################################
+# Waits for user input
+# Arguments:
+#   Message
+# Returns:
+#   None
+#######################################
+function pause_awhile () {
+   read -p "$* Press Enter to continue"
+}
+
+#######################################
+# Mounts DMG and moves to Applications
+# Arguments:
+#   File name
+# Returns:
+#   None
+#######################################
+function install_dmg () {
+  echo 'Hark, a dmg!'
+  file_name="$1"
+  MOUNTPOINT="/Volumes/MountPoint"
+  IFS="
+  "
+  hdiutil attach -mountpoint $MOUNTPOINT "$file_name.dmg"
+  app=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.app)
+  if [[ ! -z "$app" ]]; then
+    cp -a "$app" /Applications/
+  fi
+  echo 'Hark! A pkg!'
+  pkg=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.pkg)
+  if [[ ! -z "$pkg" ]]; then
+    # PL: Need to handle harddrive names that aren't Macintosh HD
+    sudo installer -package $pkg -target /
+  fi
+  hdiutil detach $MOUNTPOINT
+}
+
+#######################################
+# Unzip Zip and move App to Applications
+# Arguments:
+#   File name
+# Returns:
+#   None
+#######################################
+function install_zip () {
+  file_name="$1"
+  echo 'Hark! A zip!'
+  mkdir "$file_name"
+  unzip "$file_name.zip" -d "$file_name"
+  mv $file_name/*.app /Applications
+}
+
+#######################################
+# Checks for the existence of a file
+# Arguments:
+#   File name
+# Returns:
+#   1 or 0
+#######################################
+function know_you_not_of () {
+  file_name="$1"
+  file_count=$(find /Applications -name "$file_name.app" | wc -l)
+  if [[ $file_count -gt 0 ]]; then
+    echo "$file_name is already here.";
+    return 1
+  else
+    return 0
+  fi
+}
+
+#######################################
+# Downloads and installs apps from zips, dmgs, and pkgs.
+# Arguments:
+#   File name
+#   URL
+# Returns:
+#   None
+#######################################
+function lend_me_your () {
+  file_name="$1"
+  url="$2"
+  ext=${url: -4}
+  if know_you_not_of "$file_name" ; then
+    curl -L -o "$file_name$ext" $url
+    # enter stage left...
+    case "$ext" in
+      ".dmg")  install_dmg "$file_name";;
+      ".zip")  install_zip "$file_name";;
+      *) echo "Not Processed";;
+    esac
+  fi
+  # Out spot
+  rm -rf "$file_name$ext"
+  rm -rf "$file_name"
+}
+
+#######################################
+# Allow apps to control your computer
+# Arguments:
+#   File name
+# Returns:
+#   None
+#######################################
+allow_control() {
+  if [[ "$OSTYPE" =~ ^darwin13.*$ ]]; then
+    for app; do
+      APP_ID="$(osascript -e "id of app \"$app\"")"
+      if [[ -n "$APP_ID" ]]; then
+        sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT or REPLACE INTO access values ('kTCCServiceAccessibility', '$APP_ID', 0, 1, 0, NULL);"
+      fi
+    done
+  else
+    echo "allow_control works only on Mavericks"
+  fi
+}
+BELOVED_RUBY_VERSION="2.1.2"
+CURRENT_STABLE_RUBY_VERSION="2.1.2"
+
+# TODO backport this into master and mac...
+SRC_DIR=~/.wdi/installfest
+SETTINGS=$SRC_DIR/settings
+INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
+
+# This refers to the branch of our repo that we are using (for cloning).
+BRANCH=version2
+# Capture the user's password
+sudo echo "Thanks."
+
+# Update existing `sudo` time stamp until script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# TODO (philco) does this actually work?
+# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
+# This script checks for and removes previous installs of macports and RVM
+
+# Uninstall RVM
+# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
+if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
+  yes | rvm implode
+  rm -rf ~/.rvm
+  echo "RVM has been removed."
+else
+  echo "RVM is not installed. Moving on..."
+fi
+
+# # http://blog.coolaj86.com/articles/installing-ruby-on-ubuntu-12-04.html
+# sudo apt-get remove --purge ruby-rvm ruby
+# sudo rm -rf /usr/share/ruby-rvm /etc/rmvrc /etc/profile.d/rvm.sh
+#
+# # See if there is anything
+# ls -d ~/.rvm*
+# ls -d ~/.gem*
+# ls -d ~/.bundle*
+# # Delete them (ignoring those that don't exist)
+# rm -rf ~/.rvm* ~/.gem/ ~/.bundle*
+# # our ruby version manager
+# sudo apt-get -y install rbenv
+# # git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+# # provides an `rbenv install` command
+# sudo apt-get -y install ruby-build
+#
+# # ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+# #
+# # if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
+# #   echo "$BELOVED_RUBY_VERSION is installed"
+# # else
+# #   rbenv install $BELOVED_RUBY_VERSION
+# # fi
+#
+#
+# # TODO (h4w5) must come to understand this...
+#
+# source $HOME/.bashrc
+
+# rbenv
+git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# Specify default gems in ~/.rbenv/default-gems
+git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
+
+# provides an rbenv install command to compile and install different versions of Ruby
+git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+# Our gems to install
+# skip documentation
+echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+
+# Maintains a consistent environment for ruby applications.
+echo "bundler" >> ~/.rbenv/default-gems
+
+# Acceptance test framework for web applications
+echo "capybara" >> ~/.rbenv/default-gems
+
+# handle events on file system modifications
+echo "guard" >> ~/.rbenv/default-gems
+
+# JavaScript testing
+echo "jasmine" >> ~/.rbenv/default-gems
+
+# ruby interface for Postgres
+echo "pg" >> ~/.rbenv/default-gems
+
+# alternative to the standard IRB shell
+echo "pry" >> ~/.rbenv/default-gems
+
+# live syntax highlighting for the Pry REPL
+echo "pry-coolline" >> ~/.rbenv/default-gems
+
+# full stack, Web application framework
+echo "rails" >> ~/.rbenv/default-gems
+
+# testing tool for Ruby
+echo "rspec" >> ~/.rbenv/default-gems
+
+# a DSL for quickly creating web applications in Ruby
+echo "sinatra" >> ~/.rbenv/default-gems
+
+# common Sinatra extensions
+echo "sinatra-contrib" >> ~/.rbenv/default-gems
+
+# Ruby interface to github API v3
+echo "github_api" >> ~/.rbenv/default-gems
+
+# HipChat HTTP API Wrapper
+echo "hipchat" >> ~/.rbenv/default-gems
+
+# pretty print your Ruby objects with style
+echo "awesome_print" >> ~/.rbenv/default-gems
+
+# colorizing printed text on ANSI terminals
+echo "rainbow" >> ~/.rbenv/default-gems
+
+# For testing and simplicity with Ubuntu, add these to the .bashrc until it's
+# overwritten...
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+
+source ~/.bashrc
+ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+
+if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
+  echo "$BELOVED_RUBY_VERSION is installed"
+else
+  rbenv install $BELOVED_RUBY_VERSION
+fi
+
+rbenv rehash
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+#
+# echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
+
+rbenv global $BELOVED_RUBY_VERSION
+
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+#
+# echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
+
+rbenv rehash # happens at end of eval above I believe (h4w5)
+
+# echo "${BOLD}Path is now:${RESET} ${PATH}"
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+
+# echo "${BOLD}Path is now:${RESET} ${PATH}"
+# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
+# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+# echo "${BOLD}Gem environment is now:${RESET}"
+# gem env
+
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
