@@ -45,5 +45,5 @@ ubuntu/set_up_heroku
 
 report_log
 
-# TODO (philco) skipping the email line
+# TODO (phlco) skipping the email line
 # capture_mac_address

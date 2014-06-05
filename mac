@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 # testing interactive mode
-
-#-------------------------------------------------------------------------------
-# Logging
-#-------------------------------------------------------------------------------
-
-mkdir -p ~/.wdi; exec > >(tee ~/.wdi/install.log); exec 2>&1
-
-echo "Script executed at $(date)"
-echo ""
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -37,17 +28,15 @@ echo ""
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-BELOVED_RUBY_VERSION="2.1.2"
-CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
-# TODO backport this into master and mac...
-SRC_DIR=~/.wdi/installfest
-SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
-MINIMUM_OS="10.7.0"
+#-------------------------------------------------------------------------------
+# Logging
+#-------------------------------------------------------------------------------
 
-# This refers to the branch of our repo that we are using (for cloning).
-BRANCH=version2
+mkdir -p ~/.wdi; exec > >(tee ~/.wdi/install.log); exec 2>&1
+
+echo "Script executed at $(date)"
+echo ""
 
 #-------------------------------------------------------------------------------
 # Set text formatting
@@ -250,6 +239,33 @@ allow_control() {
     echo "allow_control works only on Mavericks"
   fi
 }
+BELOVED_RUBY_VERSION="2.1.2"
+CURRENT_STABLE_RUBY_VERSION="2.1.2"
+
+# TODO backport this into master and mac...
+SRC_DIR=~/.wdi/installfest
+SETTINGS=$SRC_DIR/settings
+INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
+MINIMUM_OS="10.7.0"
+
+# This refers to the branch of our repo that we are using (for cloning).
+BRANCH=version2
+# Capture the user's password
+sudo echo "Thanks."
+
+# Update existing `sudo` time stamp until script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# TODO (philco) does this actually work?
+# Check for recommended software updates
+sudo softwareupdate -i -r --ignore iTunes
+
+# Ensure user has full control over their folder
+sudo chown -R ${USER} ~
+
+# Repair disk permission
+diskutil repairPermissions /
+
 # Determine OS version
 
 osx_version=$(sw_vers -productVersion)
@@ -336,22 +352,6 @@ if hash port 2>/dev/null || [[ $(find /opt/local -iname macports 2>/dev/null) ]]
 else
   echo "Macports is not installed. Moving on..."
 fi
-# Check for recommended software updates
-sudo softwareupdate -i -r --ignore iTunes
-
-# Ensure user has full control over their folder
-sudo chown -R ${USER} ~
-
-# Repair disk permission
-diskutil repairPermissions /
-
-# Capture the user's password
-sudo echo "Thanks."
-
-# Update existing `sudo` time stamp until script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-# TODO (philco) does this actually work?
 echo "Please register for an account on github.com if you haven't already done so."
 
 read -p "Enter your full name: "  user_name
@@ -594,37 +594,6 @@ rbenv rehash # happens at end of eval above I believe (h4w5)
 
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
-# Useful packages
-# ASCII ART!!!!
-brew install figlet
-
-# visualization tool for ERDs
-brew install graphviz
-
-# image resizing
-brew install imagemagick
-
-# PhantomJS is a headless WebKit scriptable with a JavaScript API.
-brew install phantomjs
-
-# WebKit implementation of qt for Capybara testing
-brew install qt
-
-# qt for mavericks
-brew install qt4
-
-# Advanced in-memory key-value store that persists on disk
-brew install redis
-
-# List of useful Quick Look plugins for developers
-brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
-
-# essential UNIX commands
-brew install coreutils # TODO (philco) ensure they're aliased in the path correctly
-
-# a self-contained, serverless, zero-configuration, transactional SQL database
-# engine.
-brew install sqlite
 # Event-driven I/O server-side JavaScript environment based on V8
 brew install node
 # Adds history for node repl
@@ -741,6 +710,38 @@ brew services start postgres
 # # Start Postgres now
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
+# Useful packages
+# ASCII ART!!!!
+brew install figlet
+
+# visualization tool for ERDs
+brew install graphviz
+
+# image resizing
+brew install imagemagick
+
+# PhantomJS is a headless WebKit scriptable with a JavaScript API.
+brew install phantomjs
+
+# WebKit implementation of qt for Capybara testing
+brew install qt
+
+# qt for mavericks
+brew install qt4
+
+# Advanced in-memory key-value store that persists on disk
+brew install redis
+
+# List of useful Quick Look plugins for developers
+brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
+
+# essential UNIX commands
+# TODO (philco) ensure they're aliased in the path correctly
+brew install coreutils
+
+# a self-contained, serverless, zero-configuration, transactional SQL database
+# engine.
+brew install sqlite
 # Install Vim Plugin Manager
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
