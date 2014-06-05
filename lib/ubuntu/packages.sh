@@ -56,13 +56,13 @@ sudo apt-get -y install phantomjs
 
 # extras
 # TODO (phlco) consolidate these
-git-core
-curl
-sudo apt-get install -y
-sudo apt-get -y install sqlite3
-libsqlite3-dev
-libcurl4-openssl-dev
-python-software-properties
-libreadline-dev
-build-essential
-zlib1g-dev
+sudo apt-get -y install git-core
+sudo apt-get -y install curl
+sudo apt-get -y install sudo apt-get install -y
+sudo apt-get -y install sudo apt-get -y install sqlite3
+sudo apt-get -y install libsqlite3-dev
+sudo apt-get -y install libcurl4-openssl-dev
+sudo apt-get -y install python-software-properties
+sudo apt-get -y install libreadline-dev
+sudo apt-get -y install build-essential
+sudo apt-get -y install zlib1g-dev
