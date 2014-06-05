@@ -9,6 +9,7 @@
 # sudo apt-get -y install pg_ctl # initialize stop/start posgres
 sudo apt-get -y install postgresql
 sudo apt-get -y install postgresql-contrib
+sudo apt-get -y install libpq-dev # should fix issue with installing pg gem
 
 sudo -u postgres createuser --superuser $USER
 # TODO phlco. taking out?
