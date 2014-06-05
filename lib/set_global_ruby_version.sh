@@ -14,7 +14,7 @@ echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shim
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-rbenv rehash
+# rbenv rehash # happens at end of eval above I believe (h4w5)
 
 echo "${BOLD}Path is now:${RESET} ${PATH}"
 echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
