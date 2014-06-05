@@ -19,7 +19,7 @@ ubuntu/rbenv
 add_beloved_ruby_version
 set_global_ruby_version
 # ubuntu/node
-ubuntu/apps
+# ubuntu/apps
 # broken out since its a hard nut to crack
 # ubuntu/atom
 # script is skipping email line

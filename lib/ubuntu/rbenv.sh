@@ -14,8 +14,6 @@
 #
 #
 # # TODO (h4w5) must come to understand this...
-# echo '\nexport PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
-# echo '\neval "$(rbenv init -)"' >> $HOME/.bashrc
 #
 # source $HOME/.bashrc
 
@@ -26,3 +24,6 @@ echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 source ~/.bashrc
+
+export PATH="$HOME/.rbenv/bin:$PATH"'
+eval "$(rbenv init -)"'
