@@ -1,21 +1,4 @@
 #!/usr/bin/env bash
-# Subject="Log"
-# Receipients="philco@ga.co"
-# Message_Success="Done"
-# { echo -e "$Message_Success\n\n" ; cat $Path_Log_file ; } | mail -s "$Subject" "$Recipients"
-
-mkdir -p ~/.wdi # must make this here in order to store the log file
-exec > >(tee ~/.wdi/install.log)
-
-# http://stackoverflow.com/questions/3173131/redirect-copy-of-stdout-to-log-file-from-within-bash-script-itself
-# Without this, only stdout would be captured - i.e. your
-# log file would not contain any error messages.
-# SEE answer by Adam Spiers, which keeps STDERR a seperate stream -
-# I did not want to steal from him by simply adding his answer to mine.
-exec 2>&1
-
-echo "Script executed at $(date)"
-echo ""
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -23,23 +6,46 @@ echo ""
 # | | | | \__ \ || (_| | | |  _|  __/\__ \ |_
 # |_|_| |_|___/\__\__,_|_|_|_|  \___||___/\__|
 #
-# Installfest Script for development
+# Installation, Setup and Dotfile Creation Script
+# for Students of General Assemb.ly's WDI Program
 
 # Author: Phillip Lamplugh, GA Instructor (2014)
 # Contributions: PJ Hughes, GA Instructor (2014)
-#
 
 # Resources
-# TODO (h4w5) what are some for Ubuntu?...
+#
+# https://github.com/thoughtbot/laptop
+# https://github.com/toranb/ubuntu-development-machine
 # https://github.com/divio/osx-bootstrap
 # https://github.com/paulirish/dotfiles
 # https://github.com/mathiasbynens/dotfiles/
+# https://github.com/ndbroadbent/dotfiles
 
 # References
+#
 # http://www.sudo.ws/
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
+
+#-------------------------------------------------------------------------------
+# Logging
+#-------------------------------------------------------------------------------
+
+# Subject="Log"
+# Receipients="philco@ga.co"
+# Message_Success="Done"
+# { echo -e "$Message_Success\n\n" ; cat $Path_Log_file ; } | mail -s "$Subject" "$Recipients"
+
+mkdir -p ~/.wdi; exec > >(tee ~/.wdi/install.log); exec 2>&1
+
+echo "Script executed at $(date)"
+echo ""
+
+#-------------------------------------------------------------------------------
+# Set text formatting
+#-------------------------------------------------------------------------------
+
 # Reset formatting
 RESET=$(      tput sgr0)
 
@@ -68,9 +74,10 @@ BG_WHITE=$(   tput setab 9)
 
 # Style
 UNDERLINE=$(  tput smul)
-# NOUNDERLINE=$(tput rmul)
+NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)
+
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
@@ -253,8 +260,8 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 
 # moving branch to a file dynamically built from rake
 
+# This refers to the branch of our repo that we are using (for cloning).
 BRANCH=pj_working
-
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'

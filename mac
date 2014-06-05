@@ -6,19 +6,23 @@
 # | | | | \__ \ || (_| | | |  _|  __/\__ \ |_
 # |_|_| |_|___/\__\__,_|_|_|_|  \___||___/\__|
 #
-# Installfest Script for development
+# Installation, Setup and Dotfile Creation Script
+# for Students of General Assemb.ly's WDI Program
 
 # Author: Phillip Lamplugh, GA Instructor (2014)
 # Contributions: PJ Hughes, GA Instructor (2014)
-#
 
 # Resources
-# TODO (h4w5) what are some for Ubuntu?...
+#
+# https://github.com/thoughtbot/laptop
+# https://github.com/toranb/ubuntu-development-machine
 # https://github.com/divio/osx-bootstrap
 # https://github.com/paulirish/dotfiles
 # https://github.com/mathiasbynens/dotfiles/
+# https://github.com/ndbroadbent/dotfiles
 
 # References
+#
 # http://www.sudo.ws/
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
@@ -34,7 +38,12 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 # moving branch to a file dynamically built from rake
 MINIMUM_OS="10.7.0"
 
+# This refers to the branch of our repo that we are using (for cloning).
 BRANCH=pj_working
+
+#-------------------------------------------------------------------------------
+# Set text formatting
+#-------------------------------------------------------------------------------
 
 # Reset formatting
 RESET=$(      tput sgr0)
@@ -64,9 +73,10 @@ BG_WHITE=$(   tput setab 9)
 
 # Style
 UNDERLINE=$(  tput smul)
-# NOUNDERLINE=$(tput rmul)
+NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)
+
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------

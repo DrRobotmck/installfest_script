@@ -5,19 +5,23 @@
 # | | | | \__ \ || (_| | | |  _|  __/\__ \ |_
 # |_|_| |_|___/\__\__,_|_|_|_|  \___||___/\__|
 #
-# Installfest Script for development
+# Installation, Setup and Dotfile Creation Script
+# for Students of General Assemb.ly's WDI Program
 
 # Author: Phillip Lamplugh, GA Instructor (2014)
 # Contributions: PJ Hughes, GA Instructor (2014)
-#
 
 # Resources
-# TODO (h4w5) what are some for Ubuntu?...
+#
+# https://github.com/thoughtbot/laptop
+# https://github.com/toranb/ubuntu-development-machine
 # https://github.com/divio/osx-bootstrap
 # https://github.com/paulirish/dotfiles
 # https://github.com/mathiasbynens/dotfiles/
+# https://github.com/ndbroadbent/dotfiles
 
 # References
+#
 # http://www.sudo.ws/
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net

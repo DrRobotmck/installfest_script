@@ -1,3 +1,8 @@
+
+#-------------------------------------------------------------------------------
+# Set text formatting
+#-------------------------------------------------------------------------------
+
 # Reset formatting
 RESET=$(      tput sgr0)
 
@@ -26,6 +31,6 @@ BG_WHITE=$(   tput setab 9)
 
 # Style
 UNDERLINE=$(  tput smul)
-# NOUNDERLINE=$(tput rmul)
+NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)

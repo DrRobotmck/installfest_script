@@ -1,12 +1,11 @@
 shebang
-log_script
 commentary/header
+log_script
 colors
 helper_functions
 keep_alive
 # ubuntu/software_update
 env_vars
-ubuntu/env_vars
 set_script_branch
 # remove_rvm
 # ubuntu/packages
