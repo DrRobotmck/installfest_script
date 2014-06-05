@@ -2,6 +2,8 @@
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 
+# TODO(phlco) move these to a default gem file that gets copied over
+
 # Maintains a consistent environment for ruby applications.
 echo "bundler" >> ~/.rbenv/default-gems
 

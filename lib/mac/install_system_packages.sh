@@ -24,7 +24,7 @@ brew install redis
 brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
 
 # essential UNIX commands
-# TODO (philco) ensure they're aliased in the path correctly
+# TODO (phlco) ensure they're aliased in the path correctly
 brew install coreutils
 
 # a self-contained, serverless, zero-configuration, transactional SQL database

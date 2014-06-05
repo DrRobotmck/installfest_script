@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -i
 # testing interactive mode
 
 #-------------------------------------------------------------------------------
@@ -218,7 +218,7 @@ sudo echo "Thanks."
 # Update existing `sudo` time stamp until script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# TODO (philco) does this actually work?
+# TODO (phlco) does this actually work?
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
 
@@ -275,6 +275,8 @@ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-bu
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+
+# TODO(phlco) move these to a default gem file that gets copied over
 
 # Maintains a consistent environment for ruby applications.
 echo "bundler" >> ~/.rbenv/default-gems

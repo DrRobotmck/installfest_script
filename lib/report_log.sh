@@ -3,7 +3,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt-get install -y mailutils
 
 Subject="Log Report"
-Receipients="philco@ga.co"
+Receipients="phlco@ga.co"
 Message_Success="Done"
 Path_Log_file="$HOME/.wdi/install.log"
 

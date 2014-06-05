@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -i
 # testing interactive mode
 #
 #  _           _        _ _  __           _
@@ -28,7 +28,6 @@
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-
 #-------------------------------------------------------------------------------
 # Logging
 #-------------------------------------------------------------------------------
@@ -255,7 +254,7 @@ sudo echo "Thanks."
 # Update existing `sudo` time stamp until script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# TODO (philco) does this actually work?
+# TODO (phlco) does this actually work?
 #-------------------------------------------------------------------------------
 # Check for software updates
 #-------------------------------------------------------------------------------
@@ -367,7 +366,7 @@ pause_awhile "Ok. Ready to Continue? Press Enter."
 git config --global user.name  $github_name
 git config --global user.email $github_email
 
-# set olors
+# set colors
 git config --global color.ui always
 
 git config --global color.branch.current   "green reverse"
@@ -443,6 +442,8 @@ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-bu
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+
+# TODO(phlco) move these to a default gem file that gets copied over
 
 # Maintains a consistent environment for ruby applications.
 echo "bundler" >> ~/.rbenv/default-gems
@@ -665,7 +666,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt-get install -y mailutils
 
 Subject="Log Report"
-Receipients="philco@ga.co"
+Receipients="phlco@ga.co"
 Message_Success="Done"
 Path_Log_file="$HOME/.wdi/install.log"
 

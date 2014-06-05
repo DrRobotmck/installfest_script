@@ -3,7 +3,7 @@
 git config --global user.name  $github_name
 git config --global user.email $github_email
 
-# set olors
+# set colors
 git config --global color.ui always
 
 git config --global color.branch.current   "green reverse"
