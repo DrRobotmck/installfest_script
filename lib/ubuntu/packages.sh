@@ -28,6 +28,9 @@ sudo apt-get -y install libxslt1-dev
 # atom dependency?
 sudo apt-get -y install libgnome-keyring-dev
 
+# OpenSSL implementation of SSL
+sudo apt-get -y install libssl-dev
+
 # git for version control
 sudo apt-get -y install git
 

@@ -4,29 +4,29 @@ commentary/header
 colors
 helper_functions
 keep_alive
-ubuntu/software_update
+# ubuntu/software_update
 env_vars
 ubuntu/env_vars
 set_script_branch
 remove_rvm
-ubuntu/packages
-# github_credentials
-# ubuntu/ssh_keys
-# git_config
-# clone_repo
-# # ruby and rbenv
-# ubuntu/rbenv
-# add_beloved_ruby_version
-# set_global_ruby_version
+# ubuntu/packages
+github_credentials
+ubuntu/ssh_keys
+git_config
+clone_repo
+# ruby and rbenv
+ubuntu/rbenv
+add_beloved_ruby_version
+set_global_ruby_version
 # ubuntu/node
-# ubuntu/apps
-# # broken out since its a hard nut to crack
+ubuntu/apps
+# broken out since its a hard nut to crack
 # ubuntu/atom
-# # script is skipping email line
-# ubuntu/heroku
-# # a hack to make gem install work within the script
-# ubuntu/alias_gem
-# default_gems
-# ubuntu/postgres
-# vim_plugins
-# oh_my_zsh
+# script is skipping email line
+ubuntu/heroku
+# a hack to make gem install work within the script
+ubuntu/alias_gem
+default_gems
+ubuntu/postgres
+vim_plugins
+oh_my_zsh
