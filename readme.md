@@ -1,5 +1,11 @@
 ## WDI InstallFest Script
 
+These are the scripts used to in the installation, setup, and creation of "dotfiles" for the development environments of students in General Assembly's Web Development Immersive program.
+
+[You can head here to find out what is installed and what the hardware specifications are for the program.][specs]
+
+The script comes in three basic flavors: the default full install for Mac OS, the default full install for Ubuntu Linux, and smaller scripts that ensure a current and standardized install of Ruby is being used.
+
 ##### For Mac OS:
 
 Paste this script into a Terminal prompt:
@@ -8,28 +14,20 @@ Paste this script into a Terminal prompt:
 bash <(curl -sL http://git.io/6_SaSw)
 ```
 
-The script first runs any software updates and then checks for Xcode.
-
-If Xcode is installed the script continues.
-
-- We then clone the repo onto the student's machine
-- Remove Macports or RVM
-- Installs homebrew and some formulae
-- Sets up git
-- Installs Sublime and Sublime settings (package manager and base packages)
-- Installs additional apps like Chrome, HipChat and Spectacle
-- Sets up RBenv and installs bundler, pry and rails
-- Adds solarized to Terminal
-
 ##### For Ubuntu Linux:
 
-_**Don't use yet!** Not in working condition._
+_**Don't use yet!** Almost in working condition._
 
 If you aren't familiar with Linux, then make sure to read "[Getting Started with Ubuntu][ubuntu]." Otherwise, just Paste this script into a Terminal prompt:
 
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/ubuntu-merge/ubuntu)
 ```
+
+##### For Ruby only:
+
+...
+
 
 ### Why not use a Virtual Environment?
 
@@ -66,6 +64,7 @@ _**Don't use yet!** Not in working condition._
 
 If you want to contribute to or use the installfest script to set up a GA dev environment, please read our [how to use][developing] document.
 
+[specs]:          specifications.md               "Dev Environment and hardware specs"
 [ubuntu]:         getting_started_with_ubuntu.md  "Ubuntu Guide"
 [developing]:     how_to_use.md                   "How to use the script"
 [mac-torrent]:    http://example.com/             "Mac GABox"
