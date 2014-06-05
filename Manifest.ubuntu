@@ -11,7 +11,7 @@ set_script_branch
 remove_rvm
 # ubuntu/packages
 github_credentials
-ubuntu/ssh_keys
+# ubuntu/ssh_keys
 git_config
 clone_repo
 # ruby and rbenv
@@ -23,10 +23,10 @@ set_global_ruby_version
 # broken out since its a hard nut to crack
 # ubuntu/atom
 # script is skipping email line
-ubuntu/heroku
+# ubuntu/heroku
 # a hack to make gem install work within the script
 ubuntu/alias_gem
 default_gems
 ubuntu/postgres
-vim_plugins
-oh_my_zsh
+# vim_plugins
+# oh_my_zsh

@@ -274,32 +274,6 @@ echo "Please register for an account on github.com if you haven't already done s
 read -p "Enter your full name: "  user_name
 read -p "Github Username: "       github_name
 read -p "Github Email: "          github_email
-# SSH Keygen
-ssh-keygen -t rsa -C $github_email
-ssh-add id_rsa
-
-# Copy SSH key to the clipboard
-cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
-
-echo "We just copied your SSH key to the clipboard."
-echo "Now we're going to visit GitHub to add the SSH key"
-
-echo "Do the following in your browser: "
-echo '- Click "SSH Keys" in the left sidebar'
-echo '- Click "Add SSH key"'
-echo '- Set the Title to WDI Installfest'
-echo '- Paste your key into the "Key" field'
-echo '- Click "Add key"'
-echo '- Confirm the action by entering your GitHub password'
-
-pause_awhile "Press Enter. We'll be here until you get back from Github."
-
-echo "Firefox may print an error to the terminal. DON'T WORRY!"
-# Open in default browser as a new process
-# TODO(phlco) Firefox raises an error
-xdg-open https://github.com/settings/ssh &
-
-pause_awhile "Ok. Ready to Continue? Press Enter."
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
 git config --global user.name  $github_name
@@ -387,75 +361,53 @@ rbenv rehash
 # echo "${BOLD}Path is now:${RESET} ${PATH}"
 # echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
 # echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-# Heroku command-line tooling for working with the Heroku platform
-
-# http://eoinoc.net/install-hub-github-linux-mint/
-wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-
-# https://devcenter.heroku.com/articles/keys
-echo "Heroku is a cloud platform as a service (PaaS) supporting several"
-echo "programming languages."
-
-echo "If you don’t already use SSH, you’ll need to create a public/private key"
-echo "pair to deploy code to Heroku. This keypair is used for the strong"
-echo "cryptography and that uniquely identifies you as a developer when pushing"
-echo "code changes."
-
-ssh-keygen -t rsa
-
-echo "The first time you run the heroku command, you’ll be prompted for your "
-echo "credentials. Your public key will then be automatically uploaded to"
-echo "Heroku. This will allow you to deploy code to all of your apps."
-echo "Please enter your email"
-
-heroku keys:add
 # alias gem="/home/wdi/.rbenv/shims/gem"
 # Our gems to install
 
 # Maintains a consistent environment for ruby applications.
-gem install bundler -​-no-document
+gem install bundler
 
 # Acceptance test framework for web applications
-gem install capybara -​-no-document
+gem install capybara
 
 # handle events on file system modifications
-gem install guard -​-no-document
+gem install guard
 
 # JavaScript testing
-gem install jasmine -​-no-document
+gem install jasmine
 
 # ruby interface for Postgres
-gem install pg -​-no-document
+gem install pg
 
 # alternative to the standard IRB shell
-gem install pry -​-no-document
+gem install pry
 
 # live syntax highlighting for the Pry REPL
-gem install pry-coolline -​-no-document
+gem install pry-coolline
 
 # full stack, Web application framework
-gem install rails -​-no-document
+gem install rails
 
 # testing tool for Ruby
-gem install rspec -​-no-document
+gem install rspec
 
 # a DSL for quickly creating web applications in Ruby
-gem install sinatra -​-no-document
+gem install sinatra
 
 # common Sinatra extensions
-gem install sinatra-contrib -​-no-document
+gem install sinatra-contrib
 
 # Ruby interface to github API v3
-gem install github_api -​-no-document
+gem install github_api
 
 # HipChat HTTP API Wrapper
-gem install hipchat -​-no-document
+gem install hipchat
 
 # pretty print your Ruby objects with style
-gem install awesome_print -​-no-document
+gem install awesome_print
 
 # colorizing printed text on ANSI terminals
-gem install rainbow -​-no-document
+gem install rainbow
 # open source object-relational database management system
 # https://www.digitalocean.com/community/articles/how-to-install-and-use-postgresql-on-ubuntu-12-04
 # TODO phlco set up user
@@ -475,31 +427,3 @@ sudo -u postgres createuser --superuser $USER
 touch ~/.psql_history
 
 createdb $USER
-# Install Vim Plugin Manager
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-# Vimrc is copied over from dotfiles
-# The Z shell (zsh) is a Unix shell that can be used as an interactive login
-# shell and as a powerful command interpreter for shell scripting. Zsh can be
-# thought of as an extended Bourne shell with a large number of improvements,
-# including some features of bash, ksh, and tcsh.
-# This script installs zsh, oh-my-zsh, an open source, community-driven framework
-# for managing your ZSH configuration.
-
-# Install zsh
-git clone git://zsh.git.sf.net/gitroot/zsh/zsh
-cp ~/.zshrc ~/.zshrc.orig
-
-# Install oh-my-zsh
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-cp $SRC_DIR/settings/dotfiles/zshrc ~/.zshrc
-
-# Syntax Highlighting
-git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins
-
-# Set as default
-chsh -s /bin/zsh
-
-# Resources
-# https://github.com/robbyrussell/oh-my-zsh
-# http://www.stevendobbelaere.be/installing-and-configuring-the-oh-my-zsh-shell/

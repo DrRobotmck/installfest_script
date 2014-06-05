@@ -528,49 +528,49 @@ rbenv rehash
 # Our gems to install
 
 # Maintains a consistent environment for ruby applications.
-gem install bundler -​-no-document
+gem install bundler
 
 # Acceptance test framework for web applications
-gem install capybara -​-no-document
+gem install capybara
 
 # handle events on file system modifications
-gem install guard -​-no-document
+gem install guard
 
 # JavaScript testing
-gem install jasmine -​-no-document
+gem install jasmine
 
 # ruby interface for Postgres
-gem install pg -​-no-document
+gem install pg
 
 # alternative to the standard IRB shell
-gem install pry -​-no-document
+gem install pry
 
 # live syntax highlighting for the Pry REPL
-gem install pry-coolline -​-no-document
+gem install pry-coolline
 
 # full stack, Web application framework
-gem install rails -​-no-document
+gem install rails
 
 # testing tool for Ruby
-gem install rspec -​-no-document
+gem install rspec
 
 # a DSL for quickly creating web applications in Ruby
-gem install sinatra -​-no-document
+gem install sinatra
 
 # common Sinatra extensions
-gem install sinatra-contrib -​-no-document
+gem install sinatra-contrib
 
 # Ruby interface to github API v3
-gem install github_api -​-no-document
+gem install github_api
 
 # HipChat HTTP API Wrapper
-gem install hipchat -​-no-document
+gem install hipchat
 
 # pretty print your Ruby objects with style
-gem install awesome_print -​-no-document
+gem install awesome_print
 
 # colorizing printed text on ANSI terminals
-gem install rainbow -​-no-document
+gem install rainbow
 # Useful packages
 # ASCII ART!!!!
 brew install figlet
