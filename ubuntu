@@ -508,3 +508,97 @@ echo "credentials. Your public key will then be automatically uploaded to"
 echo "Heroku. This will allow you to deploy code to all of your apps."
 
 heroku keys:add
+alias gem="/home/wdi/.rbenv/shims/gem"
+# Our gems to install
+
+# Maintains a consistent environment for ruby applications.
+gem install bundler
+
+# Acceptance test framework for web applications
+gem install capybara
+
+# handle events on file system modifications
+gem install guard
+
+# JavaScript testing
+gem install jasmine
+
+# ruby interface for Postgres
+gem install pg
+
+# alternative to the standard IRB shell
+gem install pry
+
+# live syntax highlighting for the Pry REPL
+gem install pry-coolline
+
+# full stack, Web application framework
+gem install rails
+
+# testing tool for Ruby
+gem install rspec
+
+# a DSL for quickly creating web applications in Ruby
+gem install sinatra
+
+# common Sinatra extensions
+gem install sinatra-contrib
+
+# Ruby interface to github API v3
+gem install github_api
+
+# HipChat HTTP API Wrapper
+gem install hipchat
+
+# pretty print your Ruby objects with style
+gem install awesome_print
+
+# colorizing printed text on ANSI terminals
+gem install rainbow
+# open source object-relational database management system
+# https://www.digitalocean.com/community/articles/how-to-install-and-use-postgresql-on-ubuntu-12-04
+# TODO phlco set up user
+# https://help.ubuntu.com/community/PostgreSQL
+# sudo apt-get -y install postgresql-xc-client
+# sudo apt-get -y install postgresql-client
+# sudo apt-get -y install postgresql
+# sudo apt-get -y install postgresql-contrib
+# sudo apt-get -y install pg_ctl # initialize stop/start posgres
+sudo apt-get -y install postgresql
+sudo apt-get -y install postgresql-contrib
+
+sudo -u postgres createuser --superuser $USER
+# TODO phlco. taking out?
+# sudo -u postgres psql
+# create a history?
+touch ~/.psql_history
+
+createdb $USER
+# Install Vim Plugin Manager
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# Vimrc is copied over from dotfiles
+# The Z shell (zsh) is a Unix shell that can be used as an interactive login
+# shell and as a powerful command interpreter for shell scripting. Zsh can be
+# thought of as an extended Bourne shell with a large number of improvements,
+# including some features of bash, ksh, and tcsh.
+# This script installs zsh, oh-my-zsh, an open source, community-driven framework
+# for managing your ZSH configuration.
+
+# Install zsh
+git clone git://zsh.git.sf.net/gitroot/zsh/zsh
+cp ~/.zshrc ~/.zshrc.orig
+
+# Install oh-my-zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+cp $SRC_DIR/settings/dotfiles/zshrc ~/.zshrc
+
+# Syntax Highlighting
+git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins
+
+# Set as default
+chsh -s /bin/zsh
+
+# Resources
+# https://github.com/robbyrussell/oh-my-zsh
+# http://www.stevendobbelaere.be/installing-and-configuring-the-oh-my-zsh-shell/

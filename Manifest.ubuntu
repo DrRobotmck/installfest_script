@@ -23,7 +23,7 @@ ubuntu/apps
 ubuntu/atom
 ubuntu/heroku
 # a hack to make gem install work within the script
-untu/alias_gem
+ubuntu/alias_gem
 default_gems
 ubuntu/postgres
 vim_plugins
