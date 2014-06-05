@@ -21,7 +21,7 @@ default_gems
 ubuntu/node
 ubuntu/apps
 # # broken out since its a hard nut to crack
-# ubuntu/atom
+ubuntu/atom
 # script is skipping email line
 ubuntu/heroku
 ubuntu/postgres
