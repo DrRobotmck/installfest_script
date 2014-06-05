@@ -1,9 +1,3 @@
-# git for version control
-sudo apt-get -y install git
-
-# copy to clipboard
-sudo apt-get -y install xclip
-
 # Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
 sudo apt-get -y install autoconf
 
@@ -22,14 +16,23 @@ sudo apt-get -y install libyaml
 # provides a set of functions for use by applications that allow users to edit command lines as they are typed in
 sudo apt-get -y install libreadline6 libreadline6-dev
 
-# a self-contained, serverless, zero-configuration, transactional SQL database engine.
-sudo apt-get -y install sqlite3
-
 # XML C parser and toolkit
 sudo apt-get -y install libxml2-dev
 
 # a language for transforming XML documents into other XML documents.
 sudo apt-get -y install libxslt1-dev
+
+# gnome-keyring is a daemon in the session, similar to ssh-agent,
+# and other applications can use it to store passwords and other
+# sensitive information
+# atom dependency?
+sudo apt-get -y install libgnome-keyring-dev
+
+# git for version control
+sudo apt-get -y install git
+
+# copy to clipboard
+sudo apt-get -y install xclip
 
 # generates an index file of names found in source files of various programming languages.
 sudo apt-get -y install exuberant-ctags
@@ -46,8 +49,5 @@ sudo apt-get -y install imagemagick
 # PhantomJS is a headless WebKit scriptable with a JavaScript API.
 sudo apt-get -y install phantomjs
 
-# gnome-keyring is a daemon in the session, similar to ssh-agent,
-# and other applications can use it to store passwords and other
-# sensitive information
-# atom dependency?
-sudo apt-get -y install libgnome-keyring-dev
+# a self-contained, serverless, zero-configuration, transactional SQL database engine.
+sudo apt-get -y install sqlite3

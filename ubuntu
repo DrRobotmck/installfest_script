@@ -243,6 +243,13 @@ sudo echo "Thanks."
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # TODO (philco) does this actually work?
+#-------------------------------------------------------------------------------
+# Check for software updates
+#-------------------------------------------------------------------------------
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
+# TODO (phlco) reboot?
 BELOVED_RUBY_VERSION="Ruby 1.9.3-p547"
 CURRENT_STABLE_RUBY_VERSION="Ruby 2.1.2"
 
@@ -255,11 +262,18 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 
 BRANCH=ubuntu-merge
 
-# git for version control
-sudo apt-get -y install git
+# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
+# This script checks for and removes previous installs of macports and RVM
 
-# copy to clipboard
-sudo apt-get -y install xclip
+# Uninstall RVM
+# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
+if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
+  yes | rvm implode
+  rm -rf ~/.rvm
+  echo "RVM has been removed."
+else
+  echo "RVM is not installed. Moving on..."
+fi
 
 # Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
 sudo apt-get -y install autoconf
@@ -279,14 +293,23 @@ sudo apt-get -y install libyaml
 # provides a set of functions for use by applications that allow users to edit command lines as they are typed in
 sudo apt-get -y install libreadline6 libreadline6-dev
 
-# a self-contained, serverless, zero-configuration, transactional SQL database engine.
-sudo apt-get -y install sqlite3
-
 # XML C parser and toolkit
 sudo apt-get -y install libxml2-dev
 
 # a language for transforming XML documents into other XML documents.
 sudo apt-get -y install libxslt1-dev
+
+# gnome-keyring is a daemon in the session, similar to ssh-agent,
+# and other applications can use it to store passwords and other
+# sensitive information
+# atom dependency?
+sudo apt-get -y install libgnome-keyring-dev
+
+# git for version control
+sudo apt-get -y install git
+
+# copy to clipboard
+sudo apt-get -y install xclip
 
 # generates an index file of names found in source files of various programming languages.
 sudo apt-get -y install exuberant-ctags
@@ -303,146 +326,5 @@ sudo apt-get -y install imagemagick
 # PhantomJS is a headless WebKit scriptable with a JavaScript API.
 sudo apt-get -y install phantomjs
 
-# gnome-keyring is a daemon in the session, similar to ssh-agent,
-# and other applications can use it to store passwords and other
-# sensitive information
-# atom dependency?
-sudo apt-get -y install libgnome-keyring-dev
-echo "Please register for an account on github.com if you haven't already done so."
-
-read -p "Enter your full name: "  user_name
-read -p "Github Username: "       github_name
-read -p "Github Email: "          github_email
-# Add user's github info to gitconfig
-# https://www.kernel.org/pub/software/scm/git/docs/git-config.html
-git config --global user.name  $github_name
-git config --global user.email $github_email
-
-# set olors
-git config --global color.ui always
-
-git config --global color.branch.current   "green reverse"
-git config --global color.branch.local     green
-git config --global color.branch.remote    yellow
-
-git config --global color.status.added     green
-git config --global color.status.changed   yellow
-git config --global color.status.untracked "red blink"
-
-# set editor
-git config --global core.editor "subl -w"
-
-# default branch to push to
-git config --global push.default current
-# download the repo for the absolute paths
-if [[ ! -d $SRC_DIR ]]; then
-  echo 'Downloading Installfest repo...'
-  # autoupdate bootstrap file
-  git clone -b $BRANCH $INSTALL_REPO $SRC_DIR
-  # hide folder
-  # chflags hidden $SRC_DIR # FIXME (h4w5) doesn't work on linux
-else
-  # update repo
-  echo 'Updating repo...'
-  cd $SRC_DIR
-  git pull origin $BRANCH
-fi
-# # our ruby version manager
-# sudo apt-get -y install rbenv
-# # git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
-# # provides an `rbenv install` command
-# sudo apt-get -y install ruby-build
-#
-# # ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
-# #
-# # if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
-# #   echo "$BELOVED_RUBY_VERSION is installed"
-# # else
-# #   rbenv install $BELOVED_RUBY_VERSION
-# # fi
-#
-#
-# # TODO (h4w5) must come to understand this...
-# echo '\nexport PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
-# echo '\neval "$(rbenv init -)"' >> $HOME/.bashrc
-#
-# source $HOME/.bashrc
-
-git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-
-git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-
-source ~/.bashrc
-ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
-
-if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
-  echo "$BELOVED_RUBY_VERSION is installed"
-else
-  rbenv install $BELOVED_RUBY_VERSION
-fi
-echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-
-echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
-
-rbenv global $BELOVED_RUBY_VERSION
-
-echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-
-echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
-
-rbenv rehash
-
-echo "${BOLD}Path is now:${RESET} ${PATH}"
-echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-alias gem="/home/wdi/.rbenv/shims/gem"
-# Our gems to install
-
-# Maintains a consistent environment for ruby applications.
-gem install bundler
-
-# Acceptance test framework for web applications
-gem install capybara
-
-# handle events on file system modifications
-gem install guard
-
-# JavaScript testing
-gem install jasmine
-
-# ruby interface for Postgres
-gem install pg
-
-# alternative to the standard IRB shell
-gem install pry
-
-# live syntax highlighting for the Pry REPL
-gem install pry-coolline
-
-# full stack, Web application framework
-gem install rails
-
-# testing tool for Ruby
-gem install rspec
-
-# a DSL for quickly creating web applications in Ruby
-gem install sinatra
-
-# common Sinatra extensions
-gem install sinatra-contrib
-
-# Ruby interface to github API v3
-gem install github_api
-
-# HipChat HTTP API Wrapper
-gem install hipchat
-
-# pretty print your Ruby objects with style
-gem install awesome_print
-
-# colorizing printed text on ANSI terminals
-gem install rainbow
+# a self-contained, serverless, zero-configuration, transactional SQL database engine.
+sudo apt-get -y install sqlite3
