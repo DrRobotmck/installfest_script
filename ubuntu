@@ -267,7 +267,7 @@ SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 
 # This refers to the branch of our repo that we are using (for cloning).
-BRANCH=ubuntu-merge
+BRANCH=version2
 # Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
 sudo apt-get -y install autoconf
 

@@ -52,7 +52,7 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 MINIMUM_OS="10.7.0"
 
 # This refers to the branch of our repo that we are using (for cloning).
-BRANCH=ubuntu-merge
+BRANCH=version2
 
 #-------------------------------------------------------------------------------
 # Set text formatting
