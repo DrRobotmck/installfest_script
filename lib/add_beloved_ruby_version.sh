@@ -5,3 +5,7 @@ if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
 else
   rbenv install $BELOVED_RUBY_VERSION
 fi
+
+rbenv rehash
+
+source ~/.bashrc
