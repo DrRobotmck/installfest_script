@@ -17,6 +17,7 @@ ubuntu/rbenv
 add_beloved_ruby_version
 set_global_ruby_version
 ubuntu/set_global_ruby_version
+ubuntu/alias_gem
 default_gems
 ubuntu/node
 ubuntu/apps

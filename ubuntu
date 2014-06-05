@@ -488,6 +488,7 @@ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 source ~/.bashrc
+alias gem="$HOME/.rbenv/shims/gem"
 # Our gems to install
 
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
