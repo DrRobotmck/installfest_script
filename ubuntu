@@ -402,6 +402,10 @@ if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
 else
   rbenv install $BELOVED_RUBY_VERSION
 fi
+
+rbenv rehash
+
+source ~/.bashrc
 # echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
 # echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 #
@@ -419,6 +423,8 @@ rbenv rehash
 # echo "${BOLD}Path is now:${RESET} ${PATH}"
 # echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
 # echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+
+source ~/.bashrc
 alias gem="$HOME/wdi/.rbenv/shims/gem"
 # Our gems to install
 

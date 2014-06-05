@@ -507,6 +507,10 @@ if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
 else
   rbenv install $BELOVED_RUBY_VERSION
 fi
+
+rbenv rehash
+
+source ~/.bashrc
 # echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
 # echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 #
@@ -524,6 +528,8 @@ rbenv rehash
 # echo "${BOLD}Path is now:${RESET} ${PATH}"
 # echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
 # echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
+
+source ~/.bashrc
 # Our gems to install
 
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
