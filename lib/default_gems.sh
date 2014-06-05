@@ -2,6 +2,8 @@
 
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 
+rebenv rehash
+
 # Maintains a consistent environment for ruby applications.
 gem install bundler
 
