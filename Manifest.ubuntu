@@ -1,31 +1,30 @@
 shebang
 commentary/header
-log_script
-colors
-helper_functions
-keep_alive
-ubuntu/software_update
-env_vars
+start_logging
+define_terminal_colors
+define_script_helper_functions
+capture_password
+ubuntu/update_software
+set_env_vars
 set_script_branch
-ubuntu/packages
-github_credentials
-ubuntu/ssh_keys
-git_config
-clone_repo
+ubuntu/install_system_packages
+capture_github_credentials
+ubuntu/create_ssh_keys
+configure_git
+clone_script_repo
 remove_rvm
-ubuntu/rbenv
-add_beloved_ruby_version
-set_global_ruby_version
-ubuntu/set_global_ruby_version
-ubuntu/alias_gem
-default_gems
-ubuntu/node
-ubuntu/apps
-# # broken out since its a hard nut to crack
-ubuntu/atom
+ubuntu/install_rbenv
+install_beloved_ruby_version
+# set_global_ruby_version
+ubuntu/set_global_ruby_version_in_bashrc
+ubuntu/install_node
+ubuntu/install_apps
+# broken out since its a hard nut to crack
+ubuntu/install_atom
 # script is skipping email line
-ubuntu/heroku
-ubuntu/postgres
-vim_plugins
-oh_my_zsh
+ubuntu/set_up_heroku
+install_default_gems
+ubuntu/install_postgres
+install_vim_plugins
+install_oh_my_zsh
 report_log

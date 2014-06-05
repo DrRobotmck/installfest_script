@@ -33,6 +33,11 @@
 # Logging
 #-------------------------------------------------------------------------------
 
+# Subject="Log"
+# Receipients="philco@ga.co"
+# Message_Success="Done"
+# { echo -e "$Message_Success\n\n" ; cat $Path_Log_file ; } | mail -s "$Subject" "$Recipients"
+
 mkdir -p ~/.wdi; exec > >(tee ~/.wdi/install.log); exec 2>&1
 
 echo "Script executed at $(date)"
@@ -276,7 +281,7 @@ sudo apt-get -y install bison
 sudo apt-get -y install libtool
 
 # a YAML 1.1 parser and emitter
-sudo apt-get -y install libyaml-dev
+sudo apt-get -y install libyaml
 
 # provides a set of functions for use by applications that allow users to edit command lines as they are typed in
 sudo apt-get -y install libreadline6 libreadline6-dev
@@ -318,19 +323,10 @@ sudo apt-get -y install imagemagick
 sudo apt-get -y install phantomjs
 
 # a self-contained, serverless, zero-configuration, transactional SQL database engine.
+sudo apt-get -y install sqlite3
 
 # extras
-# TODO (phlco) consolidate these
-sudo apt-get -y install git-core
-sudo apt-get -y install curl
-sudo apt-get -y install sudo apt-get install -y
-sudo apt-get -y install sudo apt-get -y install sqlite3
-sudo apt-get -y install libsqlite3-dev
-sudo apt-get -y install libcurl4-openssl-dev
-sudo apt-get -y install python-software-properties
-sudo apt-get -y install libreadline-dev
-sudo apt-get -y install build-essential
-sudo apt-get -y install zlib1g-dev
+sudo apt-get install -y git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties
 echo "Please register for an account on github.com if you haven't already done so."
 
 read -p "Enter your full name: "  user_name
@@ -438,18 +434,11 @@ fi
 #
 # source $HOME/.bashrc
 
-# rbenv
 git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 
 export PATH="$HOME/.rbenv/bin:$PATH"'
 eval "$(rbenv init -)"'
 
-# Specify default gems in ~/.rbenv/default-gems
-git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
-echo "bundler" >> ~/.rbenv/default-gems
-echo "rails" >> ~/.rbenv/default-gems
-
-# provides an rbenv install command to compile and install different versions of Ruby
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
@@ -462,32 +451,6 @@ fi
 rbenv rehash
 
 source ~/.bashrc
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-#
-# echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
-
-rbenv global $BELOVED_RUBY_VERSION
-
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-#
-# echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
-
-# rbenv rehash # happens at end of eval above I believe (h4w5)
-
-# echo "${BOLD}Path is now:${RESET} ${PATH}"
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-
-# echo "${BOLD}Path is now:${RESET} ${PATH}"
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-# echo "${BOLD}Gem environment is now:${RESET}"
-# gem env
-
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
 
 # For testing and simplicity with Ubuntu, add these to the .bashrc until it's
 # overwritten...
@@ -495,57 +458,6 @@ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 source ~/.bashrc
-alias gem="$HOME/.rbenv/shims/gem"
-# Our gems to install
-
-echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-
-rebenv rehash
-
-# Maintains a consistent environment for ruby applications.
-gem install bundler
-
-# Acceptance test framework for web applications
-gem install capybara
-
-# handle events on file system modifications
-gem install guard
-
-# JavaScript testing
-gem install jasmine
-
-# ruby interface for Postgres
-gem install pg
-
-# alternative to the standard IRB shell
-gem install pry
-
-# live syntax highlighting for the Pry REPL
-gem install pry-coolline
-
-# full stack, Web application framework
-gem install rails
-
-# testing tool for Ruby
-gem install rspec
-
-# a DSL for quickly creating web applications in Ruby
-gem install sinatra
-
-# common Sinatra extensions
-gem install sinatra-contrib
-
-# Ruby interface to github API v3
-gem install github_api
-
-# HipChat HTTP API Wrapper
-gem install hipchat
-
-# pretty print your Ruby objects with style
-gem install awesome_print
-
-# colorizing printed text on ANSI terminals
-gem install rainbow
 # Event-driven I/O server-side JavaScript environment based on V8
 sudo apt-get -y install nodejs
 
@@ -628,6 +540,54 @@ echo "Heroku. This will allow you to deploy code to all of your apps."
 echo "Please enter your email"
 
 heroku keys:add
+# Our gems to install
+
+echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+
+# Maintains a consistent environment for ruby applications.
+gem install bundler
+
+# Acceptance test framework for web applications
+gem install capybara
+
+# handle events on file system modifications
+gem install guard
+
+# JavaScript testing
+gem install jasmine
+
+# ruby interface for Postgres
+gem install pg
+
+# alternative to the standard IRB shell
+gem install pry
+
+# live syntax highlighting for the Pry REPL
+gem install pry-coolline
+
+# full stack, Web application framework
+gem install rails
+
+# testing tool for Ruby
+gem install rspec
+
+# a DSL for quickly creating web applications in Ruby
+gem install sinatra
+
+# common Sinatra extensions
+gem install sinatra-contrib
+
+# Ruby interface to github API v3
+gem install github_api
+
+# HipChat HTTP API Wrapper
+gem install hipchat
+
+# pretty print your Ruby objects with style
+gem install awesome_print
+
+# colorizing printed text on ANSI terminals
+gem install rainbow
 # open source object-relational database management system
 # https://www.digitalocean.com/community/articles/how-to-install-and-use-postgresql-on-ubuntu-12-04
 # TODO phlco set up user
