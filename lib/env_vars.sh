@@ -1,5 +1,5 @@
-BELOVED_RUBY_VERSION="Ruby 1.9.3-rc1"
-CURRENT_STABLE_RUBY_VERSION="Ruby 2.1.2"
+BELOVED_RUBY_VERSION="1.9.3-rc1" # FIXME (h4w5) why did philco add 'Ruby ' to this line?
+CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
