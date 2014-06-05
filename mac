@@ -519,10 +519,6 @@ echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 
 echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
 
-# TODO (h4w5) must come to understand this...
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
 rbenv rehash
 
 echo "${BOLD}Path is now:${RESET} ${PATH}"

@@ -11,3 +11,10 @@ sudo apt-get -y install ruby-build
 # else
 #   rbenv install $BELOVED_RUBY_VERSION
 # fi
+
+
+# TODO (h4w5) must come to understand this...
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
+echo 'eval "$(rbenv init -)"' >> $HOME/.bashrc
+
+source $HOME/.bashrc

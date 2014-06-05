@@ -17,5 +17,6 @@ ssh-keygen -t rsa
 echo "The first time you run the heroku command, you’ll be prompted for your "
 echo "credentials. Your public key will then be automatically uploaded to"
 echo "Heroku. This will allow you to deploy code to all of your apps."
+echo "Please enter your email"
 
 heroku keys:add
