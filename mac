@@ -454,6 +454,10 @@ packagelist=(
   # generates an index file of names found in source files of various programming
   # languages.
   ctags
+
+  # Adds history for node repl
+  readline
+
 )
 
 brew install ${packagelist[@]}
@@ -495,23 +499,26 @@ git config --global core.editor "subl -w"
 # default branch to push to
 git config --global push.default current
 # Our Ruby version manager
-brew install rbenv
+# brew install rbenv
+ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 
 # Automatically runs rbenv rehash every time you install or uninstall a gem.
-brew install rbenv-gem-rehash
+# brew install rbenv-gem-rehash
+git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
 
 # Provides an `rbenv install` command
-brew install ruby-build
+# brew install ruby-build
+git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+# Add to path
+export PATH="$HOME/.rbenv/bin:$PATH"
 
 # enable shims and autocompletion
 eval "$(rbenv init -)"
 
 # Automatically install gems every time you install a new version of Ruby
-brew install rbenv-default-gems
-
-# Add to path
-export PATH="$HOME/.rbenv/bin:$PATH"
-
+# brew install rbenv-default-gems
+git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -597,248 +604,3 @@ rbenv rehash # happens at end of eval above I believe (h4w5)
 
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
-# Event-driven I/O server-side JavaScript environment based on V8
-brew install node
-# Adds history for node repl
-brew install readline
-
-# CLI tool for scaffolding out Yeoman projects
-npm install -g yo
-# The grunt command line interface.
-npm install -g grunt-cli
-# The browser package manager
-npm install -g bower
-# Static analysis tool for JavaScript
-npm install -g jshint
-# Unfancy JavaScript
-npm install -g coffee-script
-# Scaffold out a front-end web app
-npm install -g generator-webapp
-# Yeoman generator for Backbone.js
-npm install -g generator-backbone
-
-# TODO: Add or remove
-# npm install -g less
-# npm install -g gulp
-# npm install -g browserify
-# npm install -g generator-gulp-webapp
-
-# a CLI workflow for the administration of Mac applications
-# distributed as binaries
-brew tap phinze/homebrew-cask
-brew install brew-cask
-
-# Instant search documentation offline
-brew cask install dash
-
-# The Browser
-brew cask install google-chrome
-
-# A Browser
-brew cask install firefox
-
-# The Chat Client
-brew cask install hipchat
-
-# The Window Manager
-brew cask install spectacle
-# allow spectacle to control computer
-allow_control Spectacle
-
-# The Text Editor, Sublime Text 2
-brew cask install sublime-text
-
-# The X Window Server
-brew cask install xquartz
-
-# Markdown Editor
-brew cask install mou
-
-# Flux, makes the color of your computer's display adapt to the time of day
-brew cask install flux
-
-# for fonts
-# https://github.com/caskroom/homebrew-fonts/tree/master/Casks
-brew tap caskroom/fonts
-
-brew cask install font-source-code-pro
-brew cask install font-source-sans-pro
-brew cask install font-consolas
-
-# Git extensions to provide high-level repository operations
-# brew install git-flow
-#  _                    _
-# | |__   ___ _ __ ___ | | ___   _
-# | '_ \ / _ \ '__/ _ \| |/ / | | |
-# | | | |  __/ | | (_) |   <| |_| |
-# |_| |_|\___|_|  \___/|_|\_\\__,_|
-# https://devcenter.heroku.com/articles/keys
-
-echo "Heroku is a cloud platform as a service (PaaS) supporting several"
-echo "programming languages."
-
-# Heroku command-line tooling for working with the Heroku platform
-brew install heroku-toolbelt
-
-echo "If you don’t already use SSH, you’ll need to create a public/private key"
-echo "pair to deploy code to Heroku. This keypair is used for the strong"
-echo "cryptography and that uniquely identifies you as a developer when pushing"
-echo "code changes."
-
-# shouldn't need to generate because of generation for github
-# ssh-keygen -t rsa
-# autogenerate without prompt
-# ssh-keygen -f id_rsa -t rsa -N ''
-echo "The first time you run the heroku command, you’ll be prompted for your "
-echo "credentials. Your public key will then be automatically uploaded to"
-echo "Heroku. This will allow you to deploy code to all of your apps."
-
-# PL: holding off for user interaction
-heroku keys:add
-# Set up Postgres
-
-# open source object-relational database management system
-brew install postgres
-
-# Create a database
-initdb /usr/local/var/postgres -E utf8
-createdb ${USER}
-
-# Ensure that Postgres launches whenever we login
-
-# # http://robots.thoughtbot.com/starting-and-stopping-background-services-with-homebrew
-brew services start postgres
-# mkdir -p ~/Library/LaunchAgents
-# cp /usr/local/Cellar/postgresql/9.*/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
-# # Start Postgres now
-# launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
-
-# Useful packages
-packagelist=(
-  # ASCII ART!!!!
-  figlet
-
-  # visualization tool for ERDs
-  graphviz
-
-  # image resizing
-  imagemagick
-
-  # PhantomJS is a headless WebKit scriptable with a JavaScript API.
-  phantomjs
-
-  # WebKit implementation of qt for Capybara testing
-  qt
-
-  # qt for mavericks
-  qt4
-
-  # Advanced in-memory key-value store that persists on disk
-  redis
-
-  # essential UNIX commands
-  # TODO (phlco) ensure they're aliased in the path correctly
-  coreutils
-
-  # a self-contained, serverless, zero-configuration, transactional SQL database
-  # engine.
-  sqlite
-)
-
-brew install ${packagelist[@]}
-
-# List of useful Quick Look plugins for developers
-brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
-# Install Vim Plugin Manager
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-# Vimrc is copied over from dotfiles
-# The Z shell (zsh) is a Unix shell that can be used as an interactive login
-# shell and as a powerful command interpreter for shell scripting. Zsh can be
-# thought of as an extended Bourne shell with a large number of improvements,
-# including some features of bash, ksh, and tcsh.
-# This script installs zsh, oh-my-zsh, an open source, community-driven framework
-# for managing your ZSH configuration.
-
-# Install zsh
-git clone git://zsh.git.sf.net/gitroot/zsh/zsh
-cp ~/.zshrc ~/.zshrc.orig
-
-# Install oh-my-zsh
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-cp $SRC_DIR/settings/dotfiles/zshrc ~/.zshrc
-
-# Syntax Highlighting
-git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins
-
-# Set as default
-chsh -s /bin/zsh
-
-# Resources
-# https://github.com/robbyrussell/oh-my-zsh
-# http://www.stevendobbelaere.be/installing-and-configuring-the-oh-my-zsh-shell/
-# # Disable the "Are you sure you want to open this application?" dialog
-# defaults write com.apple.LaunchServices LSQuarantine -bool false
-
-# # Reveal IP address, hostname, OS version, etc. when clicking the clock
-# # in the login window
-# sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
-# # Disable the warning when changing a file extension
-# defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-
-# # Only use UTF-8 in Terminal.app
-# defaults write com.apple.terminal StringEncodings -array 4
-
-# # Use a modified version of the Pro theme by default in Terminal.app
-# open "${HOME}/init/Mathias.terminal"
-# sleep 1 # Wait a bit to make sure the theme is loaded
-# defaults write com.apple.terminal "Default Window Settings" -string "Mathias"
-# defaults write com.apple.terminal "Startup Window Settings" -string "Mathias"
-
-# # Install Sublime Text settings
-# cp -r init/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text*/Packages/User/Preferences.sublime-settings 2> /dev/null
-
-# spectacle
-# http://support.apple.com/kb/HT5914
-# codesign -s - --resource-rules=/Users/YourUserNameHere/ResourceRules-ignoring-Scripts.plist /path/to/applet.app
-
-# https://github.com/chytreg/dotfiles/blob/c532970fb63a78b2507141b4de26b3c8e25c2bfc/bin/bootstrap
-
-allow_control Spectacle
-
-# also look into brew cask for installing applications
-# https://github.com/Homebrew/homebrew/wiki/External-Commands
-
-####################################################################################
-# Download and set Terminal colors to MyMonokai
-####################################################################################
-# TODO(phlco): Make these open in the background
-
-# Only use UTF-8 in Terminal.app
-defaults write com.apple.terminal StringEncodings -array 4
-
-# echo "Settings MyMonokai for Terminal..."
-# open -g "${HOME}/.wdi-installfest/settings/sublime/MyMonokai.terminal"
-# echo "done"
-
-# osascript -e 'tell application "Terminal" to activate' \
-# -e 'tell application "System Events" to tell process "Terminal" to keystroke "t" using command down' \
-# -e 'tell application "Terminal" to do script "open ~/.wdi-installfest/settings/sublime/MyMonokai.terminal" in tab 2 of front window'
-# -e 'tell application "System Events" to tell process "Terminal" to keystroke "w" using command down'
-# -e 'tell application "System Events" to tell process "Terminal" to tell window 1 to close'
-# Don't ask questions
-export DEBIAN_FRONTEND=noninteractive
-sudo apt-get install -y mailutils
-
-Subject="Log Report"
-Receipients="phlco@ga.co"
-Message_Success="Done"
-Path_Log_file="$HOME/.wdi/install.log"
-
-{ echo -e "$Message_Success\n\n" ; cat $Path_Log_file ; } | mail -s "$Subject" "$Recipients"
-
-# FIXME (phlco) this reports broken pipe
-# run exec $SHELL at end?
-# atom . doesn't work.
-# subl . works

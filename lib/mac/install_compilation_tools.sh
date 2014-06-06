@@ -44,6 +44,10 @@ packagelist=(
   # generates an index file of names found in source files of various programming
   # languages.
   ctags
+
+  # Adds history for node repl
+  readline
+
 )
 
 brew install ${packagelist[@]}

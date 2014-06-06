@@ -15,4 +15,3 @@ brew services start postgres
 # cp /usr/local/Cellar/postgresql/9.*/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
 # # Start Postgres now
 # launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
-

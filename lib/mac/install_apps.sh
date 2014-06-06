@@ -38,7 +38,7 @@ brew tap caskroom/fonts
 
 brew cask install font-source-code-pro
 brew cask install font-source-sans-pro
-brew cask install font-consolas
+brew cask install font-inconsolata
 
 # Git extensions to provide high-level repository operations
 # brew install git-flow

@@ -36,10 +36,10 @@ mac/install_node
 mac/install_npm
 
 mac/install_apps
-mac/set_up_heroku
-mac/install_postgres
 # TODO (phlco) are these *system* packages?
 mac/install_system_packages
+mac/set_up_heroku
+mac/install_postgres
 
 install_vim_plugins
 install_oh_my_zsh

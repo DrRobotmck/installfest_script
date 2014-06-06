@@ -1,3 +1,6 @@
+# Event-driven I/O server-side JavaScript environment based on V8
+brew install node
+
 # CLI tool for scaffolding out Yeoman projects
 npm install -g yo
 # The grunt command line interface.
@@ -13,9 +16,8 @@ npm install -g generator-webapp
 # Yeoman generator for Backbone.js
 npm install -g generator-backbone
 
-# TODO: Add or remove
+# TODO (phlco) Add or remove
 # npm install -g less
 # npm install -g gulp
 # npm install -g browserify
 # npm install -g generator-gulp-webapp
-
