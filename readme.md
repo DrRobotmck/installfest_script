@@ -11,7 +11,7 @@ The script comes in three basic flavors: the default full install for Mac OS, th
 Paste this script into a Terminal prompt:
 
 ```
-bash <(curl -sL http://git.io/6_SaSw)
+bash <(curl -sL https://raw.githubusercontent.com/ga-instructors/installfest_script/version2/mac)
 ```
 
 ##### For Ubuntu Linux:
@@ -21,12 +21,14 @@ _**Don't use yet!** Almost in working condition._
 If you aren't familiar with Linux, then make sure to read "[Getting Started with Ubuntu][ubuntu]." Otherwise, just Paste this script into a Terminal prompt:
 
 ```
-bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/ubuntu-merge/ubuntu)
+bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/version2/ubuntu)
 ```
 
-##### For Ruby only:
+For installing Ruby only, paste this script into a Terminal prompt:
 
-...
+```
+bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/version2/ubuntu-rubyonly)
+```
 
 
 ### Why not use a Virtual Environment?
@@ -62,7 +64,7 @@ _**Don't use yet!** Not in working condition._
 
 ## Developers
 
-If you want to contribute to or use the installfest script to set up a GA dev environment, please read our [how to use][developing] document.
+If you want to contribute to or use the installfest script to set up a GA dev environment, please read our [how to use](#how-to-use) document.
 
 [specs]:          specifications.md               "Dev Environment and hardware specs"
 [ubuntu]:         getting_started_with_ubuntu.md  "Ubuntu Guide"
@@ -70,7 +72,7 @@ If you want to contribute to or use the installfest script to set up a GA dev en
 [mac-torrent]:    http://example.com/             "Mac GABox"
 [ubuntu-torrent]: http://example.com/             "Ubuntu GABox"
 
-# How to Use
+
 # How to use
 
 The individual components of the InstallFest script are stored in `lib`
@@ -84,21 +86,21 @@ To build the installfest script run `rake`
 A pre-commit hook has been added that should automatically run `rake`
 and add the manifest files.
 
-# Developing
+## Developing
 The script downloads from raw.githubusercontent.com. Be aware that it caches resources for 1 minute, so you may not see your changes to the script immediately.
 
-# What does this install
+## What does this install
 
 - An editor
 - A browser
 - Configures git
 
-# Assumptions
+## Assumptions
 
 - Auto Completion
 - Syntax Highlighting
 
-# Success
+## Success
 
 A successful install means we can run the following successfully.
 
@@ -115,7 +117,6 @@ heroku create
 git push heroku master
 ```
 
-# Getting started with Ubuntu
 # Setting up your Linux environment with Ubuntu
 
 ## What is Linux? What is Ubuntu?
@@ -228,3 +229,41 @@ HipChat ~ 25MB
 FireFox ~ 115MB
 
 Gems
+
+~~~~~
+
+Our development environment.
+
+Program in a Unix-like environment. Right now we support Mac OSX and Ubuntu. We program in a shell: bash/zsh. We use a window manager: Spectacle or Unity's built-in tool.
+
+What we teach with.
+
+- BE Framework: Rails & Sinatra, FE Framework: Backbone, Database: PostgreSQL.
+- Chart of versions.
+
+What tools we use.*
+
+- Editor: Atom (Sublime, Vim)
+- Chat: HipChat
+- Browser: Chrome (Firefox)
+
+Other applications often used in class.
+
+- Mac OS: ... (installed by default)
+- Ubuntu: ... "
+
+Other programming environments you may use in class or in another GA class. Also used by some of our applications and system tools.
+
+- C
+- Node
+- Python
+- PHP
+- Java
+
+Minimum and recommended hardware specs and virtual machines.
+
+...
+
+Recommended hardware for purchase.
+
+...
