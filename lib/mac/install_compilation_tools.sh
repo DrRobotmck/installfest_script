@@ -5,46 +5,48 @@ brew upgrade
 # though may provide more recent or bugfix versions.
 brew tap homebrew/dupes
 
-# Autoconf is an extensible package of M4 macros that produce shell scripts to
-# automatically configure software source code packages.
-brew install autoconf
+packagelist=(
+  # Autoconf is an extensible package of M4 macros that produce shell scripts to
+  # automatically configure software source code packages.
+  autoconf
 
-# Automake is a tool for automatically generating Makefile.in
-brew install automake
+  # Automake is a tool for automatically generating Makefile.in
+  automake
 
-# generic library support script
-brew install libtool
+  # generic library support script
+  libtool
 
-# a YAML 1.1 parser and emitter
-brew install libyaml
+  # a YAML 1.1 parser and emitter
+  libyaml
 
-# neon is an HTTP and WebDAV client library
-# brew install neon
+  # neon is an HTTP and WebDAV client library
+  # neon
 
-# A toolkit implementing SSL v2/v3 and TLS protocols with full-strength
-# cryptography world-wide.
-brew install openssl
+  # A toolkit implementing SSL v2/v3 and TLS protocols with full-strength
+  # cryptography world-wide.
+  openssl
 
-# pkg-config is a helper tool used when compiling applications and libraries.
-brew install pkg-config
+  # pkg-config is a helper tool used when compiling applications and libraries.
+  pkg-config
 
+  # a script that uses ssh to log into a remote machine
+  ssh-copy-id
 
+  # XML C parser and toolkit
+  libxml2
 
-# a script that uses ssh to log into a remote machine
-brew install ssh-copy-id
+  # a language for transforming XML documents into other XML documents.
+  libxslt
 
-# XML C parser and toolkit
-brew install libxml2
+  # a conversion library between Unicode and traditional encoding
+  libiconv
 
-# a language for transforming XML documents into other XML documents.
-brew install libxslt
+  # generates an index file of names found in source files of various programming
+  # languages.
+  ctags
+)
 
-# a conversion library between Unicode and traditional encoding
-brew install libiconv
-
-# generates an index file of names found in source files of various programming
-# languages.
-brew install ctags
+brew install ${packagelist[@]}
 
 # Tap a new formula repository from GitHub, or list existing taps.
 brew tap homebrew/versions

@@ -69,3 +69,162 @@ If you want to contribute to or use the installfest script to set up a GA dev en
 [developing]:     how_to_use.md                   "How to use the script"
 [mac-torrent]:    http://example.com/             "Mac GABox"
 [ubuntu-torrent]: http://example.com/             "Ubuntu GABox"
+
+# How to Use
+# How to use
+
+The individual components of the InstallFest script are stored in `lib`
+
+The components are listed in the order they are to be installed in `Manifest.mac` and `Manifest.ubuntu`
+
+A custom rake task assembles the pieces into one script.
+
+To build the installfest script run `rake`
+
+A pre-commit hook has been added that should automatically run `rake`
+and add the manifest files.
+
+# Developing
+The script downloads from raw.githubusercontent.com. Be aware that it caches resources for 1 minute, so you may not see your changes to the script immediately.
+
+# What does this install
+
+- An editor
+- A browser
+- Configures git
+
+# Assumptions
+
+- Auto Completion
+- Syntax Highlighting
+
+# Success
+
+A successful install means we can run the following successfully.
+
+```
+rails new sample_app -d postgresql && cd sample_app
+rails g scaffold pet name:string
+rake db:create && rake db:migrate
+git init
+git add .
+git commit -am 'first commit'
+# testing on localhost:3000
+
+heroku create
+git push heroku master
+```
+
+# Getting started with Ubuntu
+# Setting up your Linux environment with Ubuntu
+
+## What is Linux? What is Ubuntu?
+
+What and why
+
+...
+
+## How can I use Linux on my machine?
+
+1. In a virtual environment
+2. As the local environment
+
+...
+
+## Installing a virtual environment
+
+Install VirtualBox VM
+Install Vagrant
+Vagrant Up
+
+...
+
+
+Inside of the virtual environment we must:
+
+- [set up the windowing to auto-resize](http://askubuntu.com/questions/104440/how-do-you-resize-the-standard-ubuntu-desktop-inside-of-virtualbox):
+
+```bash
+sudo apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+```
+
+## Installing a bootable local environment
+
+...
+
+## Setting up the dev environment
+
+- Set the desktop wallpaper with:
+
+```bash
+wget -O ~/Pictures/shortcut_wallpaper.jpg http://i.stack.imgur.com/krD8y.jpg
+gsettings set org.gnome.desktop.background picture-uri "file://${HOME}/Pictures/shortcut_wallpaper.jpg"
+```
+http://i.stack.imgur.com/krD8y.jpg (--> need to host this!)
+
+- Run the installfest script:
+
+```bash
+bash <( wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/ubuntu-merge/ubuntu)
+```
+
+## Learn the Unity desktop
+
+- REALLY GOOD SHORTCUTS THING:
+http://askubuntu.com/questions/28086/what-are-unitys-keyboard-and-mouse-shortcuts
+- LESS GOOD THING: https://help.ubuntu.com/community/KeyboardShortcuts#Common_application_shortcuts
+- SUPER, META, & HYPER KEYS: http://askubuntu.com/questions/19558/what-are-the-meta-super-and-hyper-keys
+- OTHER TERMINOLOGY:
+http://askubuntu.com/questions/10228/whats-the-right-terminology-for-unitys-ui-elements
+
+
+# Specifications
+The script first runs any software updates and then checks for Xcode.
+
+If Xcode is installed the script continues.
+
+- We then clone the repo onto the student's machine
+- Remove Macports or RVM
+- Installs homebrew and some formulae
+- Sets up git
+- Installs Sublime and Sublime settings (package manager and base packages)
+- Installs additional apps like Chrome, HipChat and Spectacle
+- Sets up RBenv and installs bundler, pry and rails
+- Adds solarized to Terminal
+
+# Minimum Requirements
+
+- Ruby
+- Rails
+- Browser
+- Text Editor
+
+Ruby, 16 MB
+
+Sublime
+OS X (OS X 10.6 or later is required), 30 MB
+
+Homebrew
+10.7 or higher is recommended. 10.6 and 10.5 are supported on a best-effort basis.
+
+Mac System Requirements
+In order to run 10.7 you'll need
+An Intel Core 2 Duo, Core i3, Core i5, Core i7, or Xeon processor
+7 GB of available disk space
+2 GB of RAM
+
+Chrome
+Mac OS X 10.6 or later, Intel, 350 MB
+Ubuntu 12.04+, Intel Pentium 4 or later
+
+Class Repo ~ 500MB
+
+Brew Cellar ~ 1GB
+
+Atom ~ 200 MB
+
+HipChat ~ 25MB
+
+FireFox ~ 115MB
+
+Gems

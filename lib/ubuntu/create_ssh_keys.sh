@@ -20,7 +20,8 @@ pause_awhile "Press Enter. We'll be here until you get back from Github."
 
 echo "Firefox may print an error to the terminal. DON'T WORRY!"
 # Open in default browser as a new process
-# TODO(phlco) Firefox raises an error
-xdg-open https://github.com/settings/ssh &
+# FIXME(phlco) Firefox raises an error
+# directing output to /dev/null to supress error
+xdg-open https://github.com/settings/ssh 2>/dev/null
 
 pause_awhile "Ok. Ready to Continue? Press Enter."

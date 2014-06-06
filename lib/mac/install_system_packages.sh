@@ -1,32 +1,36 @@
 # Useful packages
-# ASCII ART!!!!
-brew install figlet
+packagelist=(
+  # ASCII ART!!!!
+  figlet
 
-# visualization tool for ERDs
-brew install graphviz
+  # visualization tool for ERDs
+  graphviz
 
-# image resizing
-brew install imagemagick
+  # image resizing
+  imagemagick
 
-# PhantomJS is a headless WebKit scriptable with a JavaScript API.
-brew install phantomjs
+  # PhantomJS is a headless WebKit scriptable with a JavaScript API.
+  phantomjs
 
-# WebKit implementation of qt for Capybara testing
-brew install qt
+  # WebKit implementation of qt for Capybara testing
+  qt
 
-# qt for mavericks
-brew install qt4
+  # qt for mavericks
+  qt4
 
-# Advanced in-memory key-value store that persists on disk
-brew install redis
+  # Advanced in-memory key-value store that persists on disk
+  redis
+
+  # essential UNIX commands
+  # TODO (phlco) ensure they're aliased in the path correctly
+  coreutils
+
+  # a self-contained, serverless, zero-configuration, transactional SQL database
+  # engine.
+  sqlite
+)
+
+brew install ${packagelist[@]}
 
 # List of useful Quick Look plugins for developers
 brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
-
-# essential UNIX commands
-# TODO (phlco) ensure they're aliased in the path correctly
-brew install coreutils
-
-# a self-contained, serverless, zero-configuration, transactional SQL database
-# engine.
-brew install sqlite

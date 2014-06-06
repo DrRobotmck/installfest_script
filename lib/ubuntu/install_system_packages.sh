@@ -1,73 +1,81 @@
-# Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
-sudo apt-get -y install autoconf
+packagelist=(
+  # Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
+  autoconf
 
-# Automake is a tool for automatically generating Makefile.in
-sudo apt-get -y install automake
+  # Automake is a tool for automatically generating Makefile.in
+  automake
 
-# general-purpose parser generator that converts an annotated context-free grammar into an LALR or GLR parser for that grammar.
-sudo apt-get -y install bison
+  # general-purpose parser generator that converts an annotated context-free grammar into an LALR or GLR parser for that grammar.
+  bison
 
-# generic library support script
-sudo apt-get -y install libtool
+  # generic library support script
+  libtool
 
-# a YAML 1.1 parser and emitter
-sudo apt-get -y install libyaml-dev
+  # a YAML 1.1 parser and emitter
+  libyaml-dev
 
-# provides a set of functions for use by applications that allow users to edit command lines as they are typed in
-sudo apt-get -y install libreadline6 libreadline6-dev
+  # provides a set of functions for use by applications that allow users to edit command lines as they are typed in
+  libreadline6 libreadline6-dev libreadline-dev
 
-# XML C parser and toolkit
-sudo apt-get -y install libxml2-dev
+  # XML C parser and toolkit
+  libxml2-dev
 
-# a language for transforming XML documents into other XML documents.
-sudo apt-get -y install libxslt1-dev
+  # a language for transforming XML documents into other XML documents.
+  libxslt1-dev
 
-# gnome-keyring is a daemon in the session, similar to ssh-agent,
-# and other applications can use it to store passwords and other
-# sensitive information
-# atom dependency?
-sudo apt-get -y install libgnome-keyring-dev
+  # gnome-keyring is a daemon in the session, similar to ssh-agent,
+  # and other applications can use it to store passwords and other
+  # sensitive information
+  # atom dependency?
+  libgnome-keyring-dev
 
-# OpenSSL implementation of SSL
-sudo apt-get -y install libssl-dev
+  # OpenSSL implementation of SSL
+  libssl-dev
 
-# git for version control
-sudo apt-get -y install git
+  libcurl4-openssl-dev
 
-# copy to clipboard
-sudo apt-get -y install xclip
+  # version control
+  git
+  git-core
 
-# generates an index file of names found in source files of various programming languages.
-sudo apt-get -y install exuberant-ctags
+  # copy to clipboard
+  xclip
 
-# Header files and static library for compiling C programs to link with the libpq library in order to communicate with a PostgreSQL database backend.
-sudo apt-get -y install libpq-dev
-# or try
-# gem install pg  --   --with-pg-lib=/usr/lib
+  # command line tool for transferring data with URL syntax
+  curl
+  # This software provides an abstraction of the used apt repositories.
+  python-software-properties
 
-# ASCII ART!!!!
-sudo apt-get -y install figlet
+  # required for building Debian packages
+  build-essential
 
-# visualization tool for ERDs
-sudo apt-get -y install graphviz
+  # library implementing the deflate compression method found in gzip and PKZIP
+  zlib1g-dev
 
-# image resizing
-sudo apt-get -y install imagemagick
+  # generates an index file of names found in source files of various programming languages.
+  exuberant-ctags
 
-# PhantomJS is a headless WebKit scriptable with a JavaScript API.
-sudo apt-get -y install phantomjs
+  # Header files and static library for compiling C programs to link with the libpq library in order to communicate with a PostgreSQL database backend.
+  libpq-dev
+  # or try
+  # gem install pg  --   --with-pg-lib=/usr/lib
 
-# a self-contained, serverless, zero-configuration, transactional SQL database engine.
+  # self-contained, serverless, transactional SQL database engine.
+  sqlite3
 
-# extras
-# TODO (phlco) consolidate these
-sudo apt-get -y install git-core
-sudo apt-get -y install curl
-sudo apt-get -y install sudo apt-get install -y         # FIXME (h4w5) ????
-sudo apt-get -y install sudo apt-get -y install sqlite3 # FIXME (h4w5) ????
-sudo apt-get -y install libsqlite3-dev
-sudo apt-get -y install libcurl4-openssl-dev
-sudo apt-get -y install python-software-properties
-sudo apt-get -y install libreadline-dev
-sudo apt-get -y install build-essential
-sudo apt-get -y install zlib1g-dev
+  libsqlite3-dev
+
+  # ASCII ART!!!!
+  figlet
+
+  # visualization tool for ERDs
+  graphviz
+
+  # image resizing
+  imagemagick
+
+  # headless WebKit scriptable with a JavaScript API.
+  phantomjs
+)
+
+sudo apt-get -y install ${packagelist[@]}
