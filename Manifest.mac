@@ -32,8 +32,7 @@ install_beloved_ruby_version
 set_global_ruby_version
 
 # install node and npm
-mac/install_node
-mac/install_npm
+mac/install_node_and_npm
 
 mac/install_apps
 # TODO (phlco) are these *system* packages?
