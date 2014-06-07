@@ -1,3 +1,8 @@
+
+# TODO (h4w5) everywhere a variable is used but defined in another file,
+# handle that situation (as with $FORCE here), maybe by defaulting if not
+# set?
+
 # ex: assert_that "`gem` is installed" "gem"
 # ex: assert_that "`gem` is shimmed by rbenv" "which gem" "$HOME/.rbenv/shims/gem"
 # ex: assert_that "pg gem is installed" "gem list pg -i" "true"
@@ -13,17 +18,19 @@ assert_that() {
 
   if [ -n "$ERR" ]; then # if ERR is not null, then...
     # echo failure to STDERR & STDOUT
-    echo >&2 "${RED}$1: failure! Error: ${ERR}${RESET}" >&1
+    echo_log "${RED}$1: failure! Error: ${ERR}${RESET}"
+    [-n "$FORCE"] || exit; # exit on failure if not 'forcing'
   elif [ -n "$3" ]; then # else, if there is a third argument...
     if [ "$OUT" = "$3" ]; then # and they equal
       # echo success to STDERR & STDOUT
-      echo >&2 "${GREEN}$1...${RESET}" >&1
+      echo_log"${GREEN}$1...${RESET}"
     else
       # echo failure to STDERR & STDOUT if second and third arguments do not match
-      echo >&2 "${RED}$1: failure! '$OUT' does not equal '$3'.${RESET}" >&1
+      echo_log "${RED}$1: failure! '$OUT' does not equal '$3'.${RESET}"
+      [-n "$FORCE"] || exit; # exit on failure if not 'forcing'
     fi
   else
     # echo success to STDERR & STDOUT
-    echo >&2 "${GREEN}$1...${RESET}" >&1
+    echo_log "${GREEN}$1...${RESET}"
   fi
 }

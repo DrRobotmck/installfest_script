@@ -1,5 +1,62 @@
-#!/usr/bin/env bash -i
-# testing interactive mode
+#!/usr/bin/env bash
+
+#-------------------------------------------------------------------------------
+# Handle Command Line Options
+#-------------------------------------------------------------------------------
+
+while getopts "vf" FLAG; do
+  case $FLAG in
+    f ) FORCE=true;;
+    v ) VERBOSE=true;;
+    ? ) exit 2;;
+  esac
+done
+
+#-------------------------------------------------------------------------------
+# Logging
+#-------------------------------------------------------------------------------
+
+# set up logfile
+LOGFOLDER="$HOME/.wdi"; mkdir -p $LOGFOLDER
+LOGFILE="$LOGFOLDER/install.log"
+
+# if we are logging verbosely
+#   echo_log() & assert_that() -> stderr -> stdout -> *logfile* -> console
+# else we are only logging assertions ([- n "$verbose" ] == false)
+#   echo_log() & assert_that() -> stderr -> *logfile* -> stdout -> console
+# this is done by:
+#   a. directing echo_log() & assert_that() to stderr, via
+#      {echo "" >&2}, and ...
+echo_log() {
+  echo "$1" >&2
+}
+
+if [ -n "$VERBOSE" ]; then
+#     b. executing the script so that stdout 'tee's to logfile, via
+#        {exec 1> >(tee logfile)} | {exec > >(tee logfile)}
+#     c. executing the script so that stderr redirects to stdout, via
+#        {exec 2>&1}
+  exec > >(tee $LOGFILE); exec 2>&1
+else
+#     b. executing the script so that stderr 'tee's to logfile, via
+#        {exec 2> >(tee logfile)}
+  exec 2> >(tee $LOGFILE)
+fi
+
+echo_log
+echo_log "Script execution begun: $(date)"
+if [ -n "$FORCE" ]; then
+  echo_log " Force option set to true: will continue script despite failed assertions."
+else
+  echo_log " Script will exit on failed assertions. Use -f option to force completion."
+fi
+
+if [ -n "$VERBOSE" ]; then
+  echo_log " Verbose logging option set to true: will log all output, not just errors, log statements and assertions."
+else
+  echo_log " Script will log errors, log statements and assertions only. Use -v option to log verbosely."
+fi
+echo_log
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -28,14 +85,6 @@
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-#-------------------------------------------------------------------------------
-# Logging
-#-------------------------------------------------------------------------------
-
-mkdir -p ~/.wdi; exec > >(tee ~/.wdi/install.log); exec 2>&1
-
-echo "Script executed at $(date)"
-echo ""
 
 #-------------------------------------------------------------------------------
 # Set text formatting
@@ -238,6 +287,42 @@ allow_control() {
     echo "allow_control works only on Mavericks"
   fi
 }
+
+# TODO (h4w5) everywhere a variable is used but defined in another file,
+# handle that situation (as with $FORCE here), maybe by defaulting if not
+# set?
+
+# ex: assert_that "`gem` is installed" "gem"
+# ex: assert_that "`gem` is shimmed by rbenv" "which gem" "$HOME/.rbenv/shims/gem"
+# ex: assert_that "pg gem is installed" "gem list pg -i" "true"
+
+# log the success or failure of the file...
+# if only two arguments, then success is running second arg without an error
+# if three, then success is the above, and when the output of running the second is equal to the third
+assert_that() {
+  # test for a simple error by evaling the second argument, and redirecting only
+  # STDERR to a variable named ERR
+  ERR=$( (eval "$2") 2>&1 >/dev/null )
+  OUT=$(eval "$2")
+
+  if [ -n "$ERR" ]; then # if ERR is not null, then...
+    # echo failure to STDERR & STDOUT
+    echo_log "${RED}$1: failure! Error: ${ERR}${RESET}"
+    [-n "$FORCE"] || exit; # exit on failure if not 'forcing'
+  elif [ -n "$3" ]; then # else, if there is a third argument...
+    if [ "$OUT" = "$3" ]; then # and they equal
+      # echo success to STDERR & STDOUT
+      echo_log"${GREEN}$1...${RESET}"
+    else
+      # echo failure to STDERR & STDOUT if second and third arguments do not match
+      echo_log "${RED}$1: failure! '$OUT' does not equal '$3'.${RESET}"
+      [-n "$FORCE"] || exit; # exit on failure if not 'forcing'
+    fi
+  else
+    # echo success to STDERR & STDOUT
+    echo_log "${GREEN}$1...${RESET}"
+  fi
+}
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
@@ -409,29 +494,14 @@ else
   cd $SRC_DIR
   git pull origin $BRANCH
 fi
-# Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
-# This script checks for and removes previous installs of macports and RVM
-
-# Uninstall RVM
+# uninstall rvm, so that we can use rbenv
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
 if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
   yes | rvm implode
   rm -rf ~/.rvm
-  echo "RVM has been removed."
-else
-  echo "RVM is not installed. Moving on..."
 fi
 
-# # http://blog.coolaj86.com/articles/installing-ruby-on-ubuntu-12-04.html
-# sudo apt-get remove --purge ruby-rvm ruby
-# sudo rm -rf /usr/share/ruby-rvm /etc/rmvrc /etc/profile.d/rvm.sh
-#
-# # See if there is anything
-# ls -d ~/.rvm*
-# ls -d ~/.gem*
-# ls -d ~/.bundle*
-# # Delete them (ignoring those that don't exist)
-# rm -rf ~/.rvm* ~/.gem/ ~/.bundle*
+assert_that "RVM has been removed or was not installed" "command -v rvm" ""
 # # our ruby version manager
 # sudo apt-get -y install rbenv
 # # git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
