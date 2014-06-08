@@ -530,15 +530,16 @@ brew install rbenv
 
 # Use homebrew's directories instead of rbenv's
 # echo 'export RBENV_ROOT=/usr/local/var/rbenv' >> ~/.bash_profile
-export RBENV_ROOT="~/.rbenv"
+# export RBENV_ROOT="/usr/local/var/rbenv"
 
 # Add to path
-# echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
-export PATH="$HOME/$RBENV_ROOT/bin:$PATH"
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+echo 'if which rbenv > /dev/null; then eval "$(rbenv init-)"; fi' >> ~/.bash_profile
+source  ~/.bash_profile
 
 # enable shims and autocompletion
 # echo '# added by installfest script' >> ~/.bash_profile
-# echo 'if which rbenv > /dev/null; then eval "$(rbenv init-)"; fi' >> ~/.bash_profile
+export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 # Automatically runs rbenv rehash every time you install or uninstall a gem.
