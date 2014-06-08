@@ -331,11 +331,7 @@ assert_that "OpenSSL implementation downloaded for git" "apt-cache show libssl-d
 # git for version control
 sudo apt-get -y install git
 assert_that "OpenSSL implementation downloaded for git" "apt-cache show git"
-# # our ruby version manager
-# sudo apt-get -y install rbenv
-# # git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
-# # provides an `rbenv install` command
-# sudo apt-get -y install ruby-build
+# Our ruby version manager
 
 # rbenv
 git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
@@ -347,6 +343,9 @@ eval "$(rbenv init -)"
 # Wouldn't it not exist until installing rbenv anyway?
 # Specify default gems in ~/.rbenv/default-gems
 git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
+
+# automatically runs rbenv rehash every time you install or uninstall a gel.
+git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
 
 # FIXME (h4w5) should check if it exists
 # Wouldn't it not exist until installing rbenv anyway?
