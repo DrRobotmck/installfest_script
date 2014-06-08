@@ -539,7 +539,7 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 # enable shims and autocompletion
 # echo '# added by installfest script' >> ~/.bash_profile
 # echo 'if which rbenv > /dev/null; then eval "$(rbenv init-)": fi' >> ~/.bash_profile
-if which rbenv > /dev/null; then eval "$(rbenv init-)"; fi
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # Automatically runs rbenv rehash every time you install or uninstall a gem.
 
@@ -571,7 +571,9 @@ brew install rbenv-default-gems
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 
 # TODO (phlco) move these to a default gem file that gets copied over
-# TODO (phlco) replace $RBENV_ROOT with $RBENV_ROOT
+
+touch $RBENV_ROOT/default-gems
+
 # Maintains a consistent environment for ruby applications.
 echo "bundler" >> $RBENV_ROOT/default-gems
 

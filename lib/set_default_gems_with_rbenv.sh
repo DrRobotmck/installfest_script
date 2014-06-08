@@ -3,7 +3,9 @@
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 
 # TODO (phlco) move these to a default gem file that gets copied over
-# TODO (phlco) replace $RBENV_ROOT with $RBENV_ROOT
+
+touch $RBENV_ROOT/default-gems
+
 # Maintains a consistent environment for ruby applications.
 echo "bundler" >> $RBENV_ROOT/default-gems
 
