@@ -23,5 +23,5 @@ brew install rbenv-gem-rehash
 # Provides an `rbenv install` command
 brew install ruby-build
 # git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-# 
-#
+
+rbenv rehash

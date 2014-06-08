@@ -11,8 +11,8 @@ mac/set_env_vars
 set_script_branch
 
 capture_password
-mac/update_software
-mac/install_commandline_tools
+# mac/update_software
+# mac/install_commandline_tools
 
 remove_rvm
 mac/remove_macports
@@ -33,17 +33,17 @@ set_default_gems_with_rbenv
 install_beloved_ruby_version
 set_global_ruby_version
 
-# install node and npm
-mac/install_node_and_npm
+# # install node and npm
+# mac/install_node_and_npm
 
-mac/install_apps
-# TODO (phlco) are these *system* packages?
-mac/install_system_packages
-mac/set_up_heroku
-mac/install_postgres
-
-install_vim_plugins
-install_oh_my_zsh
-mac/run_osx_tweeks
+# mac/install_apps
+# # TODO (phlco) are these *system* packages?
+# mac/install_system_packages
+# mac/set_up_heroku
+# mac/install_postgres
+#
+# install_vim_plugins
+# install_oh_my_zsh
+# mac/run_osx_tweeks
 
 report_log
