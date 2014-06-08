@@ -530,7 +530,7 @@ brew install rbenv
 
 # Use homebrew's directories instead of rbenv's
 # echo 'export RBENV_ROOT=/usr/local/var/rbenv' >> ~/.bash_profile
-export RBENV_ROOT=/usr/local/var/rbenv
+export RBENV_ROOT="~/.rbenv"
 
 # Add to path
 # echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
