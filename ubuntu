@@ -526,52 +526,52 @@ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-bu
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 
-# TODO(phlco) move these to a default gem file that gets copied over
-
+# TODO (phlco) move these to a default gem file that gets copied over
+# TODO (phlco) replace $RBENV_ROOT with $RBENV_ROOT
 # Maintains a consistent environment for ruby applications.
-echo "bundler" >> ~/.rbenv/default-gems
+echo "bundler" >> $RBENV_ROOT/default-gems
 
 # Acceptance test framework for web applications
-echo "capybara" >> ~/.rbenv/default-gems
+echo "capybara" >> $RBENV_ROOT/default-gems
 
 # handle events on file system modifications
-echo "guard" >> ~/.rbenv/default-gems
+echo "guard" >> $RBENV_ROOT/default-gems
 
 # JavaScript testing
-echo "jasmine" >> ~/.rbenv/default-gems
+echo "jasmine" >> $RBENV_ROOT/default-gems
 
 # ruby interface for Postgres
-echo "pg" >> ~/.rbenv/default-gems
+echo "pg" >> $RBENV_ROOT/default-gems
 
 # alternative to the standard IRB shell
-echo "pry" >> ~/.rbenv/default-gems
+echo "pry" >> $RBENV_ROOT/default-gems
 
 # live syntax highlighting for the Pry REPL
-echo "pry-coolline" >> ~/.rbenv/default-gems
+echo "pry-coolline" >> $RBENV_ROOT/default-gems
 
 # full stack, Web application framework
-echo "rails" >> ~/.rbenv/default-gems
+echo "rails" >> $RBENV_ROOT/default-gems
 
 # testing tool for Ruby
-echo "rspec" >> ~/.rbenv/default-gems
+echo "rspec" >> $RBENV_ROOT/default-gems
 
 # a DSL for quickly creating web applications in Ruby
-echo "sinatra" >> ~/.rbenv/default-gems
+echo "sinatra" >> $RBENV_ROOT/default-gems
 
 # common Sinatra extensions
-echo "sinatra-contrib" >> ~/.rbenv/default-gems
+echo "sinatra-contrib" >> $RBENV_ROOT/default-gems
 
 # Ruby interface to github API v3
-echo "github_api" >> ~/.rbenv/default-gems
+echo "github_api" >> $RBENV_ROOT/default-gems
 
 # HipChat HTTP API Wrapper
-echo "hipchat" >> ~/.rbenv/default-gems
+echo "hipchat" >> $RBENV_ROOT/default-gems
 
 # pretty print your Ruby objects with style
-echo "awesome_print" >> ~/.rbenv/default-gems
+echo "awesome_print" >> $RBENV_ROOT/default-gems
 
 # colorizing printed text on ANSI terminals
-echo "rainbow" >> ~/.rbenv/default-gems
+echo "rainbow" >> $RBENV_ROOT/default-gems
 
 # For testing and simplicity with Ubuntu, add these to the .bashrc until it's
 # overwritten...
