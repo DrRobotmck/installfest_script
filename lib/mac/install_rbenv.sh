@@ -3,10 +3,10 @@ brew install rbenv
 # git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 
 # Add to path
-export PATH="$HOME/.rbenv/bin:$PATH"
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' > ~/.bash_profile
 
 # enable shims and autocompletion
-eval "$(rbenv init -)"
+echo 'eval "$(rbenv init -)"' > ~/.bash_profile
 
 # Automatically runs rbenv rehash every time you install or uninstall a gem.
 brew install rbenv-gem-rehash
@@ -25,3 +25,5 @@ brew install ruby-build
 # git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 rbenv rehash
+
+source ~/.bash_profile
