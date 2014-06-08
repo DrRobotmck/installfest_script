@@ -539,7 +539,7 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 # enable shims and autocompletion
 # echo '# added by installfest script' >> ~/.bash_profile
 # echo 'if which rbenv > /dev/null; then eval "$(rbenv init-)": fi' >> ~/.bash_profile
-if which rbenv > /dev/null; then eval "$(rbenv init-)": fi
+if which rbenv > /dev/null; then eval "$(rbenv init-)"; fi
 
 # Automatically runs rbenv rehash every time you install or uninstall a gem.
 
