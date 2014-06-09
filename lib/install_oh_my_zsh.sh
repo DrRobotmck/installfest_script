@@ -17,7 +17,7 @@ cp $SRC_DIR/settings/dotfiles/zshrc ~/.zshrc
 git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins
 
 # Set as default
-chsh -s /bin/zsh
+# chsh -s /bin/zsh
 
 # Resources
 # https://github.com/robbyrussell/oh-my-zsh
