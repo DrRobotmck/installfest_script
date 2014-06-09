@@ -6,17 +6,14 @@ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 # echo 'export RBENV_ROOT=/usr/local/var/rbenv' >> ~/.bash_profile
 # export RBENV_ROOT="/usr/local/var/rbenv"
 
-# # Add to path
-# echo '# added by installfest script' >> ~/.bash_profile
-# echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
-# echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
-# source  ~/.bash_profile
+# Add to bash_profile
+echo '# added by installfest script' >> ~/.bash_profile
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
 
 # enable shims and autocompletion
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-
-# Automatically runs rbenv rehash every time you install or uninstall a gem.
 
 # brew install rbenv-gem-rehash
 git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
