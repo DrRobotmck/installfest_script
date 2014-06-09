@@ -17,7 +17,7 @@ npm install -g jshint
 npm install -g coffee-script
 
 # Code Coverage tool for JavaScript
-npm install -g instanbull
+npm install -g istanbul
 
 # Scaffold out a front-end web app
 npm install -g generator-webapp
