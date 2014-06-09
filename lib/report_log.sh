@@ -1,9 +1,12 @@
-Subject="Log Report"
-Receipients="philco@ga.co"
-Message_Success="Done"
-Path_Log_file="$HOME/.wdi/install.log"
-
-{ echo -e "$Message_Success\n\n" ; cat $Path_Log_file ; } | mail -s "$Subject" "$Recipients"
+# email subject
+SUBJECT="Log Report"
+# Email To ?
+EMAIL="philco@ga.co"
+# Email text/message
+EMAILMESSAGE="/tmp/emailmessage.txt"
+cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
+# send an email using /bin/mail
+mail -s "$SUBJECT" "$EMAIL" < $EMAILMESSAGE
 
 # FIXME (phlco) this reports broken pipe in ubuntu
 # run exec $SHELL at end?

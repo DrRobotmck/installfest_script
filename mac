@@ -428,7 +428,8 @@ fi
 $(which -s brew)
 if [[ $? != 0 ]]; then
   echo 'Installing Homebrew...'
-  ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
+  # piping echo to simulate hitting return in the brew install script
+  echo | ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
 fi
 
 # Make sure we're using the latest Homebrew
@@ -881,12 +882,15 @@ defaults write com.apple.terminal StringEncodings -array 4
 # -e 'tell application "Terminal" to do script "open ~/.wdi-installfest/settings/sublime/MyMonokai.terminal" in tab 2 of front window'
 # -e 'tell application "System Events" to tell process "Terminal" to keystroke "w" using command down'
 # -e 'tell application "System Events" to tell process "Terminal" to tell window 1 to close'
-Subject="Log Report"
-Receipients="philco@ga.co"
-Message_Success="Done"
-Path_Log_file="$HOME/.wdi/install.log"
-
-{ echo -e "$Message_Success\n\n" ; cat $Path_Log_file ; } | mail -s "$Subject" "$Recipients"
+# email subject
+SUBJECT="Log Report"
+# Email To ?
+EMAIL="philco@ga.co"
+# Email text/message
+EMAILMESSAGE="/tmp/emailmessage.txt"
+cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
+# send an email using /bin/mail
+mail -s "$SUBJECT" "$EMAIL" < $EMAILMESSAGE
 
 # FIXME (phlco) this reports broken pipe in ubuntu
 # run exec $SHELL at end?
