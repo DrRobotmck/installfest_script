@@ -330,6 +330,11 @@ CURRENT_STABLE_RUBY_VERSION="2.1.2"
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
+
+# Standard Bash Variables
+# `OSTYPE` A string describing the operating system Bash is running on.
+# `MACHTYPE` system type in cpu-company-system
+# `SECONDS` number of seconds since the shell was started.
 MINIMUM_OS="10.7.0"
 
 # This refers to the branch of our repo that we are using (for cloning).
@@ -703,6 +708,9 @@ allow_control Spectacle
 # The Text Editor, Sublime Text 2
 brew cask install sublime-text
 
+# Github's Text Editor
+brew cask install atom
+
 # The X Window Server
 brew cask install xquartz
 
@@ -787,6 +795,7 @@ echo "Heroku. This will allow you to deploy code to all of your apps."
 # PL: holding off for user interaction
 heroku keys:add
 # Set up Postgres
+brew install postgresql
 
 # Create a database
 initdb /usr/local/var/postgres -E utf8

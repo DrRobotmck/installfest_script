@@ -23,6 +23,9 @@ allow_control Spectacle
 # The Text Editor, Sublime Text 2
 brew cask install sublime-text
 
+# Github's Text Editor
+brew cask install atom
+
 # The X Window Server
 brew cask install xquartz
 

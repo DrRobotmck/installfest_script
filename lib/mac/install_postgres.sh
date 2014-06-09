@@ -1,4 +1,5 @@
 # Set up Postgres
+brew install postgresql
 
 # Create a database
 initdb /usr/local/var/postgres -E utf8
