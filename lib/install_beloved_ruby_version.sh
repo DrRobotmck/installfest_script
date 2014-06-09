@@ -6,4 +6,4 @@ else
   rbenv install $BELOVED_RUBY_VERSION
 fi
 
-rbenv rehash
+# rbenv rehash
