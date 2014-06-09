@@ -45,7 +45,7 @@ install_oh_my_zsh
 # set up default deployment with heroku
 ubuntu/set_up_heroku
 
+ubuntu/install_mailutils
 report_log
-
 # TODO (phlco) skipping the email line
 # capture_mac_address
