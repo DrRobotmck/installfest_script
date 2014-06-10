@@ -305,16 +305,17 @@ echo_log() {
 assert_that() {
   # test for a simple error by evaling the second argument, and redirecting only
   # STDERR to a variable named ERR
-  ERR=$( (eval "$2") 2>&1 >/dev/null ) && { export OUT=$(eval "$2"); }
+  ERR=$( (eval "$2") 2>&1 >/dev/null ) && { OUT=$(eval "$2"); }
 
   if [ -n "$ERR" ]; then # if ERR is not null, then...
     # echo failure to STDERR & STDOUT
     echo_log "${RED}$1: failure! Error: ${ERR}${RESET}"
     [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
   elif [ -n "$3" ]; then # else, if there is a third argument...
-    if [ "$OUT" = "$3" ]; then # and they equal
+    echo $OUT
+    if [ "$OUT" == "$3" ]; then # and they equal
       # echo success to STDERR & STDOUT
-      echo_log"${GREEN}$1...${RESET}"
+      echo_log "${GREEN}$1...${RESET}"
     else
       # echo failure to STDERR & STDOUT if second and third arguments do not match
       echo_log "${RED}$1: failure! '$OUT' does not equal '$3'.${RESET}"
@@ -425,7 +426,8 @@ packagelist=(
   # generates an index file of names found in source files of various programming languages.
   exuberant-ctags
 
-  # Header files and static library for compiling C programs to link with the libpq library in order to communicate with a PostgreSQL database backend.
+  # Header files and static library for compiling C programs to link with the
+  # libpq library in order to communicate with a PostgreSQL database backend.
   libpq-dev
   # or try
   # gem install pg  --   --with-pg-lib=/usr/lib
@@ -528,68 +530,47 @@ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-# FIXME (h4w5) i meant to put in an assertion here...
+assert_that "Rbenv is installed" "rbenv"
 
 # Specify default gems in ~/.rbenv/default-gems
 git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
 
-# automatically runs rbenv rehash every time you install or uninstall a gel.
+# automatically runs rbenv rehash every time you install or uninstall a gem
 git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
 
 # Provides an rbenv install command to compile and install different versions of Ruby
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+assert_that "Rbenv's ruby-build plugin is installed" "rbenv install"
+
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 
-# TODO (phlco) move these to a default gem file that gets copied over
 # TODO (phlco) replace ~/.rbenv with $RBENV_ROOT
 touch ~/.rbenv/default-gems
 
-# Maintains a consistent environment for ruby applications.
-echo "bundler" >> ~/.rbenv/default-gems
+gemlist=(
+  bundler         # Maintains a consistent environment for ruby applications.
+  capybara        # Acceptance test framework for web applications
+  guard           # handle events on file system modifications
+  jasmine         # JavaScript testing
+  pg              # ruby interface for Postgres
+  pry             # alternative to the standard IRB shell
+  pry-coolline    # live syntax highlighting for the Pry REPL
+  rails           # full stack, Web application framework
+  rspec           # testing tool for Ruby
+  sinatra         # a DSL for quickly creating web applications in Ruby
+  sinatra-contrib # common Sinatra extensions
+  github_api      # Ruby interface to github API v3
+  hipchat         # HipChat HTTP API Wrapper
+  awesome_print   # pretty print your Ruby objects with style
+  rainbow         # colorizing printed text on ANSI terminals
+)
 
-# Acceptance test framework for web applications
-echo "capybara" >> ~/.rbenv/default-gems
-
-# handle events on file system modifications
-echo "guard" >> ~/.rbenv/default-gems
-
-# JavaScript testing
-echo "jasmine" >> ~/.rbenv/default-gems
-
-# ruby interface for Postgres
-echo "pg" >> ~/.rbenv/default-gems
-
-# alternative to the standard IRB shell
-echo "pry" >> ~/.rbenv/default-gems
-
-# live syntax highlighting for the Pry REPL
-echo "pry-coolline" >> ~/.rbenv/default-gems
-
-# full stack, Web application framework
-echo "rails" >> ~/.rbenv/default-gems
-
-# testing tool for Ruby
-echo "rspec" >> ~/.rbenv/default-gems
-
-# a DSL for quickly creating web applications in Ruby
-echo "sinatra" >> ~/.rbenv/default-gems
-
-# common Sinatra extensions
-echo "sinatra-contrib" >> ~/.rbenv/default-gems
-
-# Ruby interface to github API v3
-echo "github_api" >> ~/.rbenv/default-gems
-
-# HipChat HTTP API Wrapper
-echo "hipchat" >> ~/.rbenv/default-gems
-
-# pretty print your Ruby objects with style
-echo "awesome_print" >> ~/.rbenv/default-gems
-
-# colorizing printed text on ANSI terminals
-echo "rainbow" >> ~/.rbenv/default-gems
+for gem in ${gemlist[@]}; do
+  echo "${gem}" >> ~/.rbenv/default-gems
+done
 
 # For testing and simplicity with Ubuntu, add these to the .bashrc until it's
 # overwritten...
@@ -606,6 +587,7 @@ else
 fi
 
 # rbenv rehash
+# assert_that "Ruby is installed" "which ruby" "~/.rbenv/bin"
 # echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
 # echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
 #
@@ -632,6 +614,8 @@ rbenv global $BELOVED_RUBY_VERSION
 
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
+
+assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" "ruby -v" "${BELOVED_RUBY_VERSION}"
 # Event-driven I/O server-side JavaScript environment based on V8
 sudo apt-get -y install nodejs
 
