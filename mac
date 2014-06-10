@@ -126,155 +126,7 @@ ITALIC=$(     tput sitm)
 # Functions
 #-------------------------------------------------------------------------------
 
-#######################################
-# ABRB
-# Arguments:
-#   Message
-#   Attribution
-# Returns:
-#   None
-#######################################
-function quoth_the_bard () {
-  local message=$1
-  local attribution=$2
-  echo ""
-  echo "$YELLOW$message$RESET"
-  echo "$PURPLE$attribution$RESET"
-}
-
-#######################################
-# Upcase error message and exit script
-# Arguments:
-#   Error message
-# Returns:
-#   None
-#######################################
-
-function fie () {
-  local message=$(echo $1 | tr 'a-z' 'A-Z')
-  echo ""
-  echo "$RED$message$RESET"
-  exit
-}
-
-
-#######################################
-# Announce our acts
-# Arguments:
-#   Act Number
-# Returns:
-#   None
-#######################################
-function figlet_announces () {
-  clear
-  local act=$1
-  figlet -f ogre $act
-}
-
-#######################################
-# Waits for user input
-# Arguments:
-#   Message
-# Returns:
-#   None
-#######################################
-function pause_awhile () {
-   read -p "$* Press Enter to continue"
-}
-
-#######################################
-# Mounts DMG and moves to Applications
-# Arguments:
-#   File name
-# Returns:
-#   None
-#######################################
-function install_dmg () {
-  echo 'Hark, a dmg!'
-  file_name="$1"
-  MOUNTPOINT="/Volumes/MountPoint"
-  IFS="
-  "
-  hdiutil attach -mountpoint $MOUNTPOINT "$file_name.dmg"
-  app=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.app)
-  if [[ ! -z "$app" ]]; then
-    cp -a "$app" /Applications/
-  fi
-  echo 'Hark! A pkg!'
-  pkg=$(find $MOUNTPOINT 2>/dev/null -maxdepth 2 -iname \*.pkg)
-  if [[ ! -z "$pkg" ]]; then
-    # PL: Need to handle harddrive names that aren't Macintosh HD
-    sudo installer -package $pkg -target /
-  fi
-  hdiutil detach $MOUNTPOINT
-}
-
-#######################################
-# Unzip Zip and move App to Applications
-# Arguments:
-#   File name
-# Returns:
-#   None
-#######################################
-function install_zip () {
-  file_name="$1"
-  echo 'Hark! A zip!'
-  mkdir "$file_name"
-  unzip "$file_name.zip" -d "$file_name"
-  mv $file_name/*.app /Applications
-}
-
-#######################################
-# Checks for the existence of a file
-# Arguments:
-#   File name
-# Returns:
-#   1 or 0
-#######################################
-function know_you_not_of () {
-  file_name="$1"
-  file_count=$(find /Applications -name "$file_name.app" | wc -l)
-  if [[ $file_count -gt 0 ]]; then
-    echo "$file_name is already here.";
-    return 1
-  else
-    return 0
-  fi
-}
-
-#######################################
-# Downloads and installs apps from zips, dmgs, and pkgs.
-# Arguments:
-#   File name
-#   URL
-# Returns:
-#   None
-#######################################
-function lend_me_your () {
-  file_name="$1"
-  url="$2"
-  ext=${url: -4}
-  if know_you_not_of "$file_name" ; then
-    curl -L -o "$file_name$ext" $url
-    # enter stage left...
-    case "$ext" in
-      ".dmg")  install_dmg "$file_name";;
-      ".zip")  install_zip "$file_name";;
-      *) echo "Not Processed";;
-    esac
-  fi
-  # Out spot
-  rm -rf "$file_name$ext"
-  rm -rf "$file_name"
-}
-
-#######################################
 # Allow apps to control your computer
-# Arguments:
-#   File name
-# Returns:
-#   None
-#######################################
 allow_control() {
   if [[ "$OSTYPE" =~ ^darwin13.*$ ]]; then
     for app; do
@@ -288,9 +140,13 @@ allow_control() {
   fi
 }
 
-# TODO (h4w5) everywhere a variable is used but defined in another file,
-# handle that situation (as with $FORCE here), maybe by defaulting if not
-# set?
+# set FORCE (do not quit on error) to true if it is not loaded, as a default
+: ${FORCE=true} # TODO (h4w5) since we are testing for null, this will always happen
+                # switch to true/false
+
+echo_log() {
+  echo "$1" >&2
+}
 
 # ex: assert_that "`gem` is installed" "gem"
 # ex: assert_that "`gem` is shimmed by rbenv" "which gem" "$HOME/.rbenv/shims/gem"
@@ -303,25 +159,42 @@ assert_that() {
   # test for a simple error by evaling the second argument, and redirecting only
   # STDERR to a variable named ERR
   ERR=$( (eval "$2") 2>&1 >/dev/null )
-  OUT=$(eval "$2")
+  OUT=$( (eval "$2") 2>/dev/null )
 
   if [ -n "$ERR" ]; then # if ERR is not null, then...
     # echo failure to STDERR & STDOUT
     echo_log "${RED}$1: failure! Error: ${ERR}${RESET}"
-    [-n "$FORCE"] || exit; # exit on failure if not 'forcing'
+    [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
   elif [ -n "$3" ]; then # else, if there is a third argument...
-    if [ "$OUT" = "$3" ]; then # and they equal
+    if [ "$OUT" == "$3" ]; then # and they equal
       # echo success to STDERR & STDOUT
-      echo_log"${GREEN}$1...${RESET}"
+      echo_log "${GREEN}$1...${RESET}"
     else
       # echo failure to STDERR & STDOUT if second and third arguments do not match
       echo_log "${RED}$1: failure! '$OUT' does not equal '$3'.${RESET}"
-      [-n "$FORCE"] || exit; # exit on failure if not 'forcing'
+      [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
     fi
   else
     # echo success to STDERR & STDOUT
     echo_log "${GREEN}$1...${RESET}"
   fi
+}
+
+# ex: assert_package_installed "git"
+# ex: packagelist=( libssl-dev; libcurl4-openssl-dev; git; git-core ); assert_package_installed ${packagelist[@]}
+
+# only works when packages share a name across OSs, otherwise easiest to write
+# two assertions...
+assert_package_installed() {
+  for package in "$@"; do
+    if [ "$OSTYPE" == "darwin" ]; then
+      assert_that "${package} package is installed" "brew ls --versions ${package}" "${package}"
+    elif [ "$OSTYPE" == "linux-gnu" ]; then
+      assert_that "${package} package is installed" "dpkg -s ${package}"
+    else
+      echo_log "${RED}OS Type unknown in assertions...${RESET}" && exit 1;
+    fi
+  done
 }
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
@@ -409,11 +282,13 @@ echo '- Paste your key into the "Key" field'
 echo '- Click "Add key"'
 echo '- Confirm the action by entering your GitHub password'
 
-pause_awhile "We'll be here until you get back from Github. Ready?"
+read -p "We'll be here until you get back from Github. Ready? Press Enter to continue."
 
 open https://github.com/settings/ssh
 
-pause_awhile "SSH keys added?"
+read -p "SSH keys added? Press Enter to continue."
+
+# TODO (h4w5) add assertion around ... "ssh -T git@github.com"
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
@@ -590,6 +465,7 @@ gemlist=(
 for gem in ${gemlist[@]}; do
   echo "${gem}" >> ~/.rbenv/default-gems
 done
+
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -598,33 +474,12 @@ else
   rbenv install $BELOVED_RUBY_VERSION
 fi
 
-# rbenv rehash
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-#
-# echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
+assert_that "Ruby is installed and links to rbenv" "which ruby" "$HOME/.rbenv/shims/ruby"
 
 rbenv global $BELOVED_RUBY_VERSION
 
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-#
-# echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
-
-# rbenv rehash # happens at end of eval above I believe (h4w5)
-
-# echo "${BOLD}Path is now:${RESET} ${PATH}"
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-
-# echo "${BOLD}Path is now:${RESET} ${PATH}"
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-# echo "${BOLD}Gem environment is now:${RESET}"
-# gem env
-
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
+assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" \
+            "ruby -v | grep -q ${BELOVED_RUBY_VERSION} && echo 'true'" "true"
 # Event-driven I/O server-side JavaScript environment based on V8
 brew install node
 
