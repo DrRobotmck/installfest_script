@@ -16,14 +16,14 @@ echo_log() {
 assert_that() {
   # test for a simple error by evaling the second argument, and redirecting only
   # STDERR to a variable named ERR
-  ERR=$( (eval "$2") 2>&1 >/dev/null ) && { OUT=$(eval "$2"); }
+  ERR=$( (eval "$2") 2>&1 >/dev/null )
+  OUT=$( (eval "$2") 2>/dev/null )
 
   if [ -n "$ERR" ]; then # if ERR is not null, then...
     # echo failure to STDERR & STDOUT
     echo_log "${RED}$1: failure! Error: ${ERR}${RESET}"
     [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
   elif [ -n "$3" ]; then # else, if there is a third argument...
-    echo $OUT
     if [ "$OUT" == "$3" ]; then # and they equal
       # echo success to STDERR & STDOUT
       echo_log "${GREEN}$1...${RESET}"

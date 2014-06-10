@@ -111,14 +111,14 @@ echo_log() {
 assert_that() {
   # test for a simple error by evaling the second argument, and redirecting only
   # STDERR to a variable named ERR
-  ERR=$( (eval "$2") 2>&1 >/dev/null ) && { OUT=$(eval "$2"); }
+  ERR=$( (eval "$2") 2>&1 >/dev/null )
+  OUT=$( (eval "$2") 2>/dev/null )
 
   if [ -n "$ERR" ]; then # if ERR is not null, then...
     # echo failure to STDERR & STDOUT
     echo_log "${RED}$1: failure! Error: ${ERR}${RESET}"
     [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
   elif [ -n "$3" ]; then # else, if there is a third argument...
-    echo $OUT
     if [ "$OUT" == "$3" ]; then # and they equal
       # echo success to STDERR & STDOUT
       echo_log "${GREEN}$1...${RESET}"
@@ -262,6 +262,7 @@ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 source ~/.bashrc
+
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -270,33 +271,13 @@ else
   rbenv install $BELOVED_RUBY_VERSION
 fi
 
-# rbenv rehash
-# assert_that "Ruby is installed" "which ruby" "~/.rbenv/bin"
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-#
-# echo "${BOLD}Setting the global ruby as '${BELOVED_RUBY_VERSION}'...${RESET}"
+assert_that "Ruby is installed and links to rbenv" "which ruby" "~/.rbenv/bin"
 
 rbenv global $BELOVED_RUBY_VERSION
 
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-#
-# echo "${BOLD}Adding the rbenv binary directory to path, and prepending the .shims...${RESET}"
-
-# rbenv rehash # happens at end of eval above I believe (h4w5)
-
-# echo "${BOLD}Path is now:${RESET} ${PATH}"
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-
-# echo "${BOLD}Path is now:${RESET} ${PATH}"
-# echo "${BOLD}Ruby version is now: '`ruby -v`'...${RESET}"
-# echo "${BOLD}Ruby now found at: `which ruby`...${RESET}"
-# echo "${BOLD}Gem environment is now:${RESET}"
-# gem env
-
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
-
 assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" "ruby -v" "${BELOVED_RUBY_VERSION}"
+
+# check for gems
+for gem in ${gemlist[@]}; do
+  assert_that "$gem gem is installed" "gem list $gem -i" "true"
+done
