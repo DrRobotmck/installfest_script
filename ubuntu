@@ -315,6 +315,8 @@ echo "Firefox may print an error to the terminal. DON'T WORRY!" # directing outp
 xdg-open https://github.com/settings/ssh 2>/dev/null
 
 read -p "Ok. Ready to Continue? Press Enter."
+
+# TODO (h4w5) add assertion around ... "ssh -T git@github.com"
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
 git config --global user.name  $github_name

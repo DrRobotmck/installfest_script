@@ -1,4 +1,7 @@
-test() {
+
+# present a semantic message that allows users to check if their colors are working
+
+show_colors() {
   echo "${RED}${UNDERLINE}This line should be underlined and red before here,"
   echo "${NOUNDERLINE} but just red here.${RESET}"
   echo "${GREEN}${BOLD}This line should be bold green before here,"
@@ -9,3 +12,5 @@ test() {
   echo "${PURPLE}${BG_RED}This line is purple on red.${RESET}"
   echo "${ORANGE}This line is in orange,${RESET}${BG_ORANGE} and on orange.${RESET}"
 }
+
+show_colors
