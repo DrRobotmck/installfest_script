@@ -4,8 +4,8 @@ handle_options_and_start_logging
 commentary/header
 
 define_terminal_colors
-define_script_helper_functions
-tests/add_assert_function
+mac/define_script_helper_functions
+tests/add_assert_functions
 set_env_vars
 mac/set_env_vars
 set_script_branch

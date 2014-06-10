@@ -20,8 +20,8 @@ echo '- Paste your key into the "Key" field'
 echo '- Click "Add key"'
 echo '- Confirm the action by entering your GitHub password'
 
-pause_awhile "We'll be here until you get back from Github. Ready?"
+read -p "We'll be here until you get back from Github. Ready? Press Enter to continue."
 
 open https://github.com/settings/ssh
 
-pause_awhile "SSH keys added?"
+read -p "SSH keys added? Press Enter to continue."
