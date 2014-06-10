@@ -468,11 +468,12 @@ else
   rbenv install $BELOVED_RUBY_VERSION
 fi
 
-assert_that "Ruby is installed and links to rbenv" "which ruby" "~/.rbenv/bin"
+assert_that "Ruby is installed and links to rbenv" "which ruby" "$HOME/.rbenv/shims/ruby"
 
 rbenv global $BELOVED_RUBY_VERSION
 
-assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" "ruby -v" "${BELOVED_RUBY_VERSION}"
+assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" \
+            "ruby -v | grep -q ${BELOVED_RUBY_VERSION} && echo 'true'" "true"
 # Event-driven I/O server-side JavaScript environment based on V8
 brew install node
 

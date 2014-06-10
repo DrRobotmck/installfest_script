@@ -7,4 +7,4 @@ else
   rbenv install $BELOVED_RUBY_VERSION
 fi
 
-assert_that "Ruby is installed and links to rbenv" "which ruby" "~/.rbenv/bin"
+assert_that "Ruby is installed and links to rbenv" "which ruby" "$HOME/.rbenv/shims/ruby"

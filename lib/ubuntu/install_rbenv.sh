@@ -6,7 +6,7 @@ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-assert_that "Rbenv is installed" "rbenv"
+assert_that "Rbenv is installed" "rbenv version"
 
 # Specify default gems in ~/.rbenv/default-gems
 git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
