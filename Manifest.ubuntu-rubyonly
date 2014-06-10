@@ -6,7 +6,6 @@ tests/add_assert_functions
 set_env_vars
 set_script_branch
 
-# grab user password for sudo
 capture_password
 
 # install ruby and gems with rbenv

@@ -8,8 +8,6 @@ tests/add_assert_functions
 set_env_vars
 set_script_branch
 
-# TODO (h4w5) not keeping alive...
-# grab user password for sudo
 capture_password
 
 # update os with necessary tools
