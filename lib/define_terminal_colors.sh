@@ -2,6 +2,12 @@
 #-------------------------------------------------------------------------------
 # Set text formatting
 #-------------------------------------------------------------------------------
+# set 256 color profile where possible
+if [[ $COLORTERM == gnome-* && $TERM == xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+  export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1; then
+  export TERM=xterm-256color
+fi
 
 # Reset formatting
 RESET=$(      tput sgr0)
@@ -15,8 +21,6 @@ BLUE=$(       tput setaf 4)
 MAGENTA=$(    tput setaf 5)
 CYAN=$(       tput setaf 6)
 WHITE=$(      tput setaf 9)
-# ORANGE=$(     tput setaf 172)
-# PURPLE=$(     tput setaf 141)
 
 # Background color
 BG_BLACK=$(   tput setab 0)
@@ -27,7 +31,6 @@ BG_BLUE=$(    tput setab 4)
 BG_MAGENTA=$( tput setab 5)
 BG_CYAN=$(    tput setab 6)
 BG_WHITE=$(   tput setab 9)
-# BG_ORANGE=$(  tput setab 172)
 
 # Style
 UNDERLINE=$(  tput smul)
