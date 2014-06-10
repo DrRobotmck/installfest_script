@@ -212,11 +212,9 @@ MINIMUM_OS="10.7.0"
 
 # This refers to the branch of our repo that we are using (for cloning).
 BRANCH=pj_working
-# Capture the user's password
-sudo -p "Please enter your computer's password so that we can make the necessary changes: " echo "Thanks."
 
-# Update existing `sudo` time stamp until script has finished
-while true; do sudo -v true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+# capture the user's password
+sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
 # uninstall rvm, so that we can use rbenv
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
 if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then

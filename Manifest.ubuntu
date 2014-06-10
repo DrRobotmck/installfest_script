@@ -18,7 +18,13 @@ ubuntu/install_system_packages
 capture_github_credentials
 ubuntu/create_ssh_keys
 configure_git
-clone_script_repo
+clone_script_repo # TODO (h4w5) can we remove this?
+
+# TODO (h4w5) can we move this up to be with github credentialing?
+# set up default deployment with heroku
+ubuntu/set_up_heroku
+
+keep_alive_password
 
 # install ruby and gems with rbenv
 remove_rvm
@@ -27,6 +33,9 @@ set_default_gems_with_rbenv
 ubuntu/add_rbenv_to_bashrc
 install_beloved_ruby_version
 set_global_ruby_version
+tests/check_for_gems
+
+keep_alive_password
 
 # install node and npm
 ubuntu/install_node_and_npm
@@ -38,11 +47,8 @@ ubuntu/install_postgres
 install_vim_plugins
 install_oh_my_zsh
 
-# TODO (h4w5) can we move this up to be with github credentialing?
-# set up default deployment with heroku
-ubuntu/set_up_heroku
-
 ubuntu/install_mailutils
 report_log
+
 # TODO (phlco) skipping the email line
 # capture_mac_address

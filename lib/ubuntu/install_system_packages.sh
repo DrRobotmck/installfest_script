@@ -80,3 +80,5 @@ packagelist=(
 )
 
 sudo apt-get -y install ${packagelist[@]}
+
+assert_package_installed ${packagelist[@]}
