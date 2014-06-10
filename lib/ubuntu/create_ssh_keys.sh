@@ -18,10 +18,8 @@ echo '- Confirm the action by entering your GitHub password'
 
 pause_awhile "Press Enter. We'll be here until you get back from Github."
 
-echo "Firefox may print an error to the terminal. DON'T WORRY!"
 # Open in default browser as a new process
-# FIXME(phlco) Firefox raises an error
-# directing output to /dev/null to supress error
+echo "Firefox may print an error to the terminal. DON'T WORRY!" # directing output to /dev/null to supress error
 xdg-open https://github.com/settings/ssh 2>/dev/null
 
 pause_awhile "Ok. Ready to Continue? Press Enter."

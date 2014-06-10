@@ -31,7 +31,6 @@ packagelist=(
 
   # OpenSSL implementation of SSL
   libssl-dev
-
   libcurl4-openssl-dev
 
   # version control
@@ -43,10 +42,12 @@ packagelist=(
 
   # command line tool for transferring data with URL syntax
   curl
+
   # This software provides an abstraction of the used apt repositories.
   python-software-properties
 
-  # required for building Debian packages
+  # a reference for all the packages needed to compile a debian package
+  # generally includes the gcc/g++ compilers an libraries and some other utils
   build-essential
 
   # library implementing the deflate compression method found in gzip and PKZIP
@@ -62,7 +63,6 @@ packagelist=(
 
   # self-contained, serverless, transactional SQL database engine.
   sqlite3
-
   libsqlite3-dev
 
   # ASCII ART!!!!
