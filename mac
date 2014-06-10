@@ -141,7 +141,8 @@ allow_control() {
 }
 
 # set FORCE (do not quit on error) to true if it is not loaded, as a default
-: ${FORCE=true}
+: ${FORCE=true} # TODO (h4w5) since we are testing for null, this will always happen
+                # switch to true/false
 
 echo_log() {
   echo "$1" >&2
@@ -187,9 +188,9 @@ assert_that() {
 assert_package_installed() {
   for package in "$@"; do
     if [ "$OSTYPE" == "darwin" ]; then
-      assert_that "'${package}' package is installed" "brew ls --versions ${package}" "${package}"
+      assert_that "${package} package is installed" "brew ls --versions ${package}" "${package}"
     elif [ "$OSTYPE" == "linux-gnu" ]; then
-      assert_that "'${package}' package is installed" "dpkg -s ${package}"
+      assert_that "${package} package is installed" "dpkg -s ${package}"
     else
       echo_log "${RED}OS Type unknown in assertions...${RESET}" && exit 1;
     fi
