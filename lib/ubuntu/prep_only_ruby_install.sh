@@ -23,6 +23,10 @@ sudo apt-get -y install libxml2 libxml2-dev libxslt1-dev
 # git for version control
 sudo apt-get -y install git
 
+# Header files and static library for compiling C programs to link with the
+# libpq library in order to communicate with a PostgreSQL database backend.
+sudo apt-get -y install libpq-dev
+
 # check installs
-assert_package_installed build_essential tklib zlib1g-dev libssl-dev git
+assert_package_installed build-essential tklib zlib1g-dev libssl-dev git libpq-dev
 assert_package_installed libreadline-gplv2-dev libxml2 libxml2-dev libxslt1-dev

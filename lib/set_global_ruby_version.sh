@@ -24,3 +24,5 @@ rbenv global $BELOVED_RUBY_VERSION
 
 # export PATH="$HOME/.rbenv/bin:$PATH"
 # eval "$(rbenv init -)"
+
+assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" "ruby -v" "${BELOVED_RUBY_VERSION}"

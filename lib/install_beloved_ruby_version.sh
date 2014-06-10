@@ -7,3 +7,4 @@ else
 fi
 
 # rbenv rehash
+# assert_that "Ruby is installed" "which ruby" "~/.rbenv/bin"
