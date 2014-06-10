@@ -260,9 +260,12 @@ allow_control() {
   fi
 }
 
-# TODO (h4w5) everywhere a variable is used but defined in another file,
-# handle that situation (as with $FORCE here), maybe by defaulting if not
-# set?
+# set FORCE (do not quit on error) to true if it is not loaded, as a default
+: ${FORCE=true}
+
+echo_log() {
+  echo "$1" >&2
+}
 
 # ex: assert_that "`gem` is installed" "gem"
 # ex: assert_that "`gem` is shimmed by rbenv" "which gem" "$HOME/.rbenv/shims/gem"
@@ -274,13 +277,12 @@ allow_control() {
 assert_that() {
   # test for a simple error by evaling the second argument, and redirecting only
   # STDERR to a variable named ERR
-  ERR=$( (eval "$2") 2>&1 >/dev/null )
-  OUT=$(eval "$2")
+  ERR=$( (eval "$2") 2>&1 >/dev/null ) && { export OUT=$(eval "$2"); }
 
   if [ -n "$ERR" ]; then # if ERR is not null, then...
     # echo failure to STDERR & STDOUT
     echo_log "${RED}$1: failure! Error: ${ERR}${RESET}"
-    [-n "$FORCE"] || exit; # exit on failure if not 'forcing'
+    [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
   elif [ -n "$3" ]; then # else, if there is a third argument...
     if [ "$OUT" = "$3" ]; then # and they equal
       # echo success to STDERR & STDOUT
@@ -288,12 +290,29 @@ assert_that() {
     else
       # echo failure to STDERR & STDOUT if second and third arguments do not match
       echo_log "${RED}$1: failure! '$OUT' does not equal '$3'.${RESET}"
-      [-n "$FORCE"] || exit; # exit on failure if not 'forcing'
+      [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
     fi
   else
     # echo success to STDERR & STDOUT
     echo_log "${GREEN}$1...${RESET}"
   fi
+}
+
+# ex: assert_package_installed "git"
+# ex: packagelist=( libssl-dev; libcurl4-openssl-dev; git; git-core ); assert_package_installed ${packagelist[@]}
+
+# only works when packages share a name across OSs, otherwise easiest to write
+# two assertions...
+assert_package_installed() {
+  for package in "$@"; do
+    if [ "$OSTYPE" == "darwin" ]; then
+      assert_that "'${package}' package is installed" "brew ls --versions ${package}" "${package}"
+    elif [ "$OSTYPE" == "linux-gnu" ]; then
+      assert_that "'${package}' package is installed" "dpkg -s ${package}"
+    else
+      echo_log "${RED}OS Type unknown in assertions...${RESET}" && exit 1;
+    fi
+  done
 }
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
@@ -304,7 +323,7 @@ SETTINGS=$SRC_DIR/settings
 INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 
 # This refers to the branch of our repo that we are using (for cloning).
-BRANCH=version2
+BRANCH=pj_working
 # Capture the user's password
 sudo echo "Thanks."
 
@@ -324,13 +343,30 @@ assert_that "RVM has been removed or was not installed" "command -v rvm" ""
 # this is a subset of the install_system_packages script for the purpose of
 # setting up an ubuntu-rubyonly install
 
-# OpenSSL implementation of SSL
-sudo apt-get -y install libssl-dev
-assert_that "OpenSSL implementation downloaded for git" "apt-cache show libssl-dev"
+sudo apt-get -y update
+
+# a reference for all the packages needed to compile a debian package
+# generally includes the gcc/g++ compilers an libraries and some other utils
+sudo apt-get -y install build-essential
+
+# Packages required for compilation of some stdlib modules
+sudo apt-get -y install tklib
+
+# Extras for RubyGems and Rails:
+sudo apt-get -y install zlib1g-dev libssl-dev
+
+# Readline Dev on Ubuntu 12.04 LTS:
+sudo apt-get -y install libreadline-gplv2-dev
+
+# Install some nokogiri dependencies:
+sudo apt-get -y install libxml2 libxml2-dev libxslt1-dev
 
 # git for version control
 sudo apt-get -y install git
-assert_that "OpenSSL implementation downloaded for git" "apt-cache show git"
+
+# check installs
+assert_package_installed build_essential tklib zlib1g-dev libssl-dev git
+assert_package_installed libreadline-gplv2-dev libxml2 libxml2-dev libxslt1-dev
 # Our ruby version manager
 
 # rbenv
@@ -339,16 +375,14 @@ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-# FIXME (h4w5) should check if it exists
-# Wouldn't it not exist until installing rbenv anyway?
+# FIXME (h4w5) i meant to put in an assertion here...
+
 # Specify default gems in ~/.rbenv/default-gems
 git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
 
 # automatically runs rbenv rehash every time you install or uninstall a gel.
 git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
 
-# FIXME (h4w5) should check if it exists
-# Wouldn't it not exist until installing rbenv anyway?
 # Provides an rbenv install command to compile and install different versions of Ruby
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 # Our gems to install
