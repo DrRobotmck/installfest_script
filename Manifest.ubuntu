@@ -18,7 +18,6 @@ ubuntu/install_system_packages
 capture_github_credentials
 ubuntu/create_ssh_keys
 configure_git
-clone_script_repo # TODO (h4w5) can we remove this?
 
 # TODO (h4w5) can we move this up to be with github credentialing?
 # set up default deployment with heroku
