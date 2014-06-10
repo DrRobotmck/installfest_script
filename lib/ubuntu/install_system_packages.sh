@@ -56,7 +56,8 @@ packagelist=(
   # generates an index file of names found in source files of various programming languages.
   exuberant-ctags
 
-  # Header files and static library for compiling C programs to link with the libpq library in order to communicate with a PostgreSQL database backend.
+  # Header files and static library for compiling C programs to link with the
+  # libpq library in order to communicate with a PostgreSQL database backend.
   libpq-dev
   # or try
   # gem install pg  --   --with-pg-lib=/usr/lib
