@@ -1,3 +1,4 @@
+
 # SSH Keygen
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
@@ -16,10 +17,12 @@ echo '- Paste your key into the "Key" field'
 echo '- Click "Add key"'
 echo '- Confirm the action by entering your GitHub password'
 
-pause_awhile "Press Enter. We'll be here until you get back from Github."
+read -p "Press Enter. We'll be here until you get back from Github. Press Enter to continue."
 
 # Open in default browser as a new process
 echo "Firefox may print an error to the terminal. DON'T WORRY!" # directing output to /dev/null to supress error
 xdg-open https://github.com/settings/ssh 2>/dev/null
 
-pause_awhile "Ok. Ready to Continue? Press Enter."
+read -p "Ok. Ready to Continue? Press Enter."
+
+# TODO (h4w5) add assertion around ... "ssh -T git@github.com"

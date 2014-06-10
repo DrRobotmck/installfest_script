@@ -25,3 +25,5 @@ read -p "We'll be here until you get back from Github. Ready? Press Enter to con
 open https://github.com/settings/ssh
 
 read -p "SSH keys added? Press Enter to continue."
+
+# TODO (h4w5) add assertion around ... "ssh -T git@github.com"
