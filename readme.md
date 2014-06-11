@@ -56,7 +56,7 @@ hipchat
 # sinatra? node? rspec?
 ```
 
-## How do I Contribute to (or Edit) the Installfest Scripts?
+## How do I Contribute to (or edit) the Installfest Scripts?
 
 For specific rules about making contributions or how to structure Pull Requests, please read [CONTRIBUTING.md]().
 
@@ -213,26 +213,30 @@ Program in a Unix-like environment. Right now we support Mac OSX and Ubuntu. We 
 language stack  
 versions (why important)
 
-|                       | Version      | Technology | Client/Server |
-|:----------------------|:-------------|:-------------|:-------|
-| **[PostgreSQL][dbl]** | [...][dbv]   | Database     | Server |
-| **[Ruby][sll]**       | [2.1.2][slv] | Language     | Server |
-| **[Sinatra][sf1l]**   | [...][sf1v]  | Framework    | Server |
-| **[Rails][sf2l]**     | [...][sf2v]  | Framework    | Server |
-| **[RSpec][stl]**      | [...][stv]   | Unit Testing | Server |
-| **[JavaScript][cll]** | [...][clv]   | Language     | Client |
-| **[Backbone][cfl]**   | [...][cfv]   | Framework    | Client |
-| **[Jasmine][ftl]**    | [...][ftv]   | Unit Testing | Client |
-| **[Capybara][acl]**   | [...][acv]   | Acceptance <br> Testing | Client |
-| **[Heroku][hkl]**     | n/a          | Hosting      | &nbsp; |
+|                       | Version      | Technology | Client/Server | Installed |
+|:----------------------|:-------------|:-------------|:------:|:--:|
+| **[PostgreSQL][psql]** | ...    | Database     | Server | &#x2713; |
+| **[Ruby][sll]**       | 2.1.2  | Language     | Server | &#x2713; |
+| **[Sinatra][sf1l]**   | ...    | Framework    | Server | &#x2713; |
+| **[Rails][sf2l]**     | 4.1.0  | Framework    | Server | &#x2713; |
+| **[RSpec][stl]**      | 3.0.0  | Unit Testing | Server | &#x2713; |
+| **[JavaScript][cll]** | ...    | Language     | Client | |
+| **[jQuery][jquery]** | 2.1.1    | Framework     | Client | |
+| **[Backbone][back]**   | 1.1.2  | Framework    | Client | |
+| **[Jasmine][ftl]**    | [...][ftv]   | Unit Testing | Client | |
+| **[Capybara][acl]**   | [...][acv]   | Acceptance <br> Testing | Client | &#x2713; |
+| **[Heroku][hkl]**     | ...  | Hosting      | &nbsp; | &#x2713;\* |
 
-[dbl]: ... "..."
+\* - some tools added and setup performed, but no specific application involved  
+
+[psql]: http://www.postgresql.org/ "..."
 [sll]: ... "..."
 [sf1l]: ... "..."
 [sf2l]: ... "..."
-[stl]: ... "..."
+[stl]: http://rspec.info/ "..."
 [cll]: ... "..."
-[cfl]: ... "..."
+[back]:   http://backbonejs.org/ "Backbone homepage and documentation"
+[jquery]: http://jquery.com/  "jQuery homepage"
 [ftl]: ... "..."
 [acl]: ... "..."
 [hkl]: ... "..."
@@ -276,7 +280,7 @@ settings
 | __[figlet]()__  |  &#x2713; | Mac/Ubuntu  | An ASCII art generator. |
 | __[Brew]()__\* | &#x2713; | Mac | A system-wide [package management]() system. Similar to [apt-get](). |
 | __[Spectacle]()__\* | &#x2713; | Mac | A window management utility with hotkeys. Similar to the hotkeys in [Unity](). |
-| __[Vim]()__\*\*  | &#x2713; | Ubuntu  | Terminal-based text editor. |
+| __[Vim]()__\*\*  | &#x2713; | Ubuntu  | A very widely-used, terminal-based text editor. |
 | __[Alfred]()__  |  | Mac  | A search and indexing tool that replaces Spotlight. |
 | __[Dash]()__, __[Zeal]()__ |  | Mac, Ubuntu | Tools for storing, browsing and searching documentation. |
 | __[Flux]()__  | | Mac/Ubuntu  | A monitor color management utility pegged to daylight. |
