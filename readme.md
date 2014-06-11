@@ -6,6 +6,8 @@ This repo holds the scripts used in the installation, setup, and creation of "do
 
 The script comes in three basic flavors: the default full install for Mac OS, the default full install for Ubuntu Linux, and smaller scripts that ensure a current and standardized install of Ruby is being used.
 
+**Warning**: in their default form, these scripts are very invasive, overwriting settings and versions for applications and tools used in the course. If you have dearly loved dotfiles, ensure that you back them up before running the script.
+
 ##### For Mac OS:
 
 Paste this script into a Terminal prompt:
@@ -28,7 +30,7 @@ If you are a Linux user already, and only want to install our common Ruby enviro
 bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/version2/ubuntu-rubyonly)
 ```
 
-# Contributing to (or Editing) the Installfest Scripts
+# How do I Contribute to (or Edit) the Installfest Scripts?
 
 For specific rules about making contributions or how to structure Pull Requests, please read [CONTRIBUTING.md]().
 
@@ -46,10 +48,11 @@ The individual components of the InstallFest script are stored in `lib` and `tes
 # will not overwrite an existing pre-commit hook...
 if [[ ! -a .git/hooks/pre-commit ]]; then
   cat << EOF > .git/hooks/pre-commit
-    #!/usr/bin/env bash
-    rake
-    git add lib/set_script_branch.sh
-    ls  Manifest* | sed -e 's/Manifest\.//g' | xargs git add
+#!/usr/bin/env bash
+
+rake
+git add lib/set_script_branch.sh
+ls  Manifest* | sed -e 's/Manifest\.//g' | xargs git add
 EOF
 fi
 ```
@@ -75,11 +78,122 @@ Components also exist to share the log file via email. This will be helpful for 
 It is recommended to add assertions that check the status of every component that installs or updates the target system, if for no other reason than to ensure that there is a log record of the changes made by the script.
 
 
-## What does this install
+# What do the Installfest scripts do?
+
+After the successful completion of an Installfest script, the target computer should have all of the necessary software installed to create web applications: to write, test, run, collaborate on, and host them online.
+
+The target computer should also utilize common settings for applications and software development tools used in the course (unless the user overrode the script's default behavior).
+
+In short, the scripts set up the target computer with a common development environment shared by all of the members and instructors of WDI. Which raises the questions:
+
+- what is a development environment?
+- how we teach development in WDI?
+- what tools do we use to develop software?
+- what other applications do we use in the course?
+- what other tools and techs might one use while at GA?
+- what are minimum and recommended specs for development hardware?
+
+### What is a development environment?
+
+Program in a Unix-like environment. Right now we support Mac OSX and Ubuntu. We program in a shell: bash/zsh. We use a window manager: Spectacle or Unity's built-in tool. we use technologies and a language stack. we use tools and settings and a style guide.
+
+### How do we teach development in WDI?
+
+language stack, versions
+
+|                       | Version      | Technology | Client/Server |
+|:----------------------|:-------------|:-----------|:-------|
+| **[PostgreSQL][dbl]** | [...][dbv]   | Database   | Server |
+| **[Ruby][sll]**       | [2.1.2][slv] | Language   | Server |
+| **[Sinatra][sfl]**    | [...][sfv]   | Framework  | Server |
+| **[Rails][sfl]**      | [...][sfv]   | Framework  | Server |
+| **[JavaScript][cll]** | [...][clv]   | Language   | Client |
+| **[Backbone][cfl]**   | [...][cfv]   | Framework  | Client |
+
+[dbl]: ... "..."
+[sll]: ... "..."
+[sfl]: ... "..."
+[cll]: ... "..."
+[cfl]: ... "..."
+[dbv]: ... "..."
+[slv]: ... "..."
+[sfv]: ... "..."
+[clv]: ... "..."
+[cfv]: ... "..."
+
+### What tools do we use to develop software?*
+
+- Editor: Atom (Sublime, Vim)
+- Chat: HipChat (Slack)
+- Browser: Chrome (Firefox)
+- Version Control: Git
+- Collaboration: Git & GitHub
+- Process: Trello (Pivotal Tracker)
+
+### What other applications do we use in the course?
+
+- Mac OS: ... (installed by default)
+- Ubuntu: ... "
+
+### What other tools and techs might one use while at GA?
+
+Other programming environments you may use in class or in another GA class. Also used by some of our applications and system tools.
+
+- C
+- Node
+- Python
+- PHP
+- Java
+
+### What are minimum and recommended specs for development hardware?
+
+#### Minimum and recommended hardware specs and virtual machines.
 
 - An editor
 - A browser
 - Configures git
+
+
+- Ruby
+- Rails
+- Browser
+- Text Editor
+
+Ruby, 16 MB
+
+Sublime
+OS X (OS X 10.6 or later is required), 30 MB
+
+Homebrew
+10.7 or higher is recommended. 10.6 and 10.5 are supported on a best-effort basis.
+
+Mac System Requirements
+In order to run 10.7 you'll need
+An Intel Core 2 Duo, Core i3, Core i5, Core i7, or Xeon processor
+7 GB of available disk space
+2 GB of RAM
+
+Chrome
+Mac OS X 10.6 or later, Intel, 350 MB
+Ubuntu 12.04+, Intel Pentium 4 or later
+
+Class Repo ~ 500MB
+
+Brew Cellar ~ 1GB
+
+Atom ~ 200 MB
+
+HipChat ~ 25MB
+
+FireFox ~ 115MB
+
+Gems
+
+#### Recommended hardware for purchase.
+
+...
+
+~~~
 
 ## Assumptions
 
@@ -102,6 +216,8 @@ git commit -am 'first commit'
 heroku create
 git push heroku master
 ```
+~~~
+
 
 # Getting Started with Ubuntu
 
@@ -163,96 +279,6 @@ http://askubuntu.com/questions/28086/what-are-unitys-keyboard-and-mouse-shortcut
 - SUPER, META, & HYPER KEYS: http://askubuntu.com/questions/19558/what-are-the-meta-super-and-hyper-keys
 - OTHER TERMINOLOGY:
 http://askubuntu.com/questions/10228/whats-the-right-terminology-for-unitys-ui-elements
-
-
-# Specifications
-The script first runs any software updates and then checks for Xcode.
-
-If Xcode is installed the script continues.
-
-- We then clone the repo onto the student's machine
-- Remove Macports or RVM
-- Installs homebrew and some formulae
-- Sets up git
-- Installs Sublime and Sublime settings (package manager and base packages)
-- Installs additional apps like Chrome, HipChat and Spectacle
-- Sets up RBenv and installs bundler, pry and rails
-- Adds solarized to Terminal
-
-# Minimum Requirements
-
-- Ruby
-- Rails
-- Browser
-- Text Editor
-
-Ruby, 16 MB
-
-Sublime
-OS X (OS X 10.6 or later is required), 30 MB
-
-Homebrew
-10.7 or higher is recommended. 10.6 and 10.5 are supported on a best-effort basis.
-
-Mac System Requirements
-In order to run 10.7 you'll need
-An Intel Core 2 Duo, Core i3, Core i5, Core i7, or Xeon processor
-7 GB of available disk space
-2 GB of RAM
-
-Chrome
-Mac OS X 10.6 or later, Intel, 350 MB
-Ubuntu 12.04+, Intel Pentium 4 or later
-
-Class Repo ~ 500MB
-
-Brew Cellar ~ 1GB
-
-Atom ~ 200 MB
-
-HipChat ~ 25MB
-
-FireFox ~ 115MB
-
-Gems
-
-~~~~~
-
-Our development environment.
-
-Program in a Unix-like environment. Right now we support Mac OSX and Ubuntu. We program in a shell: bash/zsh. We use a window manager: Spectacle or Unity's built-in tool.
-
-What we teach with.
-
-- BE Framework: Rails & Sinatra, FE Framework: Backbone, Database: PostgreSQL.
-- Chart of versions.
-
-What tools we use.*
-
-- Editor: Atom (Sublime, Vim)
-- Chat: HipChat
-- Browser: Chrome (Firefox)
-
-Other applications often used in class.
-
-- Mac OS: ... (installed by default)
-- Ubuntu: ... "
-
-Other programming environments you may use in class or in another GA class. Also used by some of our applications and system tools.
-
-- C
-- Node
-- Python
-- PHP
-- Java
-
-Minimum and recommended hardware specs and virtual machines.
-
-...
-
-Recommended hardware for purchase.
-
-...
 
 ### Why not use a Virtual Environment?
 
