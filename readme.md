@@ -4,6 +4,8 @@ This repo holds the scripts used in the installation, setup, and creation of "do
 
 [You can head here to find out what is installed, and what the hardware specifications are for the program.][specs]
 
+## How do I run an Installfest Script?
+
 The script comes in three basic flavors: the default full install for Mac OS, the default full install for Ubuntu Linux, and smaller scripts that ensure a current and standardized install of Ruby is being used.
 
 **Warning**: in their default form, these scripts are very invasive, overwriting settings and versions for applications and tools used in the course. If you have dearly loved dotfiles, ensure that you back them up before running the script.
@@ -54,11 +56,11 @@ hipchat
 # sinatra? node? rspec?
 ```
 
-# How do I Contribute to (or Edit) the Installfest Scripts?
+## How do I Contribute to (or Edit) the Installfest Scripts?
 
 For specific rules about making contributions or how to structure Pull Requests, please read [CONTRIBUTING.md]().
 
-## Directory and script structure
+### Directory and script structure
 
 The scripts are written in Bash, and are meant to be run in a `bash` shell on a Unix-derived system. Such environments include both the default Terminal and iTerm in Mac OS X, and the Terminal and shell in Ubuntu Linux.
 
@@ -117,7 +119,7 @@ Commentary beyond code explanation (simple comments) is stored in `lib/commentar
 └── readme.md
 ```
 
-## Testing and logging
+### Testing and logging
 
 The script downloads from [https//raw.githubusercontent.com](). Be aware: **it caches resources for one minute**, so you may not see your changes to the script immediately.
 
@@ -133,7 +135,7 @@ Components also exist to share the log file via email. This will be helpful for 
 
 It is recommended to add assertions that check the status of every component that installs or updates the target system, if for no other reason than to ensure that there is a log record of the changes made by the script.
 
-## Creating new scripts
+### Creating new scripts
 
 While adding components to the script library is always useful, as well as making updates to existing components to reflect changes in standard installations or bugfixes, it is important to test any changes made in a component that is included in existing manifests at the script level and the component level. What that means is, run every effected script when you make a change to a component to check for regression errors, please.
 
@@ -187,8 +189,7 @@ capture_password
 
 ```
 
-
-# What do the Installfest scripts do?
+## What do the Installfest scripts do?
 
 After the successful completion of an Installfest script, the target computer should have all of the necessary software installed to create web applications: to write, test, run, collaborate on, and host them online.
 
@@ -251,8 +252,8 @@ what tools do we need for web dev
 suggested vs alternatives  
 settings
 
-|  | Tool | Alternatives |
-|:--|:--|:--|
+| App | Tool | Alternatives |
+|:--:|:--:|:--:|
 | **[Atom][txt]** | Text Editor | [Sublime Text](), <br> [Vim]() |
 | **[Chrome][brw]** | Web Browser | [Firefox]() |
 | **[Git][ver]** | Version Control | none |
@@ -269,28 +270,28 @@ settings
 
 ### What other applications do we use in the course?
 
-system independent
+| App | Req'd for Class | System | Description |
+|:----|:---------------:|:------:|:------------|
+| __[rbenv][rbenv]__ | &#x2713; | Mac/Ubuntu | A Ruby version management tool. Similar to [RVM][rvm], but smaller and simpler. |
+| __[figlet]()__  |  &#x2713; | Mac/Ubuntu  | An ASCII art generator. |
+| __[Brew]()__\* | &#x2713; | Mac | A system-wide [package management]() system. Similar to [apt-get](). |
+| __[Spectacle]()__\* | &#x2713; | Mac | A window management utility with hotkeys. Similar to the hotkeys in [Unity](). |
+| __[Vim]()__\*\*  | &#x2713; | Ubuntu  | Terminal-based text editor. |
+| __[Alfred]()__  |  | Mac  | A search and indexing tool that replaces Spotlight. |
+| __[Dash]()__, __[Zeal]()__ |  | Mac, Ubuntu | Tools for storing, browsing and searching documentation. |
+| __[Flux]()__  | | Mac/Ubuntu  | A monitor color management utility pegged to daylight. |
+| __[Hub][hub]__ | | Mac/Ubuntu | A wrapper/plugin for Git that adds functionality. |
+| __[Sublime Text]()__  | | Mac/Ubuntu | An alternate (very popular) text editor. |
+| __[zsh]()__  | | Mac/Ubuntu  | An alternate terminal shell environment. |
 
-- rbenv
+ \* - copies a program or functionality included by default in Ubuntu Linux  
+ \*\* - copies a program or functionality included by default in Mac OS X
 
-optional, added
+and various packages needed to make these work and the above work
 
-- fonts
-- figlet
-- flux
-- zsh
-- sublime
-- vim
-
-Mac OS:
-
-- brew for package management (apt-get on ubuntu)
-- spectacle for window management (unity on ubuntu)
-- alfred
-- dash
-
-
-and various packages needed to make these work
+[rbenv]: https://github.com/sstephenson/rbenv "rbenv on GitHub"
+[rvm]: https://rvm.io/ "RVM homepage"
+[hub]: https://hub.github.com/ "Hub hompeage"
 
 ### What settings and dotfiles do we use for applications?
 
@@ -353,22 +354,22 @@ Other programming environments you may use in class or in another GA class. Also
 ~~~
 
 
-# Getting Started with Ubuntu
+## How do I get started with Ubuntu?
 
-## What is Linux? What is Ubuntu?
+### What is Linux? What is Ubuntu?
 
 What and why
 
 ...
 
-## How can I use Linux on my machine?
+### How can I use Linux on my machine?
 
 1. In a virtual environment
 2. As the local environment
 
 ...
 
-## Installing a virtual environment
+### Installing a virtual environment
 
 Install VirtualBox VM
 Install Vagrant
@@ -416,11 +417,11 @@ _**Don't use yet!** Not in working condition._
 - [Download our our virtual Mac OS environment via BitTorrent.][mac-torrent]
 - [Download our our virtual Ubuntu environment via BitTorrent.][ubuntu-torrent]
 
-## Installing a bootable local environment
+### Installing a bootable local environment
 
 ...
 
-## Setting up the dev environment
+### Setting up the dev environment
 
 - Set the desktop wallpaper with:
 
@@ -436,7 +437,7 @@ http://i.stack.imgur.com/krD8y.jpg (--> need to host this!)
 bash <( wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/ubuntu-merge/ubuntu)
 ```
 
-## Learn the Unity desktop
+### Learn the Unity desktop
 
 - REALLY GOOD SHORTCUTS THING:
 http://askubuntu.com/questions/28086/what-are-unitys-keyboard-and-mouse-shortcuts
