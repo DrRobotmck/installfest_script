@@ -1,7 +1,20 @@
 # Heroku command-line tooling for working with the Heroku platform
 
 # http://eoinoc.net/install-hub-github-linux-mint/
-wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+# wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+# from the above, but using our current environment:
+
+# add heroku repository to apt
+echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
+
+# install heroku's release key for package verification
+wget -O- https://toolbelt.heroku.com/apt/release.key | sudo apt-key add -
+
+# update your sources with heroku packages
+sudo apt-get update -y
+
+# install the toolbelt
+sudo apt-get install -y heroku-toolbelt
 
 # https://devcenter.heroku.com/articles/keys
 echo "Heroku is a cloud platform as a service (PaaS) supporting several"

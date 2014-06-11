@@ -1,8 +1,8 @@
-## WDI InstallFest Script
+# WDI InstallFest Script
 
-These are the scripts used to in the installation, setup, and creation of "dotfiles" for the development environments of students in General Assembly's Web Development Immersive program.
+This repo holds the scripts used in the installation, setup, and creation of "dotfiles" (ie, application settings) for the development environments of students in General Assembly's Web Development Immersive program.
 
-[You can head here to find out what is installed and what the hardware specifications are for the program.][specs]
+[You can head here to find out what is installed, and what the hardware specifications are for the program.][specs]
 
 The script comes in three basic flavors: the default full install for Mac OS, the default full install for Ubuntu Linux, and smaller scripts that ensure a current and standardized install of Ruby is being used.
 
@@ -16,78 +16,64 @@ bash <(curl -sL https://raw.githubusercontent.com/ga-instructors/installfest_scr
 
 ##### For Ubuntu Linux:
 
-_**Don't use yet!** Almost in working condition._
-
-If you aren't familiar with Linux, then make sure to read "[Getting Started with Ubuntu][ubuntu]." Otherwise, just Paste this script into a Terminal prompt:
+If you aren't familiar with Linux, then make sure to read "[Getting Started with Ubuntu][ubuntu]." Otherwise, just paste this script into a Terminal prompt:
 
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/version2/ubuntu)
 ```
 
-For installing Ruby only, paste this script into a Terminal prompt:
+If you are a Linux user already, and only want to install our common Ruby environment, paste this script into a Terminal prompt:
 
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/version2/ubuntu-rubyonly)
 ```
 
+# Contributing to (or Editing) the Installfest Scripts
 
-### Why not use a Virtual Environment?
+For specific rules about making contributions or how to structure Pull Requests, please read [CONTRIBUTING.md]().
 
-When weighing the options, we decided not use Vagrant to ensure all students were working in a common environment for three main reasons:
+## Directory and script structure
 
-1. ownership
-2. simplicity
-3. Heroku
+The scripts are written in Bash, and are meant to be run in a `bash` shell on a Unix-derived system. Such environments include both the default Terminal and iTerm in Mac OS X, and the Terminal and shell in Ubuntu Linux.
 
-##### Ownership
+Every script has a manifest file in the root of the repo (`Manifest.scriptname`), and then a requisite Installfest script named simply `scriptname`, for example: `Manifest.mac` and `mac`. The manifest file is a list of the component shell scripts that comprise the full Installfest script. Running the default `rake` task in the repo assembles each of the Installfest scripts dynamically from the contents of each component script named therein.
 
-We want the students to feel as if they are in control of their environments. That is, they should be able, within reason, to customize and optimize their coding experience as they see fit. Using a common install and then stepping away feels like a good way to set a baseline while allowing them ownership. While they could do the same with virtual machine, that undermines the entire reason of forcing them to work in a virtualized environment.
+The individual components of the InstallFest script are stored in `lib` and `tests`, and the Rake tasks (stored in the `Rakefile`) call Ruby scripts stored in `bin`.
 
-The precept holds as well: let's help them grow as individuals, and not enforce uniformity upon them. It seems to me weirdly patronizing to force them to work in an environment we've created, instead of giving them the tools to begin building their own.
+**A pre-commit hook can be added to your repo** that automatically runs `rake` and adds the newly assembled Installfest script with your changes from the Manifests (and the `lib/set_script_branch.sh` file, which sets an environment variable with the current git branch's name) to your commit. To add that hook, run the command below from the repo's root.
 
-##### Simplicity
+```bash
+# will not overwrite an existing pre-commit hook...
+if [[ ! -a .git/hooks/pre-commit ]]; then
+  cat << EOF > .git/hooks/pre-commit
+    #!/bin/sh
+    rake
+    git add lib/set_script_branch.sh
+    ls  Manifest* | sed -e 's/Manifest\.//g' | xargs git add
+EOF
+fi
+```
 
-Sure, having the students install Vagrant and run a VM may seem like it takes fewer steps than running this overcooked install script. But it's also removing a fair amount of agency. They don't afterwards have to interact with their dev environment, but only because of a reliance upon multiple layers of incredibly complicated software. It's giving the students "the magic" up front, which we've often seen lead to a number of questions we can't answer and misconceptions that are hard to clear up.
+Tests that can be run as part of a script, or helper functions to run such tests, are stored in the `tests` folder. All other components are stored in the `lib` folder.
 
-##### Heroku
+Commentary beyond code explanation (simple comments) is stored in `lib/commentary`. System-independent components are stored in the base of `lib`, and system-dependent components are stored in `lib/systemname` (eg: `lib/mac` and `lib/ubuntu`). Settings (separate from installations, mostly for applications) and dotfiles are stored in `lib/settings`.
 
-As long as we are pushing our repos to Heroku for deployment, a VM seems unnecessary. But if we begin using a different and customizable hosting environment, and teaching students about basic DevOps, it may make sense to use Chef and Vagrant to configure servers and deploy.
+## Testing and logging
 
-### That being said...
+The script downloads from [https//raw.githubusercontent.com](). Be aware: **it caches resources for one minute**, so you may not see your changes to the script immediately.
 
-We expect to build virtual machines using default setups, the installfest script and settings, and then have torrent links available here:
+*Use a seperate branch (or fork) from **master** and **development** for testing and working on features or new components*, of course. Users are pulling directly from **master** for builds.
 
-_**Don't use yet!** Not in working condition._
+Components exist to log the output of the scripts. Since the output is massive, they are set by default to log only:
 
-- [Download our our virtual Mac OS environment via BitTorrent.][mac-torrent]
-- [Download our our virtual Ubuntu environment via BitTorrent.][ubuntu-torrent]
+- output sent to `STDERR`
+- comments printed with the command `echo_log` or `echo >&2`
+- output created by functions that use `echo_log`, such as those stored in the `tests/add_assert_functions.sh` component
 
-## Developers
+Components also exist to share the log file via email. This will be helpful for knowing the status of students' installs done off-site.
 
-If you want to contribute to or use the installfest script to set up a GA dev environment, please read our [how to use](#how-to-use) document.
+It is recommended to add assertions that check the status of every component that installs or updates the target system, if for no other reason than to ensure that there is a log record of the changes made by the script.
 
-[specs]:          specifications.md               "Dev Environment and hardware specs"
-[ubuntu]:         getting_started_with_ubuntu.md  "Ubuntu Guide"
-[developing]:     how_to_use.md                   "How to use the script"
-[mac-torrent]:    http://example.com/             "Mac GABox"
-[ubuntu-torrent]: http://example.com/             "Ubuntu GABox"
-
-
-# How to use
-
-The individual components of the InstallFest script are stored in `lib`
-
-The components are listed in the order they are to be installed in `Manifest.mac` and `Manifest.ubuntu`
-
-A custom rake task assembles the pieces into one script.
-
-To build the installfest script run `rake`
-
-A pre-commit hook has been added that should automatically run `rake`
-and add the manifest files.
-
-## Developing
-The script downloads from raw.githubusercontent.com. Be aware that it caches resources for 1 minute, so you may not see your changes to the script immediately.
 
 ## What does this install
 
@@ -117,7 +103,7 @@ heroku create
 git push heroku master
 ```
 
-# Setting up your Linux environment with Ubuntu
+# Getting Started with Ubuntu
 
 ## What is Linux? What is Ubuntu?
 
@@ -267,3 +253,43 @@ Minimum and recommended hardware specs and virtual machines.
 Recommended hardware for purchase.
 
 ...
+
+### Why not use a Virtual Environment?
+
+When weighing the options, we decided not use Vagrant to ensure all students were working in a common environment for three main reasons:
+
+1. ownership
+2. simplicity
+3. Heroku
+
+##### Ownership
+
+We want the students to feel as if they are in control of their environments. That is, they should be able, within reason, to customize and optimize their coding experience as they see fit. Using a common install and then stepping away feels like a good way to set a baseline while allowing them ownership. While they could do the same with virtual machine, that undermines the entire reason of forcing them to work in a virtualized environment.
+
+The precept holds as well: let's help them grow as individuals, and not enforce uniformity upon them. It seems to me weirdly patronizing to force them to work in an environment we've created, instead of giving them the tools to begin building their own.
+
+##### Simplicity
+
+Sure, having the students install Vagrant and run a VM may seem like it takes fewer steps than running this overcooked install script. But it's also removing a fair amount of agency. They don't afterwards have to interact with their dev environment, but only because of a reliance upon multiple layers of incredibly complicated software. It's giving the students "the magic" up front, which we've often seen lead to a number of questions we can't answer and misconceptions that are hard to clear up.
+
+##### Heroku
+
+As long as we are pushing our repos to Heroku for deployment, a VM seems unnecessary. But if we begin using a different and customizable hosting environment, and teaching students about basic DevOps, it may make sense to use Chef and Vagrant to configure servers and deploy.
+
+### That being said...
+
+We expect to build virtual machines using default setups, the installfest script and settings, and then have torrent links available here:
+
+_**Don't use yet!** Not in working condition._
+
+- [Download our our virtual Mac OS environment via BitTorrent.][mac-torrent]
+- [Download our our virtual Ubuntu environment via BitTorrent.][ubuntu-torrent]
+
+
+
+
+[specs]:          #specifications              "Dev Environment and hardware specs"
+[ubuntu]:         #getting-started-with-ubuntu "Ubuntu Guide"
+[developing]:     how_to_use.md                   "How to use the script"
+[mac-torrent]:    http://example.com/             "Mac GABox"
+[ubuntu-torrent]: http://example.com/             "Ubuntu GABox"
