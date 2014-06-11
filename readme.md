@@ -8,7 +8,7 @@ The script comes in three basic flavors: the default full install for Mac OS, th
 
 **Warning**: in their default form, these scripts are very invasive, overwriting settings and versions for applications and tools used in the course. If you have dearly loved dotfiles, ensure that you back them up before running the script.
 
-##### For Mac OS:
+##### For Mac OS
 
 Paste this script into a Terminal prompt:
 
@@ -16,7 +16,7 @@ Paste this script into a Terminal prompt:
 bash <(curl -sL https://raw.githubusercontent.com/ga-instructors/installfest_script/version2/mac)
 ```
 
-##### For Ubuntu Linux:
+##### For Ubuntu Linux
 
 If you aren't familiar with Linux, then make sure to read "[Getting Started with Ubuntu][ubuntu]." Otherwise, just paste this script into a Terminal prompt:
 
@@ -28,6 +28,30 @@ If you are a Linux user already, and only want to install our common Ruby enviro
 
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/version2/ubuntu-rubyonly)
+```
+
+#### A successful install
+
+A successful install means we can run the following:
+
+```bash
+rails new sample_app -d postgresql && cd sample_app
+rails g scaffold pet name:string
+rake db:create && rake db:migrate
+rails server #=> testing on localhost:3000
+
+git init
+git add .
+git commit -am 'first commit'
+
+heroku create
+git push heroku master
+
+atom .
+chrome
+hipchat
+
+# sinatra? node? rspec?
 ```
 
 # How do I Contribute to (or Edit) the Installfest Scripts?
@@ -199,7 +223,7 @@ versions (why important)
 | **[Backbone][cfl]**   | [...][cfv]   | Framework    | Client |
 | **[Jasmine][ftl]**    | [...][ftv]   | Unit Testing | Client |
 | **[Capybara][acl]**   | [...][acv]   | Acceptance <br> Testing | Client |
-| **[Heroku][hkl]**   | Hosting <colspan=3> |
+| **[Heroku][hkl]**     | n/a          | Hosting      | &nbsp; |
 
 [dbl]: ... "..."
 [sll]: ... "..."
@@ -245,77 +269,77 @@ settings
 
 ### What other applications do we use in the course?
 
-system dependent, independent
+system independent
 
 - rbenv
-- fonts
-- figlet
-- Mac OS:
-  - spectacle for window management
-  - alfred
-  - dash
-  - flux
-- Ubuntu:
 
 optional, added
 
+- fonts
+- figlet
+- flux
 - zsh
+- sublime
+- vim
+
+Mac OS:
+
+- brew for package management (apt-get on ubuntu)
+- spectacle for window management (unity on ubuntu)
+- alfred
+- dash
+
+
+and various packages needed to make these work
+
+### What settings and dotfiles do we use for applications?
+
+settings as separate from default installations  
+how dotfiles work  
+colors and profiles for term and text editors  
+browser plugins  
+git settings  
+testing  
+
+read more: our style guide
 
 ### What other tools and techs might one use while at GA?
 
 Other programming environments you may use in class or in another GA class. Also used by some of our applications and system tools.
 
-- C & C++
-- Node
-- Python
-- PHP
-- Java
+- C & C++ (gcc/clang, make, autoconf) installed
+- Node (node and npm) installed
+- Python (python versions and pip, django) installed
+- R (version, open source R studio) not installed (why)
+- PHP (versions, composer, laravel) not installed (why)
+- Java (versions, jdk) not installed (why)
 
 ### What are minimum and recommended specs for development hardware?
 
-#### Minimum and recommended hardware specs and virtual machines.
+#### Minimum and recommended hardware specs
 
-- An editor
-- A browser
-- Configures git
+- Ruby: 16 MB
+- Sublime: OS X (OS X 10.6 or later is required), 30 MB
+- Homebrew: 10.7 or higher is recommended. 10.6 and 10.5 are supported on a best-effort basis.
+- Mac System Requirements: In order to run 10.7 you'll need
+  - an Intel Core 2 Duo, Core i3, Core i5, Core i7, or Xeon processor
+  - 7 GB of available disk space
+  - 2 GB of RAM
+- Chrome
+  - Mac OS X 10.6 or later, Intel, 350 MB
+  - Ubuntu 12.04+, Intel Pentium 4 or later
+- Class Repo ~ 500MB
+- Brew Cellar ~ 1GB
+- Atom ~ 200 MB
+- HipChat ~ 25MB
+- FireFox ~ 115MB
+- Gems
 
+#### Recommended hardware for purchase
 
-- Ruby
-- Rails
-- Browser
-- Text Editor
+...
 
-Ruby, 16 MB
-
-Sublime
-OS X (OS X 10.6 or later is required), 30 MB
-
-Homebrew
-10.7 or higher is recommended. 10.6 and 10.5 are supported on a best-effort basis.
-
-Mac System Requirements
-In order to run 10.7 you'll need
-An Intel Core 2 Duo, Core i3, Core i5, Core i7, or Xeon processor
-7 GB of available disk space
-2 GB of RAM
-
-Chrome
-Mac OS X 10.6 or later, Intel, 350 MB
-Ubuntu 12.04+, Intel Pentium 4 or later
-
-Class Repo ~ 500MB
-
-Brew Cellar ~ 1GB
-
-Atom ~ 200 MB
-
-HipChat ~ 25MB
-
-FireFox ~ 115MB
-
-Gems
-
-#### Recommended hardware for purchase.
+#### Virtual machines and necessary hardware
 
 ...
 
@@ -326,22 +350,6 @@ Gems
 - Auto Completion
 - Syntax Highlighting
 
-## Success
-
-A successful install means we can run the following successfully.
-
-```
-rails new sample_app -d postgresql && cd sample_app
-rails g scaffold pet name:string
-rake db:create && rake db:migrate
-git init
-git add .
-git commit -am 'first commit'
-# testing on localhost:3000
-
-heroku create
-git push heroku master
-```
 ~~~
 
 
@@ -377,35 +385,6 @@ Inside of the virtual environment we must:
 sudo apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
 ```
 
-## Installing a bootable local environment
-
-...
-
-## Setting up the dev environment
-
-- Set the desktop wallpaper with:
-
-```bash
-wget -O ~/Pictures/shortcut_wallpaper.jpg http://i.stack.imgur.com/krD8y.jpg
-gsettings set org.gnome.desktop.background picture-uri "file://${HOME}/Pictures/shortcut_wallpaper.jpg"
-```
-http://i.stack.imgur.com/krD8y.jpg (--> need to host this!)
-
-- Run the installfest script:
-
-```bash
-bash <( wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/ubuntu-merge/ubuntu)
-```
-
-## Learn the Unity desktop
-
-- REALLY GOOD SHORTCUTS THING:
-http://askubuntu.com/questions/28086/what-are-unitys-keyboard-and-mouse-shortcuts
-- LESS GOOD THING: https://help.ubuntu.com/community/KeyboardShortcuts#Common_application_shortcuts
-- SUPER, META, & HYPER KEYS: http://askubuntu.com/questions/19558/what-are-the-meta-super-and-hyper-keys
-- OTHER TERMINOLOGY:
-http://askubuntu.com/questions/10228/whats-the-right-terminology-for-unitys-ui-elements
-
 ### Why not use a Virtual Environment?
 
 When weighing the options, we decided not use Vagrant to ensure all students were working in a common environment for three main reasons:
@@ -436,6 +415,35 @@ _**Don't use yet!** Not in working condition._
 
 - [Download our our virtual Mac OS environment via BitTorrent.][mac-torrent]
 - [Download our our virtual Ubuntu environment via BitTorrent.][ubuntu-torrent]
+
+## Installing a bootable local environment
+
+...
+
+## Setting up the dev environment
+
+- Set the desktop wallpaper with:
+
+```bash
+wget -O ~/Pictures/shortcut_wallpaper.jpg http://i.stack.imgur.com/krD8y.jpg
+gsettings set org.gnome.desktop.background picture-uri "file://${HOME}/Pictures/shortcut_wallpaper.jpg"
+```
+http://i.stack.imgur.com/krD8y.jpg (--> need to host this!)
+
+- Run the installfest script:
+
+```bash
+bash <( wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/ubuntu-merge/ubuntu)
+```
+
+## Learn the Unity desktop
+
+- REALLY GOOD SHORTCUTS THING:
+http://askubuntu.com/questions/28086/what-are-unitys-keyboard-and-mouse-shortcuts
+- LESS GOOD THING: https://help.ubuntu.com/community/KeyboardShortcuts#Common_application_shortcuts
+- SUPER, META, & HYPER KEYS: http://askubuntu.com/questions/19558/what-are-the-meta-super-and-hyper-keys
+- OTHER TERMINOLOGY:
+http://askubuntu.com/questions/10228/whats-the-right-terminology-for-unitys-ui-elements
 
 
 
