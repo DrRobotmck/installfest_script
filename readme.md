@@ -61,11 +61,43 @@ Tests that can be run as part of a script, or helper functions to run such tests
 
 Commentary beyond code explanation (simple comments) is stored in `lib/commentary`. System-independent components are stored in the base of `lib`, and system-dependent components are stored in `lib/systemname` (eg: `lib/mac` and `lib/ubuntu`). Settings (separate from installations, mostly for applications) and dotfiles are stored in `lib/settings`.
 
+```bash
+.
+├── Rakefile     #=> the rake task used to assemble or
+├── bin          #   'build' a script from a manifest
+│   └── build.rb #=> the build executable itself
+├── lib
+│   ├── commentary
+│   │   ├── #=> messages for the user
+|   |   ...
+│   ├── mac
+│   │   ├── #=> mac-only components
+|   |   ...
+│   ├── ubuntu
+│   |   ├── #=> ubuntu-only components
+|   |   ...
+│   └── settings
+│       ├── dotfiles
+│       │   ├── #=> dotfiles!
+|       ├── #=> other application settings,
+|       |   #   possibly in directories for each application
+|       ...
+├── tests
+│   ├── #=> testing (or other meta-) components
+|   ...
+├── Manifest.mac    #=> the list of components above
+├── mac             #=> the script assembled from the manifest
+├── Manifest.ubuntu
+├── ubuntu
+...
+└── readme.md
+```
+
 ## Testing and logging
 
 The script downloads from [https//raw.githubusercontent.com](). Be aware: **it caches resources for one minute**, so you may not see your changes to the script immediately.
 
-*Use a seperate branch (or fork) from **master** and **development** for testing and working on features or new components*, of course. Users are pulling directly from **master** for builds.
+*Use a seperate branch (or fork) from __master__ and __development__ for testing and working on features or new components*, of course. Users are pulling directly from **master** for builds.
 
 Components exist to log the output of the scripts. Since the output is massive, they are set by default to log only:
 
@@ -76,6 +108,60 @@ Components exist to log the output of the scripts. Since the output is massive, 
 Components also exist to share the log file via email. This will be helpful for knowing the status of students' installs done off-site.
 
 It is recommended to add assertions that check the status of every component that installs or updates the target system, if for no other reason than to ensure that there is a log record of the changes made by the script.
+
+## Creating new scripts
+
+While adding components to the script library is always useful, as well as making updates to existing components to reflect changes in standard installations or bugfixes, it is important to test any changes made in a component that is included in existing manifests at the script level and the component level. What that means is, run every effected script when you make a change to a component to check for regression errors, please.
+
+In order to minimize regression issues, please add new or special functionality to new components. Place the component in the right directory (system-specific, system-independent, user settings, tests, etc.), and create a new manifest.
+
+The suggested structure for a component is:
+
+```bash
+                           #=> begin with a blank line! (be nice)
+# this component will blow
+# your minds so just get   #=> explain what component does
+# ready for the madness
+
+SCPTVAR=${SCPTVAR:-deflt}  #=> be sure any env vars declared
+                           #   in another component are set
+                           #   to defaults (be safe)
+SCPTVARTWO="`pwd`/newdir"  #=> set any vars local to this
+SCPTF="${SCTPVARTWO}/"+ \  #   component... use ALL CAPS!
+      "${SCPTVAR}"         #   (ie, be consistent)
+CNTNTS="put in the file!"
+
+mkdir -p SCPTVARTWO        #=> perform the action
+echo $CNTNTS > $SCPTFILE
+
+#=> finally, assert that the script worked
+assert_that "File was created" "cat $SCPTFILE" "$CNTNTS"
+#=> assert_that checks that the second param can be eval'ed
+#   without an error, and that any optional thrid param is
+#   equivalent to the output from eval'ing the second param
+```
+
+... and the suggested structure for a manifest is:
+
+```bash
+#=> begin the script, handle options and set up logging
+shebang
+handle_options_and_start_logging
+tests/add_assert_functions
+
+#=> handle any options and/or set env vars for components
+...
+
+#=> explanation and/or directions for script
+commentary/...
+
+#=> if necessary (using sudo in components below)
+capture_password
+
+#=> insert your components here
+...
+
+```
 
 
 # What do the Installfest scripts do?
@@ -99,47 +185,87 @@ Program in a Unix-like environment. Right now we support Mac OSX and Ubuntu. We 
 
 ### How do we teach development in WDI?
 
-language stack, versions
+language stack  
+versions (why important)
 
 |                       | Version      | Technology | Client/Server |
-|:----------------------|:-------------|:-----------|:-------|
-| **[PostgreSQL][dbl]** | [...][dbv]   | Database   | Server |
-| **[Ruby][sll]**       | [2.1.2][slv] | Language   | Server |
-| **[Sinatra][sfl]**    | [...][sfv]   | Framework  | Server |
-| **[Rails][sfl]**      | [...][sfv]   | Framework  | Server |
-| **[JavaScript][cll]** | [...][clv]   | Language   | Client |
-| **[Backbone][cfl]**   | [...][cfv]   | Framework  | Client |
+|:----------------------|:-------------|:-------------|:-------|
+| **[PostgreSQL][dbl]** | [...][dbv]   | Database     | Server |
+| **[Ruby][sll]**       | [2.1.2][slv] | Language     | Server |
+| **[Sinatra][sf1l]**   | [...][sf1v]  | Framework    | Server |
+| **[Rails][sf2l]**     | [...][sf2v]  | Framework    | Server |
+| **[RSpec][stl]**      | [...][stv]   | Unit Testing | Server |
+| **[JavaScript][cll]** | [...][clv]   | Language     | Client |
+| **[Backbone][cfl]**   | [...][cfv]   | Framework    | Client |
+| **[Jasmine][ftl]**    | [...][ftv]   | Unit Testing | Client |
+| **[Capybara][acl]**   | [...][acv]   | Acceptance <br> Testing | Client |
+| **[Heroku][hkl]**   | Hosting <colspan=3> |
 
 [dbl]: ... "..."
 [sll]: ... "..."
-[sfl]: ... "..."
+[sf1l]: ... "..."
+[sf2l]: ... "..."
+[stl]: ... "..."
 [cll]: ... "..."
 [cfl]: ... "..."
+[ftl]: ... "..."
+[acl]: ... "..."
+[hkl]: ... "..."
 [dbv]: ... "..."
 [slv]: ... "..."
-[sfv]: ... "..."
+[sf1v]: ... "..."
+[sf2v]: ... "..."
+[stv]: ... "..."
 [clv]: ... "..."
 [cfv]: ... "..."
+[ftv]: ... "..."
+[acv]: ... "..."
 
-### What tools do we use to develop software?*
+### What tools do we use to develop software?
 
-- Editor: Atom (Sublime, Vim)
-- Chat: HipChat (Slack)
-- Browser: Chrome (Firefox)
-- Version Control: Git
-- Collaboration: Git & GitHub
-- Process: Trello (Pivotal Tracker)
+what tools do we need for web dev  
+suggested vs alternatives  
+settings
+
+|  | Tool | Alternatives |
+|:--|:--|:--|
+| **[Atom][txt]** | Text Editor | [Sublime Text](), <br> [Vim]() |
+| **[Chrome][brw]** | Web Browser | [Firefox]() |
+| **[Git][ver]** | Version Control | none |
+| **[GitHub][clb]** | Code Sharing /<br> Collaboration | none |
+| **[Trello][pro]** | Process <br> Management | [Pivotal Tracker]() |
+| **[HipChat][cha]** | Chat / Messaging | [IRC](), [Slack]() |
+
+[txt]: ... "..."
+[brw]: ... "..."
+[ver]: ... "..."
+[clb]: ... "..."
+[pro]: ... "..."
+[cha]: ... "..."
 
 ### What other applications do we use in the course?
 
-- Mac OS: ... (installed by default)
-- Ubuntu: ... "
+system dependent, independent
+
+- rbenv
+- fonts
+- figlet
+- Mac OS:
+  - spectacle for window management
+  - alfred
+  - dash
+  - flux
+- Ubuntu:
+
+optional, added
+
+- zsh
 
 ### What other tools and techs might one use while at GA?
 
 Other programming environments you may use in class or in another GA class. Also used by some of our applications and system tools.
 
-- C
+- C & C++
 - Node
 - Python
 - PHP
