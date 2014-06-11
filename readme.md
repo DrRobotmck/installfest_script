@@ -46,7 +46,7 @@ The individual components of the InstallFest script are stored in `lib` and `tes
 # will not overwrite an existing pre-commit hook...
 if [[ ! -a .git/hooks/pre-commit ]]; then
   cat << EOF > .git/hooks/pre-commit
-    #!/bin/sh
+    #!/usr/bin/env bash
     rake
     git add lib/set_script_branch.sh
     ls  Manifest* | sed -e 's/Manifest\.//g' | xargs git add
