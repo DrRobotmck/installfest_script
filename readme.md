@@ -105,6 +105,7 @@ Commentary beyond code explanation (simple comments) is stored in `lib/commentar
 │   └── settings
 │       ├── dotfiles
 │       │   ├── #=> dotfiles!
+|       |   ...
 |       ├── #=> other application settings,
 |       |   #   possibly in directories for each application
 |       ...
@@ -206,6 +207,23 @@ In short, the scripts set up the target computer with a common development envir
 
 ### What is a development environment?
 
+A development (or dev) environment describes the technologies (including the specific versions of technologies), tools, and settings we work in while developing software. This includes everything from the hardware and operating system we use to the hotkeys and colors we program in to our text editors. Obviously, some of these qualities are more trivial than others, and many are a matter of personal choice. However, when in a guided, intensive learning environment, problems with colors or hotkeys can mean minutes or hours lost, and therefore lessons wasted. That is why we recommend creating a completely standardized dev environment across all students and instructors.
+
+That being said, here are the most important facts:
+
+- we program in a [Unix]()-like operating system, which means (for the most part) Mac OS X or Linux (we support the version known as [Ubuntu]()), **but not Windows**
+- we use a terminal emulator (using a [bash]() "[shell]()") to interact with our OS in a standard, efficient way
+- we use a window manager ([Spectacle]() in Mac OS X, or Ubuntu's built-in hotkeys for [Unity]()) with our OSes' graphical desktop interface to speed and simplify common tasks
+- we use a straightforward text editor (the very new [Atom](), or [Sublime Text]()) with [syntax highlighting]() instead of a more complicated [IDE]()
+- we use the [Chrome]() internet browser because of its built-in development tools
+- we use [Git]() and [GitHub]() for version tracking (saving our program's "history") and collaboration (allowing multiple people to edit the same group of files), which have become industry standards despite their difiiculty
+- we use the [Ruby]() programming language and interpreter to introduce ourselves to programming concepts
+- we use the [SQL]() (pronounced "sequel") language to describe, store and retrieve information from a database
+- we use the [Sinatra]() and [Ruby on Rails]() frameworks to develop web-based applications
+- we use the core web language standards of HTML, CSS and JavaScript to implement web-based application interfaces
+- we use jQuery and Backbone
+
+
 Program in a Unix-like environment. Right now we support Mac OSX and Ubuntu. We program in a shell: bash/zsh. We use a window manager: Spectacle or Unity's built-in tool. we use technologies and a language stack. we use tools and settings and a style guide.
 
 ### How do we teach development in WDI?
@@ -213,42 +231,35 @@ Program in a Unix-like environment. Right now we support Mac OSX and Ubuntu. We 
 language stack  
 versions (why important)
 
-|                       | Version      | Technology | Client/Server | Installed |
-|:----------------------|:-------------|:-------------|:------:|:--:|
-| **[PostgreSQL][psql]** | ...    | Database     | Server | &#x2713; |
-| **[Ruby][sll]**       | 2.1.2  | Language     | Server | &#x2713; |
-| **[Sinatra][sf1l]**   | ...    | Framework    | Server | &#x2713; |
-| **[Rails][sf2l]**     | 4.1.0  | Framework    | Server | &#x2713; |
-| **[RSpec][stl]**      | 3.0.0  | Unit Testing | Server | &#x2713; |
-| **[JavaScript][cll]** | ...    | Language     | Client | |
-| **[jQuery][jquery]** | 2.1.1    | Framework     | Client | |
-| **[Backbone][back]**   | 1.1.2  | Framework    | Client | |
-| **[Jasmine][ftl]**    | [...][ftv]   | Unit Testing | Client | |
-| **[Capybara][acl]**   | [...][acv]   | Acceptance <br> Testing | Client | &#x2713; |
-| **[Heroku][hkl]**     | ...  | Hosting      | &nbsp; | &#x2713;\* |
+
+
+|                           | Version | Technology | Client/Server | Installed |
+|:--------------------------|:-------:|:----------:|:--------:|:-:|
+| **[PostgreSQL][psql]**    | <span style="font-size:0.75em">(current)</span> | Database  | Server | &#x2713; |
+| **[Ruby][ruby]**          | (MRI) 2.1.2 | Language     | Server   | &#x2713; |
+| **[Sinatra][sinatra]**    | <span style="font-size:0.75em">(current)</span> | Framework | Server | &#x2713; |
+| **[Rails][rails]**        | 4.1.0 | Framework    | Server   | &#x2713; |
+| **[RSpec][rspec]**        | 2.?.? | Unit Testing | Server   | &#x2713; |
+| **[JavaScript][jscript]** | <span style="font-size:0.75em">(current)</span> | Language  | Client | |
+| **[jQuery][jquery]**      | 2.1.1 | Framework    | Client   | |
+| **[Backbone][back]**      | 1.1.2 | Framework    | Client   | |
+| **[Jasmine][jasmine]**    | ?.?.? | Unit Testing | Client   | |
+| **[Capybara][capy]**      | ?.?.? | Acceptance <br> Testing | Client | &#x2713; |
+| **[Heroku][heroku]**      | n/a   | Hosting      | n/a      | &#x2713;\* |
 
 \* - some tools added and setup performed, but no specific application involved  
 
-[psql]: http://www.postgresql.org/ "..."
-[sll]: ... "..."
-[sf1l]: ... "..."
-[sf2l]: ... "..."
-[stl]: http://rspec.info/ "..."
-[cll]: ... "..."
-[back]:   http://backbonejs.org/ "Backbone homepage and documentation"
-[jquery]: http://jquery.com/  "jQuery homepage"
-[ftl]: ... "..."
-[acl]: ... "..."
-[hkl]: ... "..."
-[dbv]: ... "..."
-[slv]: ... "..."
-[sf1v]: ... "..."
-[sf2v]: ... "..."
-[stv]: ... "..."
-[clv]: ... "..."
-[cfv]: ... "..."
-[ftv]: ... "..."
-[acv]: ... "..."
+[psql]:    http://www.postgresql.org/ "..."
+[ruby]:    ... "..."
+[sinatra]: ... "..."
+[rails]:   ... "..."
+[rspec]:   http://rspec.info/     "..."
+[jscript]: ... "..."
+[jquery]:  http://jquery.com/     "jQuery homepage"
+[back]:    http://backbonejs.org/ "Backbone homepage and documentation"
+[jasmine]: ... "..."
+[capy]:    ... "..."
+[heroku]:  ... "..."
 
 ### What tools do we use to develop software?
 
