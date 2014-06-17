@@ -46,4 +46,6 @@ install_vim_plugins
 install_oh_my_zsh
 mac/run_osx_tweeks
 
+create_student_folders
+
 report_log

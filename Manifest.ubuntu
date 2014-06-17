@@ -46,6 +46,8 @@ ubuntu/install_postgres
 install_vim_plugins
 install_oh_my_zsh
 
+create_student_folders
+
 ubuntu/install_mailutils
 report_log
 

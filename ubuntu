@@ -89,6 +89,12 @@ echo_log
 #-------------------------------------------------------------------------------
 # Set text formatting
 #-------------------------------------------------------------------------------
+# set 256 color profile where possible
+if [[ $COLORTERM == gnome-* && $TERM == xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+  export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1; then
+  export TERM=xterm-256color
+fi
 
 # Reset formatting
 RESET=$(      tput sgr0)
@@ -102,8 +108,6 @@ BLUE=$(       tput setaf 4)
 MAGENTA=$(    tput setaf 5)
 CYAN=$(       tput setaf 6)
 WHITE=$(      tput setaf 9)
-# ORANGE=$(     tput setaf 172)
-# PURPLE=$(     tput setaf 141)
 
 # Background color
 BG_BLACK=$(   tput setab 0)
@@ -114,7 +118,6 @@ BG_BLUE=$(    tput setab 4)
 BG_MAGENTA=$( tput setab 5)
 BG_CYAN=$(    tput setab 6)
 BG_WHITE=$(   tput setab 9)
-# BG_ORANGE=$(  tput setab 172)
 
 # Style
 UNDERLINE=$(  tput smul)
@@ -181,6 +184,9 @@ assert_package_installed() {
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
+# TODO (phlco) set this in env vars or create_student_folders?
+# STUDENT_FOLDER_SETUP="$HOME/dev/wdi"
+
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
@@ -192,7 +198,7 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 # `SECONDS` number of seconds since the shell was started.
 
 # This refers to the branch of our repo that we are using (for cloning).
-BRANCH=pj_working
+BRANCH=version2
 
 # capture the user's password
 sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
@@ -577,6 +583,8 @@ git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/cu
 # Resources
 # https://github.com/robbyrussell/oh-my-zsh
 # http://www.stevendobbelaere.be/installing-and-configuring-the-oh-my-zsh-shell/
+STUDENT_FOLDER_SETUP="$HOME/dev/wdi"
+mkdir -p $STUDENT_FOLDER_SETUP
 # Don't ask questions
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get install -y mailutils

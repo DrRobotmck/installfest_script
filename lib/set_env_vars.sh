@@ -1,6 +1,9 @@
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
+# TODO (phlco) set this in env vars or create_student_folders?
+# STUDENT_FOLDER_SETUP="$HOME/dev/wdi"
+
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
