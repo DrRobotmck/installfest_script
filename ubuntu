@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #-------------------------------------------------------------------------------
 # Handle Command Line Options
 #-------------------------------------------------------------------------------
@@ -85,7 +84,6 @@ echo_log
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-
 #-------------------------------------------------------------------------------
 # Set text formatting
 #-------------------------------------------------------------------------------
@@ -199,10 +197,8 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 
 # This refers to the branch of our repo that we are using (for cloning).
 BRANCH=version2
-
 # capture the user's password
 sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
-
 #-------------------------------------------------------------------------------
 # Check for software updates
 #-------------------------------------------------------------------------------
@@ -299,7 +295,6 @@ echo "Please register for an account on github.com if you haven't already done s
 read -p "Enter your full name: "  user_name
 read -p "Github Username: "       github_name
 read -p "Github Email: "          github_email
-
 # SSH Keygen
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
@@ -383,7 +378,6 @@ echo "Heroku. This will allow you to deploy code to all of your apps."
 echo "Please enter your email"
 
 heroku keys:add
-
 # run this before or after long chunks of the script to update the sudo timestamp
 sudo -nv
 # uninstall rvm, so that we can use rbenv
@@ -414,7 +408,6 @@ git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/r
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 assert_that "Rbenv's ruby-build plugin is installed" "rbenv install"
-
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -443,14 +436,12 @@ gemlist=(
 for gem in ${gemlist[@]}; do
   echo "${gem}" >> ~/.rbenv/default-gems
 done
-
 # For testing and simplicity with Ubuntu, add these to the .bashrc until it's
 # overwritten...
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 source ~/.bashrc
-
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -460,7 +451,6 @@ else
 fi
 
 assert_that "Ruby is installed and links to rbenv" "which ruby" "$HOME/.rbenv/shims/ruby"
-
 rbenv global $BELOVED_RUBY_VERSION
 
 assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" \
@@ -470,7 +460,6 @@ assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" \
 for gem in ${gemlist[@]}; do
   assert_that "$gem gem is installed" "gem list $gem -i" "true"
 done
-
 # run this before or after long chunks of the script to update the sudo timestamp
 sudo -nv
 # Event-driven I/O server-side JavaScript environment based on V8

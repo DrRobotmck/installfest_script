@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #-------------------------------------------------------------------------------
 # Handle Command Line Options
 #-------------------------------------------------------------------------------
@@ -57,7 +56,6 @@ else
   echo_log " Script will log errors, log statements and assertions only. Use -v option to log verbosely."
 fi
 echo_log
-
 #-------------------------------------------------------------------------------
 # Set text formatting
 #-------------------------------------------------------------------------------
@@ -171,7 +169,6 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 
 # This refers to the branch of our repo that we are using (for cloning).
 BRANCH=version2
-
 # capture the user's password
 sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
 # uninstall rvm, so that we can use rbenv
@@ -182,7 +179,6 @@ if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
 fi
 
 assert_that "RVM has been removed or was not installed" "command -v rvm" ""
-
 # this is a subset of the install_system_packages script for the purpose of
 # setting up an ubuntu-rubyonly install
 
@@ -234,7 +230,6 @@ git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/r
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 assert_that "Rbenv's ruby-build plugin is installed" "rbenv install"
-
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -263,14 +258,12 @@ gemlist=(
 for gem in ${gemlist[@]}; do
   echo "${gem}" >> ~/.rbenv/default-gems
 done
-
 # For testing and simplicity with Ubuntu, add these to the .bashrc until it's
 # overwritten...
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 source ~/.bashrc
-
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -280,7 +273,6 @@ else
 fi
 
 assert_that "Ruby is installed and links to rbenv" "which ruby" "$HOME/.rbenv/shims/ruby"
-
 rbenv global $BELOVED_RUBY_VERSION
 
 assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" \

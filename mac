@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #-------------------------------------------------------------------------------
 # Handle Command Line Options
 #-------------------------------------------------------------------------------
@@ -85,7 +84,6 @@ echo_log
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
-
 #-------------------------------------------------------------------------------
 # Set text formatting
 #-------------------------------------------------------------------------------
@@ -124,7 +122,6 @@ UNDERLINE=$(  tput smul)
 NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)
-
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
@@ -218,7 +215,6 @@ MINIMUM_OS="10.7.0"
 
 # This refers to the branch of our repo that we are using (for cloning).
 BRANCH=version2
-
 # capture the user's password
 sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
 # uninstall rvm, so that we can use rbenv
@@ -438,7 +434,6 @@ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-bu
 
 # rbenv rehash
 # source ~/.bash_profile
-
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -467,7 +462,6 @@ gemlist=(
 for gem in ${gemlist[@]}; do
   echo "${gem}" >> ~/.rbenv/default-gems
 done
-
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -477,7 +471,6 @@ else
 fi
 
 assert_that "Ruby is installed and links to rbenv" "which ruby" "$HOME/.rbenv/shims/ruby"
-
 rbenv global $BELOVED_RUBY_VERSION
 
 assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" \

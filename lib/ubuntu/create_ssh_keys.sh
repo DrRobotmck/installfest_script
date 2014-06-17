@@ -1,4 +1,3 @@
-
 # SSH Keygen
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa

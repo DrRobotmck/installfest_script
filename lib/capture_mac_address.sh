@@ -1,4 +1,3 @@
-
 echo "Script now will gather your mac address and send to the class chatbot for"
 echo "attendance porpoises. This is an opt out situation."
 echo "     ,_________________"
