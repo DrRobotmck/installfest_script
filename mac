@@ -216,7 +216,8 @@ MINIMUM_OS="10.7.0"
 # This refers to the branch of our repo that we are using (for cloning).
 BRANCH=version2
 # capture the user's password
-sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
+sudo -p "Enter your computer's password so that we can make the necessary changes: "
+echo "Thank you."
 # uninstall rvm, so that we can use rbenv
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
 if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
@@ -717,8 +718,8 @@ defaults write com.apple.terminal StringEncodings -array 4
 # -e 'tell application "Terminal" to do script "open ~/.wdi-installfest/settings/sublime/MyMonokai.terminal" in tab 2 of front window'
 # -e 'tell application "System Events" to tell process "Terminal" to keystroke "w" using command down'
 # -e 'tell application "System Events" to tell process "Terminal" to tell window 1 to close'
-STUDENT_FOLDER_SETUP="$HOME/dev/wdi"
-mkdir -p $STUDENT_FOLDER_SETUP
+STUDENT_FOLDER="$HOME/dev/wdi"
+mkdir -p $STUDENT_FOLDER
 # email subject
 SUBJECT="Log Report"
 # Email To ?

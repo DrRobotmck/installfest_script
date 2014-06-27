@@ -170,7 +170,8 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 # This refers to the branch of our repo that we are using (for cloning).
 BRANCH=version2
 # capture the user's password
-sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
+sudo -p "Enter your computer's password so that we can make the necessary changes: "
+echo "Thank you."
 # uninstall rvm, so that we can use rbenv
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
 if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
