@@ -1,11 +1,13 @@
 packagelist=(
-  # Autoconf is an extensible package of M4 macros that produce shell scripts to automatically configure software source code packages.
+  # Autoconf is an extensible package of M4 macros that produce shell scripts
+  # to automatically configure software source code packages.
   autoconf
 
   # Automake is a tool for automatically generating Makefile.in
   automake
 
-  # general-purpose parser generator that converts an annotated context-free grammar into an LALR or GLR parser for that grammar.
+  # general-purpose parser generator that converts an annotated context-free
+  # grammar into an LALR or GLR parser for that grammar.
   bison
 
   # generic library support script
@@ -14,8 +16,11 @@ packagelist=(
   # a YAML 1.1 parser and emitter
   libyaml-dev
 
-  # provides a set of functions for use by applications that allow users to edit command lines as they are typed in
-  libreadline6 libreadline6-dev libreadline-dev
+  # provides a set of functions for use by applications that allow users to
+  # edit command lines as they are typed in
+  libreadline6
+  libreadline6-dev
+  libreadline-dev
 
   # XML C parser and toolkit
   libxml2-dev
@@ -53,7 +58,8 @@ packagelist=(
   # library implementing the deflate compression method found in gzip and PKZIP
   zlib1g-dev
 
-  # generates an index file of names found in source files of various programming languages.
+  # generates an index file of names found in source files of various
+  # programming languages.
   exuberant-ctags
 
   # Header files and static library for compiling C programs to link with the
