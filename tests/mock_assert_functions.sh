@@ -4,8 +4,10 @@
 
 # use an empty function for assertions...
 assert_that() {
+  echo "" > /dev/null
 }
 
 # use an empty function for assertions...
 assert_package_installed() {
+  echo "" > /dev/null
 }
