@@ -8,7 +8,8 @@ function quoth_the_bard () {
 }
 
 function pause_awhile () {
-   read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue"
+   read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue.
+   "
 }
 
 THE_PLAYS_THE_THING="The play's the thing..."

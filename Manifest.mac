@@ -3,14 +3,14 @@ shebang
 commentary/header
 # handle_options_and_start_logging
 
+define_terminal_colors
 commentary/quoth_the_bard
 commentary/instructions
-# -> echo "${GREEN}The play's the thing...${GREEN}"
 # -> pause_awhile "begin"
+# -> echo "${GREEN}The play's the thing...${GREEN}"
 
 # -> quoth_the_bard "${HOW_NOW_TERMINAL[@]}"
 # -> pause_awhile "define environmental variables for the install"
-define_terminal_colors
 mac/define_script_helper_functions
 # tests/add_assert_functions
 set_env_vars
