@@ -29,7 +29,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_sc
 
 ##### Reload the terminal screen
 
-The new environment ***will not work*** with the current, open, terminal. Use `Command+N` in Mac OS, or `Shift+Ctrl+N` in Ubuntu, to open a new terminal window.
+The new environment **will not work** with the current, open, terminal. Use `Command+N` in Mac OS, or `Shift+Ctrl+N` in Ubuntu, to open a new terminal window.
 
 ## Step 3
 
@@ -52,3 +52,10 @@ git commit -am 'first commit'
 heroku create
 git push heroku master
 ```
+## Step 4
+
+##### Ensure your window manager loads on startup
+
+**For Mac OS only**: use `Command+Space` to open Spotlight, and then type in `Spectacle`. Press `Enter` to start the program, and then click on the "spectacles" icon along the top bar of your computer, and choose `Preferences...`.
+
+Ensure that "Launch Spectacle at login," in the lower left of the panel, is checked!
