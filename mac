@@ -907,6 +907,10 @@ STUDENT_FOLDER="$HOME/dev/wdi"
 mkdir -p $STUDENT_FOLDER
 
 
+# backup and copy over dotfiles
+rake dotfiles:copy
+
+
 
 quoth_the_bard "${HOW_NOW_FINISH[@]}"
 
