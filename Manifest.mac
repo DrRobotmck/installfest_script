@@ -1,8 +1,13 @@
 shebang
-handle_options_and_start_logging
 
 commentary/header
+handle_options_and_start_logging
 
+commentary/quoth_the_bard
+
+# -> echo "${GREEN}The play's the thing...{GREEN}"
+
+# -> quoth_the_bard ${HOW_NOW_TERMINAL[0]} ${HOW_NOW_TERMINAL[1]}
 define_terminal_colors
 mac/define_script_helper_functions
 tests/add_assert_functions
@@ -14,38 +19,50 @@ capture_password
 # mac/update_software
 # mac/install_commandline_tools
 
+# -> quoth_the_bard ${HOW_NOW_RVM[0]} ${HOW_NOW_RVM[1]}
 remove_rvm
 mac/remove_macports
 
 # add github credentials and clone down repo
+# -> quoth_the_bard ${HOW_NOW_GIT[0]} ${HOW_NOW_GIT[1]}
 capture_github_credentials
+# -> quoth_the_bard ${HOW_NOW_SSH_KEYS[0]} ${HOW_NOW_SSH_KEYS[1]}
 mac/create_ssh_keys
 clone_script_repo
 
+# -> quoth_the_bard ${HOW_NOW_BREW[0]} ${HOW_NOW_BREW[1]}
 mac/install_homebrew
 mac/install_compilation_tools
 mac/install_git
 configure_git
 
 # install ruby and gems with rbenv
+# -> quoth_the_bard ${HOW_NOW_RUBY[0]} ${HOW_NOW_RUBY[1]}
 mac/install_rbenv
+# -> quoth_the_bard ${HOW_NOW_GEMS[0]} ${HOW_NOW_GEMS[1]}
 set_default_gems_with_rbenv
 install_beloved_ruby_version
 set_global_ruby_version
 
-# # install node and npm
+# install node and npm
 mac/install_node_and_npm
 
+# -> quoth_the_bard ${HOW_NOW_APPS[0]} ${HOW_NOW_APPS[1]}
 mac/install_apps
-# # TODO (phlco) are these *system* packages?
+# TODO (phlco) are these *system* packages?
 mac/install_system_packages
 mac/set_up_heroku
+
+# -> quoth_the_bard ${HOW_NOW_DB[0]} ${HOW_NOW_DB[1]}
 mac/install_postgres
 
 install_vim_plugins
 install_oh_my_zsh
 mac/run_osx_tweeks
 
+# -> quoth_the_bard ${HOW_NOW_CONFIGURE[0]} ${HOW_NOW_CONFIGURE[1]}
 create_student_folders
 
 report_log
+
+# -> quoth_the_bard ${HOW_NOW_FINISH[0]} ${HOW_NOW_FINISH[1]}

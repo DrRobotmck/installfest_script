@@ -10,8 +10,10 @@ Dir["Manifest*"].each do |manifest|
       unless line.start_with?("#") || line.strip == ""
         file_path = (line =~ /^tests\// ? "#{line.chomp}.sh" : "lib/#{line.chomp}.sh")
         file << File.read(file_path)
-      else line.start_with?("# ->")
-        p line.gsub("# ->").strip
+      else
+        if line.start_with?('# ->')
+          file << "\n\n#{line.gsub('# ->', '').strip}\n\n"
+        end
       end
     end
   end
