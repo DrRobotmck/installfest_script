@@ -197,7 +197,7 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 # `SECONDS` number of seconds since the shell was started.
 
 # This refers to the branch of our repo that we are using (for cloning).
-BRANCH=master
+BRANCH=review
 # capture the user's password
 sudo -p "Enter your computer's password so that we can make the necessary changes: "
 echo "Thank you."
