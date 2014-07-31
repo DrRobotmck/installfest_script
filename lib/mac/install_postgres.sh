@@ -1,6 +1,9 @@
 # Set up Postgres
 brew install postgresql
 
+# Install ruby interface for Postgres
+gem install pg
+
 # Create a database
 initdb /usr/local/var/postgres -E utf8
 
