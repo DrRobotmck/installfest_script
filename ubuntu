@@ -188,6 +188,17 @@ quoth_the_bard "${HOW_NOW_TERMINAL[@]}"
 
 pause_awhile "define environmental variables for the install"
 
+# set FORCE (do not quit on error) to true if it is not loaded, as a default
+: ${FORCE=true} # TODO (h4w5) since we are testing for null, this will always happen
+                # switch to true/false
+
+# use an empty function for assertions...
+assert_that() {
+}
+
+# use an empty function for assertions...
+assert_package_installed() {
+}
 
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"

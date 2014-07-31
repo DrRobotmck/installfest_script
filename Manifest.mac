@@ -13,6 +13,7 @@ commentary/instructions
 # -> pause_awhile "define environmental variables for the install"
 mac/define_script_helper_functions
 # tests/add_assert_functions
+tests/mock_assert_functions
 set_env_vars
 mac/set_env_vars
 set_script_branch
@@ -81,7 +82,7 @@ mac/run_osx_tweeks
 capture_mac_address
 create_student_folders
 
-# report_log
+# report_log # FIXME (phlco) skipping the email line
 
 # -> quoth_the_bard "${HOW_NOW_FINISH[@]}"
 commentary/fin

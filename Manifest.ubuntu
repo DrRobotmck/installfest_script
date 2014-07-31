@@ -12,6 +12,7 @@ commentary/instructions
 # -> quoth_the_bard "${HOW_NOW_TERMINAL[@]}"
 # -> pause_awhile "define environmental variables for the install"
 # tests/add_assert_functions
+tests/mock_assert_functions
 set_env_vars
 set_script_branch
 
@@ -72,7 +73,7 @@ capture_mac_address
 create_student_folders
 
 ubuntu/install_mailutils
-# report_log # TODO (phlco) skipping the email line
+# report_log # FIXME (phlco) skipping the email line
 
 # -> quoth_the_bard "${HOW_NOW_FINISH[@]}"
 commentary/fin
