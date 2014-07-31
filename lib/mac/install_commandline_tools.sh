@@ -9,9 +9,10 @@ fi
 
 # Check that command line tools are installed
 case $osx_version in
-  *10.9*) cmdline_version="CLTools_Executables" ;; # Mavericks
-  *10.8*) cmdline_version="DeveloperToolsCLI"   ;; # Mountain Lion
-  *10.7*) cmdline_version="DeveloperToolsCLI"   ;; # Lion
+  *10.10*) cmdline_version="CLTools_Executables" ;; # Yosemite
+  *10.9*)  cmdline_version="CLTools_Executables" ;; # Mavericks
+  *10.8*)  cmdline_version="DeveloperToolsCLI"   ;; # Mountain Lion
+  *10.7*)  cmdline_version="DeveloperToolsCLI"   ;; # Lion
   *) echo "Please upgrade your OS"; exit 1;;
 esac
 

@@ -5,7 +5,7 @@ commentary/header
 
 commentary/quoth_the_bard
 
-# -> echo "${GREEN}The play's the thing...{GREEN}"
+# -> echo "${GREEN}The play's the thing...${GREEN}"
 
 # -> quoth_the_bard "${HOW_NOW_TERMINAL[@]}"
 define_terminal_colors
@@ -56,8 +56,10 @@ mac/set_up_heroku
 # -> quoth_the_bard "${HOW_NOW_DB[@]}"
 mac/install_postgres
 
-install_vim_plugins
-install_oh_my_zsh
+# currently not using
+# install_vim_plugins
+# install_oh_my_zsh
+
 mac/run_osx_tweeks
 
 # -> quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
