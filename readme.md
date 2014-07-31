@@ -8,6 +8,8 @@ The script comes in three basic flavors: the default full install for Mac OS, th
 
 **Warning**: in their default form, these scripts are very invasive, overwriting settings and versions for applications and tools used in the course. If you have dearly loved dotfiles, ensure that you back them up before running the script.
 
+## Step 1
+
 ##### For Mac OS
 
 Paste this script into a Terminal prompt:
@@ -23,10 +25,17 @@ Paste this script into a Terminal prompt:
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/master/ubuntu)
 ```
+## Step 2
 
-#### A successful install
+##### Reload the terminal screen
 
-A successful install means we can run the following:
+The new environment ***will not work*** with the current, open, terminal. Use `Command+N` in Mac OS, or `Shift+Ctrl+N` in Ubuntu, to open a new terminal window.
+
+## Step 3
+
+##### Check for a successful install
+
+A successful install means we can run the following in our new terminal window:
 
 ```bash
 rails new sample_app -d postgresql && cd sample_app
