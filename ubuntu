@@ -195,11 +195,14 @@ pause_awhile "define environmental variables for the install"
 
 # use an empty function for assertions...
 assert_that() {
+  echo "" > /dev/null
 }
 
 # use an empty function for assertions...
 assert_package_installed() {
+  echo "" > /dev/null
 }
+
 
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
