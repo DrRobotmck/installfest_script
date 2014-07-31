@@ -75,6 +75,7 @@ function quoth_the_bard () {
   echo ""
   echo "${RED}${message}${RESET}"
   echo "${BLUE}${attribution}${RESET}"
+  echo ""
 }
 
 function pause_awhile () {
@@ -436,7 +437,11 @@ sudo -nv
 
 
 
-quoth_the_bard "${HOW_NOW_RVM[@]}"
+quoth_the_bard "${HOW_NOW_GEMS[@]}"
+
+
+
+pause_awhile "install rbenv and Gem list"
 
 # uninstall rvm, so that we can use rbenv
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
@@ -446,14 +451,6 @@ if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
 fi
 
 assert_that "RVM has been removed or was not installed" "command -v rvm" ""
-
-
-
-quoth_the_bard "${HOW_NOW_RUBY[@]}"
-
-
-
-pause_awhile "install Ruby with rbenv"
 
 # Our ruby version manager
 
@@ -475,14 +472,6 @@ git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/r
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 assert_that "Rbenv's ruby-build plugin is installed" "rbenv install"
-
-
-
-quoth_the_bard "${HOW_NOW_GEMS[@]}"
-
-
-
-pause_awhile "install Gems with rbenv"
 
 # Our gems to install
 # skip documentation
@@ -518,6 +507,14 @@ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 source ~/.bashrc
+
+
+
+quoth_the_bard "${HOW_NOW_RUBY[@]}"
+
+
+
+pause_awhile "install Ruby with rbenv"
 
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 

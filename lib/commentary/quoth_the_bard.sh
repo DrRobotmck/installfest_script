@@ -5,6 +5,7 @@ function quoth_the_bard () {
   echo ""
   echo "${RED}${message}${RESET}"
   echo "${BLUE}${attribution}${RESET}"
+  echo ""
 }
 
 function pause_awhile () {

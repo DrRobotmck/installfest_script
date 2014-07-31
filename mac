@@ -75,6 +75,7 @@ function quoth_the_bard () {
   echo ""
   echo "${RED}${message}${RESET}"
   echo "${BLUE}${attribution}${RESET}"
+  echo ""
 }
 
 function pause_awhile () {
@@ -297,6 +298,10 @@ fi
 
 
 quoth_the_bard "${HOW_NOW_RVM[@]}"
+
+
+
+pause_awhile "remove RVM & MacPorts to reduce conflicts"
 
 # uninstall rvm, so that we can use rbenv
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
@@ -528,11 +533,11 @@ git config --global push.default current
 
 
 
-quoth_the_bard "${HOW_NOW_RUBY[@]}"
+quoth_the_bard "${HOW_NOW_GEMS[@]}"
 
 
 
-pause_awhile "install Ruby with rbenv"
+pause_awhile "install rbenv and Gem list"
 
 # Our Ruby version manager
 # brew install rbenv
@@ -566,14 +571,6 @@ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-bu
 # rbenv rehash
 # source ~/.bash_profile
 
-
-
-quoth_the_bard "${HOW_NOW_GEMS[@]}"
-
-
-
-pause_awhile "install Gems with rbenv"
-
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -601,6 +598,14 @@ gemlist=(
 for gem in ${gemlist[@]}; do
   echo "${gem}" >> ~/.rbenv/default-gems
 done
+
+
+
+quoth_the_bard "${HOW_NOW_RUBY[@]}"
+
+
+
+pause_awhile "install Ruby with rbenv"
 
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 

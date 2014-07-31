@@ -35,15 +35,16 @@ ubuntu/set_up_heroku
 
 keep_alive_password
 
-# -> quoth_the_bard "${HOW_NOW_RVM[@]}"
-remove_rvm
-# -> quoth_the_bard "${HOW_NOW_RUBY[@]}"
-# -> pause_awhile "install Ruby with rbenv"
-ubuntu/install_rbenv
+
 # -> quoth_the_bard "${HOW_NOW_GEMS[@]}"
-# -> pause_awhile "install Gems with rbenv"
+# -> pause_awhile "install rbenv and Gem list"
+remove_rvm
+ubuntu/install_rbenv
 set_default_gems_with_rbenv
 ubuntu/add_rbenv_to_bashrc
+
+# -> quoth_the_bard "${HOW_NOW_RUBY[@]}"
+# -> pause_awhile "install Ruby with rbenv"
 install_beloved_ruby_version
 set_global_ruby_version
 tests/check_for_gems

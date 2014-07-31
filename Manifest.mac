@@ -25,6 +25,7 @@ mac/update_software
 mac/install_commandline_tools
 
 # -> quoth_the_bard "${HOW_NOW_RVM[@]}"
+# -> pause_awhile "remove RVM & MacPorts to reduce conflicts"
 remove_rvm
 mac/remove_macports
 
@@ -47,12 +48,13 @@ mac/install_git
 install_git_completion
 configure_git
 
+# -> quoth_the_bard "${HOW_NOW_GEMS[@]}"
+# -> pause_awhile "install rbenv and Gem list"
+mac/install_rbenv
+set_default_gems_with_rbenv
+
 # -> quoth_the_bard "${HOW_NOW_RUBY[@]}"
 # -> pause_awhile "install Ruby with rbenv"
-mac/install_rbenv
-# -> quoth_the_bard "${HOW_NOW_GEMS[@]}"
-# -> pause_awhile "install Gems with rbenv"
-set_default_gems_with_rbenv
 install_beloved_ruby_version
 set_global_ruby_version
 
