@@ -78,8 +78,7 @@ function quoth_the_bard () {
 }
 
 function pause_awhile () {
-   read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue.
-   "
+  read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue."
 }
 
 THE_PLAYS_THE_THING="The play's the thing..."
@@ -231,8 +230,7 @@ MINIMUM_OS="10.7.0"
 BRANCH=master
 
 # capture the user's password
-sudo -p "Enter your computer's password so that we can make the necessary changes: "
-echo "Thank you."
+sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
 
 
 
