@@ -585,6 +585,8 @@ curl -i \
 "github"       : "'"$github_name"'",
 "mac_address"  : "'"$mac_address"'"
 }' $ATTENDANCE_URL
+echo "Creating a student folder in ~/dev/wdi"
+
 STUDENT_FOLDER="$HOME/dev/wdi"
 mkdir -p $STUDENT_FOLDER
 # Don't ask questions

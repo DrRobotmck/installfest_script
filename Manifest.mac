@@ -36,6 +36,7 @@ clone_script_repo
 mac/install_homebrew
 mac/install_compilation_tools
 mac/install_git
+install_git_completion
 configure_git
 
 # install ruby and gems with rbenv
@@ -65,6 +66,7 @@ mac/install_postgres
 mac/run_osx_tweeks
 
 # -> quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
+capture_mac_address
 create_student_folders
 
 # report_log

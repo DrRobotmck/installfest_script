@@ -16,6 +16,7 @@ echo "Now we're going to visit GitHub to add the SSH key"
 echo "Do the following in your browser: "
 echo '- Click "SSH Keys" in the left sidebar'
 echo '- Click "Add SSH key"'
+echo '- Add a title like "WDI Installfest"'
 echo '- Paste your key into the "Key" field'
 echo '- Click "Add key"'
 echo '- Confirm the action by entering your GitHub password'
