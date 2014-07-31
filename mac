@@ -360,6 +360,7 @@ echo "Now we're going to visit GitHub to add the SSH key"
 echo "Do the following in your browser: "
 echo '- Click "SSH Keys" in the left sidebar'
 echo '- Click "Add SSH key"'
+echo '- Add a title like "WDI Installfest"'
 echo '- Paste your key into the "Key" field'
 echo '- Click "Add key"'
 echo '- Confirm the action by entering your GitHub password'
@@ -470,6 +471,9 @@ brew install git
 # additional git commands
 brew install hub
 
+git_completion_url=https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+
+curl -o ~/.git-completion.bash $git_completion_url
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
 git config --global user.name  $github_name
@@ -801,6 +805,28 @@ defaults write com.apple.terminal StringEncodings -array 4
 
 
 quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
+
+echo "Script now will gather your mac address and send to the class chatbot for"
+echo "attendance purposes"
+
+# Get MAC address for attendance
+# ether 54:26:96:d6:71:c7
+mac_address=$(sudo ifconfig en0 | grep ether | sed -e 's/^[ \t|ether|\s|\n]*//')
+
+# curl mac address info to chatbot
+ATTENDANCE_URL=http://agile-plateau-3603.herokuapp.com/students
+
+# Send to attendance db
+curl -i \
+-H "Accept: application/json" \
+-H "Content-Type:application/json" \
+-X POST --data '{
+"name"         : "'"$user_name"'",
+"email"        : "'"$github_email"'",
+"github"       : "'"$github_name"'",
+"mac_address"  : "'"$mac_address"'"
+}' $ATTENDANCE_URL
+echo "Creating a student folder in ~/dev/wdi"
 
 STUDENT_FOLDER="$HOME/dev/wdi"
 mkdir -p $STUDENT_FOLDER

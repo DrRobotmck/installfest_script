@@ -52,4 +52,4 @@ ubuntu/install_mailutils
 report_log
 
 # TODO (phlco) skipping the email line
-# capture_mac_address
+capture_mac_address
