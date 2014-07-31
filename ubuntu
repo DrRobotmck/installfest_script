@@ -428,7 +428,6 @@ gemlist=(
   capybara        # Acceptance test framework for web applications
   guard           # handle events on file system modifications
   jasmine         # JavaScript testing
-  pg              # ruby interface for Postgres
   pry             # alternative to the standard IRB shell
   pry-coolline    # live syntax highlighting for the Pry REPL
   rails           # full stack, Web application framework
