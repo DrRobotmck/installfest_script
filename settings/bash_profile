@@ -183,12 +183,12 @@ server() {
 
 # Builds the prompt with git branch notifications.
 if [ -f ~/.bash_prompt.sh ]; then
-  source ~/.bash_prompt
+  source ~/.bash_prompt.sh
 fi
 
 # A welcome prompt with stats for sanity checks
 if [ -f ~/.welcome_prompt.sh ]; then
-  source ~/.welcome_prompt
+  source ~/.welcome_prompt.sh
 fi
 
 # bash/zsh completion support for core Git.
