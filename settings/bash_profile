@@ -181,16 +181,13 @@ server() {
 # Sourced Scripts
 # =================
 
-# TODO(phlco): change to directory one liner
-# for f in ~/.bash_profile_*; do source $f; done
-
 # Builds the prompt with git branch notifications.
-if [ -f ~/.bash_prompt ]; then
+if [ -f ~/.bash_prompt.sh ]; then
   source ~/.bash_prompt
 fi
 
 # A welcome prompt with stats for sanity checks
-if [ -f ~/.welcome_prompt ]; then
+if [ -f ~/.welcome_prompt.sh ]; then
   source ~/.welcome_prompt
 fi
 
