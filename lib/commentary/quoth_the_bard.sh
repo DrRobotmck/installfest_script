@@ -1,3 +1,4 @@
+
 function quoth_the_bard () {
   local message=$1
   local attribution=$2

@@ -1,61 +1,4 @@
 #!/usr/bin/env bash
-#-------------------------------------------------------------------------------
-# Handle Command Line Options
-#-------------------------------------------------------------------------------
-
-while getopts "vf" FLAG; do
-  case $FLAG in
-    f ) FORCE=true;;
-    v ) VERBOSE=true;;
-    ? ) exit 2;;
-  esac
-done
-
-#-------------------------------------------------------------------------------
-# Logging
-#-------------------------------------------------------------------------------
-
-# set up logfile
-LOGFOLDER="$HOME/.wdi"; mkdir -p $LOGFOLDER
-LOGFILE="$LOGFOLDER/install.log"
-
-# if we are logging verbosely
-#   echo_log() & assert_that() -> stderr -> stdout -> *logfile* -> console
-# else we are only logging assertions ([- n "$verbose" ] == false)
-#   echo_log() & assert_that() -> stderr -> *logfile* -> stdout -> console
-# this is done by:
-#   a. directing echo_log() & assert_that() to stderr, via
-#      {echo "" >&2}, and ...
-echo_log() {
-  echo "$1" >&2
-}
-
-if [ -n "$VERBOSE" ]; then
-#     b. executing the script so that stdout 'tee's to logfile, via
-#        {exec 1> >(tee logfile)} | {exec > >(tee logfile)}
-#     c. executing the script so that stderr redirects to stdout, via
-#        {exec 2>&1}
-  exec > >(tee $LOGFILE); exec 2>&1
-else
-#     b. executing the script so that stderr 'tee's to logfile, via
-#        {exec 2> >(tee logfile)}
-  exec 2> >(tee $LOGFILE)
-fi
-
-echo_log
-echo_log "Script execution begun: $(date)"
-if [ -n "$FORCE" ]; then
-  echo_log " Force option set to true: will continue script despite failed assertions."
-else
-  echo_log " Script will exit on failed assertions. Use -f option to force completion."
-fi
-
-if [ -n "$VERBOSE" ]; then
-  echo_log " Verbose logging option set to true: will log all output, not just errors, log statements and assertions."
-else
-  echo_log " Script will log errors, log statements and assertions only. Use -v option to log verbosely."
-fi
-echo_log
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -84,6 +27,89 @@ echo_log
 # http://www.gnu.org/software/bash/manual/bashref.html
 # http://www.shellcheck.net
 # http://explainshell.com/
+
+function quoth_the_bard () {
+  local message=$1
+  local attribution=$2
+  echo ""
+  echo "${RED}${message}${RESET}"
+  echo "${BLUE}${attribution}${RESET}"
+}
+
+THE_PLAYS_THE_THING="The play's the thing..."
+HOW_NOW_SSH_KEYS=(
+"Double, double toil and trouble; Fire burn, and caldron bubble."
+"--Macbeth (IV.i)"
+)
+HOW_NOW_RVM=(
+"Woe, destruction, ruin, and decay; the worst is death and death will have his day."
+"--Richard II (III.ii)"
+)
+HOW_NOW_BREW=(
+"PISTOL: The plain-song is most just: for humours do abound:
+Knocks go and come; God's vassals drop and die;
+And sword and shield,
+In bloody field,
+Doth win immortal fame.
+
+Boy: Would I were in an alehouse in London! I would give
+all my fame for a pot of ale and safety."
+"--Henry V (III.ii)"
+)
+HOW_NOW_TERMINAL=(
+"I have touch'd the highest point of all my greatness;
+And, from that full meridian of my glory,
+I haste now to my setting: I shall fall
+Like a bright exhalation in the evening,
+And no man see me more."
+"--Henry VIII (III.ii)"
+)
+HOW_NOW_RUBY=(
+"Once more the ruby-colour'd portal open'd,"
+"--Venus and Adonis (1593)"
+)
+HOW_NOW_GIT=(
+"MARIA: This and these pearls to me sent Longaville:
+The letter is too long by half a mile.
+
+PRINCESS OF FRANCE: I think no less. Dost thou not wish in heart
+The chain were longer and the letter short?"
+"--Love's Labour Lost (V.ii)"
+)
+HOW_NOW_APPS=(
+"Lend me an arm; the rest have worn me out
+With several applications..."
+"--All's Well That Ends Well (I.ii)"
+)
+HOW_NOW_CONFIGURE=(
+"Suit the action to the word, the word to the action,
+with this special observance that you o'erstep not the modesty of nature."
+"--Hamlet (III.ii)"
+)
+HOW_NOW_GEMS=(
+"Making a couplement of proud compare,
+With sun and moon, with earth and sea's rich gems,
+With April's first-born flowers, and all things rare
+That heaven's air in this huge rondure hems."
+"--Sonnet 21"
+)
+HOW_NOW_DB=(
+"'Tis in my memory lock'd, And you yourself shall keep the key of it."
+"--Hamlet (I.iii)"
+)
+HOW_NOW_FINISH=(
+"Once more unto the breach, dear friends, once more;
+Or close the wall up with our English dead."
+"--Henry V (III.i)"
+)
+
+
+echo "${GREEN}The play's the thing...${GREEN}"
+
+
+
+quoth_the_bard "${HOW_NOW_TERMINAL[@]}"
+
 #-------------------------------------------------------------------------------
 # Set text formatting
 #-------------------------------------------------------------------------------
@@ -122,63 +148,6 @@ UNDERLINE=$(  tput smul)
 NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)
-
-# set FORCE (do not quit on error) to true if it is not loaded, as a default
-: ${FORCE=true} # TODO (h4w5) since we are testing for null, this will always happen
-                # switch to true/false
-
-echo_log() {
-  echo "$1" >&2
-}
-
-# ex: assert_that "`gem` is installed" "gem"
-# ex: assert_that "`gem` is shimmed by rbenv" "which gem" "$HOME/.rbenv/shims/gem"
-# ex: assert_that "pg gem is installed" "gem list pg -i" "true"
-
-# log the success or failure of the file...
-# if only two arguments, then success is running second arg without an error
-# if three, then success is the above, and when the output of running the second is equal to the third
-assert_that() {
-  # test for a simple error by evaling the second argument, and redirecting only
-  # STDERR to a variable named ERR
-  ERR=$( (eval "$2") 2>&1 >/dev/null )
-  OUT=$( (eval "$2") 2>/dev/null )
-
-  if [ -n "$ERR" ]; then # if ERR is not null, then...
-    # echo failure to STDERR & STDOUT
-    echo_log "${RED}$1: failure! Error: ${ERR}${RESET}"
-    [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
-  elif [ -n "$3" ]; then # else, if there is a third argument...
-    if [ "$OUT" == "$3" ]; then # and they equal
-      # echo success to STDERR & STDOUT
-      echo_log "${GREEN}$1...${RESET}"
-    else
-      # echo failure to STDERR & STDOUT if second and third arguments do not match
-      echo_log "${RED}$1: failure! '$OUT' does not equal '$3'.${RESET}"
-      [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
-    fi
-  else
-    # echo success to STDERR & STDOUT
-    echo_log "${GREEN}$1...${RESET}"
-  fi
-}
-
-# ex: assert_package_installed "git"
-# ex: packagelist=( libssl-dev; libcurl4-openssl-dev; git; git-core ); assert_package_installed ${packagelist[@]}
-
-# only works when packages share a name across OSs, otherwise easiest to write
-# two assertions...
-assert_package_installed() {
-  for package in "$@"; do
-    if [ "$OSTYPE" == "darwin" ]; then
-      assert_that "${package} package is installed" "brew ls --versions ${package}" "${package}"
-    elif [ "$OSTYPE" == "linux-gnu" ]; then
-      assert_that "${package} package is installed" "dpkg -s ${package}"
-    else
-      echo_log "${RED}OS Type unknown in assertions...${RESET}" && exit 1;
-    fi
-  done
-}
 
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
@@ -298,11 +267,19 @@ packagelist=(
 sudo apt-get -y install ${packagelist[@]}
 
 assert_package_installed ${packagelist[@]}
+
+
+quoth_the_bard "${HOW_NOW_GIT[@]}"
+
 echo "Please register for an account on github.com if you haven't already done so."
 
 read -p "Enter your full name: "  user_name
 read -p "Github Username: "       github_name
 read -p "Github Email: "          github_email
+
+
+quoth_the_bard "${HOW_NOW_SSH_KEYS[@]}"
+
 # SSH Keygen
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
@@ -388,6 +365,10 @@ echo "Please enter your email"
 heroku keys:add
 # run this before or after long chunks of the script to update the sudo timestamp
 sudo -nv
+
+
+quoth_the_bard "${HOW_NOW_RVM[@]}"
+
 # uninstall rvm, so that we can use rbenv
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
 if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
@@ -396,6 +377,10 @@ if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
 fi
 
 assert_that "RVM has been removed or was not installed" "command -v rvm" ""
+
+
+quoth_the_bard "${HOW_NOW_RUBY[@]}"
+
 # Our ruby version manager
 
 # rbenv
@@ -416,6 +401,10 @@ git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/r
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 assert_that "Rbenv's ruby-build plugin is installed" "rbenv install"
+
+
+quoth_the_bard "${HOW_NOW_GEMS[@]}"
+
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -477,6 +466,10 @@ sudo apt-get -y install npm
 
 # For programs that still depend on calling the "node" binary, run:
 sudo apt-get -y install nodejs-legacy
+
+
+quoth_the_bard "${HOW_NOW_APPS[@]}"
+
 # Google Chrome.........The Browser
 # HipChat...............The Chat Client
 # Sublime Text 2........The Text Editor
@@ -515,22 +508,10 @@ rake install prefix=/usr/local
 
 # vim
 sudo apt-get -y install vim
-# atom
-# Requires 64-bit
-# ensure that gyp uses Python 2
-sudo npm config set python /usr/bin/python2 -g
-git clone https://github.com/atom/atom
-cd atom
-# TMPDIR=~/.wdi/tmp
-# Creates application at $TMPDIR/atom-build/Atom
-# TODO (phlco) move to /usr/bin
-script/build
-# Installs command to /usr/local/bin/atom
-sudo script/grunt install
-# Generates a .deb package at $TMPDIR/atom-build
-script/grunt mkdeb
-# TODO (phlco) command line tool for atom?
-# sudo dpkg -i $TMPDIR/atom-build/Atom.deb
+
+
+quoth_the_bard "${HOW_NOW_DB[@]}"
+
 # open source object-relational database management system
 # https://www.digitalocean.com/community/articles/how-to-install-and-use-postgresql-on-ubuntu-12-04
 # TODO phlco set up user
@@ -551,7 +532,9 @@ sudo -u postgres createuser --superuser $USER
 touch ~/.psql_history
 
 createdb $USER
-# Install Vim Plugin Manager
+
+# Install ruby interface for Postgres
+gem install pg# Install Vim Plugin Manager
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Vimrc is copied over from dotfiles
@@ -578,22 +561,36 @@ git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/cu
 # Resources
 # https://github.com/robbyrussell/oh-my-zsh
 # http://www.stevendobbelaere.be/installing-and-configuring-the-oh-my-zsh-shell/
+
+
+quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
+
+echo "Script now will gather your mac address and send to the class chatbot for"
+echo "attendance purposes"
+
+# Get MAC address for attendance
+# ether 54:26:96:d6:71:c7
+mac_address=$(sudo ifconfig en0 | grep ether | sed -e 's/^[ \t|ether|\s|\n]*//')
+
+# curl mac address info to chatbot
+ATTENDANCE_URL=http://agile-plateau-3603.herokuapp.com/students
+
+# Send to attendance db
+curl -i \
+-H "Accept: application/json" \
+-H "Content-Type:application/json" \
+-X POST --data '{
+"name"         : "'"$user_name"'",
+"email"        : "'"$github_email"'",
+"github"       : "'"$github_name"'",
+"mac_address"  : "'"$mac_address"'"
+}' $ATTENDANCE_URL
 STUDENT_FOLDER="$HOME/dev/wdi"
 mkdir -p $STUDENT_FOLDER
 # Don't ask questions
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get install -y mailutils
-# email subject
-SUBJECT="Log Report"
-# Email To ?
-EMAIL="philco@ga.co"
-# Email text/message
-EMAILMESSAGE="/tmp/emailmessage.txt"
-cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
-# send an email using /bin/mail
-mail -s "$SUBJECT" "$EMAIL" < $EMAILMESSAGE
 
-# FIXME (phlco) this reports broken pipe in ubuntu
-# run exec $SHELL at end?
-# atom . doesn't work.
-# subl . works
+
+quoth_the_bard "${HOW_NOW_FINISH[@]}"
+

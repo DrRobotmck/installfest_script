@@ -10,12 +10,14 @@ commentary/quoth_the_bard
 # -> quoth_the_bard "${HOW_NOW_TERMINAL[@]}"
 define_terminal_colors
 mac/define_script_helper_functions
-tests/add_assert_functions
+# tests/add_assert_functions
 set_env_vars
 mac/set_env_vars
 set_script_branch
 
 capture_password
+
+# update os with necessary tools
 mac/update_software
 mac/install_commandline_tools
 

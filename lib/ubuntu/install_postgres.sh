@@ -18,3 +18,6 @@ sudo -u postgres createuser --superuser $USER
 touch ~/.psql_history
 
 createdb $USER
+
+# Install ruby interface for Postgres
+gem install pg
