@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 #
 #  _           _        _ _  __           _
 # (_)_ __  ___| |_ __ _| | |/ _| ___  ___| |_
@@ -28,12 +29,17 @@
 # http://www.shellcheck.net
 # http://explainshell.com/
 
+
 function quoth_the_bard () {
   local message=$1
   local attribution=$2
   echo ""
   echo "${RED}${message}${RESET}"
   echo "${BLUE}${attribution}${RESET}"
+}
+
+function pause_awhile () {
+   read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue"
 }
 
 THE_PLAYS_THE_THING="The play's the thing..."
@@ -102,13 +108,47 @@ HOW_NOW_FINISH=(
 Or close the wall up with our English dead."
 "--Henry V (III.i)"
 )
+HOW_NOW_NODE=(
+"But that my heart's on future mischief set, 
+I would speak blasphemy ere bid you fly: 
+But fly you must; uncurable discomfit 
+Reigns in the hearts of all our present parts."
+"--Henry VI, Part 2 (V.ii)"
+)
+HOW_NOW_GIT=(
+"HAMLET: ... for you yourself, sir,
+should be old as I am if, like a crab, you could go backward.
+
+POLONIUS: [aside] Though this be madness, yet there is a method in't.- 
+Will You walk out of the air, my lord?"
+"--Hamlet (II.ii)"
+)
+
+
+clear
+
+echo "Welcome to Installfest
+
+Throughout the script you will be asked to enter your password. Unless otherwise
+stated, this is asking for your computer's password.
+
+This will install or update files and applications that you will use in class."
+
 
 
 echo "${GREEN}The play's the thing...${GREEN}"
 
 
 
+pause_awhile "begin"
+
+
+
 quoth_the_bard "${HOW_NOW_TERMINAL[@]}"
+
+
+
+pause_awhile "define environmental variables for the install"
 
 #-------------------------------------------------------------------------------
 # Set text formatting
@@ -148,6 +188,7 @@ UNDERLINE=$(  tput smul)
 NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)
+
 #-------------------------------------------------------------------------------
 # Functions
 #-------------------------------------------------------------------------------
@@ -166,6 +207,7 @@ allow_control() {
   fi
 }
 
+
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
@@ -181,13 +223,21 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 # `OSTYPE` A string describing the operating system Bash is running on.
 # `MACHTYPE` system type in cpu-company-system
 # `SECONDS` number of seconds since the shell was started.
+
 MINIMUM_OS="10.7.0"
+
 
 # This refers to the branch of our repo that we are using (for cloning).
 BRANCH=master
+
 # capture the user's password
 sudo -p "Enter your computer's password so that we can make the necessary changes: "
 echo "Thank you."
+
+
+
+pause_awhile "update your OS with necessary tools"
+
 # Check for recommended software updates
 sudo softwareupdate -i -r --ignore iTunes
 
@@ -196,6 +246,7 @@ sudo chown -R ${USER} ~
 
 # Repair disk permission
 diskutil repairPermissions /
+
 
 # Determine OS version
 
@@ -235,6 +286,7 @@ fi
 
 
 
+
 quoth_the_bard "${HOW_NOW_RVM[@]}"
 
 # uninstall rvm, so that we can use rbenv
@@ -245,6 +297,7 @@ if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
 fi
 
 assert_that "RVM has been removed or was not installed" "command -v rvm" ""
+
 # Because we're going to use rbenv and homebrew we need to remove RVM and MacPorts
 # This script checks for and removes previous installs of macports and RVM
 
@@ -275,13 +328,19 @@ else
 fi
 
 
+
 quoth_the_bard "${HOW_NOW_GIT[@]}"
+
+
+
+pause_awhile "add GitHub credentials to our keychain"
 
 echo "Please register for an account on github.com if you haven't already done so."
 
 read -p "Enter your full name: "  user_name
 read -p "Github Username: "       github_name
 read -p "Github Email: "          github_email
+
 
 
 quoth_the_bard "${HOW_NOW_SSH_KEYS[@]}"
@@ -316,6 +375,7 @@ open https://github.com/settings/ssh
 read -p "SSH keys added? Press Enter to continue."
 
 # TODO (h4w5) add assertion around ... "ssh -T git@github.com"
+
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
@@ -331,7 +391,12 @@ else
 fi
 
 
+
 quoth_the_bard "${HOW_NOW_BREW[@]}"
+
+
+
+pause_awhile "install the Mac OS package manager Homebrew"
 
 # Installs Homebrew, our package manager
 # http://brew.sh/
@@ -345,6 +410,7 @@ fi
 
 # Make sure we're using the latest Homebrew
 brew update
+
 
 # Upgrade any already-installed formulae
 brew upgrade
@@ -409,15 +475,26 @@ brew tap --repair
 
 # Remove outdated versions from the cellar
 brew cleanup
+
+
+
+quoth_the_bard "${HOW_NOW_GIT[@]}"
+
+
+
+pause_awhile "install the Mac OS package manager Homebrew"
+
 # Version Control
 brew install git
 
 # additional git commands
 brew install hub
 
+
 git_completion_url=https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 
 curl -o ~/.git-completion.bash $git_completion_url
+
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
 git config --global user.name  $github_name
@@ -441,7 +518,12 @@ git config --global core.editor "subl -w"
 git config --global push.default current
 
 
+
 quoth_the_bard "${HOW_NOW_RUBY[@]}"
+
+
+
+pause_awhile "install Ruby with rbenv"
 
 # Our Ruby version manager
 # brew install rbenv
@@ -476,7 +558,12 @@ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-bu
 # source ~/.bash_profile
 
 
+
 quoth_the_bard "${HOW_NOW_GEMS[@]}"
+
+
+
+pause_awhile "install Gems with rbenv"
 
 # Our gems to install
 # skip documentation
@@ -505,6 +592,7 @@ gemlist=(
 for gem in ${gemlist[@]}; do
   echo "${gem}" >> ~/.rbenv/default-gems
 done
+
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -514,10 +602,20 @@ else
 fi
 
 assert_that "Ruby is installed and links to rbenv" "which ruby" "$HOME/.rbenv/shims/ruby"
+
 rbenv global $BELOVED_RUBY_VERSION
 
 assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" \
             "ruby -v | grep -q ${BELOVED_RUBY_VERSION} && echo 'true'" "true"
+
+
+
+quoth_the_bard "${HOW_NOW_NODE[@]}"
+
+
+
+pause_awhile "install Node and npm"
+
 # Event-driven I/O server-side JavaScript environment based on V8
 brew install node
 
@@ -555,7 +653,12 @@ npm install -g express
 # npm install -g generator-gulp-webapp
 
 
+
 quoth_the_bard "${HOW_NOW_APPS[@]}"
+
+
+
+pause_awhile "install classroom applications"
 
 # a CLI workflow for the administration of Mac applications
 # distributed as binaries
@@ -607,6 +710,7 @@ brew cask install font-inconsolata
 
 # Git extensions to provide high-level repository operations
 # brew install git-flow
+
 # Useful packages
 packagelist=(
   # ASCII ART!!!!
@@ -643,6 +747,7 @@ brew install ${packagelist[@]}
 
 # List of useful Quick Look plugins for developers
 brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
+
 #  _                    _
 # | |__   ___ _ __ ___ | | ___   _
 # | '_ \ / _ \ '__/ _ \| |/ / | | |
@@ -673,7 +778,12 @@ echo "Heroku. This will allow you to deploy code to all of your apps."
 heroku keys:add
 
 
+
 quoth_the_bard "${HOW_NOW_DB[@]}"
+
+
+
+pause_awhile "install PostgreSQL"
 
 # Set up Postgres
 brew install postgresql
@@ -696,6 +806,7 @@ sleep 5s
 
 # create db matching user name so we can log in by just typing psql
 createdb ${USER}
+
 # # Disable the "Are you sure you want to open this application?" dialog
 # defaults write com.apple.LaunchServices LSQuarantine -bool false
 
@@ -748,7 +859,12 @@ defaults write com.apple.terminal StringEncodings -array 4
 # -e 'tell application "System Events" to tell process "Terminal" to tell window 1 to close'
 
 
+
 quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
+
+
+
+pause_awhile "do final configurations"
 
 echo "Script now will gather your mac address and send to the class chatbot for"
 echo "attendance purposes"
@@ -770,11 +886,16 @@ curl -i \
 "github"       : "'"$github_name"'",
 "mac_address"  : "'"$mac_address"'"
 }' $ATTENDANCE_URL
+
 echo "Creating a student folder in ~/dev/wdi"
 
 STUDENT_FOLDER="$HOME/dev/wdi"
 mkdir -p $STUDENT_FOLDER
 
 
+
 quoth_the_bard "${HOW_NOW_FINISH[@]}"
+
+echo "We're done!"
+echo "#-- fin -- #"
 

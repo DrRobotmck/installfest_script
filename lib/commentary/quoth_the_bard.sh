@@ -7,6 +7,10 @@ function quoth_the_bard () {
   echo "${BLUE}${attribution}${RESET}"
 }
 
+function pause_awhile () {
+   read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue"
+}
+
 THE_PLAYS_THE_THING="The play's the thing..."
 HOW_NOW_SSH_KEYS=(
 "Double, double toil and trouble; Fire burn, and caldron bubble."
@@ -72,4 +76,19 @@ HOW_NOW_FINISH=(
 "Once more unto the breach, dear friends, once more;
 Or close the wall up with our English dead."
 "--Henry V (III.i)"
+)
+HOW_NOW_NODE=(
+"But that my heart's on future mischief set, 
+I would speak blasphemy ere bid you fly: 
+But fly you must; uncurable discomfit 
+Reigns in the hearts of all our present parts."
+"--Henry VI, Part 2 (V.ii)"
+)
+HOW_NOW_GIT=(
+"HAMLET: ... for you yourself, sir,
+should be old as I am if, like a crab, you could go backward.
+
+POLONIUS: [aside] Though this be madness, yet there is a method in't.- 
+Will You walk out of the air, my lord?"
+"--Hamlet (II.ii)"
 )

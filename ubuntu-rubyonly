@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 #-------------------------------------------------------------------------------
 # Handle Command Line Options
 #-------------------------------------------------------------------------------
@@ -56,6 +57,7 @@ else
   echo_log " Script will log errors, log statements and assertions only. Use -v option to log verbosely."
 fi
 echo_log
+
 #-------------------------------------------------------------------------------
 # Set text formatting
 #-------------------------------------------------------------------------------
@@ -94,6 +96,7 @@ UNDERLINE=$(  tput smul)
 NOUNDERLINE=$(tput rmul)
 BOLD=$(       tput bold)
 ITALIC=$(     tput sitm)
+
 
 # set FORCE (do not quit on error) to true if it is not loaded, as a default
 : ${FORCE=true} # TODO (h4w5) since we are testing for null, this will always happen
@@ -152,6 +155,7 @@ assert_package_installed() {
   done
 }
 
+
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
@@ -168,11 +172,14 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 # `MACHTYPE` system type in cpu-company-system
 # `SECONDS` number of seconds since the shell was started.
 
+
 # This refers to the branch of our repo that we are using (for cloning).
 BRANCH=master
+
 # capture the user's password
 sudo -p "Enter your computer's password so that we can make the necessary changes: "
 echo "Thank you."
+
 # uninstall rvm, so that we can use rbenv
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
 if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
@@ -181,6 +188,7 @@ if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
 fi
 
 assert_that "RVM has been removed or was not installed" "command -v rvm" ""
+
 # this is a subset of the install_system_packages script for the purpose of
 # setting up an ubuntu-rubyonly install
 
@@ -212,6 +220,7 @@ sudo apt-get -y install libpq-dev
 # check installs
 assert_package_installed build-essential tklib zlib1g-dev libssl-dev git libpq-dev
 assert_package_installed libreadline-gplv2-dev libxml2 libxml2-dev libxslt1-dev
+
 # Our ruby version manager
 
 # rbenv
@@ -232,6 +241,7 @@ git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/r
 git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 
 assert_that "Rbenv's ruby-build plugin is installed" "rbenv install"
+
 # Our gems to install
 # skip documentation
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
@@ -259,12 +269,14 @@ gemlist=(
 for gem in ${gemlist[@]}; do
   echo "${gem}" >> ~/.rbenv/default-gems
 done
+
 # For testing and simplicity with Ubuntu, add these to the .bashrc until it's
 # overwritten...
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 source ~/.bashrc
+
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -274,12 +286,15 @@ else
 fi
 
 assert_that "Ruby is installed and links to rbenv" "which ruby" "$HOME/.rbenv/shims/ruby"
+
 rbenv global $BELOVED_RUBY_VERSION
 
 assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" \
             "ruby -v | grep -q ${BELOVED_RUBY_VERSION} && echo 'true'" "true"
 
+
 # check for gems
 for gem in ${gemlist[@]}; do
   assert_that "$gem gem is installed" "gem list $gem -i" "true"
 done
+
