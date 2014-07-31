@@ -27,14 +27,14 @@ namespace :dotfiles do
     # create backup folder
     time = Time.now.strftime("%Y%m%d%H%M%S")
     FileUtils.mkdir_p("#{ENV['HOME']}/.wdi/dotfiles/backup_#{time}")
-    Dir.glob("lib/*").each do |path|
+    Dir.glob("settings/*").each do |path|
       file = File.basename(path)
 
       local_file = File.expand_path("~/.#{file}")
 
       if File.exist? local_file
         puts "backing up #{local_file}"
-        FileUtils.cp(local_file, "#{ENV['HOME']}/.wdi-dotfiles/backup_#{time}/")
+        FileUtils.cp(local_file, "#{ENV['HOME']}/.wdi/dotfiles/backup_#{time}/")
       end
 
       puts "copying file"
