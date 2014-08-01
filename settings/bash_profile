@@ -1,9 +1,9 @@
-#  _               _                        __ _ _
-# | |__   __ _ ___| |__    _ __  _ __ ___  / _(_) | ___
+#  _              _                        __ _ _
+# | |__  __ _ ___| |__    _ __  _ __ ___  / _(_) | ___
 # | '_ \ / _` / __| '_ \  | '_ \| '__/ _ \| |_| | |/ _ \
 # | |_) | (_| \__ \ | | | | |_) | | | (_) |  _| | |  __/
 # |_.__/ \__,_|___/_| |_| | .__/|_|  \___/|_| |_|_|\___|
-#                         |_|
+#                        |_|
 
 # When Bash starts, it executes the commands in this script
 # http://en.wikipedia.org/wiki/Bash_(Unix_shell)
@@ -26,33 +26,34 @@
 # --------------------
 # System Settings
 # --------------------
-#   Path List
-#   Settings
-#   History
-#   Aliases
-#   Other System Settings
+#  Path List
+#  Settings
+#  History
+#  Aliases
+#  Other System Settings
 # --------------------
 # Application Settings
 # --------------------
-#   Application Aliases
-#   rbenv
+#  Application Aliases
+#  rbenv
 # --------------------
 # Other Settings
 # --------------------
-#   Shortcuts
-#   Source Files
-#   Environmental Variables and API Keys
-#   Colophon
+#  Shortcuts
+#  Source Files
+#  Environmental Variables and API Keys
+#  Colophon
 
 # -----------------------------------------------------------------------------
 # Path
 # A list of all directories in which to look for commands, scripts and programs
 # -----------------------------------------------------------------------------
 
+PATH="$HOME/.rbenv/bin:$PATH"                              # RBENV
 PATH="/usr/local/share/npm/bin:$PATH"                      # NPM
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"                # Homebrew
-PATH="/usr/local/heroku/bin:$PATH"                         # Heroku Toolbelt
-PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"       # Coreutils
+PATH="/usr/local/heroku/bin:$PATH"                        # Heroku Toolbelt
+PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"      # Coreutils
 MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH" # Manual pages
 
 # =================
@@ -146,7 +147,7 @@ alias chrome='open -a "Google Chrome"'
 # =================
 
 # start rbenv (our Ruby environment and version manager) on open
-eval "$(rbenv init -)"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # =================
 # Functions
@@ -155,7 +156,7 @@ eval "$(rbenv init -)"
 #######################################
 # Start an HTTP server from a directory
 # Arguments:
-#   Port (optional)
+#  Port (optional)
 #######################################
 
 server() {
