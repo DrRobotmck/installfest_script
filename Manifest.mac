@@ -1,7 +1,7 @@
 shebang
 
 commentary/header
-# handle_options_and_start_logging
+handle_options_and_start_logging
 
 define_terminal_colors
 commentary/quoth_the_bard
@@ -65,6 +65,7 @@ mac/install_node_and_npm
 # -> quoth_the_bard "${HOW_NOW_APPS[@]}"
 # -> pause_awhile "install classroom applications"
 mac/install_apps
+
 # TODO (phlco) are these *system* packages?
 mac/install_system_packages
 mac/set_up_heroku
@@ -73,7 +74,7 @@ mac/set_up_heroku
 # -> pause_awhile "install PostgreSQL"
 mac/install_postgres
 
-# currently not using
+## currently not using
 # install_vim_plugins
 # install_oh_my_zsh
 
@@ -85,7 +86,8 @@ capture_mac_address
 create_student_folders
 copy_over_dotfiles
 
-# report_log # FIXME (phlco) skipping the email line
+# FIXME (phlco) skipping the email line
+report_log
 
 # -> quoth_the_bard "${HOW_NOW_FINISH[@]}"
 commentary/fin

@@ -1,3 +1,21 @@
+# SRC_DIR=~/.wdi/installfest
+# SETTINGS=$SRC_DIR/settings
 
-# backup and copy over dotfiles
-rake dotfiles:copy
+dotfiles=(SETTINGS/*)
+
+timestamp=$(date +%s)
+
+mkdir -p $HOME/.wdi/backups_$timestamp
+
+for filepath in "${dotfiles[@]}"; do
+
+  dotfile=".$(basename $filepath)"
+
+  if [[ -a "$HOME/$dotfile" ]]; then
+
+    cp "$HOME/$dotfile" "$HOME/.wdi/backups_$timestamp/$dotfile"
+    cp filepath "$HOME/$dotfile"
+
+  fi
+
+done
