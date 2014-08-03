@@ -47,7 +47,7 @@ rake db:create && rake db:migrate
 rails server &
 # ^^ Test this by opening a Chrome browser to http://localhost:3000.
 # ^^ Press Ctrl+C in the command line to stop the server from running...
-#    Only if the server is running!
+#    Only stop the server if the server is running, of course!
 
 subl .
 # ^^ This should open up a Sublime Text instance.
