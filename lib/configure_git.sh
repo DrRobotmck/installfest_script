@@ -12,7 +12,7 @@ git config --global color.branch.remote    yellow
 
 git config --global color.status.added     green
 git config --global color.status.changed   yellow
-git config --global color.status.untracked "red blink"
+git config --global color.status.untracked red
 
 # set editor
 git config --global core.editor "subl -w"
