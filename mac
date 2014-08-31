@@ -412,9 +412,10 @@ pause_awhile "add GitHub credentials to our keychain"
 
 echo "Please register for an account on github.com if you haven't already done so."
 
-read -p "Enter your full name: "  user_name
-read -p "Github Username: "       github_name
-read -p "Github Email: "          github_email
+read -p "Enter your full name: "     user_name
+read -p "Github Username: "          github_name
+read -p "Github Email: "             github_email
+read -s -p "Github Password: "       github_password
 
 
 
@@ -428,26 +429,14 @@ quoth_the_bard "${HOW_NOW_SSH_KEYS[@]}"
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
 
-# Copy SSH key to the clipboard
-pbcopy < ~/.ssh/id_rsa.pub
+public_key=$(cat ~/.ssh/id_rsa.pub)
 
-echo ""
-echo "We just copied your SSH key to the clipboard."
-echo "Now we're going to visit GitHub to add the SSH key"
-
-echo "Do the following in your browser: "
-echo '- Click "SSH Keys" in the left sidebar'
-echo '- Click "Add SSH key"'
-echo '- Add a title like "WDI Installfest"'
-echo '- Paste your key into the "Key" field'
-echo '- Click "Add key"'
-echo '- Confirm the action by entering your GitHub password'
-
-read -p "We'll be here until you get back from Github. Ready? Press Enter to continue."
-
-open https://github.com/settings/ssh
-
-read -p "SSH keys added? Press Enter to continue."
+# Upload to github
+curl https://api.github.com/user/keys \
+  -H "User-Agent: WDIInstallFest" \
+  -H "Accept: application/vnd.github.v3+json" \
+  -u "$github_name:$github_password" \
+  -d '{"title":"WDI Installfest", "key":"'"$public_key"'"}'
 
 # TODO (h4w5) add assertion around ... "ssh -T git@github.com"
 
@@ -584,7 +573,7 @@ git config --global color.branch.remote    yellow
 
 git config --global color.status.added     green
 git config --global color.status.changed   yellow
-git config --global color.status.untracked "red blink"
+git config --global color.status.untracked red
 
 # set editor
 git config --global core.editor "subl -w"

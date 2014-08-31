@@ -27,7 +27,7 @@ ubuntu/install_system_packages
 capture_github_credentials
 
 # -> quoth_the_bard "${HOW_NOW_SSH_KEYS[@]}"
-ubuntu/create_ssh_keys
+add_ssh_key_to_github
 configure_git
 
 # set up default deployment with heroku
