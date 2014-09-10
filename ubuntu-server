@@ -208,12 +208,12 @@ BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
 # TODO (phlco) set this in env vars or create_student_folders?
-# STUDENT_FOLDER_SETUP="$HOME/dev/wdi"
+# STUDENT_FOLDER_SETUP="$HOME/src/wdi"
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
+INSTALL_REPO=https://github.com/amadden80/installfest_script.git
 
 # Standard Bash Variables
 # `OSTYPE` A string describing the operating system Bash is running on.
@@ -389,6 +389,20 @@ git config --global core.editor "subl -w"
 
 # default branch to push to
 git config --global push.default current
+
+# download the repo for the absolute paths
+if [[ ! -d $SRC_DIR ]]; then
+  echo 'Downloading Installfest repo...'
+  # autoupdate bootstrap file
+  git clone -b $BRANCH $INSTALL_REPO $SRC_DIR
+  # hide folder
+  # chflags hidden $SRC_DIR # FIXME (h4w5) doesn't work on linux
+else
+  # update repo
+  echo 'Updating repo...'
+  cd $SRC_DIR
+  git pull origin $BRANCH
+fi
 
 # Heroku command-line tooling for working with the Heroku platform
 

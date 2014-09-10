@@ -30,6 +30,8 @@ capture_github_credentials
 add_ssh_key_to_github
 configure_git
 
+clone_script_repo
+
 # set up default deployment with heroku
 ubuntu/set_up_heroku
 

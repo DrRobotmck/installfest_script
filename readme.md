@@ -39,7 +39,7 @@ The new environment **will not work** with the current, open, terminal. Use `Com
 A successful install means we can run the following in our new terminal window. If any of these aren't working, you can stop your test and add an issue to this GitHub repo or ask an instructor for help.
 
 ```bash
-cd ~/dev/wdi
+cd ~/src/wdi
 # ^^ The wdi folder should exist.
 
 rails new sample_app -d postgresql && cd sample_app
@@ -54,7 +54,7 @@ subl .
 # ^^ This should open up a Sublime Text instance.
 
 # WARNING! Do NOT run `git init` in your home directory!
-# Only run this from ~/dev/wdi/sample_app!!
+# Only run this from ~/src/wdi/sample_app!!
 git init
 git add . --all
 git commit -am 'first commit'
