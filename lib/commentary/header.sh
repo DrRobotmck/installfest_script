@@ -11,7 +11,7 @@
 # Author: Phillip Lamplugh, GA Instructor (2014)
 # Contributions: PJ Hughes, GA Instructor (2014)
 
-# Resources
+# Resources:
 #
 # https://github.com/thoughtbot/laptop
 # https://github.com/toranb/ubuntu-development-machine
@@ -20,7 +20,7 @@
 # https://github.com/mathiasbynens/dotfiles/
 # https://github.com/ndbroadbent/dotfiles
 
-# References
+# References:
 #
 # http://www.sudo.ws/
 # http://www.gnu.org/software/bash/manual/bashref.html
