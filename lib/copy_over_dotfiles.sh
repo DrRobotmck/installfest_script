@@ -1,7 +1,7 @@
-# SRC_DIR=~/.wdi/installfest
-# SETTINGS=$SRC_DIR/settings
+SRC_DIR=~/.wdi/installfest
+SETTINGS=$SRC_DIR/settings
 
-dotfiles=(SETTINGS/*)
+dotfiles=($SETTINGS/*)
 
 timestamp=$(date +%s)
 
@@ -14,8 +14,8 @@ for filepath in "${dotfiles[@]}"; do
   if [[ -a "$HOME/$dotfile" ]]; then
 
     cp "$HOME/$dotfile" "$HOME/.wdi/backups_$timestamp/$dotfile"
-    cp filepath "$HOME/$dotfile"
 
   fi
 
+  cp $filepath "$HOME/$dotfile"
 done
