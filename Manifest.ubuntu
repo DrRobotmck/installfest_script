@@ -1,7 +1,7 @@
 shebang
 
 commentary/header
-# handle_options_and_start_logging
+handle_options_and_start_logging
 
 define_terminal_colors
 commentary/quoth_the_bard
