@@ -68,7 +68,7 @@ ubuntu/install_postgres
 # -> quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
 # -> pause_awhile "do final configurations"
 create_student_folders
-copy_over_dotfiles
+
 
 ubuntu/install_mailutils
 # report_log # FIXME (phlco) skipping the email line

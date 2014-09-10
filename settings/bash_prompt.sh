@@ -145,12 +145,12 @@ prompt_git() {
 # Print Stats on terminal load
 # ---------------------
 welcome() {
-  sed -i.bak s/WELCOME_PROMPT=false/WELCOME_PROMPT=true/g ~/.welcome_prompt
+  sed -i.bak s/WELCOME_PROMPT=false/WELCOME_PROMPT=true/g ~/.welcome_prompt.sh
   echo "Message returned."
 }
 
 # Show/Hide stats on terminal load
 unwelcome() {
-  sed -i.bak s/WELCOME_PROMPT=true/WELCOME_PROMPT=false/g ~/.welcome_prompt
+  sed -i.bak s/WELCOME_PROMPT=true/WELCOME_PROMPT=false/g ~/.welcome_prompt.sh
   echo "Message removed. Type ${BOLD}welcome${RESET} to return the message."
 }
