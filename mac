@@ -546,7 +546,7 @@ quoth_the_bard "${HOW_NOW_GIT[@]}"
 
 
 
-pause_awhile "install the Mac OS package manager Homebrew"
+pause_awhile "install version control system git"
 
 # Version Control
 brew install git
