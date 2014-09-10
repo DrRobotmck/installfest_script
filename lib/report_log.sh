@@ -2,7 +2,7 @@
 # email subject
 SUBJECT="Log Report"
 # Email To ?
-EMAIL="philco@ga.co"
+EMAIL="andrew@ga.co"
 # Email text/message
 EMAILMESSAGE="/tmp/emailmessage.txt"
 cat "$HOME/.wdi/install.log"> $EMAILMESSAGE

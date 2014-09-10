@@ -55,11 +55,6 @@ keep_alive_password
 # -> pause_awhile "install Node and npm"
 ubuntu/install_node_and_npm
 
-# -> quoth_the_bard "${HOW_NOW_APPS[@]}"
-# -> pause_awhile "install classroom applications"
-ubuntu/install_apps
-# ubuntu/install_atom
-
 # -> quoth_the_bard "${HOW_NOW_DB[@]}"
 # -> pause_awhile "install PostgreSQL"
 ubuntu/install_postgres

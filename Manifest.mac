@@ -82,7 +82,6 @@ mac/run_osx_tweeks
 
 # -> quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
 # -> pause_awhile "do final configurations"
-capture_mac_address
 create_student_folders
 copy_over_dotfiles
 
