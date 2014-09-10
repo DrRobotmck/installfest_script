@@ -124,7 +124,7 @@ Commentary beyond code explanation (simple comments) is stored in `lib/commentar
 
 The script downloads from [https//raw.githubusercontent.com](). Be aware: **it caches resources for one minute**, so you may not see your changes to the script immediately.
 
-*Use a seperate branch (or fork) from __master__ and __development__ for testing and working on features or new components*, of course. Users are pulling directly from **master** for builds.
+*Use a separate branch (or fork) from __master__ and __development__ for testing and working on features or new components*, of course. Users are pulling directly from **master** for builds.
 
 Components exist to log the output of the scripts. Since the output is massive, they are set by default to log only:
 
@@ -224,11 +224,11 @@ That being said, here are the most important facts:
 - we use jQuery and Backbone
 
 
-Program in a Unix-like environment. Right now we support Mac OSX and Ubuntu. We program in a shell: bash/zsh. We use a window manager: Spectacle or Unity's built-in tool. we use technologies and a language stack. we use tools and settings and a style guide.
+TODO - we use tools and settings and a style guide.
 
 ### How do we teach development in WDI?
 
-language stack  
+language stack
 versions (why important)
 
 
@@ -247,7 +247,7 @@ versions (why important)
 | **[Capybara][capy]**      | ?.?.? | Acceptance <br> Testing | Client | &#x2713; |
 | **[Heroku][heroku]**      | n/a   | Hosting      | n/a      | &#x2713;\* |
 
-\* - some tools added and setup performed, but no specific application involved  
+\* - some tools added and setup performed, but no specific application involved
 
 [psql]:    http://www.postgresql.org/ "..."
 [ruby]:    ... "..."
@@ -263,8 +263,8 @@ versions (why important)
 
 ### What tools do we use to develop software?
 
-what tools do we need for web dev  
-suggested vs alternatives  
+what tools do we need for web dev
+suggested vs alternatives
 settings
 
 | App | Tool | Alternatives |
@@ -299,7 +299,7 @@ settings
 | __[Sublime Text]()__  | | Mac/Ubuntu | An alternate (very popular) text editor. |
 | __[zsh]()__  | | Mac/Ubuntu  | An alternate terminal shell environment. |
 
- \* - copies a program or functionality included by default in Ubuntu Linux  
+ \* - copies a program or functionality included by default in Ubuntu Linux
  \*\* - copies a program or functionality included by default in Mac OS X
 
 and various packages needed to make these work and the above work
@@ -310,12 +310,12 @@ and various packages needed to make these work and the above work
 
 ### What settings and dotfiles do we use for applications?
 
-settings as separate from default installations  
-how dotfiles work  
-colors and profiles for term and text editors  
-browser plugins  
-git settings  
-testing  
+settings as separate from default installations
+how dotfiles work
+colors and profiles for term and text editors
+browser plugins
+git settings
+testing
 
 read more: our style guide
 
