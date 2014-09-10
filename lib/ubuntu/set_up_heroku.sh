@@ -5,7 +5,7 @@
 # from the above, but using our current environment:
 
 # add heroku repository to apt
-echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
+sudo echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
 
 # install heroku's release key for package verification
 wget -O- https://toolbelt.heroku.com/apt/release.key | sudo apt-key add -
