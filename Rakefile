@@ -11,7 +11,7 @@ namespace :installer do
     end
   end
 
-  desc "Build installscirpts from manifest files"
+  desc "Build installscripts from manifest files"
   task :build do
     system("./bin/build.rb")
     puts "Build installs from manifests"
