@@ -57,7 +57,7 @@ LOGFILE="$LOGFOLDER/install.log"
 #   a. directing echo_log() & assert_that() to stderr, via
 #      {echo "" >&2}, and ...
 echo_log() {
-  echo "$1" >&2
+  echo "$1\n" >&2
 }
 
 if [ -n "$VERBOSE" ]; then
@@ -930,15 +930,21 @@ quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
 
 pause_awhile "do final configurations"
 
-echo "Creating a student folder in ~/dev/wdi"
+echo "Creating directory for wdi: ~/src/wdi"
+echo "Creating directory for hacking and new work: ~/src/workbench"
+echo "Creating directory for 3rd party code: ~/src/vendor"
+echo "Creating directory for projects: ~/src/projects"
 
-STUDENT_FOLDER="$HOME/dev/wdi"
+STUDENT_FOLDER="$HOME/src/wdi"
 mkdir -p $STUDENT_FOLDER
+mkdir "$HOME/src/workbench"
+mkdir "$HOME/src/vendor"
+mkdir "$HOME/src/projects"
 
-# SRC_DIR=~/.wdi/installfest
-# SETTINGS=$SRC_DIR/settings
+SRC_DIR=~/.wdi/installfest
+SETTINGS=$SRC_DIR/settings
 
-dotfiles=(SETTINGS/*)
+dotfiles=($SETTINGS/*)
 
 timestamp=$(date +%s)
 
@@ -951,10 +957,10 @@ for filepath in "${dotfiles[@]}"; do
   if [[ -a "$HOME/$dotfile" ]]; then
 
     cp "$HOME/$dotfile" "$HOME/.wdi/backups_$timestamp/$dotfile"
-    cp filepath "$HOME/$dotfile"
 
   fi
 
+  cp $filepath "$HOME/$dotfile"
 done
 
 
