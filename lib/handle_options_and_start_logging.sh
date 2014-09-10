@@ -26,7 +26,7 @@ LOGFILE="$LOGFOLDER/install.log"
 #   a. directing echo_log() & assert_that() to stderr, via
 #      {echo "" >&2}, and ...
 echo_log() {
-  echo "$1" >&2
+  echo "$1\n" >&2
 }
 
 if [ -n "$VERBOSE" ]; then
