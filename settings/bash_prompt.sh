@@ -2,6 +2,9 @@
 # Bash Prompt
 # =================
 
+# Show more information regarding git status in prompt (may slow display!!)
+GIT_DIFF_IN_PROMPT=false
+
 # --------------------
 # Colors for the prompt
 # --------------------
@@ -110,28 +113,32 @@ prompt_git() {
         return 1
     fi
     git_info=$(get_git_branch)
-    # Check for uncommitted changes in the index
-    if ! $(git diff --quiet --ignore-submodules --cached); then
-        uc="+"
+
+    if $GIT_DIFF_IN_PROMPT; then
+      # Check for uncommitted changes in the index
+      if ! $(git diff --quiet --ignore-submodules --cached); then
+          uc="+"
+      fi
+      # Check for unstaged changes
+      if ! $(git diff-files --quiet --ignore-submodules --); then
+          us="!"
+      fi
+      # Check for untracked files
+      if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+          ut="${RED}?"
+      fi
+      # Check for stashed files
+      if $(git rev-parse --verify refs/stash &>/dev/null); then
+          st="$"
+      fi
+      git_state=$uc$us$ut$st
+      # Combine the branch name and state information
+      if [[ $git_state ]]; then
+          git_info="$git_info${RESET}[$git_state${RESET}]"
+      fi
     fi
-    # Check for unstaged changes
-    if ! $(git diff-files --quiet --ignore-submodules --); then
-        us="!"
-    fi
-    # Check for untracked files
-    if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-        ut="${RED}?"
-    fi
-    # Check for stashed files
-    if $(git rev-parse --verify refs/stash &>/dev/null); then
-        st="$"
-    fi
-    git_state=$uc$us$ut$st
-    # Combine the branch name and state information
-    if [[ $git_state ]]; then
-        git_info="$git_info${RESET}[$git_state${RESET}]"
-    fi
-    printf "${WHITE} on ${style_branch}${git_info}"
+
+    printf "${WHITE} on ${style_branch}${git_info}${RESET}"
 }
 
 # ---------------------

@@ -64,11 +64,13 @@ MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH" # Manual pages
 export LC_ALL="en_US.UTF-8"
 # use UTF-8
 export LANG="en_US"
-# Adds colors to LS
-export CLICOLOR=1
-# http://geoff.greer.fm/lscolors/
-# Describes what color to use for which attribute (files, folders etc.)
-export LSCOLORS=exfxcxdxbxegedabagacad # PJ: turned off
+
+# # Adds colors to LS!!!!
+# export CLICOLOR=1
+# # http://geoff.greer.fm/lscolors/
+# # Describes what color to use for which attribute (files, folders etc.)
+# export LSCOLORS=exfxcxdxbxegedabagacad # PJ: turned off
+# export LS_COLORS="di=34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:"
 
 # =================
 # History
@@ -86,7 +88,7 @@ export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth
 
 # Make some commands not show up in history
-export HISTIGNORE="h:ls:ls *:ll:ll *:"
+export HISTIGNORE="h"
 
 # ====================
 # Aliases
@@ -94,13 +96,10 @@ export HISTIGNORE="h:ls:ls *:ll:ll *:"
 
 # LS lists information about files.
 # show slashes for directories.
-alias ls='ls -F'
+alias ls='ls -F --color'
 
 # long list format including hidden files and include unit size
 alias ll='ls -la'
-
-# go back one directory
-alias ..='cd ..'
 
 # History lists your previously entered commands
 alias h='history'
@@ -142,6 +141,9 @@ alias rogue='lsof -i TCP:3000 -i TCP:4567 -i TCP:8000 -i TCP:8888 -i TCP:6379'
 # alias subl='open -a "Sublime Text 2"'
 alias chrome='open -a "Google Chrome"'
 
+# Chrome 3000 Port Open...
+alias c3po='open -a "Google Chrome" "http://localhost:3000"'
+
 # =================
 # rbenv
 # =================
@@ -164,7 +166,12 @@ server() {
   open "http://localhost:${port}/"
   # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
   # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
-  python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port"
+
+  # Simple Pythong Server:
+  # python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port"
+
+  # Simple Ruby Webrick Server:
+  ruby -e "require 'webrick';server = WEBrick::HTTPServer.new(:Port=>${port},:DocumentRoot=>Dir::pwd );trap('INT'){ server.shutdown };server.start"
 }
 
 # =================
