@@ -31,7 +31,7 @@ sudo apt-get -y install fluxgui
 git clone https://github.com/github/hub.git
 cd hub
 # TODO (phlco) permission problems... sudo chown -R `whoami` /usr/local/* ?
-sudo rake install prefix=/usr/local
+rake install prefix=/usr/local
 
 # vim
 sudo apt-get -y install vim
