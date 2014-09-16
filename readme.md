@@ -15,21 +15,18 @@ The script comes in three basic flavors: the default full install for Mac OS, th
 Paste this script into a Terminal prompt:
 
 ```
-bash <(curl -sL https://raw.githubusercontent.com/amadden80/installfest_script/master/mac)
+bash <(curl -sL https://raw.githubusercontent.com/ga-instructors/installfest_script/master/mac)
 ```
-
 
 ##### For Ubuntu Linux
 
 Paste this script into a Terminal prompt:
 
 ```
-bash <(wget -qO- https://raw.githubusercontent.com/amadden80/installfest_script/master/ubuntu)
+bash <(wget -qO- https://raw.githubusercontent.com/ga-instructors/installfest_script/master/ubuntu)
 ```
 ## Step 2
 
 ##### Reload the terminal screen
 
 The new environment **will not work** with the current, open, terminal. Use `Command+N` in Mac OS, or `Shift+Ctrl+N` in Ubuntu, to open a new terminal window.
-
-
