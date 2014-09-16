@@ -13,7 +13,7 @@
 # Author: Phillip Lamplugh, GA Instructor (2014)
 # Contributions: PJ Hughes, GA Instructor (2014)
 
-# Resources
+# Resources:
 #
 # https://github.com/thoughtbot/laptop
 # https://github.com/toranb/ubuntu-development-machine
@@ -22,7 +22,7 @@
 # https://github.com/mathiasbynens/dotfiles/
 # https://github.com/ndbroadbent/dotfiles
 
-# References
+# References:
 #
 # http://www.sudo.ws/
 # http://www.gnu.org/software/bash/manual/bashref.html
@@ -57,7 +57,7 @@ LOGFILE="$LOGFOLDER/install.log"
 #   a. directing echo_log() & assert_that() to stderr, via
 #      {echo "" >&2}, and ...
 echo_log() {
-  echo "$1" >&2
+  echo "$1\n" >&2
 }
 
 if [ -n "$VERBOSE" ]; then
@@ -284,12 +284,12 @@ BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
 # TODO (phlco) set this in env vars or create_student_folders?
-# STUDENT_FOLDER_SETUP="$HOME/dev/wdi"
+# STUDENT_FOLDER_SETUP="$HOME/src/wdi"
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
+INSTALL_REPO=https://github.com/amadden80/installfest_script.git
 
 # Standard Bash Variables
 # `OSTYPE` A string describing the operating system Bash is running on.
@@ -546,7 +546,7 @@ quoth_the_bard "${HOW_NOW_GIT[@]}"
 
 
 
-pause_awhile "install the Mac OS package manager Homebrew"
+pause_awhile "install version control system git"
 
 # Version Control
 brew install git
@@ -930,36 +930,21 @@ quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
 
 pause_awhile "do final configurations"
 
-echo "Script now will gather your mac address and send to the class chatbot for"
-echo "attendance purposes"
+echo "Creating directory for wdi: ~/src/wdi"
+echo "Creating directory for hacking and new work: ~/src/workbench"
+echo "Creating directory for 3rd party code: ~/src/vendor"
+echo "Creating directory for projects: ~/src/projects"
 
-# Get MAC address for attendance
-# ether 54:26:96:d6:71:c7
-mac_address=$(sudo ifconfig en0 | grep ether | sed -e 's/^[ \t|ether|\s|\n]*//')
-
-# curl mac address info to chatbot
-ATTENDANCE_URL=http://agile-plateau-3603.herokuapp.com/students
-
-# Send to attendance db
-curl -i \
--H "Accept: application/json" \
--H "Content-Type:application/json" \
--X POST --data '{
-"name"         : "'"$user_name"'",
-"email"        : "'"$github_email"'",
-"github"       : "'"$github_name"'",
-"mac_address"  : "'"$mac_address"'"
-}' $ATTENDANCE_URL
-
-echo "Creating a student folder in ~/dev/wdi"
-
-STUDENT_FOLDER="$HOME/dev/wdi"
+STUDENT_FOLDER="$HOME/src/wdi"
 mkdir -p $STUDENT_FOLDER
+mkdir "$HOME/src/workbench"
+mkdir "$HOME/src/vendor"
+mkdir "$HOME/src/projects"
 
-# SRC_DIR=~/.wdi/installfest
-# SETTINGS=$SRC_DIR/settings
+SRC_DIR=~/.wdi/installfest
+SETTINGS=$SRC_DIR/settings
 
-dotfiles=(SETTINGS/*)
+dotfiles=($SETTINGS/*)
 
 timestamp=$(date +%s)
 
@@ -972,20 +957,21 @@ for filepath in "${dotfiles[@]}"; do
   if [[ -a "$HOME/$dotfile" ]]; then
 
     cp "$HOME/$dotfile" "$HOME/.wdi/backups_$timestamp/$dotfile"
-    cp filepath "$HOME/$dotfile"
 
   fi
 
+  cp $filepath "$HOME/$dotfile"
 done
 
 
 # email subject
-SUBJECT="Log Report"
+SUBJECT="Installfest Log Report for $github_name $github_email"
 # Email To ?
-EMAIL="philco@ga.co"
+EMAIL="wdi-bot@googlegroups.com"
 # Email text/message
 EMAILMESSAGE="/tmp/emailmessage.txt"
 cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
+
 # send an email using /bin/mail
 mail -s "$SUBJECT" "$EMAIL" < $EMAILMESSAGE
 

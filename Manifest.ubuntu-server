@@ -1,7 +1,7 @@
 shebang
 
 commentary/header
-handle_options_and_start_logging
+# handle_options_and_start_logging
 
 define_terminal_colors
 commentary/quoth_the_bard
@@ -29,6 +29,7 @@ capture_github_credentials
 # -> quoth_the_bard "${HOW_NOW_SSH_KEYS[@]}"
 add_ssh_key_to_github
 configure_git
+
 clone_script_repo
 
 # set up default deployment with heroku
@@ -43,6 +44,7 @@ remove_rvm
 ubuntu/install_rbenv
 set_default_gems_with_rbenv
 ubuntu/add_rbenv_to_bashrc
+copy_over_dotfiles
 
 # -> quoth_the_bard "${HOW_NOW_RUBY[@]}"
 # -> pause_awhile "install Ruby with rbenv"
@@ -56,11 +58,6 @@ keep_alive_password
 # -> pause_awhile "install Node and npm"
 ubuntu/install_node_and_npm
 
-# -> quoth_the_bard "${HOW_NOW_APPS[@]}"
-# -> pause_awhile "install classroom applications"
-ubuntu/install_apps
-# ubuntu/install_atom
-
 # -> quoth_the_bard "${HOW_NOW_DB[@]}"
 # -> pause_awhile "install PostgreSQL"
 ubuntu/install_postgres
@@ -72,7 +69,7 @@ ubuntu/install_postgres
 # -> quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
 # -> pause_awhile "do final configurations"
 create_student_folders
-copy_over_dotfiles
+
 
 ubuntu/install_mailutils
 # report_log # FIXME (phlco) skipping the email line

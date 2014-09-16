@@ -14,7 +14,9 @@ welcome_msg() {
       Web Development Immersive ${RESET}
   echo "------------------------------------------"
   echo $(git --version)
-  echo $(brew -v)
+  if which brew >/dev/null; then
+    echo $(brew -v)
+  fi
   echo $(ruby -v)
   echo $(psql --version)
   echo $(rails -v)

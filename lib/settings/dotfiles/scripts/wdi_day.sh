@@ -1,4 +1,5 @@
-export STUDENTS="$HOME/dev/wdi/WDI_Reduce"
+# TODO centralize this information?
+export STUDENTS="$HOME/src/wdi/"
 
 function day_of_week_number {
     day_of_week=$(date "+%A")
@@ -15,7 +16,8 @@ function day_of_week_number {
 }
 
 function week_of_course {
-    COURSE_START_DATE="022400002014"
+    # TODO centralize this information?
+    COURSE_START_DATE="092200002014"
     COURSE_START_SECONDS=$(date -j $COURSE_START_DATE "+%s")
     TODAY_SECONDS=$(date "+%s")
     DIFF_SECONDS=$(($TODAY_SECONDS - $COURSE_START_SECONDS))

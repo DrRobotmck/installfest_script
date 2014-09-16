@@ -1,11 +1,12 @@
 
 # email subject
-SUBJECT="Log Report"
+SUBJECT="Installfest Log Report for $github_name $github_email"
 # Email To ?
-EMAIL="philco@ga.co"
+EMAIL="wdi-bot@googlegroups.com"
 # Email text/message
 EMAILMESSAGE="/tmp/emailmessage.txt"
 cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
+
 # send an email using /bin/mail
 mail -s "$SUBJECT" "$EMAIL" < $EMAILMESSAGE
 

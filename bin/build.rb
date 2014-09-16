@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Builds installfest script from Manfiest files.
+# Builds installfest script from Manifest files.
 # TODO(phlco) allow arguments?
 # build = ARGV[0]
 

@@ -43,7 +43,7 @@ mac/install_homebrew
 mac/install_compilation_tools
 
 # -> quoth_the_bard "${HOW_NOW_GIT[@]}"
-# -> pause_awhile "install the Mac OS package manager Homebrew"
+# -> pause_awhile "install version control system git"
 mac/install_git
 install_git_completion
 configure_git
@@ -82,7 +82,6 @@ mac/run_osx_tweeks
 
 # -> quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
 # -> pause_awhile "do final configurations"
-capture_mac_address
 create_student_folders
 copy_over_dotfiles
 
