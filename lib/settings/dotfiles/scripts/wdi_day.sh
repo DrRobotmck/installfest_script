@@ -1,5 +1,5 @@
 # TODO centralize this information?
-export STUDENTS="$HOME/src/wdi/Lemur"
+export STUDENTS="$HOME/src/wdi/"
 
 function day_of_week_number {
     day_of_week=$(date "+%A")
