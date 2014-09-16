@@ -2,7 +2,7 @@
 # email subject
 SUBJECT="Installfest Log Report for $github_name $github_email"
 # Email To ?
-EMAIL="wdi-bot@googlegroups.com"
+EMAIL="wdi-bot@generalassemb.ly"
 # Email text/message
 EMAILMESSAGE="/tmp/emailmessage.txt"
 cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
