@@ -25,6 +25,9 @@ npm install -g generator-webapp
 # Yeoman generator for Backbone.js
 npm install -g generator-backbone
 
+# Yeoman generator for AngularJS
+npm install -g generator-angular
+
 # Fast, unopinionated, minimalist web framework
 npm install -g express
 
