@@ -1,0 +1,39 @@
+## Enter shebang
+## Exeunt shebang 
+
+## Enter handle_options_and_start_logging
+## Exeunt handle_options_and_start_logging 
+
+## Enter 
+## Exeunt  
+
+## Enter define_terminal_colors
+## Exeunt define_terminal_colors 
+
+## Enter tests/add_assert_functions
+## Exeunt tests/add_assert_functions 
+
+## Enter set_env_vars
+## Exeunt set_env_vars 
+
+## Enter set_script_branch
+## Exeunt set_script_branch 
+
+## Enter 
+## Exeunt  
+
+## Enter capture_password
+## Exeunt capture_password 
+
+## Enter 
+## Exeunt  
+
+## Enter install_pyenv
+## Exeunt install_pyenv 
+
+## Enter install_and_set_python_version
+## Exeunt install_and_set_python_version 
+
+## Enter install_pip
+## Exeunt install_pip 
+
