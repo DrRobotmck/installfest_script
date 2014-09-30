@@ -14,3 +14,5 @@ sudo script/grunt install
 script/grunt mkdeb
 # TODO (phlco) command line tool for atom?
 # sudo dpkg -i $TMPDIR/atom-build/Atom.deb
+
+# TODO (pj) remove all this junk and just install with apt-get now!
