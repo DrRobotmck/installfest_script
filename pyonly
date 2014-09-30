@@ -1,39 +1,214 @@
-## Enter shebang
-## Exeunt shebang 
+#!/usr/bin/env bash
 
-## Enter handle_options_and_start_logging
-## Exeunt handle_options_and_start_logging 
+#-------------------------------------------------------------------------------
+# Handle Command Line Options
+#-------------------------------------------------------------------------------
 
-## Enter 
-## Exeunt  
+while getopts "vf" FLAG; do
+  case $FLAG in
+    f ) FORCE=true;;
+    v ) VERBOSE=true;;
+    ? ) exit 2;;
+  esac
+done
 
-## Enter define_terminal_colors
-## Exeunt define_terminal_colors 
+#-------------------------------------------------------------------------------
+# Logging
+#-------------------------------------------------------------------------------
 
-## Enter tests/add_assert_functions
-## Exeunt tests/add_assert_functions 
+# set up logfile
+LOGFOLDER="$HOME/.wdi"; mkdir -p $LOGFOLDER
+LOGFILE="$LOGFOLDER/install.log"
 
-## Enter set_env_vars
-## Exeunt set_env_vars 
+# if we are logging verbosely
+#   echo_log() & assert_that() -> stderr -> stdout -> *logfile* -> console
+# else we are only logging assertions ([- n "$verbose" ] == false)
+#   echo_log() & assert_that() -> stderr -> *logfile* -> stdout -> console
+# this is done by:
+#   a. directing echo_log() & assert_that() to stderr, via
+#      {echo "" >&2}, and ...
+echo_log() {
+  echo "$1\n" >&2
+}
 
-## Enter set_script_branch
-## Exeunt set_script_branch 
+if [ -n "$VERBOSE" ]; then
+#     b. executing the script so that stdout 'tee's to logfile, via
+#        {exec 1> >(tee logfile)} | {exec > >(tee logfile)}
+#     c. executing the script so that stderr redirects to stdout, via
+#        {exec 2>&1}
+  exec > >(tee $LOGFILE); exec 2>&1
+else
+#     b. executing the script so that stderr 'tee's to logfile, via
+#        {exec 2> >(tee logfile)}
+  exec 2> >(tee $LOGFILE)
+fi
 
-## Enter 
-## Exeunt  
+echo_log
+echo_log "Script execution begun: $(date)"
+if [ -n "$FORCE" ]; then
+  echo_log " Force option set to true: will continue script despite failed assertions."
+else
+  echo_log " Script will exit on failed assertions. Use -f option to force completion."
+fi
 
-## Enter capture_password
-## Exeunt capture_password 
+if [ -n "$VERBOSE" ]; then
+  echo_log " Verbose logging option set to true: will log all output, not just errors, log statements and assertions."
+else
+  echo_log " Script will log errors, log statements and assertions only. Use -v option to log verbosely."
+fi
+echo_log
 
-## Enter 
-## Exeunt  
+#-------------------------------------------------------------------------------
+# Set text formatting
+#-------------------------------------------------------------------------------
+# set 256 color profile where possible
+if [[ $COLORTERM == gnome-* && $TERM == xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+  export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1; then
+  export TERM=xterm-256color
+fi
 
-## Enter install_pyenv
-## Exeunt install_pyenv 
+# Reset formatting
+RESET=$(      tput sgr0)
 
-## Enter install_and_set_python_version
-## Exeunt install_and_set_python_version 
+# Foreground color
+BLACK=$(      tput setaf 0)
+RED=$(        tput setaf 1)
+GREEN=$(      tput setaf 2)
+YELLOW=$(     tput setaf 3)
+BLUE=$(       tput setaf 4)
+MAGENTA=$(    tput setaf 5)
+CYAN=$(       tput setaf 6)
+WHITE=$(      tput setaf 9)
 
-## Enter install_pip
-## Exeunt install_pip 
+# Background color
+BG_BLACK=$(   tput setab 0)
+BG_RED=$(     tput setab 1)
+BG_GREEN=$(   tput setab 2)
+BG_YELLOW=$(  tput setab 3)
+BG_BLUE=$(    tput setab 4)
+BG_MAGENTA=$( tput setab 5)
+BG_CYAN=$(    tput setab 6)
+BG_WHITE=$(   tput setab 9)
+
+# Style
+UNDERLINE=$(  tput smul)
+NOUNDERLINE=$(tput rmul)
+BOLD=$(       tput bold)
+ITALIC=$(     tput sitm)
+
+
+# set FORCE (do not quit on error) to true if it is not loaded, as a default
+: ${FORCE=true} # TODO (h4w5) since we are testing for null, this will always happen
+                # switch to true/false
+
+echo_log() {
+  echo "$1" >&2
+}
+
+# ex: assert_that "`gem` is installed" "gem"
+# ex: assert_that "`gem` is shimmed by rbenv" "which gem" "$HOME/.rbenv/shims/gem"
+# ex: assert_that "pg gem is installed" "gem list pg -i" "true"
+
+# log the success or failure of the file...
+# if only two arguments, then success is running second arg without an error
+# if three, then success is the above, and when the output of running the second is equal to the third
+assert_that() {
+  # test for a simple error by evaling the second argument, and redirecting only
+  # STDERR to a variable named ERR
+  ERR=$( (eval "$2") 2>&1 >/dev/null )
+  OUT=$( (eval "$2") 2>/dev/null )
+
+  if [ -n "$ERR" ]; then # if ERR is not null, then...
+    # echo failure to STDERR & STDOUT
+    echo_log "${RED}$1: failure! Error: ${ERR}${RESET}"
+    [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
+  elif [ -n "$3" ]; then # else, if there is a third argument...
+    if [ "$OUT" == "$3" ]; then # and they equal
+      # echo success to STDERR & STDOUT
+      echo_log "${GREEN}$1...${RESET}"
+    else
+      # echo failure to STDERR & STDOUT if second and third arguments do not match
+      echo_log "${RED}$1: failure! '$OUT' does not equal '$3'.${RESET}"
+      [ -n "$FORCE" ] || exit 1; # exit on failure if not 'forcing'
+    fi
+  else
+    # echo success to STDERR & STDOUT
+    echo_log "${GREEN}$1...${RESET}"
+  fi
+}
+
+# ex: assert_package_installed "git"
+# ex: packagelist=( libssl-dev; libcurl4-openssl-dev; git; git-core ); assert_package_installed ${packagelist[@]}
+
+# only works when packages share a name across OSs, otherwise easiest to write
+# two assertions...
+assert_package_installed() {
+  for package in "$@"; do
+    if [ "$OSTYPE" == "darwin" ]; then
+      assert_that "${package} package is installed" "brew ls --versions ${package}" "${package}"
+    elif [ "$OSTYPE" == "linux-gnu" ]; then
+      assert_that "${package} package is installed" "dpkg -s ${package}"
+    else
+      echo_log "${RED}OS Type unknown in assertions...${RESET}" && exit 1;
+    fi
+  done
+}
+
+
+BELOVED_RUBY_VERSION="2.1.2"
+CURRENT_STABLE_RUBY_VERSION="2.1.2"
+
+# TODO (pj) decide what the python versions should really be...
+#   and maybe come up with a bigger, better place to hang this info
+BELOVED_PYTHON_VERSION="anaconda3-2.0.1"
+CURRENT_STABLE_PYTHON_VERSION="3.4.1"
+
+# TODO (phlco) set this in env vars or create_student_folders?
+# STUDENT_FOLDER_SETUP="$HOME/src/wdi"
+
+# TODO backport this into master and mac...
+SRC_DIR=~/.wdi/installfest
+SETTINGS=$SRC_DIR/settings
+INSTALL_REPO=https://github.com/amadden80/installfest_script.git
+
+# Standard Bash Variables
+# `OSTYPE` A string describing the operating system Bash is running on.
+# `MACHTYPE` system type in cpu-company-system
+# `SECONDS` number of seconds since the shell was started.
+
+
+# This refers to the branch of our repo that we are using (for cloning).
+BRANCH=master
+
+# capture the user's password
+sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
+
+# Our Python version manager
+# similar to the Ruby version manager rbenv, both in use and installation
+
+# TODO (PJ) should remove other python managers like pythonz
+# how to handle python versions and distributions?
+
+git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+
+# Add to bash_profile
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
+echo 'if which rbenv > /dev/null; then eval "$(pyenv init -)"; fi' >> ~/.bash_profile
+
+# enable shims and autocompletion
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# TODO (pj) test and make sure this works...
+# similar to the Ruby version manager rbenv, both in use and installation
+
+pyenv install $BELOVED_PYTHON_VERSION
+pyenv global  $BELOVED_PYTHON_VERSION
+
+# TODO (pj) test this...
+
+curl --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python
 
