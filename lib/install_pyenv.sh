@@ -7,9 +7,9 @@
 git clone https://github.com/yyuu/pyenv.git ~/.pyenv
 
 # Add to bash_profile
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
-echo 'if which rbenv > /dev/null; then eval "$(pyenv init -)"; fi' >> ~/.bash_profile
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/${BASH_FILE}
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/${BASH_FILE}
+echo 'if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi' >> ~/${BASH_FILE}
 
 # enable shims and autocompletion
 export PYENV_ROOT="$HOME/.pyenv"

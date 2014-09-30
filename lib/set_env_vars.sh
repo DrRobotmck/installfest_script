@@ -10,6 +10,15 @@ CURRENT_STABLE_PYTHON_VERSION="3.4.1"
 # TODO (phlco) set this in env vars or create_student_folders?
 # STUDENT_FOLDER_SETUP="$HOME/src/wdi"
 
+# FIXME (pj) NEED TO HAVE THIS SET THE BASH FILE EVERYWHERE, .bash_profile or .bashrc
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  SYSTEM="mac"
+  BASH_FILE=".bash_profile"
+else
+  SYSTEM="ubuntu"
+  BASH_FILE=".bashrc"
+fi
+
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
