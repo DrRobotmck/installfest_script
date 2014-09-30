@@ -4,7 +4,7 @@ CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
 # TODO (pj) decide what the python versions should really be...
 #   and maybe come up with a bigger, better place to hang this info
-BELOVED_PYTHON_VERSION="anaconda3-2.0.1"
+BELOVED_PYTHON_VERSION="anaconda-2.0.1"
 CURRENT_STABLE_PYTHON_VERSION="3.4.1"
 
 # TODO (phlco) set this in env vars or create_student_folders?
