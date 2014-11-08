@@ -3,10 +3,13 @@ echo "attendance purposes"
 
 # Get MAC address for attendance
 # ether 54:26:96:d6:71:c7
+user_name=$(git config --global user.name)
+github_email=$(git config --global user.email)
+github_name=$(git config --global user.github)
 mac_address=$(sudo ifconfig en0 | grep ether | sed -e 's/^[ \t|ether|\s|\n]*//')
 
 # curl mac address info to chatbot
-ATTENDANCE_URL=http://agile-plateau-3603.herokuapp.com/students
+ATTENDANCE_URL=https://sir-john-falstaff.herokuapp.com/mac_addresses
 
 # Send to attendance db
 curl -i \
@@ -16,5 +19,6 @@ curl -i \
 "name"         : "'"$user_name"'",
 "email"        : "'"$github_email"'",
 "github"       : "'"$github_name"'",
-"mac_address"  : "'"$mac_address"'"
+"clientMac"    : "'"$mac_address"'"
 }' $ATTENDANCE_URL
+
