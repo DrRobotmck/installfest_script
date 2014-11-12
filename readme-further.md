@@ -218,13 +218,13 @@ Other programming environments you may use in class or in another GA class. Also
 - Class Repo ~ 500MB
 - Brew Cellar ~ 1GB
 - Atom ~ 200 MB
-- HipChat ~ 25MB
-- FireFox ~ 115MB
-- Gems
+- HipChat ~ 25 MB
+- FireFox ~ 115 MB
+- Gems ~ 900 MB
 
 #### Recommended hardware for purchase
 
-...
+- [MacBook Air 13-inch : 128 GB](http://store.apple.com/us/buy-mac/macbook-air?afid=p238%7CRCTP6vIR-dc_mtid_1870765e38482_pcrid_44677875010_&cid=aos-us-kwg-pla-mac)
 
 #### Virtual machines and necessary hardware
 
