@@ -14,3 +14,4 @@ mail -s "$SUBJECT" "$EMAIL" < $EMAILMESSAGE
 # run exec $SHELL at end?
 # atom . doesn't work.
 # subl . works
+

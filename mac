@@ -207,9 +207,9 @@ Or close the wall up with our English dead."
 "--Henry V (III.i)"
 )
 HOW_NOW_NODE=(
-"But that my heart's on future mischief set, 
-I would speak blasphemy ere bid you fly: 
-But fly you must; uncurable discomfit 
+"But that my heart's on future mischief set,
+I would speak blasphemy ere bid you fly:
+But fly you must; uncurable discomfit
 Reigns in the hearts of all our present parts."
 "--Henry VI, Part 2 (V.ii)"
 )
@@ -217,7 +217,7 @@ HOW_NOW_GIT=(
 "HAMLET: ... for you yourself, sir,
 should be old as I am if, like a crab, you could go backward.
 
-POLONIUS: [aside] Though this be madness, yet there is a method in't.- 
+POLONIUS: [aside] Though this be madness, yet there is a method in't.-
 Will You walk out of the air, my lord?"
 "--Hamlet (II.ii)"
 )
@@ -321,15 +321,15 @@ diskutil repairPermissions /
 
 # Determine OS version
 
-osx_version=$(sw_vers -productVersion)
+os_version=$(sw_vers -productVersion)
 # Force the user to upgrade if they're below 10.7
-echo "You're running OSX $osx_version"
-if [[ "$osx_version" < "$MINIMUM_OS" ]]; then
+echo "You're running OSX $os_version"
+if [[ "$os_version" < "$MINIMUM_OS" ]]; then
   fie "Please upgrade to the latest OS then rerun this script."
 fi
 
 # Check that command line tools are installed
-case $osx_version in
+case $os_version in
   *10.10*) cmdline_version="CLTools_Executables" ;; # Yosemite
   *10.9*)  cmdline_version="CLTools_Executables" ;; # Mavericks
   *10.8*)  cmdline_version="DeveloperToolsCLI"   ;; # Mountain Lion
@@ -340,7 +340,7 @@ esac
 # Check for Command Line Tools based on OS versions
 if [ ! -z $(pkgutil --pkgs=com.apple.pkg.$cmdline_version) ]; then
   echo "Command Line Tools are installed";
-elif [[ $osx_version < "10.9" ]]; then
+elif [[ $os_version < "10.9" ]]; then
   echo "Command Line Tools are not installed"
   echo "Register for a Developer Account"
   echo "Download the Command Lion Tools from"
