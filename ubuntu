@@ -305,6 +305,9 @@ sudo -p "Enter your computer's password so that we can make the necessary change
 
 pause_awhile "update your OS with necessary tools"
 
+# TODO (phlco) remove the description part with a regex capture group
+os_version=$(lsb_release -a | grep -i Description)
+
 #-------------------------------------------------------------------------------
 # Check for software updates
 #-------------------------------------------------------------------------------

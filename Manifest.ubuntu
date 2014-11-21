@@ -19,6 +19,7 @@ set_script_branch
 capture_password
 
 # -> pause_awhile "update your OS with necessary tools"
+ubuntu/determine_os_version
 ubuntu/update_software
 ubuntu/install_system_packages
 

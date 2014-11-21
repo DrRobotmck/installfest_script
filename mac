@@ -325,6 +325,9 @@ sudo -p "Enter your computer's password so that we can make the necessary change
 
 pause_awhile "update your OS with necessary tools"
 
+# Determine OS version
+os_version=$(sw_vers -productVersion)
+
 # Check for recommended software updates
 sudo softwareupdate -i -r --ignore iTunes
 
