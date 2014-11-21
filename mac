@@ -207,9 +207,9 @@ Or close the wall up with our English dead."
 "--Henry V (III.i)"
 )
 HOW_NOW_NODE=(
-"But that my heart's on future mischief set,
-I would speak blasphemy ere bid you fly:
-But fly you must; uncurable discomfit
+"But that my heart's on future mischief set, 
+I would speak blasphemy ere bid you fly: 
+But fly you must; uncurable discomfit 
 Reigns in the hearts of all our present parts."
 "--Henry VI, Part 2 (V.ii)"
 )
@@ -217,7 +217,7 @@ HOW_NOW_GIT=(
 "HAMLET: ... for you yourself, sir,
 should be old as I am if, like a crab, you could go backward.
 
-POLONIUS: [aside] Though this be madness, yet there is a method in't.-
+POLONIUS: [aside] Though this be madness, yet there is a method in't.- 
 Will You walk out of the air, my lord?"
 "--Hamlet (II.ii)"
 )
@@ -283,18 +283,34 @@ assert_package_installed() {
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
+# TODO (pj) decide what the python versions should really be...
+#   and maybe come up with a bigger, better place to hang this info
+BELOVED_PYTHON_VERSION="anaconda-2.0.1"
+CURRENT_STABLE_PYTHON_VERSION="3.4.1"
+
 # TODO (phlco) set this in env vars or create_student_folders?
 # STUDENT_FOLDER_SETUP="$HOME/src/wdi"
+
+# FIXME (pj) NEED TO HAVE THIS SET THE BASH FILE EVERYWHERE, .bash_profile or .bashrc
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  SYSTEM="mac"
+  BASH_FILE=".bash_profile"
+else
+  SYSTEM="ubuntu"
+  BASH_FILE=".bashrc"
+fi
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/amadden80/installfest_script.git
+INSTALL_REPO=https://github.com/ga_instructors/installfest_script.git
 
 # Standard Bash Variables
 # `OSTYPE` A string describing the operating system Bash is running on.
 # `MACHTYPE` system type in cpu-company-system
 # `SECONDS` number of seconds since the shell was started.
+OWNER="ga-students"
+REPO="godot_instructors"
 
 MINIMUM_OS="10.7.0"
 
@@ -319,9 +335,6 @@ sudo chown -R ${USER} ~
 diskutil repairPermissions /
 
 
-# Determine OS version
-
-os_version=$(sw_vers -productVersion)
 # Force the user to upgrade if they're below 10.7
 echo "You're running OSX $os_version"
 if [[ "$os_version" < "$MINIMUM_OS" ]]; then
@@ -412,7 +425,8 @@ pause_awhile "add GitHub credentials to our keychain"
 
 echo "Please register for an account on github.com if you haven't already done so."
 
-read -p "Enter your full name: "     user_name
+read -p "Enter your First Name: "    fname
+read -p "Enter your Last Name: "     lname
 read -p "Github Username: "          github_name
 read -p "Github Email: "             github_email
 read -s -p "Github Password: "       github_password
@@ -561,8 +575,9 @@ curl -o ~/.git-completion.bash $git_completion_url
 
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
-git config --global user.name  $github_name
-git config --global user.email $github_email
+git config --global user.name    "$fname $lname"
+git config --global user.github  $github_name
+git config --global user.email   $github_email
 
 # set colors
 git config --global color.ui always
@@ -856,7 +871,17 @@ pause_awhile "install PostgreSQL"
 brew install postgresql
 
 # Install ruby interface for Postgres
-gem install pg
+# from brew: "When installing the postgres gem, including ARCHFLAGS is recommended:"
+ARCHFLAGS="-arch x86_64" gem install pg
+
+# NOTE! https://coderwall.com/p/rjioeg
+# Yosemite problems:
+# for some reasons yosemite cleaned up some files/directories in /usr/local
+# for postgres installed via homebrew the following directories were missing to start postgres properly:
+mkdir -p /usr/local/var/postgres/{pg_tblspc,pg_twophase,pg_stat_tmp}
+# May also need this.
+chmod -R 700 /usr/local/var/postgres
+chown -R ${USER} /usr/local/var/postgres
 
 # Create a database
 initdb /usr/local/var/postgres -E utf8
@@ -966,22 +991,46 @@ for filepath in "${dotfiles[@]}"; do
   cp $filepath "$HOME/$dotfile"
 done
 
-
-# email subject
-SUBJECT="Installfest Log Report for $github_name $github_email"
-# Email To ?
-EMAIL="wdi-bot@generalassemb.ly"
-# Email text/message
-EMAILMESSAGE="/tmp/emailmessage.txt"
 cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
 
-# send an email using /bin/mail
-mail -s "$SUBJECT" "$EMAIL" < $EMAILMESSAGE
+# create file
+# PUT /repos/:owner/:repo/contents/:path
 
-# FIXME (phlco) this reports broken pipe in ubuntu
-# run exec $SHELL at end?
-# atom . doesn't work.
-# subl . works
+subject="Installfest Log Report for $fname $lname"
+user_name=$(ruby -e "n = '$fname $lname';puts n.gsub(' ', '_').downcase;")
+
+user_info='{
+        name: "'"$fname $lname"'",
+        github: {
+          name: "'"$github_name"'",
+          email: "'"$github_email"'"
+        },
+        specs: {
+          mac_address: "'"$mac_address"'",
+          os_version: "'"$os_version"'",
+          os_type: "'"$OSTYPE"'"
+        }
+      }'
+
+encoded_content=$(ruby -rjson -rbase64 -e "puts Base64.strict_encode64($user_info.to_json);")
+
+payload='{
+  message: "'"$subject"'",
+  committer: {
+    name: "'"$fname $lname"'",
+    email: "'"$github_email"'"
+  },
+  content: "'"$encoded_content"'"
+}'
+
+timestamp=$(date +%s)
+
+curl "https://api.github.com/repos/$OWNER/$REPO/contents/logs/installfest/$user_name-$timestamp.json" \
+  -X "PUT" \
+  -H "User-Agent: WDIInstallFest" \
+  -H "Accept: application/vnd.github.v3+json" \
+  -u "$github_name:$github_password" \
+  -d "$(ruby -rjson -e "j=$payload; puts j.to_json")"
 
 
 

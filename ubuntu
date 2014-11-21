@@ -265,18 +265,34 @@ assert_package_installed() {
 BELOVED_RUBY_VERSION="2.1.2"
 CURRENT_STABLE_RUBY_VERSION="2.1.2"
 
+# TODO (pj) decide what the python versions should really be...
+#   and maybe come up with a bigger, better place to hang this info
+BELOVED_PYTHON_VERSION="anaconda-2.0.1"
+CURRENT_STABLE_PYTHON_VERSION="3.4.1"
+
 # TODO (phlco) set this in env vars or create_student_folders?
 # STUDENT_FOLDER_SETUP="$HOME/src/wdi"
+
+# FIXME (pj) NEED TO HAVE THIS SET THE BASH FILE EVERYWHERE, .bash_profile or .bashrc
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  SYSTEM="mac"
+  BASH_FILE=".bash_profile"
+else
+  SYSTEM="ubuntu"
+  BASH_FILE=".bashrc"
+fi
 
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/amadden80/installfest_script.git
+INSTALL_REPO=https://github.com/ga_instructors/installfest_script.git
 
 # Standard Bash Variables
 # `OSTYPE` A string describing the operating system Bash is running on.
 # `MACHTYPE` system type in cpu-company-system
 # `SECONDS` number of seconds since the shell was started.
+OWNER="ga-students"
+REPO="godot_instructors"
 
 
 # This refers to the branch of our repo that we are using (for cloning).
@@ -398,7 +414,8 @@ pause_awhile "add GitHub credentials to our keychain"
 
 echo "Please register for an account on github.com if you haven't already done so."
 
-read -p "Enter your full name: "     user_name
+read -p "Enter your First Name: "    fname
+read -p "Enter your Last Name: "     lname
 read -p "Github Username: "          github_name
 read -p "Github Email: "             github_email
 read -s -p "Github Password: "       github_password
@@ -428,8 +445,9 @@ curl https://api.github.com/user/keys \
 
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
-git config --global user.name  $github_name
-git config --global user.email $github_email
+git config --global user.name    "$fname $lname"
+git config --global user.github  $github_name
+git config --global user.email   $github_email
 
 # set colors
 git config --global color.ui always
