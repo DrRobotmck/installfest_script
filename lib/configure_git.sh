@@ -1,7 +1,8 @@
 # Add user's github info to gitconfig
 # https://www.kernel.org/pub/software/scm/git/docs/git-config.html
-git config --global user.name  $github_name
-git config --global user.email $github_email
+git config --global user.name    "$fname $lname"
+git config --global user.github  $github_name
+git config --global user.email   $github_email
 
 # set colors
 git config --global color.ui always

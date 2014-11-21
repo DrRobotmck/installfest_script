@@ -22,9 +22,11 @@ fi
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/amadden80/installfest_script.git
+INSTALL_REPO=https://github.com/ga_instructors/installfest_script.git
 
 # Standard Bash Variables
 # `OSTYPE` A string describing the operating system Bash is running on.
 # `MACHTYPE` system type in cpu-company-system
 # `SECONDS` number of seconds since the shell was started.
+OWNER="ga-students"
+REPO="godot_instructors"

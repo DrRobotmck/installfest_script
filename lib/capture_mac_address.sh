@@ -12,13 +12,14 @@ mac_address=$(sudo ifconfig en0 | grep ether | sed -e 's/^[ \t|ether|\s|\n]*//')
 ATTENDANCE_URL=https://sir-john-falstaff.herokuapp.com/mac_addresses
 
 # Send to attendance db
-curl -i \
--H "Accept: application/json" \
--H "Content-Type:application/json" \
--X POST --data '{
-"name"         : "'"$user_name"'",
-"email"        : "'"$github_email"'",
-"github"       : "'"$github_name"'",
-"clientMac"    : "'"$mac_address"'"
-}' $ATTENDANCE_URL
+curl -i $ATTENDANCE_URL \
+  -H "Accept: application/json" \
+  -H "Content-Type:application/json" \
+  -X POST
+  -d '{
+    "name"         : "'"$user_name"'",
+    "email"        : "'"$github_email"'",
+    "github"       : "'"$github_name"'",
+    "clientMac"    : "'"$mac_address"'"
+  }'
 
