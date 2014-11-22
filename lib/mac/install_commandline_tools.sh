@@ -17,7 +17,7 @@ esac
 # Check for Command Line Tools based on OS versions
 if [ ! -z $(pkgutil --pkgs=com.apple.pkg.$cmdline_version) ]; then
   echo "Command Line Tools are installed";
-if [[ $os_version == "10.7" ]] || [[ $os_version == "10.8" ]]; then
+elif [[ $os_version == "10.7" ]] || [[ $os_version == "10.8" ]]; then
   echo "Command Line Tools are not installed"
   echo "Register for a Developer Account"
   echo "Download the Command Lion Tools from"
@@ -31,4 +31,3 @@ else
   echo "Then rerun this script."
   exit 1
 fi
-
