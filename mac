@@ -314,7 +314,7 @@ fi
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga_instructors/installfest-script.git
+INSTALL_REPO=https://github.com/ga-instructors/installfest-script.git
 
 # Standard Bash Variables
 # `OSTYPE` A string describing the operating system Bash is running on.
@@ -349,12 +349,6 @@ sudo chown -R ${USER} ~
 diskutil repairPermissions /
 
 
-# Force the user to upgrade if they're below 10.7
-echo "You're running OSX $os_version"
-if [[ "$os_version" < "$MINIMUM_OS" ]]; then
-  echo "Please upgrade to the latest OS then rerun this script."
-  echo 1
-fi
 
 # Check that command line tools are installed
 case $os_version in
@@ -362,7 +356,8 @@ case $os_version in
   *10.9*)  cmdline_version="CLTools_Executables" ;; # Mavericks
   *10.8*)  cmdline_version="DeveloperToolsCLI"   ;; # Mountain Lion
   *10.7*)  cmdline_version="DeveloperToolsCLI"   ;; # Lion
-  *) echo "Please upgrade your OS"; exit 1;;
+  # Force the user to upgrade if they're below 10.7
+  *) echo "Sorry! You'll have to upgrade your OS to $MINIMUM_OS or above."; exit 1;;
 esac
 
 # Check for Command Line Tools based on OS versions
@@ -376,10 +371,12 @@ elif [[ $os_version == "10.7" ]] || [[ $os_version == "10.8" ]]; then
   echo "Then rerun this script"
   exit 1
 else
-  echo "Command Line Tools are not installed"
-  echo "run '$ sudo xcodebuild -license' then"
-  echo "'$ xcode-select --install'"
-  echo "Then rerun this script."
+  echo "Command Line Tools are not installed!"
+  # echo "run '$ sudo xcodebuild -license' then"
+  # echo "'$ xcode-select --install'"
+  # echo "Then rerun this script."
+  echo "Running 'xcode-select --install' Please click continue!"
+  xcode-select --install
   exit 1
 fi
 
