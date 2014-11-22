@@ -3,6 +3,8 @@
 # `https://help.github.com/articles/generating-ssh-keys`
 
 # SSH Keygen
+pause_awhile "When you're prompted to 'Enter a file in which to save the key', just press Enter to continue."
+
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
 

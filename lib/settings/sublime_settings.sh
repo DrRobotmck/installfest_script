@@ -5,9 +5,8 @@ pkg_control="Package Control.sublime-package"
 pkg_url="https://sublime.wbond.net/Package%20Control.sublime-package"
 pkg_settings="Package Control.sublime-settings"
 
-# backup
-cp -r "$sublime_app_support/Packages/User/$sublime_preferences"{,.bak}
-cp -r "$sublime_app_support/Installed Packages/$pkg_settings"{,.bak}
+backup "$sublime_app_support/Packages/User/$sublime_preferences"
+backup "$sublime_app_support/Installed Packages/$pkg_settings"
 
 # copy over
 cp -r "$SETTINGS/sublime/$sublime_preferences" "$sublime_app_support/Packages/User/$sublime_preferences"
@@ -16,5 +15,6 @@ cp -r "$SETTINGS/sublime/$pkg_settings"        "$sublime_app_support/Installed P
 # Installing Package Control
 curl -L -o "$sublime_app_support/Installed Packages/$pkg_control" "$pkg_url"
 
+# NOTE (phlco) I think brew cask takes care of this.
 # # Symlink Sublime Text 2
 # ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl

@@ -1,7 +1,8 @@
 # Force the user to upgrade if they're below 10.7
 echo "You're running OSX $os_version"
 if [[ "$os_version" < "$MINIMUM_OS" ]]; then
-  fie "Please upgrade to the latest OS then rerun this script."
+  echo "Please upgrade to the latest OS then rerun this script."
+  echo 1
 fi
 
 # Check that command line tools are installed

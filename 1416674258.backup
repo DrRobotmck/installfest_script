@@ -136,19 +136,8 @@ function quoth_the_bard () {
   echo ""
 }
 
-# TODO (phlco) move these to a better place like utils
-
 function pause_awhile () {
   read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue."
-}
-
-# backup
-function backup(){
-  timestamp=$(date +%s)
-  file=$1
-  if [ -a "$file" ]; then
-    cp -r $file{,-$timestamp.backup}
-  fi
 }
 
 THE_PLAYS_THE_THING="The play's the thing..."
@@ -218,9 +207,9 @@ Or close the wall up with our English dead."
 "--Henry V (III.i)"
 )
 HOW_NOW_NODE=(
-"But that my heart's on future mischief set,
-I would speak blasphemy ere bid you fly:
-But fly you must; uncurable discomfit
+"But that my heart's on future mischief set, 
+I would speak blasphemy ere bid you fly: 
+But fly you must; uncurable discomfit 
 Reigns in the hearts of all our present parts."
 "--Henry VI, Part 2 (V.ii)"
 )
@@ -228,7 +217,7 @@ HOW_NOW_GIT=(
 "HAMLET: ... for you yourself, sir,
 should be old as I am if, like a crab, you could go backward.
 
-POLONIUS: [aside] Though this be madness, yet there is a method in't.-
+POLONIUS: [aside] Though this be madness, yet there is a method in't.- 
 Will You walk out of the air, my lord?"
 "--Hamlet (II.ii)"
 )
@@ -314,7 +303,7 @@ fi
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga_instructors/installfest-script.git
+INSTALL_REPO=https://github.com/ga_instructors/installfest_script.git
 
 # Standard Bash Variables
 # `OSTYPE` A string describing the operating system Bash is running on.
@@ -455,8 +444,6 @@ quoth_the_bard "${HOW_NOW_SSH_KEYS[@]}"
 # `https://help.github.com/articles/generating-ssh-keys`
 
 # SSH Keygen
-pause_awhile "When you're prompted to 'Enter a file in which to save the key', just press Enter to continue."
-
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
 
@@ -779,7 +766,7 @@ brew cask install hipchat
 # The Window Manager
 brew cask install spectacle
 # allow spectacle to control computer
-# allow_control Spectacle NOTE (phlco) just set up by hand?
+allow_control Spectacle
 
 # The Text Editor, Sublime Text 2
 brew cask install sublime-text
@@ -790,23 +777,22 @@ brew cask install atom
 # The X Window Server
 brew cask install xquartz
 
-# # Markdown Editor
-# brew cask install mou # NOTE (phlco) we can remove this and just use atom.
+# Markdown Editor
+brew cask install mou
 
-# NOTE (phlco) Necessary? 
 # Flux, makes the color of your computer's display adapt to the time of day
-# brew cask install flux
+brew cask install flux
 
 # Alternative Terminal
-# brew cask install iterm2
+brew cask install iterm2
 
 # for fonts
 # https://github.com/caskroom/homebrew-fonts/tree/master/Casks
-# brew tap caskroom/fonts
-#
-# brew cask install font-source-code-pro
-# brew cask install font-source-sans-pro
-# brew cask install font-inconsolata
+brew tap caskroom/fonts
+
+brew cask install font-source-code-pro
+brew cask install font-source-sans-pro
+brew cask install font-inconsolata
 
 # Git extensions to provide high-level repository operations
 # brew install git-flow
@@ -846,8 +832,7 @@ packagelist=(
 brew install ${packagelist[@]}
 
 # List of useful Quick Look plugins for developers
-# NOTE (phlco) necessary?
-# brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
+brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
 
 #  _                    _
 # | |__   ___ _ __ ___ | | ___   _
@@ -945,6 +930,8 @@ createdb ${USER}
 # codesign -s - --resource-rules=/Users/YourUserNameHere/ResourceRules-ignoring-Scripts.plist /path/to/applet.app
 
 # https://github.com/chytreg/dotfiles/blob/c532970fb63a78b2507141b4de26b3c8e25c2bfc/bin/bootstrap
+
+allow_control Spectacle
 
 # also look into brew cask for installing applications
 # https://github.com/Homebrew/homebrew/wiki/External-Commands

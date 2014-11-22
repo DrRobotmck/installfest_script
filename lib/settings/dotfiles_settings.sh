@@ -1,14 +1,21 @@
 # Create a folder for backed up files
-mkdir -p "${HOME}/.dotfiles_backup"
+# mkdir -p "${HOME}/.dotfiles_backup"
 
 # Dotfiles we'll be using
-dotfiles="gitconfig gitignore_global bash_profile bashrc gemrc pryrc rspec irbrc vimrc"
+dotfiles=(
+  bashrc
+  bash_profile
+  gemrc
+  gitconfig
+  gitignore_global
+  irbrc
+  pryrc
+  rspec
+  vimrc
+)
 
-for file in $dotfiles; do
-  if [ -a "${HOME}/${file}" ]; then
-      # backup files
-      mv "${HOME}/${file}" "${HOME}/.dotfiles_backup/${file}"
-    fi
-    # symlink file
-  ln -s "$SETTINGS/dotfiles/${file}" "${HOME}/${file}"
+for file in ${dotfiles[@]}; do
+  backup "${HOME}/.${file}"
+  # symlink file
+  ln -s "$SETTINGS/${file}" "${HOME}/.${file}"
 done

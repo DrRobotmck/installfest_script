@@ -26,8 +26,6 @@
 
 # https://github.com/chytreg/dotfiles/blob/c532970fb63a78b2507141b4de26b3c8e25c2bfc/bin/bootstrap
 
-allow_control Spectacle
-
 # also look into brew cask for installing applications
 # https://github.com/Homebrew/homebrew/wiki/External-Commands
 

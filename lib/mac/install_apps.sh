@@ -18,7 +18,7 @@ brew cask install hipchat
 # The Window Manager
 brew cask install spectacle
 # allow spectacle to control computer
-allow_control Spectacle
+# allow_control Spectacle NOTE (phlco) just set up by hand?
 
 # The Text Editor, Sublime Text 2
 brew cask install sublime-text
@@ -29,22 +29,23 @@ brew cask install atom
 # The X Window Server
 brew cask install xquartz
 
-# Markdown Editor
-brew cask install mou
+# # Markdown Editor
+# brew cask install mou # NOTE (phlco) we can remove this and just use atom.
 
+# NOTE (phlco) Necessary? 
 # Flux, makes the color of your computer's display adapt to the time of day
-brew cask install flux
+# brew cask install flux
 
 # Alternative Terminal
-brew cask install iterm2
+# brew cask install iterm2
 
 # for fonts
 # https://github.com/caskroom/homebrew-fonts/tree/master/Casks
-brew tap caskroom/fonts
-
-brew cask install font-source-code-pro
-brew cask install font-source-sans-pro
-brew cask install font-inconsolata
+# brew tap caskroom/fonts
+#
+# brew cask install font-source-code-pro
+# brew cask install font-source-sans-pro
+# brew cask install font-inconsolata
 
 # Git extensions to provide high-level repository operations
 # brew install git-flow

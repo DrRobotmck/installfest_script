@@ -76,7 +76,9 @@ create_student_folders
 copy_over_dotfiles
 
 ubuntu/install_mailutils
-# report_log # FIXME (phlco) skipping the email line
+capture_mac_address
+# FIXME (phlco) skipping the email line
+report_log
 
 # -> quoth_the_bard "${HOW_NOW_FINISH[@]}"
 commentary/fin

@@ -136,8 +136,19 @@ function quoth_the_bard () {
   echo ""
 }
 
+# TODO (phlco) move these to a better place like utils
+
 function pause_awhile () {
   read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue."
+}
+
+# backup
+function backup(){
+  timestamp=$(date +%s)
+  file=$1
+  if [ -a "$file" ]; then
+    cp -r $file{,-$timestamp.backup}
+  fi
 }
 
 THE_PLAYS_THE_THING="The play's the thing..."
@@ -207,9 +218,9 @@ Or close the wall up with our English dead."
 "--Henry V (III.i)"
 )
 HOW_NOW_NODE=(
-"But that my heart's on future mischief set, 
-I would speak blasphemy ere bid you fly: 
-But fly you must; uncurable discomfit 
+"But that my heart's on future mischief set,
+I would speak blasphemy ere bid you fly:
+But fly you must; uncurable discomfit
 Reigns in the hearts of all our present parts."
 "--Henry VI, Part 2 (V.ii)"
 )
@@ -217,7 +228,7 @@ HOW_NOW_GIT=(
 "HAMLET: ... for you yourself, sir,
 should be old as I am if, like a crab, you could go backward.
 
-POLONIUS: [aside] Though this be madness, yet there is a method in't.- 
+POLONIUS: [aside] Though this be madness, yet there is a method in't.-
 Will You walk out of the air, my lord?"
 "--Hamlet (II.ii)"
 )
@@ -285,7 +296,7 @@ fi
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga_instructors/installfest_script.git
+INSTALL_REPO=https://github.com/ga_instructors/installfest-script.git
 
 # Standard Bash Variables
 # `OSTYPE` A string describing the operating system Bash is running on.
@@ -432,6 +443,8 @@ quoth_the_bard "${HOW_NOW_SSH_KEYS[@]}"
 # `https://help.github.com/articles/generating-ssh-keys`
 
 # SSH Keygen
+pause_awhile "When you're prompted to 'Enter a file in which to save the key', just press Enter to continue."
+
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
 
@@ -770,6 +783,54 @@ done
 # Don't ask questions
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get install -y mailutils
+
+echo "Script now will gather your mac address and send to the class chatbot for"
+echo "attendance purposes"
+
+# Get MAC address for attendance
+# TODO (phlco) do we need sudo here again?
+mac_address=$(sudo ifconfig en0 | grep ether | sed -e 's/^[ \t|ether|\s|\n]*//')
+
+cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
+
+# create file
+# PUT /repos/:owner/:repo/contents/:path
+
+subject="Installfest Log Report for $fname $lname"
+user_name=$(ruby -e "n = '$fname $lname';puts n.gsub(' ', '_').downcase;")
+
+user_info='{
+        name: "'"$fname $lname"'",
+        github: {
+          name: "'"$github_name"'",
+          email: "'"$github_email"'"
+        },
+        specs: {
+          mac_address: "'"$mac_address"'",
+          os_version: "'"$os_version"'",
+          os_type: "'"$OSTYPE"'"
+        }
+      }'
+
+encoded_content=$(ruby -rjson -rbase64 -e "puts Base64.strict_encode64($user_info.to_json);")
+
+payload='{
+  message: "'"$subject"'",
+  committer: {
+    name: "'"$fname $lname"'",
+    email: "'"$github_email"'"
+  },
+  content: "'"$encoded_content"'"
+}'
+
+timestamp=$(date +%s)
+
+curl "https://api.github.com/repos/$OWNER/$REPO/contents/logs/installfest/$user_name-$timestamp.json" \
+  -X "PUT" \
+  -H "User-Agent: WDIInstallFest" \
+  -H "Accept: application/vnd.github.v3+json" \
+  -u "$github_name:$github_password" \
+  -d "$(ruby -rjson -e "j=$payload; puts j.to_json")"
 
 
 

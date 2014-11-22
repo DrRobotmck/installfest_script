@@ -8,8 +8,19 @@ function quoth_the_bard () {
   echo ""
 }
 
+# TODO (phlco) move these to a better place like utils
+
 function pause_awhile () {
   read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue."
+}
+
+# backup
+function backup(){
+  timestamp=$(date +%s)
+  file=$1
+  if [ -a "$file" ]; then
+    cp -r $file{,-$timestamp.backup}
+  fi
 }
 
 THE_PLAYS_THE_THING="The play's the thing..."
@@ -79,9 +90,9 @@ Or close the wall up with our English dead."
 "--Henry V (III.i)"
 )
 HOW_NOW_NODE=(
-"But that my heart's on future mischief set, 
-I would speak blasphemy ere bid you fly: 
-But fly you must; uncurable discomfit 
+"But that my heart's on future mischief set,
+I would speak blasphemy ere bid you fly:
+But fly you must; uncurable discomfit
 Reigns in the hearts of all our present parts."
 "--Henry VI, Part 2 (V.ii)"
 )
@@ -89,7 +100,7 @@ HOW_NOW_GIT=(
 "HAMLET: ... for you yourself, sir,
 should be old as I am if, like a crab, you could go backward.
 
-POLONIUS: [aside] Though this be madness, yet there is a method in't.- 
+POLONIUS: [aside] Though this be madness, yet there is a method in't.-
 Will You walk out of the air, my lord?"
 "--Hamlet (II.ii)"
 )
