@@ -454,7 +454,7 @@ quoth_the_bard "${HOW_NOW_SSH_KEYS[@]}"
 # `https://help.github.com/articles/generating-ssh-keys`
 
 # SSH Keygen
-pause_awhile "When you're prompted to 'Enter a file in which to save the key', just press Enter to continue."
+pause_awhile "Generate an SSH key. When you see the prompt 'Enter a file in which to save the key', just press Enter! Your passphrase can be anything that's memorable."
 
 ssh-keygen -t rsa -C $github_email
 ssh-add id_rsa
@@ -470,6 +470,7 @@ curl https://api.github.com/user/keys \
 
 # TODO (h4w5) add assertion around ... "ssh -T git@github.com"
 
+pause_awhile "downloading the installfest repo"
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
@@ -974,16 +975,16 @@ quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
 
 pause_awhile "do final configurations"
 
-echo "Creating directory for wdi: ~/src/wdi"
-echo "Creating directory for hacking and new work: ~/src/workbench"
-echo "Creating directory for 3rd party code: ~/src/vendor"
-echo "Creating directory for projects: ~/src/projects"
+echo "Creating directory for wdi: ~/dev/wdi"
+echo "Creating directory for hacking and new work: ~/dev/workbench"
+echo "Creating directory for 3rd party code: ~/dev/vendor"
+echo "Creating directory for projects: ~/dev/projects"
 
-STUDENT_FOLDER="$HOME/src/wdi"
+STUDENT_FOLDER="$HOME/dev/wdi"
 mkdir -p $STUDENT_FOLDER
-mkdir "$HOME/src/workbench"
-mkdir "$HOME/src/vendor"
-mkdir "$HOME/src/projects"
+mkdir "$HOME/dev/workbench"
+mkdir "$HOME/dev/vendor"
+mkdir "$HOME/dev/projects"
 
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings

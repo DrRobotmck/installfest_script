@@ -1,3 +1,4 @@
+pause_awhile "downloading the installfest repo"
 # download the repo for the absolute paths
 if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'

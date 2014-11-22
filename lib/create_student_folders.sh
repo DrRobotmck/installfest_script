@@ -1,10 +1,10 @@
-echo "Creating directory for wdi: ~/src/wdi"
-echo "Creating directory for hacking and new work: ~/src/workbench"
-echo "Creating directory for 3rd party code: ~/src/vendor"
-echo "Creating directory for projects: ~/src/projects"
+echo "Creating directory for wdi: ~/dev/wdi"
+echo "Creating directory for hacking and new work: ~/dev/workbench"
+echo "Creating directory for 3rd party code: ~/dev/vendor"
+echo "Creating directory for projects: ~/dev/projects"
 
-STUDENT_FOLDER="$HOME/src/wdi"
+STUDENT_FOLDER="$HOME/dev/wdi"
 mkdir -p $STUDENT_FOLDER
-mkdir "$HOME/src/workbench"
-mkdir "$HOME/src/vendor"
-mkdir "$HOME/src/projects"
+mkdir "$HOME/dev/workbench"
+mkdir "$HOME/dev/vendor"
+mkdir "$HOME/dev/projects"
