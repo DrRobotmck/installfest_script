@@ -144,8 +144,8 @@ function pause_awhile () {
 
 # backup
 function backup(){
-  timestamp=$(date +%s)
-  file=$1
+  local timestamp=$(date +%s)
+  local file=$1
   if [ -a "$file" ]; then
     cp -r $file{,-$timestamp.backup}
   fi
@@ -296,7 +296,7 @@ fi
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest-script.git
+INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 
 # Standard Bash Variables
 # `OSTYPE` A string describing the operating system Bash is running on.

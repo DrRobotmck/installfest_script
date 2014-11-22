@@ -17,6 +17,12 @@ namespace :installer do
     puts "Build installs from manifests"
   end
 
+  desc "Adds built files for committing"
+  task :add do
+    system("git add .")
+    system("git commit -m 'Rebuilds scripts'")
+  end
+
 end
 
 namespace :dotfiles do

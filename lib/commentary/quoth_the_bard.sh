@@ -16,8 +16,8 @@ function pause_awhile () {
 
 # backup
 function backup(){
-  timestamp=$(date +%s)
-  file=$1
+  local timestamp=$(date +%s)
+  local file=$1
   if [ -a "$file" ]; then
     cp -r $file{,-$timestamp.backup}
   fi
