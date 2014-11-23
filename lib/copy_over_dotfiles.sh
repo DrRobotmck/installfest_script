@@ -1,7 +1,7 @@
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
 
-dotfiles=($SETTINGS/*)
+dotfiles=($SETTINGS/dotfiles/*)
 
 timestamp=$(date +%s)
 

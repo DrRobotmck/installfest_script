@@ -1,3 +1,6 @@
+# SRC_DIR=~/.wdi/installfest
+# SETTINGS=$SRC_DIR/settings
+
 # Setup Sublime Preferences
 subl_app_support="${HOME}/Library/Application Support/Sublime Text 2"
 subl_preferences="Preferences.sublime-settings"
