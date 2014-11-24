@@ -66,6 +66,7 @@ mac/install_node_and_npm
 # -> quoth_the_bard "${HOW_NOW_APPS[@]}"
 # -> pause_awhile "install classroom applications"
 mac/install_apps
+mac/configure_sublime
 
 # TODO (phlco) are these *system* packages?
 mac/install_system_packages
