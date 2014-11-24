@@ -25,6 +25,7 @@ else
   # echo "'$ xcode-select --install'"
   # echo "Then rerun this script."
   echo "Running 'xcode-select --install' Please click continue!"
+  echo "After installing please rerun the installfest script."
   xcode-select --install
   exit 1
 fi
