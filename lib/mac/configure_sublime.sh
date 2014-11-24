@@ -12,8 +12,8 @@ backup "$subl_app_support/Packages/User/$subl_preferences"
 backup "$subl_app_support/Installed Packages/$pkg_settings"
 
 # copy over
-cp -r "$SETTINGS/sublime/$subl_preferences" "$subl_app_support/Packages/User/$subl_preferences"
-cp -r "$SETTINGS/sublime/$pkg_settings"     "$subl_app_support/Installed Packages/$pkg_settings"
+cp -r "$SRC_DIR/settings/sublime/$subl_preferences" "$subl_app_support/Packages/User/$subl_preferences"
+cp -r "$SRC_DIR/settings/sublime/$pkg_settings"     "$subl_app_support/Installed Packages/$pkg_settings"
 
 # Installing Package Control
 curl -L -o "$subl_app_support/Installed Packages/$pkg_control" "$pkg_url"
