@@ -1,4 +1,4 @@
-cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
+# cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
 
 # create file
 # PUT /repos/:owner/:repo/contents/:path

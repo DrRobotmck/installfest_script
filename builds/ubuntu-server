@@ -520,13 +520,13 @@ touch ~/.rbenv/default-gems
 
 gemlist=(
   bundler         # Maintains a consistent environment for ruby applications.
-  capybara        # Acceptance test framework for web applications
-  guard           # handle events on file system modifications
-  jasmine         # JavaScript testing
+  # capybara        # Acceptance test framework for web applications
+  # guard           # handle events on file system modifications
+  # jasmine         # JavaScript testing
   pry             # alternative to the standard IRB shell
-  pry-coolline    # live syntax highlighting for the Pry REPL
-  rails           # full stack, Web application framework
-  rspec           # testing tool for Ruby
+  # pry-coolline    # live syntax highlighting for the Pry REPL
+  # rails           # full stack, Web application framework
+  # rspec           # testing tool for Ruby
   sinatra         # a DSL for quickly creating web applications in Ruby
   sinatra-contrib # common Sinatra extensions
   github_api      # Ruby interface to github API v3
@@ -657,15 +657,9 @@ quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
 pause_awhile "do final configurations"
 
 echo "Creating directory for wdi: ~/dev/wdi"
-echo "Creating directory for hacking and new work: ~/dev/workbench"
-echo "Creating directory for 3rd party code: ~/dev/vendor"
-echo "Creating directory for projects: ~/dev/projects"
 
 STUDENT_FOLDER="$HOME/dev/wdi"
 mkdir -p $STUDENT_FOLDER
-mkdir "$HOME/dev/workbench"
-mkdir "$HOME/dev/vendor"
-mkdir "$HOME/dev/projects"
 
 # Don't ask questions
 export DEBIAN_FRONTEND=noninteractive

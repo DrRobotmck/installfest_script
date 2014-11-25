@@ -657,13 +657,13 @@ touch ~/.rbenv/default-gems
 
 gemlist=(
   bundler         # Maintains a consistent environment for ruby applications.
-  capybara        # Acceptance test framework for web applications
-  guard           # handle events on file system modifications
-  jasmine         # JavaScript testing
+  # capybara        # Acceptance test framework for web applications
+  # guard           # handle events on file system modifications
+  # jasmine         # JavaScript testing
   pry             # alternative to the standard IRB shell
-  pry-coolline    # live syntax highlighting for the Pry REPL
-  rails           # full stack, Web application framework
-  rspec           # testing tool for Ruby
+  # pry-coolline    # live syntax highlighting for the Pry REPL
+  # rails           # full stack, Web application framework
+  # rspec           # testing tool for Ruby
   sinatra         # a DSL for quickly creating web applications in Ruby
   sinatra-contrib # common Sinatra extensions
   github_api      # Ruby interface to github API v3
@@ -711,7 +711,16 @@ pause_awhile "install Node and npm"
 brew install node
 
 # CLI tool for scaffolding out Yeoman projects
-npm install -g yo
+# npm install -g yo
+
+# Scaffold out a front-end web app
+# npm install -g generator-webapp
+
+# Yeoman generator for Backbone.js
+# npm install -g generator-backbone
+
+# Yeoman generator for AngularJS
+# npm install -g generator-angular
 
 # The grunt command line interface.
 npm install -g grunt-cli
@@ -726,16 +735,7 @@ npm install -g jshint
 npm install -g coffee-script
 
 # Code Coverage tool for JavaScript
-npm install -g istanbul
-
-# Scaffold out a front-end web app
-npm install -g generator-webapp
-
-# Yeoman generator for Backbone.js
-npm install -g generator-backbone
-
-# Yeoman generator for AngularJS
-npm install -g generator-angular
+# npm install -g istanbul
 
 # Fast, unopinionated, minimalist web framework
 npm install -g express
@@ -785,10 +785,13 @@ brew cask install atom
 # The X Window Server
 brew cask install xquartz
 
+# list contents of directories in a tree-like format
+brew install tree
+
 # # Markdown Editor
 # brew cask install mou # NOTE (phlco) we can remove this and just use atom.
 
-# NOTE (phlco) Necessary? 
+# NOTE (phlco) Necessary?
 # Flux, makes the color of your computer's display adapt to the time of day
 # brew cask install flux
 
@@ -995,15 +998,9 @@ quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
 pause_awhile "do final configurations"
 
 echo "Creating directory for wdi: ~/dev/wdi"
-echo "Creating directory for hacking and new work: ~/dev/workbench"
-echo "Creating directory for 3rd party code: ~/dev/vendor"
-echo "Creating directory for projects: ~/dev/projects"
 
 STUDENT_FOLDER="$HOME/dev/wdi"
 mkdir -p $STUDENT_FOLDER
-mkdir "$HOME/dev/workbench"
-mkdir "$HOME/dev/vendor"
-mkdir "$HOME/dev/projects"
 
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
@@ -1034,7 +1031,7 @@ echo "attendance purposes"
 # TODO (phlco) do we need sudo here again?
 mac_address=$(sudo ifconfig en0 | grep ether | sed -e 's/^[ \t|ether|\s|\n]*//')
 
-cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
+# cat "$HOME/.wdi/install.log"> $EMAILMESSAGE
 
 # create file
 # PUT /repos/:owner/:repo/contents/:path
