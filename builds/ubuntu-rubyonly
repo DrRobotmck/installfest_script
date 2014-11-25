@@ -164,9 +164,6 @@ CURRENT_STABLE_RUBY_VERSION="2.1.2"
 BELOVED_PYTHON_VERSION="anaconda-2.0.1"
 CURRENT_STABLE_PYTHON_VERSION="3.4.1"
 
-# TODO (phlco) set this in env vars or create_student_folders?
-# STUDENT_FOLDER_SETUP="$HOME/src/wdi"
-
 # FIXME (pj) NEED TO HAVE THIS SET THE BASH FILE EVERYWHERE, .bash_profile or .bashrc
 if [[ "$OSTYPE" == "darwin"* ]]; then
   SYSTEM="mac"
@@ -195,31 +192,121 @@ BRANCH=master
 # capture the user's password
 sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
 
-# Our Python version manager
-# similar to the Ruby version manager rbenv, both in use and installation
+# uninstall rvm, so that we can use rbenv
+# http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
+if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
+  yes | rvm implode
+  rm -rf ~/.rvm
+fi
 
-# TODO (PJ) should remove other python managers like pythonz
-# how to handle python versions and distributions?
+assert_that "RVM has been removed or was not installed" "command -v rvm" ""
 
-git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+# this is a subset of the install_system_packages script for the purpose of
+# setting up an ubuntu-rubyonly install
 
-# Add to bash_profile
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/${BASH_FILE}
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/${BASH_FILE}
-echo 'if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi' >> ~/${BASH_FILE}
+sudo apt-get -y update
 
-# enable shims and autocompletion
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# a reference for all the packages needed to compile a debian package
+# generally includes the gcc/g++ compilers an libraries and some other utils
+sudo apt-get -y install build-essential
 
-# TODO (pj) test and make sure this works...
-# similar to the Ruby version manager rbenv, both in use and installation
+# Packages required for compilation of some stdlib modules
+sudo apt-get -y install tklib
 
-pyenv install $BELOVED_PYTHON_VERSION
-pyenv global  $BELOVED_PYTHON_VERSION
+# Extras for RubyGems and Rails:
+sudo apt-get -y install zlib1g-dev libssl-dev
 
-# TODO (pj) test this...
+# Readline Dev on Ubuntu 12.04 LTS:
+sudo apt-get -y install libreadline-gplv2-dev
 
-curl --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python
+# Install some nokogiri dependencies:
+sudo apt-get -y install libxml2 libxml2-dev libxslt1-dev
+
+# git for version control
+sudo apt-get -y install git
+
+# Header files and static library for compiling C programs to link with the
+# libpq library in order to communicate with a PostgreSQL database backend.
+sudo apt-get -y install libpq-dev
+
+# check installs
+assert_package_installed build-essential tklib zlib1g-dev libssl-dev git libpq-dev
+assert_package_installed libreadline-gplv2-dev libxml2 libxml2-dev libxslt1-dev
+
+# Our ruby version manager
+
+# rbenv
+git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+assert_that "Rbenv is installed" "rbenv version"
+
+# Specify default gems in ~/.rbenv/default-gems
+git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
+
+# automatically runs rbenv rehash every time you install or uninstall a gem
+git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
+
+# Provides an rbenv install command to compile and install different versions of Ruby
+git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+assert_that "Rbenv's ruby-build plugin is installed" "rbenv install"
+
+# Our gems to install
+# skip documentation
+echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+
+# TODO (phlco) replace ~/.rbenv with $RBENV_ROOT
+touch ~/.rbenv/default-gems
+
+gemlist=(
+  bundler         # Maintains a consistent environment for ruby applications.
+  capybara        # Acceptance test framework for web applications
+  guard           # handle events on file system modifications
+  jasmine         # JavaScript testing
+  pry             # alternative to the standard IRB shell
+  pry-coolline    # live syntax highlighting for the Pry REPL
+  rails           # full stack, Web application framework
+  rspec           # testing tool for Ruby
+  sinatra         # a DSL for quickly creating web applications in Ruby
+  sinatra-contrib # common Sinatra extensions
+  github_api      # Ruby interface to github API v3
+  hipchat         # HipChat HTTP API Wrapper
+  awesome_print   # pretty print your Ruby objects with style
+  rainbow         # colorizing printed text on ANSI terminals
+)
+
+for gem in ${gemlist[@]}; do
+  echo "${gem}" >> ~/.rbenv/default-gems
+done
+
+# For testing and simplicity with Ubuntu, add these to the .bashrc until it's
+# overwritten...
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+
+source ~/.bashrc
+
+ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
+
+if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
+  echo "$BELOVED_RUBY_VERSION is installed"
+else
+  rbenv install $BELOVED_RUBY_VERSION
+fi
+
+assert_that "Ruby is installed and links to rbenv" "which ruby" "$HOME/.rbenv/shims/ruby"
+
+rbenv global $BELOVED_RUBY_VERSION
+
+assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" \
+            "ruby -v | grep -q ${BELOVED_RUBY_VERSION} && echo 'true'" "true"
+
+
+# check for gems
+for gem in ${gemlist[@]}; do
+  assert_that "$gem gem is installed" "gem list $gem -i" "true"
+done
 
