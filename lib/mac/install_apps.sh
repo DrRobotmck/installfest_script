@@ -29,10 +29,13 @@ brew cask install atom
 # The X Window Server
 brew cask install xquartz
 
+# list contents of directories in a tree-like format
+brew install tree
+
 # # Markdown Editor
 # brew cask install mou # NOTE (phlco) we can remove this and just use atom.
 
-# NOTE (phlco) Necessary? 
+# NOTE (phlco) Necessary?
 # Flux, makes the color of your computer's display adapt to the time of day
 # brew cask install flux
 

@@ -61,4 +61,4 @@
   # This is the safest option and is suited for beginners.
 
 [sequence]
-  editor = vim
+  editor = nano

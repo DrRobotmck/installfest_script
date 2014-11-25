@@ -2,7 +2,16 @@
 brew install node
 
 # CLI tool for scaffolding out Yeoman projects
-npm install -g yo
+# npm install -g yo
+
+# Scaffold out a front-end web app
+# npm install -g generator-webapp
+
+# Yeoman generator for Backbone.js
+# npm install -g generator-backbone
+
+# Yeoman generator for AngularJS
+# npm install -g generator-angular
 
 # The grunt command line interface.
 npm install -g grunt-cli
@@ -17,16 +26,7 @@ npm install -g jshint
 npm install -g coffee-script
 
 # Code Coverage tool for JavaScript
-npm install -g istanbul
-
-# Scaffold out a front-end web app
-npm install -g generator-webapp
-
-# Yeoman generator for Backbone.js
-npm install -g generator-backbone
-
-# Yeoman generator for AngularJS
-npm install -g generator-angular
+# npm install -g istanbul
 
 # Fast, unopinionated, minimalist web framework
 npm install -g express

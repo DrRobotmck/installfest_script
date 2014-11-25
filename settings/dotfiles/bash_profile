@@ -101,6 +101,9 @@ alias ls='ls -F --color'
 # long list format including hidden files and include unit size
 alias ll='ls -la'
 
+# go back one directory
+alias b='cd ..'
+
 # History lists your previously entered commands
 alias h='history'
 
@@ -140,9 +143,6 @@ alias rogue='lsof -i TCP:3000 -i TCP:4567 -i TCP:8000 -i TCP:8888 -i TCP:6379'
 # alias subl='open -a "Sublime Text"'
 # alias subl='open -a "Sublime Text 2"'
 alias chrome='open -a "Google Chrome"'
-
-# Chrome 3000 Port Open...
-alias c3po='open -a "Google Chrome" "http://localhost:3000"'
 
 # =================
 # rbenv
