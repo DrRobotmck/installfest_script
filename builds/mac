@@ -532,6 +532,13 @@ fi
 brew update
 
 
+# Version Control
+brew install git
+
+# additional git commands
+brew install hub
+
+
 # Upgrade any already-installed formulae
 brew upgrade
 
@@ -595,21 +602,6 @@ brew tap --repair
 
 # Remove outdated versions from the cellar
 brew cleanup
-
-
-
-quoth_the_bard "${HOW_NOW_GIT[@]}"
-
-
-
-pause_awhile "install version control system git"
-
-# Version Control
-brew install git
-
-# additional git commands
-brew install hub
-
 
 git_completion_url=https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 

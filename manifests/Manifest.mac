@@ -41,11 +41,9 @@ clone_script_repo
 # -> quoth_the_bard "${HOW_NOW_BREW[@]}"
 # -> pause_awhile "install the Mac OS package manager Homebrew"
 mac/install_homebrew
+mac/install_git
 mac/install_compilation_tools
 
-# -> quoth_the_bard "${HOW_NOW_GIT[@]}"
-# -> pause_awhile "install version control system git"
-mac/install_git
 install_git_completion
 configure_git
 
