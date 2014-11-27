@@ -23,6 +23,12 @@ function backup(){
   fi
 }
 
+function install_zip () {
+  file_name="$1"
+  mkdir "$file_name"
+  unzip "$file_name.zip" -d "$file_name"
+  mv $file_name/*.app /Applications
+}
 THE_PLAYS_THE_THING="The play's the thing..."
 HOW_NOW_SSH_KEYS=(
 "Double, double toil and trouble; Fire burn, and caldron bubble."

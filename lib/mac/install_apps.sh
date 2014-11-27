@@ -3,34 +3,17 @@
 brew tap phinze/homebrew-cask
 brew install brew-cask
 
-# Instant search documentation offline
-brew cask install dash
-
 # The Browser
 brew cask install google-chrome
 
 # A Browser
 brew cask install firefox
 
-# The Chat Client
-brew cask install hipchat
-
-# The Window Manager
-brew cask install spectacle
-# allow spectacle to control computer
-# allow_control Spectacle NOTE (phlco) just set up by hand?
-
 # The Text Editor, Sublime Text 2
 brew cask install sublime-text
 
-# Github's Text Editor
-brew cask install atom
-
 # The X Window Server
 brew cask install xquartz
-
-# list contents of directories in a tree-like format
-brew install tree
 
 # # Markdown Editor
 # brew cask install mou # NOTE (phlco) we can remove this and just use atom.
@@ -52,3 +35,29 @@ brew install tree
 
 # Git extensions to provide high-level repository operations
 # brew install git-flow
+
+if [[ $os_version == *10.6** ]]; then
+  curl -OL https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.7.zip
+  install_zip Spectacle+0.7.zip
+  curl -OL http://25.io/mou/download/Mou_0.6.6.zip
+  install_zip Mou_0.6.6.zip
+  echo "Warning! Your OS doesn't support the HipChat desktop application."
+  pause_awhile "HipCha is a vital class tool. You must use the web-based client or upgrade your OS."
+else
+  # Instant search documentation offline
+  # requires 10.7 or higher
+  brew cask install dash
+
+  # The Chat Client
+  # requires 10.7 or higher
+  brew cask install hipchat
+
+  # Github's Text Editor
+  # requires 10.7 or higher
+  brew cask install atom
+
+  # The Window Manager
+  brew cask install spectacle
+  # allow spectacle to control computer
+  # allow_control Spectacle NOTE (phlco) just set up by hand?
+fi

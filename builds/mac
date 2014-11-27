@@ -151,6 +151,12 @@ function backup(){
   fi
 }
 
+function install_zip () {
+  file_name="$1"
+  mkdir "$file_name"
+  unzip "$file_name.zip" -d "$file_name"
+  mv $file_name/*.app /Applications
+}
 THE_PLAYS_THE_THING="The play's the thing..."
 HOW_NOW_SSH_KEYS=(
 "Double, double toil and trouble; Fire burn, and caldron bubble."
@@ -353,20 +359,28 @@ case $os_version in
   *10.9*)  cmdline_version="CLTools_Executables" ;; # Mavericks
   *10.8*)  cmdline_version="DeveloperToolsCLI"   ;; # Mountain Lion
   *10.7*)  cmdline_version="DeveloperToolsCLI"   ;; # Lion
-  # Force the user to upgrade if they're below 10.7
+  *10.6*)  cmdline_version="DeveloperToolsCLILeo"
+           echo "Outdated OS. Considering upgrading before continuing.";; # Snow Leopard
+           # Force the user to upgrade if they're below 10.6
   *) echo "Sorry! You'll have to upgrade your OS to $MINIMUM_OS or above."; exit 1;;
 esac
 
 # Check for Command Line Tools based on OS versions
 if [ ! -z $(pkgutil --pkgs=com.apple.pkg.$cmdline_version) ]; then
   echo "Command Line Tools are installed";
+elif [[ $os_version == *10.6** ]]; then
+  echo "Command Line Tools are not installed"
+  echo "Downloading and installing the GCC compiler."
+  echo "When you're done rerun this script"
+  curl -OL https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.6.pkg
+  open GCC-10.6.pkg
 elif [[ $os_version == *10.7* ]] || [[ $os_version == *10.8* ]]; then
   echo "Command Line Tools are not installed"
   echo "Register for a Developer Account"
   echo "Download the Command Lion Tools from"
   echo "https://developer.apple.com/downloads/index.action"
   echo "Then rerun this script"
-  exit 1
+  exit 1 # TODO (phlco) maybe just type 'done' instead of rerunning?
 else
   echo "Command Line Tools are not installed!"
   # echo "run '$ sudo xcodebuild -license' then"
@@ -375,7 +389,7 @@ else
   echo "Running 'xcode-select --install' Please click continue!"
   echo "After installing please rerun the installfest script."
   xcode-select --install
-  exit 1
+  exit 1 # TODO (phlco) maybe just type 'done' instead of rerunning?
 fi
 
 
@@ -759,34 +773,17 @@ pause_awhile "install classroom applications"
 brew tap phinze/homebrew-cask
 brew install brew-cask
 
-# Instant search documentation offline
-brew cask install dash
-
 # The Browser
 brew cask install google-chrome
 
 # A Browser
 brew cask install firefox
 
-# The Chat Client
-brew cask install hipchat
-
-# The Window Manager
-brew cask install spectacle
-# allow spectacle to control computer
-# allow_control Spectacle NOTE (phlco) just set up by hand?
-
 # The Text Editor, Sublime Text 2
 brew cask install sublime-text
 
-# Github's Text Editor
-brew cask install atom
-
 # The X Window Server
 brew cask install xquartz
-
-# list contents of directories in a tree-like format
-brew install tree
 
 # # Markdown Editor
 # brew cask install mou # NOTE (phlco) we can remove this and just use atom.
@@ -808,6 +805,32 @@ brew install tree
 
 # Git extensions to provide high-level repository operations
 # brew install git-flow
+
+if [[ $os_version == *10.6** ]]; then
+  curl -OL https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.7.zip
+  install_zip Spectacle+0.7.zip
+  curl -OL http://25.io/mou/download/Mou_0.6.6.zip
+  install_zip Mou_0.6.6.zip
+  echo "Warning! Your OS doesn't support the HipChat desktop application."
+  pause_awhile "HipCha is a vital class tool. You must use the web-based client or upgrade your OS."
+else
+  # Instant search documentation offline
+  # requires 10.7 or higher
+  brew cask install dash
+
+  # The Chat Client
+  # requires 10.7 or higher
+  brew cask install hipchat
+
+  # Github's Text Editor
+  # requires 10.7 or higher
+  brew cask install atom
+
+  # The Window Manager
+  brew cask install spectacle
+  # allow spectacle to control computer
+  # allow_control Spectacle NOTE (phlco) just set up by hand?
+fi
 
 # SRC_DIR=~/.wdi/installfest
 # SETTINGS=$SRC_DIR/settings
