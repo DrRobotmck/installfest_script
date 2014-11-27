@@ -737,44 +737,48 @@ quoth_the_bard "${HOW_NOW_NODE[@]}"
 
 pause_awhile "install Node and npm"
 
-# Event-driven I/O server-side JavaScript environment based on V8
-brew install node
+if [[ $os_version == *10.6** ]]; then
+  # skipping node for now.
+else
+  # Event-driven I/O server-side JavaScript environment based on V8
+  brew install node
 
-# CLI tool for scaffolding out Yeoman projects
-# npm install -g yo
+  # CLI tool for scaffolding out Yeoman projects
+  # npm install -g yo
 
-# Scaffold out a front-end web app
-# npm install -g generator-webapp
+  # Scaffold out a front-end web app
+  # npm install -g generator-webapp
 
-# Yeoman generator for Backbone.js
-# npm install -g generator-backbone
+  # Yeoman generator for Backbone.js
+  # npm install -g generator-backbone
 
-# Yeoman generator for AngularJS
-# npm install -g generator-angular
+  # Yeoman generator for AngularJS
+  # npm install -g generator-angular
 
-# The grunt command line interface.
-npm install -g grunt-cli
+  # The grunt command line interface.
+  npm install -g grunt-cli
 
-# The browser package manager
-npm install -g bower
+  # The browser package manager
+  npm install -g bower
 
-# Static analysis tool for JavaScript
-npm install -g jshint
+  # Static analysis tool for JavaScript
+  npm install -g jshint
 
-# Unfancy JavaScript
-npm install -g coffee-script
+  # Unfancy JavaScript
+  npm install -g coffee-script
 
-# Code Coverage tool for JavaScript
-# npm install -g istanbul
+  # Code Coverage tool for JavaScript
+  # npm install -g istanbul
 
-# Fast, unopinionated, minimalist web framework
-npm install -g express
+  # Fast, unopinionated, minimalist web framework
+  npm install -g express
 
-# TODO (phlco) Add or remove
-# npm install -g less
-# npm install -g gulp
-# npm install -g browserify
-# npm install -g generator-gulp-webapp
+  # TODO (phlco) Add or remove
+  # npm install -g less
+  # npm install -g gulp
+  # npm install -g browserify
+  # npm install -g generator-gulp-webapp
+fi
 
 
 
@@ -823,10 +827,16 @@ brew cask install xquartz
 # brew install git-flow
 
 if [[ $os_version == *10.6** ]]; then
+  # spectacle
   curl -OL https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.7.zip
-  install_zip Spectacle+0.7.zip
+  unzip Spectacle+0.7.zip
+  mv Spectacle.app/ /Applications
+  rm Spectacle+0.7.zip
+  # mou for markdown
   curl -OL http://25.io/mou/download/Mou_0.6.6.zip
-  install_zip Mou_0.6.6.zip
+  unzip Mou_0.6.6.zip
+  mv Mou.app/ /Applications
+  rm Mou_0.6.6.zip
   echo "Warning! Your OS doesn't support the HipChat desktop application."
   pause_awhile "HipChat is a vital class tool. You must use the web-based client or upgrade your OS."
 else

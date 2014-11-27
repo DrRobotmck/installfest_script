@@ -37,10 +37,16 @@ brew cask install xquartz
 # brew install git-flow
 
 if [[ $os_version == *10.6** ]]; then
+  # spectacle
   curl -OL https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.7.zip
-  install_zip Spectacle+0.7.zip
+  unzip Spectacle+0.7.zip
+  mv Spectacle.app/ /Applications
+  rm Spectacle+0.7.zip
+  # mou for markdown
   curl -OL http://25.io/mou/download/Mou_0.6.6.zip
-  install_zip Mou_0.6.6.zip
+  unzip Mou_0.6.6.zip
+  mv Mou.app/ /Applications
+  rm Mou_0.6.6.zip
   echo "Warning! Your OS doesn't support the HipChat desktop application."
   pause_awhile "HipChat is a vital class tool. You must use the web-based client or upgrade your OS."
 else

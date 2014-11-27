@@ -3,7 +3,7 @@
 # | '_ \ / _` / __| '_ \  | '_ \| '__/ _ \| |_| | |/ _ \
 # | |_) | (_| \__ \ | | | | |_) | | | (_) |  _| | |  __/
 # |_.__/ \__,_|___/_| |_| | .__/|_|  \___/|_| |_|_|\___|
-#                        |_|
+#                         |_|
 
 # When Bash starts, it executes the commands in this script
 # http://en.wikipedia.org/wiki/Bash_(Unix_shell)
@@ -96,7 +96,7 @@ export HISTIGNORE="h"
 
 # LS lists information about files.
 # show slashes for directories.
-alias ls='ls -F --color'
+alias ls='ls -F'
 
 # long list format including hidden files and include unit size
 alias ll='ls -la'

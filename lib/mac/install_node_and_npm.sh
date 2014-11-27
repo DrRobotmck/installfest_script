@@ -1,38 +1,42 @@
-# Event-driven I/O server-side JavaScript environment based on V8
-brew install node
+if [[ $os_version == *10.6** ]]; then
+  # skipping node for now.
+else
+  # Event-driven I/O server-side JavaScript environment based on V8
+  brew install node
 
-# CLI tool for scaffolding out Yeoman projects
-# npm install -g yo
+  # CLI tool for scaffolding out Yeoman projects
+  # npm install -g yo
 
-# Scaffold out a front-end web app
-# npm install -g generator-webapp
+  # Scaffold out a front-end web app
+  # npm install -g generator-webapp
 
-# Yeoman generator for Backbone.js
-# npm install -g generator-backbone
+  # Yeoman generator for Backbone.js
+  # npm install -g generator-backbone
 
-# Yeoman generator for AngularJS
-# npm install -g generator-angular
+  # Yeoman generator for AngularJS
+  # npm install -g generator-angular
 
-# The grunt command line interface.
-npm install -g grunt-cli
+  # The grunt command line interface.
+  npm install -g grunt-cli
 
-# The browser package manager
-npm install -g bower
+  # The browser package manager
+  npm install -g bower
 
-# Static analysis tool for JavaScript
-npm install -g jshint
+  # Static analysis tool for JavaScript
+  npm install -g jshint
 
-# Unfancy JavaScript
-npm install -g coffee-script
+  # Unfancy JavaScript
+  npm install -g coffee-script
 
-# Code Coverage tool for JavaScript
-# npm install -g istanbul
+  # Code Coverage tool for JavaScript
+  # npm install -g istanbul
 
-# Fast, unopinionated, minimalist web framework
-npm install -g express
+  # Fast, unopinionated, minimalist web framework
+  npm install -g express
 
-# TODO (phlco) Add or remove
-# npm install -g less
-# npm install -g gulp
-# npm install -g browserify
-# npm install -g generator-gulp-webapp
+  # TODO (phlco) Add or remove
+  # npm install -g less
+  # npm install -g gulp
+  # npm install -g browserify
+  # npm install -g generator-gulp-webapp
+fi
