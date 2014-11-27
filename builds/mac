@@ -862,9 +862,11 @@ fi
 # SETTINGS=$SRC_DIR/settings
 if [[ $os_version == *10.6** ]]; then
   # skip for now
+  subl_app_support="/Users/$USER/Library/Application\ Support/Sublime\ Text\ 2"
 else
   # Setup Sublime Preferences
   subl_app_support="${HOME}/Library/Application Support/Sublime Text 2"
+fi
   subl_preferences="Preferences.sublime-settings"
   pkg_control="Package Control.sublime-package"
   pkg_url="https://sublime.wbond.net/Package%20Control.sublime-package"
@@ -884,6 +886,8 @@ else
   # # Symlink Sublime Text 2
   # ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
 fi
+
+
 
 # Useful packages
 packagelist=(
