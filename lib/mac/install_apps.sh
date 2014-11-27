@@ -42,7 +42,7 @@ if [[ $os_version == *10.6** ]]; then
   curl -OL http://25.io/mou/download/Mou_0.6.6.zip
   install_zip Mou_0.6.6.zip
   echo "Warning! Your OS doesn't support the HipChat desktop application."
-  pause_awhile "HipCha is a vital class tool. You must use the web-based client or upgrade your OS."
+  pause_awhile "HipChat is a vital class tool. You must use the web-based client or upgrade your OS."
 else
   # Instant search documentation offline
   # requires 10.7 or higher

@@ -11,7 +11,11 @@ function quoth_the_bard () {
 # TODO (phlco) move these to a better place like utils
 
 function pause_awhile () {
-  read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue."
+  read -p "${YELLOW}>>>>    $*. Press <Enter> to continue.${RESET}"
+}
+
+function inform () {
+  echo "${GREEN} $* ${RESET}"
 }
 
 # backup

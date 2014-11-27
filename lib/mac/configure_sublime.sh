@@ -16,7 +16,7 @@ cp -f "$SRC_DIR/settings/sublime/$subl_preferences" "$subl_app_support/Packages/
 cp -f "$SRC_DIR/settings/sublime/$pkg_settings"     "$subl_app_support/Installed Packages/$pkg_settings"
 
 # Installing Package Control
-curl -L -o "$subl_app_support/Installed Packages/$pkg_control" "$pkg_url"
+curl -oL "$subl_app_support/Installed Packages/$pkg_control" "$pkg_url"
 
 # NOTE (phlco) I think brew cask takes care of this.
 # # Symlink Sublime Text 2

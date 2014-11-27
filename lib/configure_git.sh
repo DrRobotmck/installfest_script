@@ -20,3 +20,9 @@ git config --global core.editor "subl -w"
 
 # default branch to push to
 git config --global push.default current
+
+access=$(ssh -T git@github.com > /dev/null 2>&1)
+
+if [[ $access == *access denied* ]]; then
+  echo "uh oh"
+fi

@@ -139,7 +139,11 @@ function quoth_the_bard () {
 # TODO (phlco) move these to a better place like utils
 
 function pause_awhile () {
-  read -p "We will now $*. Press ${BOLD}Enter${RESET} to continue."
+  read -p "${YELLOW}>>>>    $*. Press <Enter> to continue.${RESET}"
+}
+
+function inform () {
+  echo "${GREEN} $* ${RESET}"
 }
 
 # backup
@@ -485,8 +489,6 @@ if [[ ! -d $SRC_DIR ]]; then
   echo 'Downloading Installfest repo...'
   # autoupdate bootstrap file
   git clone -b $BRANCH $INSTALL_REPO $SRC_DIR
-  # hide folder
-  # chflags hidden $SRC_DIR # FIXME (h4w5) doesn't work on linux
 else
   # update repo
   echo 'Updating repo...'
@@ -621,6 +623,12 @@ git config --global core.editor "subl -w"
 
 # default branch to push to
 git config --global push.default current
+
+access=$(ssh -T git@github.com > /dev/null 2>&1)
+
+if [[ $access == *access denied* ]]; then
+  echo "uh oh"
+fi
 
 
 
@@ -812,7 +820,7 @@ if [[ $os_version == *10.6** ]]; then
   curl -OL http://25.io/mou/download/Mou_0.6.6.zip
   install_zip Mou_0.6.6.zip
   echo "Warning! Your OS doesn't support the HipChat desktop application."
-  pause_awhile "HipCha is a vital class tool. You must use the web-based client or upgrade your OS."
+  pause_awhile "HipChat is a vital class tool. You must use the web-based client or upgrade your OS."
 else
   # Instant search documentation offline
   # requires 10.7 or higher
@@ -850,7 +858,7 @@ cp -f "$SRC_DIR/settings/sublime/$subl_preferences" "$subl_app_support/Packages/
 cp -f "$SRC_DIR/settings/sublime/$pkg_settings"     "$subl_app_support/Installed Packages/$pkg_settings"
 
 # Installing Package Control
-curl -L -o "$subl_app_support/Installed Packages/$pkg_control" "$pkg_url"
+curl -oL "$subl_app_support/Installed Packages/$pkg_control" "$pkg_url"
 
 # NOTE (phlco) I think brew cask takes care of this.
 # # Symlink Sublime Text 2
