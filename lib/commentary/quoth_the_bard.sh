@@ -11,15 +11,18 @@ function quoth_the_bard () {
 # TODO (phlco) move these to a better place like utils
 
 function pause_awhile () {
-  read -p "${YELLOW}>>>>    $*. Press <Enter> to continue.${RESET}"
+  read -p "${BG_YELLOW}>>>>    $*. Press <Enter> to continue.${RESET}"
 }
 
 function inform () {
-  echo "${GREEN} $* ${RESET}"
+  echo "${BG_GREEN}>>>>    $* ${RESET}"
 }
 
-# backup
-function backup(){
+function warn () {
+  echo "${BG_RED}${WHITE}>>>>    $* ${RESET}"
+}
+
+function backup () {
   local timestamp=$(date +%s)
   local file=$1
   if [ -a "$file" ]; then
@@ -28,11 +31,12 @@ function backup(){
 }
 
 function install_zip () {
-  file_name="$1"
+  local file_name="$1"
   mkdir "$file_name"
   unzip "$file_name.zip" -d "$file_name"
   mv $file_name/*.app /Applications
 }
+
 THE_PLAYS_THE_THING="The play's the thing..."
 HOW_NOW_SSH_KEYS=(
 "Double, double toil and trouble; Fire burn, and caldron bubble."
