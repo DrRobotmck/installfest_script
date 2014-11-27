@@ -18,8 +18,9 @@ elif [[ $os_version == *10.6** ]]; then
   warn "Command Line Tools are not installed"
   warn "Downloading and installing the GCC compiler."
   warn "When you're done rerun this script"
-  curl -OL https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.6.pkg
+  curl -OLk https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.6.pkg
   open GCC-10.6.pkg
+  exit 1
 elif [[ $os_version == *10.7* ]] || [[ $os_version == *10.8* ]]; then
   warn "Command Line Tools are not installed"
   warn "Register for a Developer Account"

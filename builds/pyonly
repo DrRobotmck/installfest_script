@@ -190,7 +190,7 @@ REPO="godot_instructors"
 BRANCH=master
 
 # capture the user's password
-sudo -p "Enter your computer's password so that we can make the necessary changes: " echo "Thank you."
+sudo -p "${GREEN}Enter your computer's password so that we can make the necessary changes: ${RESET}" echo "Thank you."
 
 # Our Python version manager
 # similar to the Ruby version manager rbenv, both in use and installation
