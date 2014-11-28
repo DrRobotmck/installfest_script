@@ -139,14 +139,17 @@ function quoth_the_bard () {
 # TODO (phlco) move these to a better place like utils
 
 function pause_awhile () {
+  echo ""
   read -p "${BG_YELLOW}>>>>    $*. Press <Enter> to continue.${RESET}"
 }
 
 function inform () {
+  echo ""
   echo "${BG_GREEN}>>>>    $* ${RESET}"
 }
 
 function warn () {
+  echo ""
   echo "${BG_RED}${WHITE}>>>>    $* ${RESET}"
 }
 
@@ -729,8 +732,9 @@ quoth_the_bard "${HOW_NOW_NODE[@]}"
 
 pause_awhile "install Node and npm"
 
-if [[ $os_version == *10.6** ]]; then
+if [[ $os_version == *10.6* ]]; then
   # skipping node for now.
+  echo "skipping node"
 else
   # Event-driven I/O server-side JavaScript environment based on V8
   brew install node

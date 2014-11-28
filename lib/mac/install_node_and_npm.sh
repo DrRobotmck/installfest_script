@@ -1,5 +1,6 @@
-if [[ $os_version == *10.6** ]]; then
+if [[ $os_version == *10.6* ]]; then
   # skipping node for now.
+  echo "skipping node"
 else
   # Event-driven I/O server-side JavaScript environment based on V8
   brew install node

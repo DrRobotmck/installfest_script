@@ -11,14 +11,17 @@ function quoth_the_bard () {
 # TODO (phlco) move these to a better place like utils
 
 function pause_awhile () {
+  echo ""
   read -p "${BG_YELLOW}>>>>    $*. Press <Enter> to continue.${RESET}"
 }
 
 function inform () {
+  echo ""
   echo "${BG_GREEN}>>>>    $* ${RESET}"
 }
 
 function warn () {
+  echo ""
   echo "${BG_RED}${WHITE}>>>>    $* ${RESET}"
 }
 
