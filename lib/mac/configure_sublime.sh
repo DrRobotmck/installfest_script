@@ -1,7 +1,5 @@
 # SRC_DIR=~/.wdi/installfest
 # SETTINGS=$SRC_DIR/settings
-# NOTE (phlco) 10.6 has to open before we can copy files over.
-open -a "Sublime Text 2"
 
 if [[ $os_version == *10.6** ]]; then
   # skip for now
@@ -18,13 +16,15 @@ pkg_settings="Package Control.sublime-settings"
 backup "$subl_app_support/Packages/User/$subl_preferences"
 backup "$subl_app_support/Installed Packages/$pkg_settings"
 
+# ensure files exist before copying for 10.6
+mkdir -p "$subl_app_support/Packages/User/$subl_preferences"
+mkdir -p "$subl_app_support/Installed Packages/"
+touch "$subl_app_support/Packages/User/$subl_preferences"
+touch "$subl_app_support/Installed Packages/$pkg_settings"
+
 # copy over
 cp -f "$SRC_DIR/settings/sublime/$subl_preferences" "$subl_app_support/Packages/User/$subl_preferences"
 cp -f "$SRC_DIR/settings/sublime/$pkg_settings"     "$subl_app_support/Installed Packages/$pkg_settings"
 
 # Installing Package Control
 curl -oL "$subl_app_support/Installed Packages/$pkg_control" "$pkg_url"
-
-# NOTE (phlco) I think brew cask takes care of this.
-# # Symlink Sublime Text 2
-# ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
