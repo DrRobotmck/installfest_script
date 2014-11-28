@@ -12,9 +12,6 @@ brew cask install firefox
 # The Text Editor, Sublime Text 2
 brew cask install sublime-text
 
-# The X Window Server
-brew cask install xquartz
-
 # # Markdown Editor
 # brew cask install mou # NOTE (phlco) we can remove this and just use atom.
 
@@ -66,4 +63,7 @@ else
   brew cask install spectacle
   # allow spectacle to control computer
   # allow_control Spectacle NOTE (phlco) just set up by hand?
+
+  # The X Window Server
+  brew cask install xquartz
 fi

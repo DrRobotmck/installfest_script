@@ -1,5 +1,8 @@
 # SRC_DIR=~/.wdi/installfest
 # SETTINGS=$SRC_DIR/settings
+# NOTE (phlco) 10.6 has to open before we can copy files over.
+open -a "Sublime Text 2"
+
 if [[ $os_version == *10.6** ]]; then
   # skip for now
   subl_app_support="/Users/$USER/Library/Application Support/Sublime Text 2"
