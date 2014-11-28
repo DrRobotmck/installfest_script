@@ -6,11 +6,9 @@ handle_options_and_start_logging
 define_terminal_colors
 commentary/quoth_the_bard
 commentary/instructions
-# -> pause_awhile "begin"
 # -> echo "${GREEN}The play's the thing...${GREEN}"
 
 # -> quoth_the_bard "${HOW_NOW_TERMINAL[@]}"
-# -> pause_awhile "define environmental variables for the install"
 mac/define_script_helper_functions
 # tests/add_assert_functions
 tests/mock_assert_functions
@@ -20,18 +18,15 @@ set_script_branch
 
 capture_password
 
-# -> pause_awhile "update your OS with necessary tools"
 mac/determine_os_version
 mac/update_software
 mac/install_commandline_tools
 
 # -> quoth_the_bard "${HOW_NOW_RVM[@]}"
-# -> pause_awhile "remove RVM & MacPorts to reduce conflicts"
 remove_rvm
 mac/remove_macports
 
 # -> quoth_the_bard "${HOW_NOW_GIT[@]}"
-# -> pause_awhile "add GitHub credentials to our keychain"
 capture_github_credentials
 
 # -> quoth_the_bard "${HOW_NOW_SSH_KEYS[@]}"
@@ -39,7 +34,6 @@ add_ssh_key_to_github
 clone_script_repo
 
 # -> quoth_the_bard "${HOW_NOW_BREW[@]}"
-# -> pause_awhile "install the Mac OS package manager Homebrew"
 mac/install_homebrew
 mac/install_git
 mac/install_compilation_tools
@@ -48,21 +42,17 @@ install_git_completion
 configure_git
 
 # -> quoth_the_bard "${HOW_NOW_GEMS[@]}"
-# -> pause_awhile "install rbenv and Gem list"
 mac/install_rbenv
 set_default_gems_with_rbenv
 
 # -> quoth_the_bard "${HOW_NOW_RUBY[@]}"
-# -> pause_awhile "install Ruby with rbenv"
 install_beloved_ruby_version
 set_global_ruby_version
 
 # -> quoth_the_bard "${HOW_NOW_NODE[@]}"
-# -> pause_awhile "install Node and npm"
 mac/install_node_and_npm
 
 # -> quoth_the_bard "${HOW_NOW_APPS[@]}"
-# -> pause_awhile "install classroom applications"
 mac/install_apps
 mac/configure_sublime
 
@@ -71,7 +61,6 @@ mac/install_system_packages
 mac/set_up_heroku
 
 # -> quoth_the_bard "${HOW_NOW_DB[@]}"
-# -> pause_awhile "install PostgreSQL"
 mac/install_postgres
 
 ## currently not using
@@ -81,7 +70,6 @@ mac/install_postgres
 mac/run_osx_tweeks
 
 # -> quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
-# -> pause_awhile "do final configurations"
 create_student_folders
 copy_over_dotfiles
 

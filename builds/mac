@@ -262,19 +262,11 @@ echo ""
 
 
 
-pause_awhile "begin"
-
-
-
 echo "${GREEN}The play's the thing...${GREEN}"
 
 
 
 quoth_the_bard "${HOW_NOW_TERMINAL[@]}"
-
-
-
-pause_awhile "define environmental variables for the install"
 
 #-------------------------------------------------------------------------------
 # Functions
@@ -347,10 +339,6 @@ BRANCH=master
 # capture the user's password
 sudo -p "${BG_GREEN}Enter your computer's password so that we can make the necessary changes: ${RESET}" echo "Thank you."
 
-
-
-pause_awhile "update your OS with necessary tools"
-
 # Determine OS version
 os_version=$(sw_vers -productVersion)
 
@@ -409,10 +397,6 @@ fi
 
 quoth_the_bard "${HOW_NOW_RVM[@]}"
 
-
-
-pause_awhile "remove RVM & MacPorts to reduce conflicts"
-
 # uninstall rvm, so that we can use rbenv
 # http://stackoverflow.com/questions/3950260/howto-uninstall-rvm
 if hash rvm 2>/dev/null || [ -d ~/.rvm ]; then
@@ -454,10 +438,6 @@ fi
 
 
 quoth_the_bard "${HOW_NOW_GIT[@]}"
-
-
-
-pause_awhile "add GitHub credentials to our keychain"
 
 echo "Please register for an account on github.com if you haven't already done so."
 
@@ -516,10 +496,6 @@ fi
 
 
 quoth_the_bard "${HOW_NOW_BREW[@]}"
-
-
-
-pause_awhile "install the Mac OS package manager Homebrew"
 
 # Installs Homebrew, our package manager
 # http://brew.sh/
@@ -637,10 +613,6 @@ git config --global push.default current
 
 quoth_the_bard "${HOW_NOW_GEMS[@]}"
 
-
-
-pause_awhile "install rbenv and Gem list"
-
 # Our Ruby version manager
 # brew install rbenv
 git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
@@ -705,10 +677,6 @@ done
 
 quoth_the_bard "${HOW_NOW_RUBY[@]}"
 
-
-
-pause_awhile "install Ruby with rbenv"
-
 ruby_check=$(rbenv versions | grep $BELOVED_RUBY_VERSION)
 
 if [[ "$ruby_check" == *$BELOVED_RUBY_VERSION* ]]; then
@@ -727,10 +695,6 @@ assert_that "Ruby version is now '${BELOVED_RUBY_VERSION}'" \
 
 
 quoth_the_bard "${HOW_NOW_NODE[@]}"
-
-
-
-pause_awhile "install Node and npm"
 
 if [[ $os_version == *10.6* ]]; then
   # skipping node for now.
@@ -779,10 +743,6 @@ fi
 
 
 quoth_the_bard "${HOW_NOW_APPS[@]}"
-
-
-
-pause_awhile "install classroom applications"
 
 # a CLI workflow for the administration of Mac applications
 # distributed as binaries
@@ -957,10 +917,6 @@ heroku keys:add
 
 quoth_the_bard "${HOW_NOW_DB[@]}"
 
-
-
-pause_awhile "install PostgreSQL"
-
 # Set up Postgres
 brew install postgresql
 
@@ -1045,10 +1001,6 @@ defaults write com.apple.terminal StringEncodings -array 4
 
 
 quoth_the_bard "${HOW_NOW_CONFIGURE[@]}"
-
-
-
-pause_awhile "do final configurations"
 
 echo "Creating directory for wdi: ~/dev/wdi"
 
