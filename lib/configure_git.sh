@@ -16,7 +16,8 @@ git config --global color.status.changed   yellow
 git config --global color.status.untracked red
 
 # set editor
-git config --global core.editor "subl -w"
+# change to `subl -w` if you want to open merge messages in Sublime.
+git config --global core.editor "nano"
 
 # default branch to push to
 git config --global push.default current
