@@ -2,8 +2,8 @@
 # Bash Prompt
 # =================
 
-# Show more information regarding git status in prompt (may slow display!!)
-GIT_DIFF_IN_PROMPT=false
+# Show more information regarding git status in prompt
+GIT_DIFF_IN_PROMPT=true
 
 # --------------------
 # Colors for the prompt
