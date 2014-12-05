@@ -21,3 +21,6 @@ git config --global core.editor "nano"
 
 # default branch to push to
 git config --global push.default current
+
+# set global gitignore
+git config --global core.excludesfile ~/.gitignore_global
