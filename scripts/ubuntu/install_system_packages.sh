@@ -75,6 +75,9 @@ packagelist=(
   # ASCII ART!!!!
   figlet
 
+  # tree visualizer for filesystems
+  tree
+
   # visualization tool for ERDs
   graphviz
 

@@ -8,7 +8,7 @@ Dir["manifests/Manifest*"].each do |manifest|
   File.open("builds/#{filename}", 'w') do |file|
     File.read(manifest).each_line do |line|
       unless line.start_with?("#") || line.strip == ""
-        file_path = (line =~ /^tests\// ? "#{line.chomp}.sh" : "lib/#{line.chomp}.sh")
+        file_path = (line =~ /^tests\// ? "#{line.chomp}.sh" : "scripts/#{line.chomp}.sh")
         file << File.read(file_path)
         file << "\n"
       else

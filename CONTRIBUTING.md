@@ -4,9 +4,9 @@ The scripts are written in Bash, and are meant to be run in a `bash` shell on a 
 
 Every script has a manifest file in the root of the repo (`Manifest.scriptname`), and then a requisite Installfest script named simply `scriptname`, for example: `Manifest.mac` and `mac`. The manifest file is a list of the component shell scripts that comprise the full Installfest script. Running the default `rake` task in the repo assembles each of the Installfest scripts dynamically from the contents of each component script named therein.
 
-The individual components of the InstallFest script are stored in `lib` and `tests`, and the Rake tasks (stored in the `Rakefile`) call Ruby scripts stored in `bin`.
+The individual components of the InstallFest script are stored in `scripts` and `tests`, and the Rake tasks (stored in the `Rakefile`) call Ruby scripts stored in `bin`.
 
-**A pre-commit hook can be added to your repo** that automatically runs `rake` and adds the newly assembled Installfest script with your changes from the Manifests (and the `lib/set_script_branch.sh` file, which sets an environment variable with the current git branch's name) to your commit. To add that hook, run the command below from the repo's root.
+**A pre-commit hook can be added to your repo** that automatically runs `rake` and adds the newly assembled Installfest script with your changes from the Manifests (and the `scripts/set_script_branch.sh` file, which sets an environment variable with the current git branch's name) to your commit. To add that hook, run the command below from the repo's root.
 
 ```bash
 # will not overwrite an existing pre-commit hook...
@@ -15,22 +15,22 @@ if [[ ! -a .git/hooks/pre-commit ]]; then
 #!/usr/bin/env bash
 
 rake
-git add lib/set_script_branch.sh
+git add scripts/set_script_branch.sh
 ls  Manifest* | sed -e 's/Manifest\.//g' | xargs git add
 EOF
 fi
 ```
 
-Tests that can be run as part of a script, or helper functions to run such tests, are stored in the `tests` folder. All other components are stored in the `lib` folder.
+Tests that can be run as part of a script, or helper functions to run such tests, are stored in the `tests` folder. All other components are stored in the `scripts` folder.
 
-Commentary beyond code explanation (simple comments) is stored in `lib/commentary`. System-independent components are stored in the base of `lib`, and system-dependent components are stored in `lib/systemname` (eg: `lib/mac` and `lib/ubuntu`). Settings (separate from installations, mostly for applications) and dotfiles are stored in `lib/settings`.
+Commentary beyond code explanation (simple comments) is stored in `scripts/commentary`. System-independent components are stored in the base of `scripts`, and system-dependent components are stored in `scripts/systemname` (eg: `scripts/mac` and `scripts/ubuntu`). Settings (separate from installations, mostly for applications) and dotfiles are stored in `scripts/settings`.
 
 ```bash
 .
 ├── Rakefile     #=> the rake task used to assemble or
 ├── bin          #   'build' a script from a manifest
 │   └── build.rb #=> the build executable itself
-├── lib
+├── scripts
 │   ├── commentary
 │   │   ├── #=> messages for the user
 |   |   ...
