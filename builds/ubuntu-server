@@ -32,6 +32,7 @@
 #-------------------------------------------------------------------------------
 # Set text formatting
 #-------------------------------------------------------------------------------
+
 # set 256 color profile where possible
 if [[ $COLORTERM == gnome-* && $TERM == xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
   export TERM=gnome-256color
@@ -358,6 +359,9 @@ packagelist=(
   # ASCII ART!!!!
   figlet
 
+  # tree visualizer for filesystems
+  tree
+
   # visualization tool for ERDs
   graphviz
 
@@ -431,10 +435,14 @@ git config --global color.status.changed   yellow
 git config --global color.status.untracked red
 
 # set editor
-git config --global core.editor "subl -w"
+# change to `subl -w` if you want to open merge messages in Sublime.
+git config --global core.editor "nano"
 
 # default branch to push to
 git config --global push.default current
+
+# set global gitignore
+git config --global core.excludesfile ~/.gitignore_global
 
 pause_awhile "downloading the installfest repo"
 # download the repo for the absolute paths
