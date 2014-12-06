@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # Welcome Prompt
-# prints stats on terminal load
+#   prints stats on terminal load
 #-------------------------------------------------------------------------------
 
 # welcome and unwelcome functions to toggle welcome_prompt are in .bash_prompt

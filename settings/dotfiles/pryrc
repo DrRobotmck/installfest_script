@@ -11,7 +11,7 @@ rescue LoadError => e
   end
 end
 
-# Colors
+# colors
 red    = "\e[0;31m"
 reset  = "\e[0m"
 yellow = "\e[0;33m"

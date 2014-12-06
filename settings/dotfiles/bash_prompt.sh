@@ -63,7 +63,7 @@ else
 fi
 
 # ---------------------
-# style the prompt
+# Style the prompt
 # ---------------------
 
 style_user="\[${RESET}${WHITE}\]"
@@ -141,15 +141,14 @@ prompt_git() {
     printf "${WHITE} on ${style_branch}${git_info}${RESET}"
 }
 
-# ---------------------
-# Print Stats on terminal load
-# ---------------------
+#-------------------------------------------------------------------------------
+# Functions to toggle stats on terminal load
+#-------------------------------------------------------------------------------
+
 welcome() {
   sed -i.bak s/WELCOME_PROMPT=false/WELCOME_PROMPT=true/g ~/.welcome_prompt.sh
   echo "Message returned."
 }
-
-# Show/Hide stats on terminal load
 unwelcome() {
   sed -i.bak s/WELCOME_PROMPT=true/WELCOME_PROMPT=false/g ~/.welcome_prompt.sh
   echo "Message removed. Type ${BOLD}welcome${RESET} to return the message."
