@@ -110,12 +110,6 @@ alias h='history'
 # If we make a change to our bash profile we need to reload it
 alias reload="clear; source ~/.bash_profile"
 
-# confirm before executing and be verbose
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias rm='rm -iv'
-alias mkdir='mkdir -pv'
-
 # =================
 # Additional Aliases
 # =================

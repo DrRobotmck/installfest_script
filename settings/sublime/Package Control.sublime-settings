@@ -3,20 +3,17 @@
   [
     "BracketHighlighter",
     "ColorPicker",
-    "CopyToHipChat",
     "Dotfiles Syntax Highlighting",
     "EditorConfig",
-    // "Emmet"
+    "Emmet",
     "Gem Browser",
     "Gist",
     "GitGutter",
     "HTML5",
     "jQuery",
-    "Sublime-JSHint",
     "Package Control",
     "SCSS",
     "SideBarEnhancements",
-    "SublimeLinter",
     // "SublimeCodeIntel"
   ]
 }

@@ -26,4 +26,4 @@ INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
 # `MACHTYPE` system type in cpu-company-system
 # `SECONDS` number of seconds since the shell was started.
 OWNER="ga-students"
-REPO="godot_instructors"
+REPO="WDI_McClane_Instructors"

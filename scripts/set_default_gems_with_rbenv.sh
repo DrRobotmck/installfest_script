@@ -17,7 +17,6 @@ gemlist=(
   sinatra         # a DSL for quickly creating web applications in Ruby
   sinatra-contrib # common Sinatra extensions
   github_api      # Ruby interface to github API v3
-  hipchat         # HipChat HTTP API Wrapper
   awesome_print   # pretty print your Ruby objects with style
   rainbow         # colorizing printed text on ANSI terminals
 )
