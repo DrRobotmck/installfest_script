@@ -4,13 +4,13 @@ brew tap phinze/homebrew-cask
 brew install brew-cask
 
 # The Browser
-brew cask install google-chrome
+# brew cask install google-chrome
 
 # A Browser
-brew cask install firefox
+# brew cask install firefox
 
 # The Text Editor, Sublime Text 2
-brew cask install sublime-text
+# brew cask install sublime-text
 
 # # Markdown Editor
 # brew cask install mou # NOTE (phlco) we can remove this and just use atom.
@@ -24,11 +24,11 @@ brew cask install sublime-text
 
 # for fonts
 # https://github.com/caskroom/homebrew-fonts/tree/master/Casks
-# brew tap caskroom/fonts
+brew tap caskroom/fonts
 #
-# brew cask install font-source-code-pro
-# brew cask install font-source-sans-pro
-# brew cask install font-inconsolata
+brew cask install font-source-code-pro
+brew cask install font-source-sans-pro
+brew cask install font-inconsolata
 
 # Git extensions to provide high-level repository operations
 # brew install git-flow
@@ -40,24 +40,24 @@ if [[ $os_version == *10.6** ]]; then
   mv Spectacle.app/ /Applications
   rm Spectacle+0.7.zip
   # mou for markdown
-  curl -OL http://25.io/mou/download/Mou_0.6.6.zip
-  unzip Mou_0.6.6.zip
-  mv Mou.app/ /Applications
-  rm Mou_0.6.6.zip
-  echo "Warning! Your OS doesn't support the HipChat desktop application."
-  pause_awhile "HipChat is a vital class tool. You must use the web-based client or upgrade your OS."
+  # curl -OL http://25.io/mou/download/Mou_0.6.6.zip
+  # unzip Mou_0.6.6.zip
+  # mv Mou.app/ /Applications
+  # rm Mou_0.6.6.zip
+  # echo "Warning! Your OS doesn't support the HipChat desktop application."
+  # pause_awhile "HipChat is a vital class tool. You must use the web-based client or upgrade your OS."
 else
   # Instant search documentation offline
   # requires 10.7 or higher
-  brew cask install dash
+  # brew cask install dash
 
   # The Chat Client
   # requires 10.7 or higher
-  brew cask install hipchat
+  # brew cask install hipchat
 
   # Github's Text Editor
   # requires 10.7 or higher
-  brew cask install atom
+  # brew cask install atom
 
   # The Window Manager
   brew cask install spectacle
