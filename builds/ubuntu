@@ -312,7 +312,7 @@ fi
 # TODO backport this into master and mac...
 SRC_DIR=~/.wdi/installfest
 SETTINGS=$SRC_DIR/settings
-INSTALL_REPO=https://github.com/ga-instructors/installfest_script.git
+INSTALL_REPO=https://github.com/DrRobotmck/installfest_script.git
 
 # Standard Bash Variables
 # `OSTYPE` A string describing the operating system Bash is running on.
@@ -510,7 +510,7 @@ pause_awhile "downloading the installfest repo"
 
 if [[ $os_version == *10.6** ]]; then
   # 10.6 doesn't have git so download the zip and rename it installfest
-  curl -LO https://github.com/ga-instructors/installfest_script/archive/master.zip
+  curl -LO https://github.com/DrRobotmck/installfest_script/archive/master.zip
   unzip "master.zip" -d ~/.wdi
   mv ~/.wdi/installfest_script-master/ ~/.wdi/installfest
 else
