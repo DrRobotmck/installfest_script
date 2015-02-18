@@ -4,8 +4,9 @@
 # build = ARGV[0]
 
 Dir["manifests/Manifest*"].each do |manifest|
+p manifest
   filename = manifest.gsub(/manifest./i, '')
-  File.open("builds/#{filename}", 'w') do |file|
+  File.open("#{ENV['PWD']}/builds#{filename}", 'w') do |file|
     File.read(manifest).each_line do |line|
       unless line.start_with?("#") || line.strip == ""
         file_path = (line =~ /^tests\// ? "#{line.chomp}.sh" : "scripts/#{line.chomp}.sh")

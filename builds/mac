@@ -379,7 +379,7 @@ elif [[ $os_version == *10.6** ]]; then
 elif [[ $os_version == *10.7* ]] || [[ $os_version == *10.8* ]]; then
   warn "Command Line Tools are not installed"
   warn "Register for a Developer Account"
-  warn "Download the Command Line Tools from"
+  warn "Download the Command Lion Tools from"
   warn "https://developer.apple.com/downloads/index.action"
   warn "Then rerun this script"
   exit 1 # TODO (phlco) maybe just type 'done' instead of rerunning?
@@ -478,7 +478,7 @@ pause_awhile "downloading the installfest repo"
 
 if [[ $os_version == *10.6** ]]; then
   # 10.6 doesn't have git so download the zip and rename it installfest
-  curl -LO https://github.com/DrRobotmck/installfest.git/archive/master.zip
+  curl -LO https://github.com/ga-instructors/installfest_script/archive/master.zip
   unzip "master.zip" -d ~/.wdi
   mv ~/.wdi/installfest_script-master/ ~/.wdi/installfest
 else
@@ -669,7 +669,6 @@ gemlist=(
   sinatra         # a DSL for quickly creating web applications in Ruby
   sinatra-contrib # common Sinatra extensions
   github_api      # Ruby interface to github API v3
-  # hipchat         # HipChat HTTP API Wrapper
   awesome_print   # pretty print your Ruby objects with style
   rainbow         # colorizing printed text on ANSI terminals
 )
@@ -761,7 +760,7 @@ brew install brew-cask
 # brew cask install firefox
 
 # The Text Editor, Sublime Text 2
-brew cask install sublime-text
+# brew cask install sublime-text
 
 # # Markdown Editor
 # brew cask install mou # NOTE (phlco) we can remove this and just use atom.
@@ -776,7 +775,7 @@ brew cask install sublime-text
 # for fonts
 # https://github.com/caskroom/homebrew-fonts/tree/master/Casks
 brew tap caskroom/fonts
-
+#
 brew cask install font-source-code-pro
 brew cask install font-source-sans-pro
 brew cask install font-inconsolata
